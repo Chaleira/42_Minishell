@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 11:30:05 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/01 11:30:42 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:39:20 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	ft_printf("THIS is a test!\n");
+	ft_printf("I need to redo this code!\n");
 	return (0);
 }
