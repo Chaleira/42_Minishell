@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+         #
+#    By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 13:50:32 by rteles-f          #+#    #+#              #
-#    Updated: 2023/06/05 20:10:03 by rteles-f         ###   ########.fr        #
+#    Updated: 2023/06/06 12:36:58 by plopes-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ NAME		= 	minishell
 
 CC			= 	cc #-g -fsanitize=address
 
-CFLAGS		=  -Wall -Wextra -Werror -lreadline $(INCLUDES)
+CFLAGS		=  -Wall -Wextra -Werror $(INCLUDES)
+
+LIBFLAGS	= -lreadline
 
 RM			= 	rm -f
 
@@ -32,7 +34,7 @@ all: 		$(NAME)
 
 $(NAME):	$(SRCS)
 			@make bonus -s -C src/libft
-			@$(CC) $(CFLAGS) $(SRCS) src/libft/libft.a -o $(NAME)
+			@$(CC) $(CFLAGS) $(SRCS) src/libft/libft.a -o $(NAME) $(LIBFLAGS)
 			@echo "[$(COLOR_GREEN)info$(COLOR_RESET)]: Minishell Built"
 
 clean:
