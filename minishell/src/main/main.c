@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 13:12:22 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:26:39 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,17 @@ void	input_reset(t_control *get)
 		get->input = NULL;
 	}
 }
+void	input_reset(t_control *get)
+{
+	wait(0);
+	ft_lstclear(&get->commands, (void *)delete_command);
+	free_shellsplit(get->pieces);
+	if (get->input)
+	{
+		free(get->input);
+		get->input = NULL;
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -70,12 +81,12 @@ int	main(int argc, char **argv, char **envp)
 	setup(&get, envp);
 	while (true)
 	{
+		merdqualquer;
 		catch_input(&get);
 		normalize_input(&get);
 		structure_commands(&get);
 		run_input(get.commands);
 		input_reset(&get);
-		catch_input(&get);
 	}
 	return (1);
 }
