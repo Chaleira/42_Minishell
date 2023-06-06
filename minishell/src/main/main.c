@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 12:29:12 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:43:29 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	catch_input(t_control *get)
 	while (!get->input)
 		get->input = readline(line);
 }
-
-void	delete_command(void *command){(void)command;}
 
 void	input_reset(t_control *get)
 {
