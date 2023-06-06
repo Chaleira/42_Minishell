@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/05 20:42:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:29:12 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,43 @@ void	printf_input(t_control *get)
 	ft_printf("end.\n");
 }
 
+void	catch_input(t_control *get)
+{
+	static char	*line;
+
+	write (1, "Minishell>$ ", 12);
+	while (!get->input)
+		get->input = readline(line);
+}
+
+void	delete_command(void *command){(void)command;}
+
+void	input_reset(t_control *get)
+{
+	wait(0);
+	ft_lstclear(&get->commands, (void *)delete_command);
+	free_shellsplit(get->pieces);
+	if (get->input)
+	{
+		free(get->input);
+		get->input = NULL;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	static t_control	get;
-	const char			*line;
 
 	(void)argv;
 	(void)argc;
-	line = NULL;
 	setup(&get, envp);
 	while (true)
 	{
-		HERE;
-		write (2, "Minishell>$ ", 12);
-		get.input = readline(line);
-		// get.input = get_next_line(0);
+		catch_input(&get);
 		normalize_input(&get);
-		ALMOST;
 		structure_commands(&get);
 		run_input(get.commands);
-		THERE;
-		free(get.input);
-		// clear_commands(&get);
+		input_reset(&get);
 	}
 	return (1);
 }

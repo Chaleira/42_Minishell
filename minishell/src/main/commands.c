@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/05 20:38:46 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:23:18 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ void	structure_commands(t_control *get)
 		}
 		if (command->valid)
 			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
-		// else
-		// 	delete_command(command);
+		else
+			delete_command(command);
 		i++;
 	}
 }

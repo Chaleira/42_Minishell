@@ -6,16 +6,21 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/02 16:27:21 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:06:33 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// void	set_function_list(void)
-// {
-// 	t_func	*new;
+void	free_split(char **split)
+{
+	int	i;
 
-// 	new = ft_calloc(sizeof(t_func), 1);
-// 	new->type
-// }
+	if (split)
+	{
+		i = 0;
+		while (split[i])
+			free(split[i++]);
+		free(split);
+	}
+}

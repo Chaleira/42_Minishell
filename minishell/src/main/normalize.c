@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 18:08:28 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/05 20:45:27 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:30:20 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ void	normalize_input(t_control *get)
 	while (split[i])
 	{
 		if (split[i][0] == '|')
+		{
 			get->pieces[j++] = &split[i + 1];
+			free(split[i]);
+			split[i] = NULL;
+		}
 		i++;
 	}
 }

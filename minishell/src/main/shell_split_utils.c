@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/05 16:04:58 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:28:48 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,19 @@ void	free_shellsplit(char ***arg)
 	int		j;
 
 	i = 0;
-	while (arg[i])
+	if (arg)
 	{
-		j = 0;
-		while (arg[i][j])
-			free(arg[i][j++]);
-		i++;
+		while (arg[i])
+		{
+			j = 0;
+			while (arg[i][j])
+				free(arg[i][j++]);
+			i++;
+		}
+		if (*arg)
+			free(arg[0]);
+		free(arg);
 	}
-	free(arg[0]);
-	free(arg);
 }
 
 int	ignore_quotes(char *string)

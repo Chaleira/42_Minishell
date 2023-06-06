@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/05 20:41:55 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:23:02 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <libft.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # define HERE write(1, "here\n", 5)
@@ -65,6 +66,9 @@ void	free_biarray(void **arg, int size);
 char	*ft_stradd(char **original, char *add);
 char	**shell_split(char *s, char c);
 void	free_split(char **arg);
+void	free_shellsplit(char ***arg);
+void	delete_command(void *command);
+
 
 void	normalize_input(t_control *get);
 int		ignore_quotes(char *string);
