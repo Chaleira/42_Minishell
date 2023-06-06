@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 12:22:10 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:04:16 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	main(int argc, char **argv, char **envp)
 		ALMOST;
 		structure_commands(&get);
 		run_input(get.commands);
-		THERE;
 		free(get.input);
 		ft_lstclear(&get.commands, delete_command);
 	}
