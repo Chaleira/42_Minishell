@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 17:31:51 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:49:11 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	unset_builtin(){}
 void	env_builtin(){}
 void	exit_builtin(){}
 
+void	do_nothing(void)
+{
+	return ;
+}
+
 t_command	*new_command(t_control *get)
 {
 	t_command	*new;
@@ -30,6 +35,7 @@ t_command	*new_command(t_control *get)
 	new = ft_calloc(sizeof(t_command), 1);
 	new->main = get;
 	new->valid = 1;
+	new->execute = do_nothing;
 	return (new);
 }
 
@@ -75,10 +81,6 @@ void	try_command(t_command *get, int index)
 		get->flags = ft_split(get->terminal[index], ' ');
 }
 
-void	do_nothing(void)
-{
-	return ;
-}
 
 t_exe	solve(char *find)
 {

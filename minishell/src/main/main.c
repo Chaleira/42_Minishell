@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 17:45:24 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:47:50 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	printf_input(t_control *get)
-{
-	ft_printf("\nInput-->\n");
-	for (int i = 0; get->pieces[i]; i++)
-	{
-		ft_printf("command %i->\n", i);
-		for (int j = 0; get->pieces[i][j]; j++)
-			ft_printf("%s\n", get->pieces[i][j]);
-	}
-	ft_printf("end.\n");
-}
 
 void	catch_input(t_control *get)
 {
@@ -39,7 +27,6 @@ void	catch_input(t_control *get)
 
 void	input_reset(t_control *get)
 {
-	wait(0);
 	ft_lstclear(&get->commands, (void *)delete_command);
 	free_shellsplit(get->pieces);
 	if (get->input)
@@ -71,6 +58,12 @@ void	delete_command(void *command)
 	// close(get->instream);
 	free(command);
 	command = NULL;
+}
+
+void	end_shell(t_control *get)
+{
+	input_reset(get);
+	free_split(get->pieces);
 }
 
 int	main(int argc, char **argv, char **envp)

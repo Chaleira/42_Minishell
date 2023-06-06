@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 17:36:06 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:49:00 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ typedef struct s_shell		t_shell;
 typedef struct s_command	t_command;
 typedef struct sigaction	t_sigaction;
 typedef void				(*t_exe)();
-
+	if (get.)
+		free(get->aux);
 
 struct s_control {
 	char		*input;
@@ -67,7 +68,7 @@ char	**shell_split(char *s, char c);
 void	free_split(char **arg);
 void	free_shellsplit(char ***arg);
 void	delete_command(void *command);
-
+void	printf_input(t_control *get);
 
 void	normalize_input(t_control *get);
 int		ignore_quotes(char *string);
