@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 14:12:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:26:42 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	**shell_split(char *s, char c);
 void	free_split(char **arg);
 void	free_shellsplit(char ***arg);
 void	delete_command(void *command);
-
+void	printf_input(t_control *get);
 
 void	normalize_input(t_control *get);
 int		ignore_quotes(char *string);

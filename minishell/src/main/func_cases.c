@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 14:05:55 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:28:11 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,36 @@ void	free_split(char **split)
 		free(split);
 	}
 	split = NULL;
+}
+
+void	printf_input(t_control *get)
+{
+	ft_printf("\nInput-->\n");
+	for (int i = 0; get->pieces[i]; i++)
+	{
+		ft_printf("command %i->\n", i);
+		for (int j = 0; get->pieces[i][j]; j++)
+			ft_printf("%s\n", get->pieces[i][j]);
+	}
+	ft_printf("end.\n");
+}
+
+char	*ft_unsplit(char **split, int posize)
+{
+	char	*line;
+	int		i;
+
+	if (*split)
+		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1);
+	else
+	{
+		line = ft_calloc(sizeof(char), posize + 2);
+		line[posize + 1] = '\n';
+		return (line);
+	}
+	i = 0;
+	while ((*split)[i])
+		line[posize++] = (*split)[i++];
+	line[posize] = ' ';
+	return (line);
 }

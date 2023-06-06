@@ -6,39 +6,11 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 15:40:25 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:44:51 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-// char	*ft_unsplit(char **split, int posize)
-// {
-// 	char	*line;
-// 	int		i;
-
-// 	if (*split)
-// 		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1);
-// 	else
-// 		return (ft_calloc(sizeof(char), posize + 1));
-// 	i = 0;
-// 	while ((*split)[i])
-// 		line[posize++] = (*split)[i++];
-// 	line[posize] = ' ';
-// 	return (line);
-// }
-
-void	printf_input(t_control *get)
-{
-	ft_printf("\nInput-->\n");
-	for (int i = 0; get->pieces[i]; i++)
-	{
-		ft_printf("command %i->\n", i);
-		for (int j = 0; get->pieces[i][j]; j++)
-			ft_printf("%s\n", get->pieces[i][j]);
-	}
-	ft_printf("end.\n");
-}
 
 void	catch_input(t_control *get)
 {
@@ -55,7 +27,6 @@ void	catch_input(t_control *get)
 
 void	input_reset(t_control *get)
 {
-	wait(0);
 	ft_lstclear(&get->commands, (void *)delete_command);
 	free_shellsplit(get->pieces);
 	if (get->input)
@@ -87,6 +58,12 @@ void	delete_command(void *command)
 	// close(get->instream);
 	free(command);
 	command = NULL;
+}
+
+void	end_shell(t_control *get)
+{
+	input_reset(get);
+	free_split(get->pieces);
 }
 
 int	main(int argc, char **argv, char **envp)
