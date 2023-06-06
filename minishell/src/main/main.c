@@ -6,7 +6,11 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/06 13:27:00 by plopes-c         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/06 13:26:39 by rteles-f         ###   ########.fr       */
+>>>>>>> pipe_work
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +65,17 @@ void	input_reset(t_control *get)
 		get->input = NULL;
 	}
 }
+void	input_reset(t_control *get)
+{
+	wait(0);
+	ft_lstclear(&get->commands, (void *)delete_command);
+	free_shellsplit(get->pieces);
+	if (get->input)
+	{
+		free(get->input);
+		get->input = NULL;
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -72,12 +87,12 @@ int	main(int argc, char **argv, char **envp)
 	// a dor e psicologica
 	while (true)
 	{
+		merdqualquer;
 		catch_input(&get);
 		normalize_input(&get);
 		structure_commands(&get);
 		run_input(get.commands);
 		input_reset(&get);
-		catch_input(&get);
 	}
 	// ja nao me apetece escrever mais comentarios
 	return (1);
