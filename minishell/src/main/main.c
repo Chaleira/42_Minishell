@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 13:41:17 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:40:25 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,20 @@ void	printf_input(t_control *get)
 
 void	catch_input(t_control *get)
 {
-	static char	*line;
+	const char	*line;
 
+	line = NULL;
+	(void)get;
 	write (1, "Minishell>$ ", 12);
-	while (!get->input)
-		get->input = readline(line);
+	// get->input = readline(line);
+	get->input = get_next_line(0);
+	if (get->input)
+		get->input[ft_strlen(get->input) - 1] = 0;
 }
 
 void	input_reset(t_control *get)
 {
 	wait(0);
-	// okokokokokokkokokokookokokokokookokkook
 	ft_lstclear(&get->commands, (void *)delete_command);
 	free_shellsplit(get->pieces);
 	if (get->input)
@@ -61,16 +64,29 @@ void	input_reset(t_control *get)
 		get->input = NULL;
 	}
 }
-void	input_reset(t_control *get)
+
+void	delete_command(void *command)
 {
-	wait(0);
-	ft_lstclear(&get->commands, (void *)delete_command);
-	free_shellsplit(get->pieces);
-	if (get->input)
+	t_command	*get;
+
+	get = (t_command *)command;
+	free_split(get->flags);
+	if (get->aux)
 	{
-		free(get->input);
-		get->input = NULL;
+		free(get->aux);
+		get->aux = NULL;
 	}
+	if(get->exec_path)
+	{
+		free(get->exec_path);
+		get->exec_path = NULL;
+	}
+	//CUIDADO COM ESSA PORRA
+	// close(get->pipe[0]);
+	// close(get->pipe[1]);
+	// close(get->instream);
+	free(command);
+	command = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -80,16 +96,13 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	setup(&get, envp);
-	// a dor e psicologica
 	while (true)
 	{
-		merdqualquer;
 		catch_input(&get);
 		normalize_input(&get);
 		structure_commands(&get);
 		run_input(get.commands);
 		input_reset(&get);
 	}
-	// ja nao me apetece escrever mais comentarios
 	return (1);
 }

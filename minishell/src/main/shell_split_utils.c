@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 12:28:48 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:13:47 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	free_shellsplit(char ***arg)
 			i++;
 		}
 		if (*arg)
-			free(arg[0]);
+			free(*arg);
 		free(arg);
 	}
+	arg = NULL;
 }
 
 int	ignore_quotes(char *string)

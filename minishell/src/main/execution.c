@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/05 20:38:49 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:29:45 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ void	execve_aux(t_command *get)
 	get->id = fork();
 	if (!get->id)
 	{
-		close(get->pipe[0]);
+		// close(get->pipe[0]);
 		execve(get->exec_path, get->flags, get->main->envp);
+		exit(0);
 	}
 	else
 	{
-		close(get->pipe[1]);
+		// close(get->pipe[1]);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 12:23:02 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:12:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ struct s_control {
 	char		**envp;
 	char		**paths;
 	char		***pieces;
-	char		**separators;
 	int			pipe[2];
 	t_sigaction	siginfo;
 	t_list		*commands;

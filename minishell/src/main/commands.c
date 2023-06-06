@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 12:23:18 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:35:40 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	structure_commands(t_control *get)
 	int			j;
 
 	i = 0;
-	while (get->pieces[i])
+	while (get->pieces && get->pieces[i])
 	{
 		input = get->pieces[i];
 		command = new_command(get);
