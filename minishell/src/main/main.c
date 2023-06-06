@@ -3,30 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 15:40:25 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:32:03 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// char	*ft_unsplit(char **split, int posize)
-// {
-// 	char	*line;
-// 	int		i;
+char	*ft_unsplit(char **split, int posize)
+{
+	char	*line;
+	int		i;
 
-// 	if (*split)
-// 		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1);
-// 	else
-// 		return (ft_calloc(sizeof(char), posize + 1));
-// 	i = 0;
-// 	while ((*split)[i])
-// 		line[posize++] = (*split)[i++];
-// 	line[posize] = ' ';
-// 	return (line);
-// }
+	if (*split)
+		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1);
+	else
+	{
+		line = ft_calloc(sizeof(char), posize + 2);
+		line[posize] = '\n';
+		return (line);
+	}
+	i = 0;
+	while ((*split)[i])
+		line[posize++] = (*split)[i++];
+	line[posize] = ' ';
+	return (line);
+}
 
 void	printf_input(t_control *get)
 {
@@ -42,9 +46,9 @@ void	printf_input(t_control *get)
 
 void	catch_input(t_control *get)
 {
-	const char	*line;
+	// const char	*line;
 
-	line = NULL;
+	// line = NULL;
 	(void)get;
 	write (1, "Minishell>$ ", 12);
 	// get->input = readline(line);

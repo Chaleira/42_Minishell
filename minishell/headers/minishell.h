@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 14:12:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:36:06 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ void	setup(t_control *get, char **envp);
 void	structure_commands(t_control *get);
 void	run_input(t_list *node);
 
-
+char	*ft_unsplit(char **split, int posize);
+void	echo_builtin(t_command *command, int index);
+void	do_nothing(void);
 
 
 #endif
