@@ -6,31 +6,11 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 17:32:03 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:45:24 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-char	*ft_unsplit(char **split, int posize)
-{
-	char	*line;
-	int		i;
-
-	if (*split)
-		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1);
-	else
-	{
-		line = ft_calloc(sizeof(char), posize + 2);
-		line[posize] = '\n';
-		return (line);
-	}
-	i = 0;
-	while ((*split)[i])
-		line[posize++] = (*split)[i++];
-	line[posize] = ' ';
-	return (line);
-}
 
 void	printf_input(t_control *get)
 {
