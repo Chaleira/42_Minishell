@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 17:49:11 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:43:43 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_exe	solve(char *find)
 	};
 	static t_exe	functions[14] = {
 		do_nothing, output_direct, input_direct, output_direct,
-		here_doc, pipe_output, echo_builtin, cd_builtin,
+		here_doc, pipe_output, echo_prepare, cd_builtin,
 		pwd_builtin, export_builtin, unset_builtin, env_builtin,
 		exit_builtin, try_command
 	};

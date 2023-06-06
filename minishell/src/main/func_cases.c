@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_cases.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 17:28:11 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:34:51 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,14 @@ char	*ft_unsplit(char **split, int posize)
 		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1);
 	else
 	{
-		line = ft_calloc(sizeof(char), posize + 2);
-		line[posize + 1] = '\n';
+		line = ft_calloc(sizeof(char), posize + 1);
+		line[posize - 1] = '\n';
 		return (line);
 	}
 	i = 0;
 	while ((*split)[i])
 		line[posize++] = (*split)[i++];
-	line[posize] = ' ';
+	if (*(split + 1))
+		line[posize] = ' ';
 	return (line);
 }

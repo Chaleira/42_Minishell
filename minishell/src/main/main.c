@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 17:47:50 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:06:47 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	catch_input(t_control *get)
 
 	// line = NULL;
 	(void)get;
-	write (1, "Minishell>$ ", 12);
+	wait(0);
+	write (1, "\033[31mMinishell\033[0;33m ✗ \033[0m", 31);
 	// get->input = readline(line);
 	get->input = get_next_line(0);
 	if (get->input)
@@ -63,7 +64,7 @@ void	delete_command(void *command)
 void	end_shell(t_control *get)
 {
 	input_reset(get);
-	free_split(get->pieces);
+	free_split(get->paths);
 }
 
 int	main(int argc, char **argv, char **envp)

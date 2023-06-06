@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 17:51:35 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:42:17 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	structure_commands(t_control *get);
 void	run_input(t_list *node);
 
 char	*ft_unsplit(char **split, int posize);
-void	echo_builtin(t_command *command, int index);
+void	echo_prepare(t_command *command, int index);
+void	echo_exe(t_command *get);
 void	do_nothing(void);
 
 
