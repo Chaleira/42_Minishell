@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 16:31:29 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:33:12 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ t_command	*new_command(t_control *get)
 	new = ft_calloc(sizeof(t_command), 1);
 	new->main = get;
 	new->valid = 1;
-	new->instream = get->in_out[0];
-	new->pipe[1] = get->in_out[1];
+	new->in_pipe[0] = get->in_out[0];
+	new->out_pipe[1] = get->in_out[1];
+	new->execute = do_nothing;
 	return (new);
 }
 
@@ -61,18 +62,6 @@ char	*build_executable_path(t_control *get, char *command)
 	// invalid_input(command);
 	return (NULL);
 }
-
-// void	try_command(t_command *get, int index)
-// {
-// 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
-// 	if (!get->exec_path)
-// 	{
-// 		get->valid = 0;
-// 		return ;
-// 	}
-// 	get->flags = &get->terminal[index];
-// 	get->execute = execve_aux;
-// }
 
 char	**copy_split(char **split)
 {
@@ -153,10 +142,7 @@ void	structure_commands(t_control *get)
 			(solve(get->pieces[i][j]))(command, j);
 			j++;
 		}
-		if (command->valid && command->execute)
-			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
-		else
-			delete_command(command);
+		ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
 		i++;
 	}
 }

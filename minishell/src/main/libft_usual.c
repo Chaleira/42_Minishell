@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   libft_usual.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 13:16:07 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:38:02 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	is_space(char c)
+{
+	if ((8 < c && c < 14) || c == 32)
+		return (1);
+	return (0);
+}
 
 char	*ft_stradd(char **original, char *add)
 {

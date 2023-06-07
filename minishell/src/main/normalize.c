@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 18:08:28 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 14:05:10 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:44:14 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	normalize_input(t_control *get)
 
 	if (!get->input)
 		return ;
-	split = shell_split(get->input, ' ');
+	split = shell_split(get->input);
 	get->pieces = ft_calloc(sizeof(char **), is_listchr(split, '|') + 2);
 	get->pieces[0] = split;
 	j = 1;
