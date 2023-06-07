@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 15:00:29 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:24:23 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		safe_free_null(char **string);
 
 char		*ft_unsplit(char **split, int posize);
 void		echo_prepare(t_command *command, int index);
-void		echo_exe(t_command *get);
+void		pwd_prepare(t_command *get, int index);
 void		do_nothing(void);
 
 void		end_shell(t_control *get);
