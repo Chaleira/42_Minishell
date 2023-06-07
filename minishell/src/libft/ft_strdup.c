@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:46:36 by plopes-c          #+#    #+#             */
-/*   Updated: 2022/11/03 19:12:42 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/08 00:29:22 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strdup(const char *s)
 {
 	char	*str;
 
+	if (!s)
+		return (NULL);
 	str = malloc(ft_strlen(s) + 1);
 	if (str == NULL)
 		return (NULL);
