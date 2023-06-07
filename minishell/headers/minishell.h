@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 18:46:54 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:57:55 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ struct s_control {
 	char		***pieces;
 	int			in_out[2];
 	int			pipe[2];
+	int			pipes;
 	int			end;
 	t_sigaction	siginfo;
 	t_list		*commands;
@@ -50,13 +51,9 @@ typedef struct s_command {
 	char		*exec_path;
 	char		**flags;
 	char		**terminal;
-	char		*aux;
 	int			id;
-	int			*old_pipe;
 	int			in_pipe[2];
 	int			out_pipe[2];
-	int			is_last;
-	int			counter;
 	int			valid;
 	t_control	*main;
 	t_exe		execute;
@@ -97,9 +94,10 @@ void		input_reset(t_control *get);
 void		builtin_execute(char *print);
 void		execute_command(t_command *get);
 int			is_space(char c);
+void		cd_exec(char *a, char **b, char **c, t_command *command);
+int			is_listchr(char **string, char find);
 
-void	cd_builtin(t_command *command);
-void	cd_exec(t_command *command, int index);
+void		cd_builtin(t_command *command, int index);
 
 
 

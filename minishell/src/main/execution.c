@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 18:29:38 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:15:58 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	execute_command(t_command *get)
 		close(get->out_pipe[0]);
 		dup2(get->in_pipe[0], STDIN_FILENO);
 		dup2(get->out_pipe[1], STDOUT_FILENO);
-		get->execute(get->exec_path, get->flags, get->main->envp);
+		get->execute(get->exec_path, get->flags, get->main->envp, get);
 		end_shell(get->main);
 	}
 	else
