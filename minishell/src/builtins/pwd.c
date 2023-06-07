@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:54:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/07 15:20:58 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:28:00 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	pwd_prepare(t_command *command, int index)
 		}
 		index++;
 	}
-	command->execute = builtin_exec;
+	command->execute = builtin_execute;
 }

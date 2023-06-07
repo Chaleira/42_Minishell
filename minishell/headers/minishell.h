@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 15:24:23 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:15:40 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ typedef struct s_command {
 	char		**terminal;
 	char		*aux;
 	int			id;
-	int			instream;
-	int			pipe[2];
+	int			*old_pipe;
+	int			in_pipe[2];
+	int			out_pipe[2];
 	int			is_last;
 	int			counter;
 	int			valid;
@@ -64,7 +65,7 @@ typedef struct s_command {
 char		*sttc_itoa(int number);
 void		free_biarray(void **arg, int size);
 char		*ft_stradd(char **original, char *add);
-char		**shell_split(char *s, char c);
+char		**shell_split(char *s);
 void		free_split(char **arg);
 void		delete_command(void *command);
 void		printf_input(t_control *get);
@@ -95,6 +96,7 @@ void		find_directions(t_list *this);
 void		input_reset(t_control *get);
 void		builtin_execute(char *print);
 void		execute_command(t_command *get);
+int			is_space(char c);
 
 
 #endif

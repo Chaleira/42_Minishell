@@ -6,14 +6,14 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:09:16 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 13:18:28 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:48:33 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	getwords(char *s, char c);
-static int	fill_list(char *s, char **list, char c);
+static int	getwords(char *s);
+static int	fill_list(char *s, char **list);
 static char	*checkmalloc(int size, int members, char **list);
 
 int	split_case(char *line)
@@ -31,7 +31,7 @@ int	split_case(char *line)
 	return (0);
 }
 
-char	**shell_split(char *s, char c)
+char	**shell_split(char *s)
 {
 	int		foundwords;
 	int		check;
@@ -39,17 +39,17 @@ char	**shell_split(char *s, char c)
 
 	if (!s)
 		return (NULL);
-	foundwords = getwords(s, c);
+	foundwords = getwords(s);
 	list = ft_calloc(sizeof(char *), (foundwords + 1));
 	if (!list)
 		return (NULL);
-	check = fill_list(s, list, c);
+	check = fill_list(s, list);
 	if (!check)
 		return (NULL);
 	return (list);
 }
 
-static int	getwords(char *s, char c)
+static int	getwords(char *s)
 {
 	int		i;
 	int		count;
@@ -59,18 +59,18 @@ static int	getwords(char *s, char c)
 	count = 0;
 	while (s[i])
 	{
-		while (s[i] && s[i] == c)
+		while (s[i] && is_space(s[i]))
 			i++;
 		size = split_case(&s[i]);
-		count += (s[i] && (s[i] != c));
+		count += (s[i] && (!is_space(s[i])));
 		i += size + ignore_quotes(&s[i]);
-		while (s[i] && s[i] != c && !split_case(&s[i]) && !size)
+		while (s[i] && !is_space(s[i]) && !split_case(&s[i]) && !size)
 			i++;
 	}
 	return (count);
 }
 
-static int	fill_list(char *s, char **list, char c)
+static int	fill_list(char *s, char **list)
 {
 	int		i;
 	int		j;
@@ -80,10 +80,10 @@ static int	fill_list(char *s, char **list, char c)
 	j = 0;
 	while (s[i] != '\0')
 	{
-		while (s[i] && s[i] == c)
+		while (s[i] && is_space(s[i]))
 			i++;
 		word = split_case(&s[i]);
-		while (s[i + word] && s[i + word] != c && !split_case(&s[i])
+		while (s[i + word] && !is_space(s[i + word]) && !split_case(&s[i])
 			&& !split_case(&s[i + word]))
 			word += 1 + ignore_quotes(&s[i + word]);
 		if (word > 0)
