@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 18:32:05 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:24:09 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ struct s_control {
 	char		***pieces;
 	int			in_out[2];
 	int			pipe[2];
+	int			pipes;
 	int			end;
 	t_sigaction	siginfo;
 	t_list		*commands;
@@ -97,8 +98,10 @@ void		input_reset(t_control *get);
 void		builtin_execute(char *print);
 void		execute_command(t_command *get);
 int			is_space(char c);
+void		cd_exec(char *a, char **b, char **c, t_command *command);
+int			is_listchr(char **string, char find);
 
-void	cd_builtin(t_command *command, int index);
+void		cd_builtin(t_command *command, int index);
 
 
 
