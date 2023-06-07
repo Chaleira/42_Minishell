@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/07 15:24:53 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:26:28 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	echo_prepare(t_command *command, int index)
 		while (command->terminal[index])
 			*command->terminal[index++] = 0;
 	}
-	command->execute = builtin_exec;
+	command->execute = builtin_execute;
 }

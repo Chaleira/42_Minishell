@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 15:25:00 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:31:29 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	output_direct(){}
 void	input_direct(){}
 void	pipe_output(){}
 void	here_doc(){}
-void	cd_builtin(){}
 void	export_builtin(){}
 void	unset_builtin(){}
 void	env_builtin(){}

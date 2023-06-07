@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 15:24:23 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 16:40:34 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void		find_directions(t_list *this);
 void		input_reset(t_control *get);
 void		builtin_execute(char *print);
 void		execute_command(t_command *get);
+
+void	cd_builtin(t_command *command, int index);
 
 
 #endif
