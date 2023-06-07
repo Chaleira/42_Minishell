@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 18:32:05 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:46:54 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void		builtin_execute(char *print);
 void		execute_command(t_command *get);
 int			is_space(char c);
 
-void	cd_builtin(t_command *command, int index);
+void	cd_builtin(t_command *command);
+void	cd_exec(t_command *command, int index);
 
 
 
