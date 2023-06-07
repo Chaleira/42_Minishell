@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 18:12:28 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:29:38 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	find_directions(t_list *this)
 		get->in_pipe[0] = ((t_command *)(this->previous->content))->out_pipe[0];
 		get->in_pipe[1] = ((t_command *)(this->previous->content))->out_pipe[1];
 	}
-	*control()
 	if (this->next)
 	{
 		if (pipe(get->out_pipe) < 0)
@@ -32,11 +31,6 @@ void	find_directions(t_list *this)
 
 void	run_input(t_list *node)
 {
-	long long	a;
-	int			b;
-
-	sizeof(b);
-	sizeof(a);
 	while (node)
 	{
 		find_directions(node);
