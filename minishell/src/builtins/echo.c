@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/07 10:42:09 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:02:59 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ void	echo_prepare(t_command *command, int index)
 
 void	echo_exe(t_command *get)
 {
+	dup2(get->instream, STDIN_FILENO);
+	dup2(get->pipe[1], STDOUT_FILENO);
 	ft_printf("%s", get->aux);
 }

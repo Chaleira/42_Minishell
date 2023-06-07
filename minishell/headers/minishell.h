@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 11:25:14 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:18:58 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ void		echo_exe(t_command *get);
 void		do_nothing(void);
 
 void		end_shell(t_control *get);
-void		**this(void);
+void		**control(void);
+int			split_case(char *line);
 
-void		find_directions(t_command *get);
+
+void		find_directions(t_list *this);
 
 void		input_reset(t_control *get);
 

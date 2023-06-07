@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 11:22:46 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:30:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,36 @@ char	*build_executable_path(t_control *get, char *command)
 	return (NULL);
 }
 
+// void	try_command(t_command *get, int index)
+// {
+// 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
+// 	if (!get->exec_path)
+// 	{
+// 		get->valid = 0;
+// 		return ;
+// 	}
+// 	get->flags = &get->terminal[index];
+// 	get->execute = execve_aux;
+// }
+
+char	**copy_split(char **split)
+{
+	char	**new;
+	int		counter;
+
+	counter = 0;
+	while (split[counter] && !split_case(split[counter]))
+		counter++;
+	new = ft_calloc(sizeof(char *), counter + 1);
+	counter = 0;
+	while (split[counter] && !split_case(split[counter]))
+	{
+		new[counter] = ft_strdup(split[counter]);
+		counter++;
+	}
+	return (new);
+}
+
 void	try_command(t_command *get, int index)
 {
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
@@ -73,14 +103,9 @@ void	try_command(t_command *get, int index)
 		get->valid = 0;
 		return ;
 	}
-	if (get->terminal[index + 1] && get->terminal[index + 1][0] == '-')
-	{
-		get->flags = ft_split(get->terminal[index + 1], ' ');
-		get->terminal[index + 1][0] = 0;
-	}
-	else
-		get->flags = ft_split(get->terminal[index], ' ');
-	find_directions(get);
+	get->flags = copy_split(&get->terminal[index++]);
+	while (get->terminal[index] && !split_case(get->terminal[index]))
+		get->terminal[index++][0] = 0;
 	get->execute = execve_aux;
 }
 

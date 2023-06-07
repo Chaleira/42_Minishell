@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:09:16 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/02 15:20:30 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:18:28 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	getwords(char *s, char c);
 static int	fill_list(char *s, char **list, char c);
 static char	*checkmalloc(int size, int members, char **list);
 
-static int	split_case(char *line)
+int	split_case(char *line)
 {
 	if (!*line)
 		return (0);

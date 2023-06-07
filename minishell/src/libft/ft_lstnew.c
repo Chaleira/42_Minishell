@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 23:00:57 by plopes-c          #+#    #+#             */
-/*   Updated: 2022/11/16 18:59:19 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:30:35 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ t_list	*ft_lstnew(void *content)
 		return (0);
 	root->content = content;
 	root->next = NULL;
+	root->previous = NULL;
 	return (root);
 }

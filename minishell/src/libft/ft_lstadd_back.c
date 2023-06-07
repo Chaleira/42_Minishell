@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 19:26:47 by plopes-c          #+#    #+#             */
-/*   Updated: 2022/11/16 18:59:37 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:27:40 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		while (go->next)
 			go = go->next;
 		go->next = new;
+		new->previous = go;
 	}
 }

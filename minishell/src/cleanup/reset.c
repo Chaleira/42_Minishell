@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 10:48:41 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:17:56 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ void	delete_command(void *command)
 	safe_free_null(&get->aux);
 	safe_free_null(&get->exec_path);
 	free(command);
-	//CUIDADO COM ESSA PORRA
-	// close(get->pipe[0]);
-	// close(get->pipe[1]);
-	// close(get->instream);
 }
 
 void	input_reset(t_control *get)
