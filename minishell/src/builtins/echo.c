@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/07 14:50:07 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:57:54 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,4 @@ void	echo_prepare(t_command *command, int index)
 			*command->terminal[index++] = 0;
 	}
 	command->execute = builtin_exec;
-}
-
-void	echo_exe(t_command *get)
-{
-	ft_printf("%s", get->aux);
 }
