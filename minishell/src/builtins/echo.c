@@ -6,16 +6,11 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/07 13:33:47 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:36:00 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	echo_exe(t_command *get)
-{
-	ft_printf("%s", get->aux);
-}
 
 void	echo_prepare(t_command *command, int index)
 {
