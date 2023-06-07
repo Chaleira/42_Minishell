@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/07 14:50:07 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:04:25 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	echo_prepare(t_command *command, int index)
 		while (command->terminal[index])
 			*command->terminal[index++] = 0;
 	}
-	command->execute = builtin_exec;
+	command->execute = builtin_execute;
 }
 
 void	echo_exe(t_command *get)

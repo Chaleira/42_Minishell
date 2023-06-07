@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 14:52:15 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:09:09 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_command	*new_command(t_control *get)
 	new->valid = 1;
 	new->instream = get->in_out[0];
 	new->pipe[1] = get->in_out[1];
-	new->execute = do_nothing;
 	return (new);
 }
 
@@ -134,7 +133,7 @@ t_exe	solve(char *find)
 	return (functions[index]);
 }
 
-void	builtin_exec(char *print)
+void	builtin_execute(char *print)
 {
 	ft_printf("%s", print);
 }
@@ -156,7 +155,7 @@ void	structure_commands(t_control *get)
 			(solve(get->pieces[i][j]))(command, j);
 			j++;
 		}
-		if (command->valid)
+		if (command->valid && command->execute)
 			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
 		else
 			delete_command(command);
