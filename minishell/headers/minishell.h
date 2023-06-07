@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 19:24:09 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:50:58 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,9 @@ typedef struct s_command {
 	char		*exec_path;
 	char		**flags;
 	char		**terminal;
-	char		*aux;
 	int			id;
-	int			*old_pipe;
 	int			in_pipe[2];
 	int			out_pipe[2];
-	int			is_last;
-	int			counter;
 	int			valid;
 	t_control	*main;
 	t_exe		execute;
