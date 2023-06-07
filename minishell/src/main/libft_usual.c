@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/02 15:20:45 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:48:31 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,27 @@ char	*ft_stradd(char **original, char *add)
 	free((*original));
 	*original = joined;
 	return (joined);
+}
+
+char	*ft_unsplit(char **split, int posize)
+{
+	char	*line;
+	int		i;
+
+	if (*split)
+		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1);
+	else
+	{
+		line = ft_calloc(sizeof(char), posize);
+		line[posize - 1] = '\n';
+		return (line);
+	}
+	i = 0;
+	while ((*split)[i])
+		line[posize++] = (*split)[i++];
+	if (*(split + 1))
+		line[posize] = ' ';
+	return (line);
 }
 
 char	*sttc_itoa(int number)

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/05 19:26:11 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:58:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,21 @@ void	signal_handler(void)
 	return ;
 }
 
+void	temp_controlc(int signal)
+{
+	(void)signal;
+	write(1, "\n[\033[32minfo\033[0m]: Leaving Minishell\n", 36);
+	end_shell(*this());
+}
+
 void	setup(t_control *get, char **envp)
 {
 	get->envp = envp;
 	get_paths(envp, get);
+	get->in_out[0] = dup(STDIN_FILENO);
+	get->in_out[1] = dup(STDOUT_FILENO);
+	signal(SIGINT, temp_controlc);
+	*this() = get;
 }
 
 void	free_list(char **list)
@@ -71,13 +82,4 @@ void	close_fds(t_control *get)
 {
 	(void)get;
 	return ;
-}
-
-void	end_minishell(t_control *get)
-{
-	free_shellsplit(get->pieces);
-	free(get->input);
-	free_list(get->paths);
-	close_fds(get);
-	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 19:16:18 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 11:25:14 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ struct s_control {
 	char		**envp;
 	char		**paths;
 	char		***pieces;
+	int			in_out[2];
 	int			pipe[2];
+	int			end;
 	t_sigaction	siginfo;
 	t_list		*commands;
 } ;
@@ -59,28 +61,36 @@ typedef struct s_command {
 	t_exe		execute;
 } t_command;
 
-char	*sttc_itoa(int number);
-void	free_biarray(void **arg, int size);
-char	*ft_stradd(char **original, char *add);
-char	**shell_split(char *s, char c);
-void	free_split(char **arg);
-void	free_shellsplit(char ***arg);
-void	delete_command(void *command);
-void	printf_input(t_control *get);
+char		*sttc_itoa(int number);
+void		free_biarray(void **arg, int size);
+char		*ft_stradd(char **original, char *add);
+char		**shell_split(char *s, char c);
+void		free_split(char **arg);
+void		delete_command(void *command);
+void		printf_input(t_control *get);
 
-void	normalize_input(t_control *get);
-int		ignore_quotes(char *string);
-void	free_shellsplit(char ***arg);
+void		normalize_input(t_control *get);
+int			ignore_quotes(char *string);
+void		free_shellsplit(char ****arg);
 
-void	execve_aux(t_command *get);
-void	setup(t_control *get, char **envp);
-void	structure_commands(t_control *get);
-void	run_input(t_list *node);
+void		execve_aux(t_command *get);
+void		setup(t_control *get, char **envp);
+void		structure_commands(t_control *get);
+void		run_input(t_list *node);
 
-char	*ft_unsplit(char **split, int posize);
-void	echo_prepare(t_command *command, int index);
-void	echo_exe(t_command *get);
-void	do_nothing(void);
+void		safe_free_null(char **string);
+
+char		*ft_unsplit(char **split, int posize);
+void		echo_prepare(t_command *command, int index);
+void		echo_exe(t_command *get);
+void		do_nothing(void);
+
+void		end_shell(t_control *get);
+void		**this(void);
+
+void		find_directions(t_command *get);
+
+void		input_reset(t_control *get);
 
 
 #endif

@@ -6,32 +6,32 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 15:13:47 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:31:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	free_shellsplit(char ***arg)
+void	free_shellsplit(char ****arg)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	if (arg)
+	if (*arg)
 	{
-		while (arg[i])
+		while ((*arg)[i])
 		{
 			j = 0;
-			while (arg[i][j])
-				free(arg[i][j++]);
+			while ((*arg)[i][j])
+				free((*arg)[i][j++]);
 			i++;
 		}
-		if (*arg)
-			free(*arg);
-		free(arg);
+		if (**arg)
+			free(**arg);
+		free(*arg);
+		*arg = NULL;
 	}
-	arg = NULL;
 }
 
 int	ignore_quotes(char *string)

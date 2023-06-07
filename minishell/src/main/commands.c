@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/06 18:43:43 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/07 11:22:46 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_command	*new_command(t_control *get)
 	new = ft_calloc(sizeof(t_command), 1);
 	new->main = get;
 	new->valid = 1;
+	new->instream = get->in_out[0];
+	new->pipe[1] = get->in_out[1];
 	new->execute = do_nothing;
 	return (new);
 }
@@ -71,7 +73,6 @@ void	try_command(t_command *get, int index)
 		get->valid = 0;
 		return ;
 	}
-	get->execute = execve_aux;
 	if (get->terminal[index + 1] && get->terminal[index + 1][0] == '-')
 	{
 		get->flags = ft_split(get->terminal[index + 1], ' ');
@@ -79,6 +80,8 @@ void	try_command(t_command *get, int index)
 	}
 	else
 		get->flags = ft_split(get->terminal[index], ' ');
+	find_directions(get);
+	get->execute = execve_aux;
 }
 
 
@@ -109,20 +112,18 @@ t_exe	solve(char *find)
 void	structure_commands(t_control *get)
 {
 	t_command	*command;
-	char		**input;
 	int			i;
 	int			j;
 
 	i = 0;
 	while (get->pieces && get->pieces[i])
 	{
-		input = get->pieces[i];
 		command = new_command(get);
 		command->terminal = get->pieces[i];
 		j = 0;
-		while (input[j] && command->valid)
+		while (get->pieces[i][j] && command->valid)
 		{
-			(solve(input[j]))(command, j);
+			(solve(get->pieces[i][j]))(command, j);
 			j++;
 		}
 		if (command->valid)
