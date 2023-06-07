@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 13:03:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:54:28 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,22 @@ void	find_directions(t_list *this)
 
 void	run_input(t_list *node)
 {
-	t_command	*command;
-
 	while (node)
 	{
 		find_directions(node);
-		command = (t_command *)node->content;
-		command->execute(command);
+		execute_command((t_command *)node->content);
 		node = node->next;
 	}
 }
 
-void	execve_aux(t_command *get)
+void	execute_command(t_command *get)
 {
 	get->id = fork();
 	if (!get->id)
 	{
 		dup2(get->instream, STDIN_FILENO);
 		dup2(get->pipe[1], STDOUT_FILENO);
-		execve(get->exec_path, get->flags, get->main->envp);
+		get->execute(get->exec_path, get->flags, get->main->envp);
 		exit(0);
 	}
 	else
@@ -55,5 +52,8 @@ void	execve_aux(t_command *get)
 			close (get->instream);
 		if (get->pipe[1] != get->main->in_out[1])
 			close(get->pipe[1]);
+		wait(0);
 	}
 }
+
+		// execve(get->exec_path, get->flags, get->main->envp);

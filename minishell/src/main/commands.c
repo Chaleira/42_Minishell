@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 13:30:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:52:15 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	try_command(t_command *get, int index)
 	get->flags = copy_split(&get->terminal[index++]);
 	while (get->terminal[index] && !split_case(get->terminal[index]))
 		get->terminal[index++][0] = 0;
-	get->execute = execve_aux;
+	get->execute = (void *)execve;
 }
 
 
@@ -132,6 +132,11 @@ t_exe	solve(char *find)
 	while (cases[index] && ft_strncmp(find, cases[index], length))
 		index++;
 	return (functions[index]);
+}
+
+void	builtin_exec(char *print)
+{
+	ft_printf("%s", print);
 }
 
 void	structure_commands(t_control *get)
