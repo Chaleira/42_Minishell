@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/08 16:16:08 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/08 19:13:05 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
-
 
 typedef struct s_control	t_control;
 typedef struct s_func		t_func;
@@ -57,7 +56,7 @@ typedef struct s_command {
 	int			valid;
 	t_control	*main;
 	t_exe		execute;
-} t_command;
+}	t_command;
 
 char		*sttc_itoa(int number);
 void		free_biarray(void **arg, int size);
@@ -87,17 +86,20 @@ void		end_shell(t_control *get);
 void		**control(void);
 int			split_case(char *line);
 
-
 void		find_directions(t_list *this);
 
 void		input_reset(t_control *get);
 void		builtin_execute(char *print);
 void		execute_command(t_command *get);
 int			is_space(char c);
-void		cd_execute(char* str);
+void		cd_execute(char	*str);
 void		cd_prepare(t_command *command, int index);
 int			is_listchr(char **string, char find);
 
 void		env_prepare(t_command *command, int index);
+void		exit_execute(t_command *command, int index);
+void	export_prepare(t_command *command, int index);
+void	export_execute(char *print);
+
 
 #endif
