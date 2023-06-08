@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/08 00:06:57 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:16:08 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		run_input(t_list *node);
 
 void		safe_free_null(char **string);
 
-char		*ft_unsplit(char **split, int posize);
+char		*ft_unsplit(char **split, int posize, char c);
 void		echo_prepare(t_command *command, int index);
 void		pwd_prepare(t_command *get, int index);
 void		do_nothing(void);
@@ -98,8 +98,6 @@ void		cd_execute(char* str);
 void		cd_prepare(t_command *command, int index);
 int			is_listchr(char **string, char find);
 
-void		cd_builtin(t_command *command, int index);
-
-
+void		env_prepare(t_command *command, int index);
 
 #endif

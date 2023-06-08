@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/08 00:23:58 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:00:15 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_exe	solve(char *find)
 	static t_exe	functions[14] = {
 		do_nothing, output_direct, input_direct, output_direct,
 		here_doc, pipe_output, echo_prepare, cd_prepare,
-		pwd_prepare, export_builtin, unset_builtin, env_builtin,
+		pwd_prepare, export_builtin, unset_builtin, env_prepare,
 		exit_builtin, try_command
 	};
 

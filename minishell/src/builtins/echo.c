@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/07 18:33:42 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/08 16:16:51 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	echo_prepare(t_command *command, int index)
 			command->exec_path = ft_calloc(sizeof(char), 1);
 		else if (command->terminal[index + 1])
 		{
-			command->exec_path = ft_unsplit(&command->terminal[index + 1], 0);
+			command->exec_path = ft_unsplit(&command->terminal[index + 1], 0, ' ');
 			if (flag)
 				command->exec_path[ft_strlen(command->exec_path) - 1] = 0;
 		}
