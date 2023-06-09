@@ -12,9 +12,7 @@
 
 #include <minishell.h>
 
-void	input_direct(){}
 void	pipe_output(){}
-void	here_doc(){}
 void	export_builtin(){}
 void	unset_builtin(){}
 
@@ -104,8 +102,8 @@ t_exe	solve(char *find)
 		"exit", NULL
 	};
 	static t_exe	functions[14] = {
-		do_nothing, output_direct, input_direct, output_direct,
-		here_doc, pipe_output, echo_prepare, cd_prepare,
+		do_nothing, output_redirect, input_redirect, output_redirect,
+		input_redirect, pipe_output, echo_prepare, cd_prepare,
 		pwd_prepare, export_prepare, unset_prepare, env_prepare,
 		exit_execute, try_command
 	};

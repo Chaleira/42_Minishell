@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_direct.c                                    :+:      :+:    :+:   */
+/*   output_redirectct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,12 +12,18 @@
 
 #include <minishell.h>
 
-void	output_direct(t_command *command, int index)
+void	output_redirect(t_command *command, int index)
 {
-	if (command->terminal[index + 2])
+	if (!ft_strncmp(command->terminal[index], ">>", 2))
+		command->in_pipe[0] = open(command->terminal[index + 1], O_CREAT | O_RDWR);
+	else
+		command->in_pipe[0] = open(command->terminal[index + 1], O_CREAT | O_APPEND | O_RDWR);
+	if (command->in_pipe[0] < 0)
 	{
 		command->valid = 0;
+		command->parse = 0;
+		ft_printf("Error opening file: %s\n", command->terminal[index + 1]);
 		return ;
 	}
-	command->in_pipe[0] = open(command->terminal[index + 1], O_CREAT | O_RDWR);
+	command->terminal[index + 1][0] = 0;
 }
