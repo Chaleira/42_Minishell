@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 15:13:41 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 16:34:43 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ struct s_control {
 	char		**envp;
 	char		**paths;
 	char		***pieces;
+	char		*pwd;
 	int			in_out[2];
 	int			pipe[2];
 	int			pipes;
@@ -54,6 +55,7 @@ typedef struct s_command {
 	int			in_pipe[2];
 	int			out_pipe[2];
 	int			valid;
+	int			parse;
 	t_control	*main;
 	t_exe		execute;
 }	t_command;
@@ -87,6 +89,7 @@ void		**control(void);
 int			split_case(char *line);
 
 void		find_directions(t_list *this);
+t_exe		solve(char *find);
 
 void		input_reset(t_control *get);
 void		builtin_execute(char *print);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 15:03:44 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:21:50 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_command	*new_command(t_control *get)
 	new = ft_calloc(sizeof(t_command), 1);
 	new->main = get;
 	new->valid = 1;
+	new->parse = 1;
 	new->in_pipe[0] = get->in_out[0];
 	new->out_pipe[1] = get->in_out[1];
 	new->execute = do_nothing;
@@ -93,7 +94,6 @@ void	try_command(t_command *get, int index)
 	get->execute = (void *)execve;
 }
 
-
 t_exe	solve(char *find)
 {
 	int				index;
@@ -135,12 +135,15 @@ void	structure_commands(t_control *get)
 		command = new_command(get);
 		command->terminal = get->pieces[i];
 		j = 0;
-		while (get->pieces[i][j] && command->valid)
+		while (get->pieces[i][j] && command->parse)
 		{
 			(solve(get->pieces[i][j]))(command, j);
 			j++;
 		}
-		ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
+		if (command->valid)
+			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
+		else
+			delete_command(command);
 		i++;
 	}
 }

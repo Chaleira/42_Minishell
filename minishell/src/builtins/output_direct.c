@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   output_direct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/09 16:05:44 by rteles-f         ###   ########.fr       */
+/*   Created: 2023/06/09 17:14:52 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/06/09 17:21:30 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <minishell.h>
 
-void	export_prepare(t_command *command, int index)
+void	output_direct(t_command *command, int index)
 {
-	(void)index;
-	command->exec_path = ft_unsplit(command->main->envp, 0, '\n');
-	command->execute = export_execute;
-}
+	int	fd;
 
-void	export_execute(char *print)
-{
-	char **split;
-	int	i;
-
-	split = ft_split(print, '\n');
-	i = 0;
-	while (split[i])
+	if (command->terminal[index + 2])
 	{
-		ft_printf("declare -x %s\n", split[i]);
-		i++;
-	}	
+		command->valid = 0;
+		return ;
+	}
+	fd = open(command->terminal[index + 1], O_CREAT | O_RDWR);
 }

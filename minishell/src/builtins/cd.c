@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/08 18:46:50 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:09:05 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	cd_prepare(t_command *command, int index)
 {
 	int	args;
 
+	command->parse = 0;
 	args = 0;
-	while (command->terminal[args])
+	while (command->terminal[args] && !split_case(command->terminal[args]))
 		args++;
 	if (args > 2)
 	{
@@ -34,9 +35,16 @@ void	cd_prepare(t_command *command, int index)
 		return ;
 	}
 	command->exec_path = ft_strdup(command->terminal[index + 1]);
+	while (command->terminal[args])
+	{
+		(solve(command->terminal[args]))(command, args);
+		args++;
+	}
 	if (command->main->pipes)
 		command->execute = (void *)cd_execute;
-	else
+	else if (command->valid)
+	{
 		cd_execute(command->exec_path);
-	command->valid = 0;
+		command->valid = 0;
+	}
 }

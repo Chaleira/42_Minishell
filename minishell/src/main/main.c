@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/08 16:23:14 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:07:48 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,17 @@ void	**control(void)
 
 void	catch_input(t_control *get)
 {
-	// const char	*line;
+	char	*line;
+	char	*new;
 
 	// line = NULL;
 	(void)get;
 	wait(0);
-	write (1, "\033[31mMinishell\033[0;33m ✗ \033[0m", 31);
+	line = getcwd(NULL, 0);
+	new = ft_strrchr(line, '/');
+	ft_printf("\033[1m\033[31mMinishell \033[0m\033[34m%s \033[0;33m✗ \033[0m", (new + 1));
 	// get->input = readline(line);
+	free(line);
 	get->input = get_next_line(0);
 	if (get->input)
 		get->input[ft_strlen(get->input) - 1] = 0;

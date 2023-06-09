@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/08 18:44:24 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:00:31 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exit_execute(t_command *command, int index)
 	int	input;
 
 	input = 0;
-	command->valid = 0;
+	command->parse = 0;
 	if (command->main->pipes)
 		return ;
 	ft_printf("exit\n");
