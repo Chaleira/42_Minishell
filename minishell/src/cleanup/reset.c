@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/08 00:13:50 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:00:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	end_shell(t_control *get)
 {
 	input_reset(get);
 	free_split(get->paths);
+	free(get->pwd);
 	exit(0);
 }
 

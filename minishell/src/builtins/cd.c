@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/09 17:48:02 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:59:25 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	cd_execute(char *str)
 		return ;
 	if (chdir(str))
 		ft_printf("minishell: cd: %s: Not a directory\n", str);
+	free((*control())->pwd);
 	(*control())->pwd = getcwd(NULL, 0);
 }
 
@@ -36,11 +37,8 @@ void	cd_prepare(t_command *command, int index)
 		return ;
 	}
 	command->exec_path = ft_strdup(command->terminal[index + 1]);
-	while (command->terminal[args])
-	{
+	if (command->terminal[args])
 		(solve(command->terminal[args]))(command, args);
-		args++;
-	}
 	if (command->main->pipes)
 		command->execute = (void *)cd_execute;
 	else if (command->valid)
