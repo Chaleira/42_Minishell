@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_direct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:14:52 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 17:48:25 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:50:35 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	output_direct(t_command *command, int index)
 {
 	int	fd;
-
+	
+	(void)fd;
 	if (command->terminal[index + 2])
 	{
 		command->valid = 0;
