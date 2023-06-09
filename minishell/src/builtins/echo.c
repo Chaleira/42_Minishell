@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/09 18:41:22 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:48:35 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	echo_prepare(t_command *command, int index)
 	command->execute = builtin_execute;
 }
 
-void	echo_prepare(t_command *command, int index)
-{
-	command->flags = copy_split(&command->terminal[index + 1]);
-	while (command->terminal[index] && !split_case(command->terminal[index]))
-		*command->terminal[index++] = 0;
-}
+// void	echo_prepare(t_command *command, int index)
+// {
+// 	command->flags = copy_split(&command->terminal[index + 1]);
+// 	while (command->terminal[index] && !split_case(command->terminal[index]))
+// 		*command->terminal[index++] = 0;
+// }

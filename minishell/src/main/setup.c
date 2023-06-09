@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 17:39:48 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/10 00:35:36 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	setup(t_control *get, char **envp)
 	get->pwd = getcwd(NULL, 0);
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);
+	// get->in_out[0] = STDIN_FILENO;
+	// get->in_out[1] = STDOUT_FILENO;
 	signal(SIGINT, temp_controlc);
 	*control() = get;
 }

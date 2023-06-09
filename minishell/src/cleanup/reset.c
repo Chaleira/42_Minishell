@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 18:00:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 00:53:51 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	input_reset(t_control *get)
 	if (get->tempfile)
 	{
 		unlink(get->tempfile);
-		get->tempfile = NULL;
+		safe_free_null(&get->tempfile);
 	}
 }
 

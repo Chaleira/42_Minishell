@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 19:15:58 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 00:50:14 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,20 @@ void	find_directions(t_list *this)
 
 void	run_input(t_list *node)
 {
+	int	pid;
+	int	status;
+
+	pid = -1;
+	status = 0;
 	while (node)
 	{
 		find_directions(node);
 		execute_command((t_command *)node->content);
+		pid = ((t_command *)node->content)->id;
 		node = node->next;
 	}
-	wait(0);
+	if (pid > 0)
+		waitpid(pid, &status, 0);
 }
 
 void	safe_close_fd(int fd, int fd2)
@@ -54,7 +61,6 @@ void	check_dup2(int in, int out)
 		dup2(in, STDIN_FILENO);
 	if (!isatty(out))
 		dup2(out, STDOUT_FILENO);
-	
 }
 
 void	execute_command(t_command *get)
@@ -62,35 +68,15 @@ void	execute_command(t_command *get)
 	get->id = fork();
 	if (!get->id)
 	{
-		close(get->in_pipe[1]);
-		close(get->out_pipe[0]);
-		dup2(get->in_pipe[0], STDIN_FILENO);
-		dup2(get->out_pipe[1], STDOUT_FILENO);
+		if (!isatty(get->out_pipe[0]))
+			close(get->out_pipe[0]);
+		check_dup2(get->in_pipe[0], get->out_pipe[1]);
 		get->execute(get->exec_path, get->flags, get->main->envp, get);
 		end_shell(get->main);
 	}
 	else
-	{
-		if (get->in_pipe[0] != get->main->in_out[0])
-			close (get->in_pipe[0]);
-		if (get->out_pipe[1] != get->main->in_out[1])
-			close(get->out_pipe[1]);
-	}
+		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
 }
-
-// void	execute_command(t_command *get)
-// {
-// 	get->id = fork();
-// 	if (!get->id)
-// 	{
-// 		safe_close_fd(get->in_pipe[1], get->out_pipe[0]);
-// 		check_dup2(get->in_pipe[0], get->out_pipe[1]);
-// 		get->execute(get->exec_path, get->flags, get->main->envp, get);
-// 		end_shell(get->main);
-// 	}
-// 	else
-// 		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
-// }
 
 /* cd primeiro vai verificar se a pasta existe e dar mensagem de erro
 depois veriricar se existe mais de um comando e executar de acordo.
