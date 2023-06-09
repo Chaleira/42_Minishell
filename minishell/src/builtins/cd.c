@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/09 17:43:51 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:48:02 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	cd_execute(char *str)
 		return ;
 	if (chdir(str))
 		ft_printf("minishell: cd: %s: Not a directory\n", str);
-	((t_control *)control())->pwd = getcwd(NULL, 0);
+	(*control())->pwd = getcwd(NULL, 0);
 }
 
 void	cd_prepare(t_command *command, int index)
