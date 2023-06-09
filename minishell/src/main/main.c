@@ -21,7 +21,7 @@ t_control	**control(void)
 
 void	catch_input(t_control *get)
 {
-	char	*line;
+	// char	*line;
 	char	*new;
 
 	// line = NULL;

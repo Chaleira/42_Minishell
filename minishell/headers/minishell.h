@@ -20,10 +20,10 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <termcap.h>
-# include <curses.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
+// # include <termcap.h>
+// # include <curses.h>
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)

@@ -33,7 +33,7 @@ all: 		$(NAME)
 
 $(NAME):	$(SRCS)
 			@make bonus -s -C src/libft
-			@$(CC) $(CFLAGS) $(SRCS) src/libft/libft.a -o $(NAME) $(LIBFLAGS)
+			@$(CC) $(CFLAGS) $(SRCS) src/libft/libft.a -o $(NAME)
 			@echo "[$(COLOR_GREEN)info$(COLOR_RESET)]: Minishell Built"
 
 clean:
