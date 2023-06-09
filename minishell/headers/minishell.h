@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 18:39:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:46:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
@@ -39,6 +39,7 @@ struct s_control {
 	char		**paths;
 	char		***pieces;
 	char		*pwd;
+	char		*tempfile;
 	int			in_out[2];
 	int			pipe[2];
 	int			pipes;
@@ -104,8 +105,8 @@ void		exit_execute(t_command *command, int index);
 void		export_prepare(t_command *command, int index);
 void		export_execute(char *print);
 void		unset_prepare(t_command *command, int index);
-void		output_direct(t_command *command, int index);
-void		append_direct(t_command *command, int index);
-char		**copy_split(char **split);
+void		output_redirect(t_command *command, int index);
+void	input_redirect(t_command *command, int index);
+
 
 #endif

@@ -6,15 +6,13 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 18:07:00 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:46:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	input_direct(){}
 void	pipe_output(){}
-void	here_doc(){}
 void	export_builtin(){}
 void	unset_builtin(){}
 
@@ -104,8 +102,8 @@ t_exe	solve(char *find)
 		"exit", NULL
 	};
 	static t_exe	functions[14] = {
-		do_nothing, append_direct, input_direct, output_direct,
-		here_doc, pipe_output, echo_prepare, cd_prepare,
+		do_nothing, output_redirect, input_redirect, output_redirect,
+		input_redirect, pipe_output, echo_prepare, cd_prepare,
 		pwd_prepare, export_prepare, unset_prepare, env_prepare,
 		exit_execute, try_command
 	};

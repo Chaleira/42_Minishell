@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_direct.c                                    :+:      :+:    :+:   */
+/*   output_redirectct.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:14:52 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 18:30:39 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:28:40 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	append_direct(t_command *command, int index)
+void	output_redirect(t_command *command, int index)
 {
-	if (command->terminal[index + 2])
+	if (!ft_strncmp(command->terminal[index], ">>", 2))
+		command->in_pipe[0] = open(command->terminal[index + 1], O_CREAT | O_RDWR);
+	else
+		command->in_pipe[0] = open(command->terminal[index + 1], O_CREAT | O_APPEND | O_RDWR);
+	if (command->in_pipe[0] < 0)
 	{
-		command->valid = 0;
-		return ;
-	}
-	command->out_pipe[1] = open(command->terminal[index + 1], O_APPEND | O_CREAT | O_WRONLY);
-	if (command->out_pipe[1] < 0)
-	{
-		ft_printf("permission denied: %s\n", command->terminal[index + 1]);
 		command->valid = 0;
 		command->parse = 0;
+		ft_printf("Error opening file: %s\n", command->terminal[index + 1]);
 		return ;
 	}
-	*command->terminal[index + 1] = 0;
+	command->terminal[index + 1][0] = 0;
 }
