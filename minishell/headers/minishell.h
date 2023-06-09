@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 16:34:43 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:41:53 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void		pwd_prepare(t_command *get, int index);
 void		do_nothing(void);
 
 void		end_shell(t_control *get);
-void		**control(void);
+t_control	**control(void);
 int			split_case(char *line);
 
 void		find_directions(t_list *this);
@@ -104,5 +104,6 @@ void		exit_execute(t_command *command, int index);
 void		export_prepare(t_command *command, int index);
 void		export_execute(char *print);
 void		unset_prepare(t_command *command, int index);
+void		output_direct(t_command *command, int index);
 
 #endif

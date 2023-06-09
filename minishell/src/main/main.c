@@ -6,15 +6,15 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 17:07:48 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:41:25 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	**control(void)
+t_control	**control(void)
 {
-	static void	*get;
+	static t_control	*get;
 
 	return (&get);
 }
