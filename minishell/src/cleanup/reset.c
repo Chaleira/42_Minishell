@@ -35,6 +35,11 @@ void	input_reset(t_control *get)
 	ft_lstclear(&get->commands, (void *)delete_command);
 	free_shellsplit(&get->pieces);
 	safe_free_null(&get->input);
+	if (get->tempfile)
+	{
+		unlink(get->tempfile);
+		get->tempfile = NULL;
+	}
 }
 
 void	safe_free_null(char **string)

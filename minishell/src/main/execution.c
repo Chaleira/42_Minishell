@@ -40,6 +40,23 @@ void	run_input(t_list *node)
 	wait(0);
 }
 
+void	safe_close_fd(int fd, int fd2)
+{
+	if (!isatty(fd))
+		close(fd);
+	if (!isatty(fd2))
+		close(fd2);
+}
+
+void	check_dup2(int in, int out)
+{
+	if (!isatty(in))
+		dup2(in, STDIN_FILENO);
+	if (!isatty(out))
+		dup2(out, STDOUT_FILENO);
+	
+}
+
 void	execute_command(t_command *get)
 {
 	get->id = fork();
@@ -60,6 +77,20 @@ void	execute_command(t_command *get)
 			close(get->out_pipe[1]);
 	}
 }
+
+// void	execute_command(t_command *get)
+// {
+// 	get->id = fork();
+// 	if (!get->id)
+// 	{
+// 		safe_close_fd(get->in_pipe[1], get->out_pipe[0]);
+// 		check_dup2(get->in_pipe[0], get->out_pipe[1]);
+// 		get->execute(get->exec_path, get->flags, get->main->envp, get);
+// 		end_shell(get->main);
+// 	}
+// 	else
+// 		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
+// }
 
 /* cd primeiro vai verificar se a pasta existe e dar mensagem de erro
 depois veriricar se existe mais de um comando e executar de acordo.
