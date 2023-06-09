@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 17:46:30 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:27:03 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_control	**control(void)
 
 void	catch_input(t_control *get)
 {
-	// char	*line;
+	char	*line;
 	char	*new;
 
 	// line = NULL;
