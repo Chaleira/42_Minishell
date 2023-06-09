@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/08 19:13:05 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 14:27:02 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int			is_listchr(char **string, char find);
 
 void		env_prepare(t_command *command, int index);
 void		exit_execute(t_command *command, int index);
-void	export_prepare(t_command *command, int index);
-void	export_execute(char *print);
+void		export_prepare(t_command *command, int index);
+void		export_execute(char *print);
 
 
 #endif
