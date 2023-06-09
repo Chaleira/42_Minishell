@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/08 16:16:51 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:41:22 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	fix_echo_flag(char *string)
+{
+	int	i;
+
+	i = 0;
+	while (string[i] && !split_case(&string[i]))
+		i++;
+	string[i] = '\n';
+	string[i + 1] = '\0';
+}
 
 void	echo_prepare(t_command *command, int index)
 {
@@ -33,9 +44,17 @@ void	echo_prepare(t_command *command, int index)
 			command->exec_path = ft_unsplit(&command->terminal[index + 1], 0, ' ');
 			if (flag)
 				command->exec_path[ft_strlen(command->exec_path) - 1] = 0;
+			// fix_echo_flag(command->exec_path);
 		}
-		while (command->terminal[index])
+		while (command->terminal[index] && !split_case(command->terminal[index]))
 			*command->terminal[index++] = 0;
 	}
 	command->execute = builtin_execute;
+}
+
+void	echo_prepare(t_command *command, int index)
+{
+	command->flags = copy_split(&command->terminal[index + 1]);
+	while (command->terminal[index] && !split_case(command->terminal[index]))
+		*command->terminal[index++] = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 17:37:11 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:07:00 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_exe	solve(char *find)
 		"exit", NULL
 	};
 	static t_exe	functions[14] = {
-		do_nothing, output_direct, input_direct, output_direct,
+		do_nothing, append_direct, input_direct, output_direct,
 		here_doc, pipe_output, echo_prepare, cd_prepare,
 		pwd_prepare, export_prepare, unset_prepare, env_prepare,
 		exit_execute, try_command
