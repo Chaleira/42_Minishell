@@ -6,13 +6,13 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 18:08:28 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 03:56:10 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:07:33 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	is_listchr(char **string, char find)
+int	count_cases(char **string, char find)
 {
 	int	count;
 	int	i;
@@ -39,7 +39,7 @@ void	normalize_input(t_control *get)
 	if (!get->input)
 		return ;
 	split = shell_split(get->input);
-	get->pipes = is_listchr(split, '|');
+	get->pipes = count_cases(split, '|');
 	get->pieces = ft_calloc(sizeof(char **), get->pipes + 2);
 	get->pieces[0] = split;
 	j = 1;

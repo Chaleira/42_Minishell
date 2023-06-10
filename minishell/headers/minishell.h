@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 03:50:42 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:15:11 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,55 +61,64 @@ typedef struct s_command {
 	t_exe		execute;
 }	t_command;
 
-char		*sttc_itoa(int number);
-void		free_biarray(void **arg, int size);
-char		*ft_stradd(char **original, char *add);
-char		**shell_split(char *s);
-void		free_split(char **arg);
-void		delete_command(void *command);
-void		printf_input(t_control *get);
+// Main
+void		catch_input(t_control *get);
+t_control	**control(void);
 
-void		normalize_input(t_control *get);
-int			ignore_quotes(char *string);
-void		free_shellsplit(char ****arg);
-
-void		execve_aux(t_command *get);
-void		setup(t_control *get, char **envp);
-void		structure_commands(t_control *get);
+//Execution
 void		run_input(t_list *node);
+void		find_directions(t_list *this);
+void		execute_command(t_command *get);
+void		check_dup2(int in, int out);
+void		safe_close_fd(int fd, int fd2);
 
+// Commands
+void		structure_commands(t_control *get);
+t_command	*new_command(t_control *get);
+t_exe		solve(char *find);
+void		try_command(t_command *get, int index);
+char		*build_executable_path(t_control *get, char *command);
+
+// Normalize
+void		normalize_input(t_control *get);
+int			count_cases(char **string, char find);
+
+// Cleanup/Reset
+void		end_shell(t_control *get);
+void		input_reset(t_control *get);
+void		delete_command(void *command);
 void		safe_free_null(char **string);
 
+char		*sttc_itoa(int number);
+char		*ft_stradd(char **original, char *add);
 char		*ft_unsplit(char **split, int posize, char c);
+int			is_space(char c);
+
+char		**shell_split(char *s);
+void		free_shellsplit(char ****arg);
+char		**copy_shellsplit(char **split);
+int			split_case(char *line);
+void		free_split(char **arg);
+int			ignore_quotes(char *string);
+
+void		setup(t_control *get, char **envp);
+
+// Built-in prepare | execute
+void		cd_prepare(t_command *command, int index);
 void		echo_prepare(t_command *command, int index);
 void		pwd_prepare(t_command *get, int index);
-void		do_nothing(void);
-
-void		end_shell(t_control *get);
-t_control	**control(void);
-int			split_case(char *line);
-
-void		find_directions(t_list *this);
-t_exe		solve(char *find);
-
-void		input_reset(t_control *get);
-void		builtin_execute(char *print);
-void		execute_command(t_command *get);
-int			is_space(char c);
-void		cd_execute(char	*str);
-void		cd_prepare(t_command *command, int index);
-int			is_listchr(char **string, char find);
-
 void		env_prepare(t_command *command, int index);
-void		exit_execute(t_command *command, int index);
 void		export_prepare(t_command *command, int index);
-void		export_execute(char *print);
 void		unset_prepare(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
 void		input_redirect(t_command *command, int index);
-char		**copy_shellsplit(char **split);
-void		safe_close_fd(int fd, int fd2);
 
+void		do_nothing(void);
+void		builtin_execute(char *print);
+void		cd_execute(char	*str);
+void		exit_execute(t_command *command, int index);
+void		export_execute(char *print);
 
+void		printf_input(t_control *get);
 
 #endif
