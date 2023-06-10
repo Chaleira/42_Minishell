@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 01:38:30 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 03:41:40 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	find_directions(t_list *this)
 		get->in_pipe[0] = ((t_command *)(this->previous->content))->out_pipe[0];
 		get->in_pipe[1] = ((t_command *)(this->previous->content))->out_pipe[1];
 	}
-	if (this->next)
+	if (this->next && isatty(get->out_pipe[1]))
 	{
 		if (pipe(get->out_pipe) < 0)
 			end_shell(*control());
@@ -34,8 +34,6 @@ void	run_input(t_list *node)
 	int	pid;
 	int	status;
 
-	pid = -1;
-	status = 0;
 	while (node)
 	{
 		find_directions(node);
@@ -43,8 +41,7 @@ void	run_input(t_list *node)
 		pid = ((t_command *)node->content)->id;
 		node = node->next;
 	}
-	if (pid > 0)
-		waitpid(pid, &status, 0);
+	waitpid(pid, &status, 0);
 }
 
 void	safe_close_fd(int fd, int fd2)
@@ -68,6 +65,8 @@ void	execute_command(t_command *get)
 	get->id = fork();
 	if (!get->id)
 	{
+		if (!isatty(get->out_pipe[0]))
+			close(get->out_pipe[0]);
 		check_dup2(get->in_pipe[0], get->out_pipe[1]);
 		get->execute(get->exec_path, get->flags, get->main->envp, get);
 		end_shell(get->main);

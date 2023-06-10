@@ -49,7 +49,7 @@ void	input_redirect(t_command *command, int index)
 	if (!ft_strncmp(command->terminal[index], "<<", 2))
 		command->in_pipe[0] = here_doc(command->terminal[index + 1], command->main);
 	else
-		command->in_pipe[0] = open(command->terminal[index + 1], O_RDWR | 0644);
+		command->in_pipe[0] = open(command->terminal[index + 1], O_RDONLY | 0644);
 	if (command->in_pipe[0] < 0)
 	{
 		command->valid = 0;

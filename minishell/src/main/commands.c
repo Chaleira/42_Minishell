@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 02:01:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:17:17 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_command	*new_command(t_control *get)
 	new->parse = 1;
 	new->in_pipe[0] = get->in_out[0];
 	new->out_pipe[1] = get->in_out[1];
-	// new->in_pipe[0] = STDIN_FILENO;
-	// new->out_pipe[1] = STDOUT_FILENO;
 	new->execute = do_nothing;
 	return (new);
 }
@@ -61,17 +59,17 @@ char	*build_executable_path(t_control *get, char *command)
 	return (NULL);
 }
 
-char	**copy_split(char **split)
+char	**copy_shellsplit(char **split)
 {
 	char	**new;
 	int		counter;
 
 	counter = 0;
-	while (split && split[counter] && !split_case(split[counter]))
+	while (split[counter] && !split_case(split[counter]))
 		counter++;
 	new = ft_calloc(sizeof(char *), counter + 1);
 	counter = 0;
-	while (split && split[counter] && !split_case(split[counter]))
+	while (split[counter] && !split_case(split[counter]))
 	{
 		new[counter] = ft_strdup(split[counter]);
 		counter++;
@@ -87,7 +85,7 @@ void	try_command(t_command *get, int index)
 		get->valid = 0;
 		return ;
 	}
-	get->flags = copy_split(&get->terminal[index++]);
+	get->flags = copy_shellsplit(&get->terminal[index++]);
 	while (get->terminal[index] && !split_case(get->terminal[index]))
 		get->terminal[index++][0] = 0;
 	get->execute = (void *)execve;

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/10 02:02:16 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:14:19 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	echo_execute(char *a, char **print)
 
 void	echo_prepare(t_command *command, int index)
 {
-	command->flags = copy_split(&command->terminal[index + 1]);
+	command->flags = copy_shellsplit(&command->terminal[index + 1]);
 	while (command->terminal[index] && !split_case(command->terminal[index]))
 		*command->terminal[index++] = 0;
 	command->execute = echo_execute;
