@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 00:00:39 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:01:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ char	**copy_split(char **split)
 	int		counter;
 
 	counter = 0;
-	while (split[counter] && !split_case(split[counter]))
+	while (split && split[counter] && !split_case(split[counter]))
 		counter++;
 	new = ft_calloc(sizeof(char *), counter + 1);
 	counter = 0;
-	while (split[counter] && !split_case(split[counter]))
+	while (split && split[counter] && !split_case(split[counter]))
 	{
 		new[counter] = ft_strdup(split[counter]);
 		counter++;

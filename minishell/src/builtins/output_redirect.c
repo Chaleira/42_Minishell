@@ -15,10 +15,12 @@
 void	output_redirect(t_command *command, int index)
 {
 	if (!ft_strncmp(command->terminal[index], ">>", 2))
-		command->in_pipe[0] = open(command->terminal[index + 1], O_CREAT | O_RDWR);
+		command->out_pipe[1] = open(command->terminal[index + 1],
+			O_CREAT | O_APPEND | O_RDWR, 0644);
 	else
-		command->in_pipe[0] = open(command->terminal[index + 1], O_CREAT | O_APPEND | O_RDWR);
-	if (command->in_pipe[0] < 0)
+		command->out_pipe[1] = open(command->terminal[index + 1],
+			O_CREAT | O_TRUNC | O_WRONLY);
+	if (command->out_pipe[1] < 0)
 	{
 		command->valid = 0;
 		command->parse = 0;

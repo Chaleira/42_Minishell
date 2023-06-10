@@ -6,12 +6,12 @@ int	get_tempfile(t_control *get)
 	int		fd;
 	char	*file;
 
-	file = ft_strdup("minishell.temp");
+	file = ft_strdup("/tmp/minishell.temp");
 	i = 0;
 	while (!access(file, F_OK))
 	{
 		free(file);
-		file = ft_strjoin("minishell.temp", sttc_itoa(i));
+		file = ft_strjoin("/tmp/minishell.temp", sttc_itoa(i));
 		i++;
 	}
 	fd = open(file, O_CREAT | O_RDWR | 0644);
@@ -31,6 +31,7 @@ int	here_doc(char *eof, t_control *get)
 	eof = ft_strjoin(eof, "\n");
 	while (eof)
 	{
+		write (1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 		length = ft_strlen(line);
 		if (!ft_strncmp(line, eof, length))
@@ -48,7 +49,7 @@ void	input_redirect(t_command *command, int index)
 	if (!ft_strncmp(command->terminal[index], "<<", 2))
 		command->in_pipe[0] = here_doc(command->terminal[index + 1], command->main);
 	else
-		command->in_pipe[0] = open(command->terminal[index + 1], O_CREAT | O_RDWR | 0644);
+		command->in_pipe[0] = open(command->terminal[index + 1], O_RDWR | 0644);
 	if (command->in_pipe[0] < 0)
 	{
 		command->valid = 0;
@@ -56,6 +57,5 @@ void	input_redirect(t_command *command, int index)
 		ft_printf("Error opening file: %s\n", command->terminal[index + 1]);
 		return ;
 	}
-	ft_printf("fd %i\n", command->in_pipe[0]);
 	*command->terminal[index + 1] = 0;
 }

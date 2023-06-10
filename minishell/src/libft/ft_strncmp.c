@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 19:27:36 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/06 14:34:40 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 01:58:43 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	int	i;
 
+	if (!s1 || !s2)
+		return (-1);
 	i = 0;
 	while ((((unsigned char *)s1)[i] || ((unsigned char *)s2)[i]) && n > 0)
 	{

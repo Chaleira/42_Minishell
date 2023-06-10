@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 22:46:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 01:37:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ void		export_prepare(t_command *command, int index);
 void		export_execute(char *print);
 void		unset_prepare(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
-void	input_redirect(t_command *command, int index);
+void		input_redirect(t_command *command, int index);
+char		**copy_split(char **split);
+void		safe_close_fd(int fd, int fd2);
+
 
 
 #endif

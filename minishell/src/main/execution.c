@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 00:50:14 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 01:38:30 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ void	execute_command(t_command *get)
 	get->id = fork();
 	if (!get->id)
 	{
-		if (!isatty(get->out_pipe[0]))
-			close(get->out_pipe[0]);
 		check_dup2(get->in_pipe[0], get->out_pipe[1]);
 		get->execute(get->exec_path, get->flags, get->main->envp, get);
 		end_shell(get->main);

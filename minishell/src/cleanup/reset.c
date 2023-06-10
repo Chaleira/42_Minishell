@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 00:53:51 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 01:51:55 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	end_shell(t_control *get)
 {
 	input_reset(get);
 	free_split(get->paths);
-	free(get->pwd);
+	safe_free_null(&get->pwd);
 	exit(0);
 }
 
@@ -28,6 +28,8 @@ void	delete_command(void *command)
 	free_split(get->flags);
 	safe_free_null(&get->exec_path);
 	free(command);
+	// safe_close_fd(get->in_pipe[0], get->in_pipe[1]);
+	// safe_close_fd(get->out_pipe[0], get->out_pipe[1]);
 }
 
 void	input_reset(t_control *get)
