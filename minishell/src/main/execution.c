@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 03:41:40 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 03:53:17 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,3 @@ void	execute_command(t_command *get)
 	else
 		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
 }
-
-/* cd primeiro vai verificar se a pasta existe e dar mensagem de erro
-depois veriricar se existe mais de um comando e executar de acordo.
-
-
-
-*/

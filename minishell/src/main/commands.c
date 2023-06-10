@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 02:17:17 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 03:59:21 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,6 @@
 void	pipe_output(){}
 void	export_builtin(){}
 void	unset_builtin(){}
-
-void	do_nothing(void)
-{
-	return ;
-}
-
-t_command	*new_command(t_control *get)
-{
-	t_command	*new;
-
-	new = ft_calloc(sizeof(t_command), 1);
-	new->main = get;
-	new->valid = 1;
-	new->parse = 1;
-	new->in_pipe[0] = get->in_out[0];
-	new->out_pipe[1] = get->in_out[1];
-	new->execute = do_nothing;
-	return (new);
-}
 
 char	*build_executable_path(t_control *get, char *command)
 {
@@ -57,24 +38,6 @@ char	*build_executable_path(t_control *get, char *command)
 		write (2, &command[i++], 1);
 	write (2, "\n", 1);
 	return (NULL);
-}
-
-char	**copy_shellsplit(char **split)
-{
-	char	**new;
-	int		counter;
-
-	counter = 0;
-	while (split[counter] && !split_case(split[counter]))
-		counter++;
-	new = ft_calloc(sizeof(char *), counter + 1);
-	counter = 0;
-	while (split[counter] && !split_case(split[counter]))
-	{
-		new[counter] = ft_strdup(split[counter]);
-		counter++;
-	}
-	return (new);
 }
 
 void	try_command(t_command *get, int index)
@@ -115,9 +78,18 @@ t_exe	solve(char *find)
 	return (functions[index]);
 }
 
-void	builtin_execute(char *print)
+t_command	*new_command(t_control *get)
 {
-	ft_printf("%s", print);
+	t_command	*new;
+
+	new = ft_calloc(sizeof(t_command), 1);
+	new->main = get;
+	new->valid = 1;
+	new->parse = 1;
+	new->in_pipe[0] = get->in_out[0];
+	new->out_pipe[1] = get->in_out[1];
+	new->execute = do_nothing;
+	return (new);
 }
 
 void	structure_commands(t_control *get)

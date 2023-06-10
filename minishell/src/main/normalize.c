@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 18:08:28 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 19:24:31 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 03:56:10 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,3 @@ void	normalize_input(t_control *get)
 		i++;
 	}
 }
-
-// int	main(int c, char **v)
-// {
-// 	static t_control	get;
-
-// 	(void)c;
-// 	get.input = v[1];
-// 	normalize_input(&get);
-// 	for (int i = 0; get.pieces[i]; i++)
-// 	{
-// 		for (int j = 0; get.pieces[i][j]; j++)
-// 			printf("%s\n", get.pieces[i][j]);
-// 	}
-// 	free_shellsplit(get.pieces);
-// }
