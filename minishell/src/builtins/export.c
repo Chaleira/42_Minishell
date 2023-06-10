@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/09 16:05:44 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:30:22 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	export_prepare(t_command *command, int index)
 
 void	export_execute(char *print)
 {
-	char **split;
-	int	i;
+	char	**split;
+	int		i;
 
 	split = ft_split(print, '\n');
 	i = 0;
@@ -30,5 +30,5 @@ void	export_execute(char *print)
 	{
 		ft_printf("declare -x %s\n", split[i]);
 		i++;
-	}	
+	}
 }

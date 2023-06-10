@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:15:11 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:24:34 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@
 # include <sys/wait.h>
 // # include <readline/readline.h>
 // # include <readline/history.h>
-# define HERE write(1, "here\n", 5)
-# define ALMOST write(1, "almost\n", 7)
-# define THERE write(1, "there\n", 6)
+// # define HERE write(1, "here\n", 5)
+// # define ALMOST write(1, "almost\n", 7)
+// # define THERE write(1, "there\n", 6)
 
 typedef struct s_control	t_control;
-typedef struct s_func		t_func;
-typedef struct s_shell		t_shell;
 typedef struct s_command	t_command;
 typedef struct sigaction	t_sigaction;
 typedef void				(*t_exe)();
@@ -89,21 +87,7 @@ void		input_reset(t_control *get);
 void		delete_command(void *command);
 void		safe_free_null(char **string);
 
-char		*sttc_itoa(int number);
-char		*ft_stradd(char **original, char *add);
-char		*ft_unsplit(char **split, int posize, char c);
-int			is_space(char c);
-
-char		**shell_split(char *s);
-void		free_shellsplit(char ****arg);
-char		**copy_shellsplit(char **split);
-int			split_case(char *line);
-void		free_split(char **arg);
-int			ignore_quotes(char *string);
-
-void		setup(t_control *get, char **envp);
-
-// Built-in prepare | execute
+// Built-in: prepare | execute
 void		cd_prepare(t_command *command, int index);
 void		echo_prepare(t_command *command, int index);
 void		pwd_prepare(t_command *get, int index);
@@ -119,6 +103,23 @@ void		cd_execute(char	*str);
 void		exit_execute(t_command *command, int index);
 void		export_execute(char *print);
 
+// Shellsplit + 4 statics
+char		**shell_split(char *s);
+
+// Shellsplit Utils
+int			split_case(char *line);
+void		free_shellsplit(char ****arg);
+char		**copy_shellsplit(char **split);
+int			ignore_quotes(char *string);
+void		free_split(char **arg);
+
+// Libft Plus
+char		*sttc_itoa(int number);
+char		*ft_stradd(char **original, char *add);
+char		*ft_unsplit(char **split, int posize, char c);
+int			is_space(char c);
+
+void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
 
 #endif

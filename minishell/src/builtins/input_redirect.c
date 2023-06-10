@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_redirect.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/10 04:27:44 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/06/10 04:27:44 by rteles-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 int	get_tempfile(t_control *get)
@@ -47,9 +59,11 @@ int	here_doc(char *eof, t_control *get)
 void	input_redirect(t_command *command, int index)
 {
 	if (!ft_strncmp(command->terminal[index], "<<", 2))
-		command->in_pipe[0] = here_doc(command->terminal[index + 1], command->main);
+		command->in_pipe[0]
+			= here_doc(command->terminal[index + 1], command->main);
 	else
-		command->in_pipe[0] = open(command->terminal[index + 1], O_RDONLY | 0644);
+		command->in_pipe[0]
+			= open(command->terminal[index + 1], O_RDONLY | 0644);
 	if (command->in_pipe[0] < 0)
 	{
 		command->valid = 0;

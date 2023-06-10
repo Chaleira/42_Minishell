@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:09:16 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/07 15:48:33 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:20:44 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,6 @@
 static int	getwords(char *s);
 static int	fill_list(char *s, char **list);
 static char	*checkmalloc(int size, int members, char **list);
-
-int	split_case(char *line)
-{
-	if (!*line)
-		return (0);
-	else if (*line == '<' && *(line + 1) && *(line + 1) == '<')
-		return (2);
-	else if (*line == '>' && *(line + 1) && *(line + 1) == '>')
-		return (2);
-	else if (*line == '>' || *line == '<')
-		return (1);
-	else if (*line == '|')
-		return (1);
-	return (0);
-}
 
 char	**shell_split(char *s)
 {

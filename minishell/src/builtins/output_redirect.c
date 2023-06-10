@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_redirectct.c                                    :+:      :+:    :+:   */
+/*   output_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 17:14:52 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/09 18:28:40 by plopes-c         ###   ########.fr       */
+/*   Created: 2023/06/10 04:29:58 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/06/10 04:30:39 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	output_redirect(t_command *command, int index)
 {
 	if (!ft_strncmp(command->terminal[index], ">>", 2))
 		command->out_pipe[1] = open(command->terminal[index + 1],
-			O_CREAT | O_APPEND | O_WRONLY, 0644);
+				O_CREAT | O_APPEND | O_WRONLY, 0644);
 	else
 		command->out_pipe[1] = open(command->terminal[index + 1],
-			O_CREAT | O_TRUNC | O_WRONLY, 0644);
+				O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (command->out_pipe[1] < 0)
 	{
 		command->valid = 0;

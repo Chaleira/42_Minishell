@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:06:00 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:26:00 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ void	setup(t_control *get, char **envp)
 	signal(SIGINT, temp_controlc);
 	*control() = get;
 }
-

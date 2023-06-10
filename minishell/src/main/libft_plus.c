@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_usual.c                                      :+:      :+:    :+:   */
+/*   libft_plus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/08 16:16:02 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:24:40 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,4 @@ char	*sttc_itoa(int number)
 	if (sign < 0)
 		to_ascii[--index] = '-';
 	return (&to_ascii[index]);
-}
-
-void	free_biarray(void **arg, int size)
-{
-	int		i;
-
-	i = 0;
-	while (i < size)
-		free(arg[i++]);
-	free(arg);
 }
