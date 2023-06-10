@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:24:34 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:53:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void		cd_execute(char	*str);
 void		exit_execute(t_command *command, int index);
 void		export_execute(char *print);
 
-// Shellsplit + 4 statics
+// Shellsplit + 4
 char		**shell_split(char *s);
 
 // Shellsplit Utils

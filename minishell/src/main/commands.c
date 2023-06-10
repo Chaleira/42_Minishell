@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:31:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/10 04:52:08 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,18 @@ void	pipe_output(void)
 	return ;
 }
 
-void	export_builtin(void)
-{
-	return ;
-}
-
-void	unset_builtin(void)
-{
-	return ;
-}
-
 char	*build_executable_path(t_control *get, char *command)
 {
 	int		i;
 	char	*exec_path;
 
-	if ((command[0] == '/' || command[0] == '.')
-		&& !(command[0] == '.' && command[1] == '.') && !access(command, F_OK))
+	if ((command[0] == '.' && command[1] == '.')
+		|| (command[0] == '.' && !command[1]))
+	{
+		ft_printf("command not found: %s\n", command);
+		return (NULL);
+	}
+	if (!access(command, F_OK))
 		return (ft_strdup(command));
 	i = 0;
 	while (get->paths[i])
@@ -43,11 +38,7 @@ char	*build_executable_path(t_control *get, char *command)
 			return (exec_path);
 		free(exec_path);
 	}
-	write (2, "command not found: ", 19);
-	i = 0;
-	while (command[i])
-		write (2, &command[i++], 1);
-	write (2, "\n", 1);
+	ft_printf("command not found: %s\n", command);
 	return (NULL);
 }
 
