@@ -16,10 +16,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-// # include <libft.h>
+# include <libft.h>
 # include <signal.h>
 # include <stdbool.h>
-// # include <sys/wait.h>
+# include <sys/wait.h>
 // # include <readline/readline.h>
 // # include <readline/history.h>
 // # define HERE write(1, "here\n", 5)
@@ -32,13 +32,6 @@ typedef struct s_terminal	t_terminal;
 typedef struct sigaction	t_sigaction;
 typedef void				(*t_exe)();
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-	struct s_list	*previous;
-}					t_list;
-
 struct s_control {
 	char		*input;
 	char		**envp;
@@ -47,9 +40,8 @@ struct s_control {
 	char		*pwd;
 	char		*tempfile;
 	int			in_out[2];
-	int			pipe[2];
 	int			pipes;
-	int			end;
+	int			status;
 	t_sigaction	siginfo;
 	t_list		*commands;
 } ;
@@ -134,5 +126,7 @@ int			is_space(char c);
 
 void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
+void		control_D(int signal);
+
 
 #endif

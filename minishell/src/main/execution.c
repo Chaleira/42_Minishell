@@ -32,8 +32,10 @@ void	find_directions(t_list *this)
 void	run_input(t_list *node)
 {
 	int	pid;
-	int	status;
+	int	*status;
 
+	if (node)
+		status = &((t_command *)node->content)->main->status;
 	while (node)
 	{
 		find_directions(node);
@@ -41,7 +43,7 @@ void	run_input(t_list *node)
 		pid = ((t_command *)node->content)->id;
 		node = node->next;
 	}
-	waitpid(pid, &status, 0);
+	waitpid(pid, status, 0);
 }
 
 void	execute_command(t_command *get)

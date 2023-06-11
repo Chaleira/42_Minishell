@@ -12,11 +12,6 @@
 
 #include <minishell.h>
 
-void	pipe_output(void)
-{
-	return ;
-}
-
 char	*build_executable_path(t_control *get, char *command)
 {
 	int		i;
@@ -60,17 +55,17 @@ t_exe	solve(char *find)
 {
 	int				index;
 	int				length;
-	static char		*cases[14] = {
+	static char		*cases[13] = {
 		"", ">>", "<<", ">",
-		"<", "|", "echo", "cd",
-		"pwd", "export", "unset", "env",
-		"exit", NULL
+		"<", "echo", "cd", "pwd",
+		"export", "unset", "env", "exit",
+		NULL
 	};
-	static t_exe	functions[14] = {
+	static t_exe	functions[13] = {
 		do_nothing, output_redirect, input_redirect, output_redirect,
-		input_redirect, pipe_output, echo_prepare, cd_prepare,
-		pwd_prepare, export_prepare, unset_prepare, env_prepare,
-		exit_execute, try_command
+		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
+		export_prepare, unset_prepare, env_prepare, exit_execute,
+		try_command
 	};
 
 	length = ft_strlen(find);
