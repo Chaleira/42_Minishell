@@ -23,7 +23,7 @@ char	*build_executable_path(t_control *get, char *command)
 		ft_printf("command not found: %s\n", command);
 		return (NULL);
 	}
-	if (!access(command, F_OK))
+	if (!access(command, F_OK) && *command == '/')
 		return (ft_strdup(command));
 	i = 0;
 	while (get->paths[i])
