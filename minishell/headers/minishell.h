@@ -16,10 +16,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <libft.h>
+// # include <libft.h>
 # include <signal.h>
 # include <stdbool.h>
-# include <sys/wait.h>
+// # include <sys/wait.h>
 // # include <readline/readline.h>
 // # include <readline/history.h>
 // # define HERE write(1, "here\n", 5)
@@ -28,8 +28,16 @@
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
+typedef struct s_terminal	t_terminal;
 typedef struct sigaction	t_sigaction;
 typedef void				(*t_exe)();
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+	struct s_list	*previous;
+}					t_list;
 
 struct s_control {
 	char		*input;
@@ -46,7 +54,7 @@ struct s_control {
 	t_list		*commands;
 } ;
 
-typedef struct s_command {
+struct s_command {
 	char		*exec_path;
 	char		**flags;
 	char		**terminal;
@@ -57,7 +65,12 @@ typedef struct s_command {
 	int			parse;
 	t_control	*main;
 	t_exe		execute;
-}	t_command;
+} ;
+
+struct s_terminal {
+	int		a;
+	t_list	*history;
+} ;
 
 // Main
 void		catch_input(t_control *get);
