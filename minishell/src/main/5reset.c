@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 12:49:53 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:53:09 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	end_shell(t_control *get)
 {
 	input_reset(get);
 	free_split(get->paths);
-	safe_free_null(&get->pwd);
+	safe_free_null(&get->prompt);
 	rl_clear_history();
 	exit(get->status);
 }

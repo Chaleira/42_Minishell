@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 12:41:06 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:00:06 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
-typedef struct s_terminal	t_terminal;
 typedef struct sigaction	t_sigaction;
 typedef void				(*t_exe)();
 
@@ -37,7 +36,7 @@ struct s_control {
 	char		**envp;
 	char		**paths;
 	char		***pieces;
-	char		*pwd;
+	char		*prompt;
 	int			in_out[2];
 	int			pipes;
 	int			status;
@@ -56,11 +55,6 @@ struct s_command {
 	int			parse;
 	t_control	*main;
 	t_exe		execute;
-} ;
-
-struct s_terminal {
-	int		a;
-	t_list	*history;
 } ;
 
 // Main
@@ -126,6 +120,6 @@ int			is_space(char c);
 void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
 void		control_D(int signal);
-char		*this_folder(void);
+char		*get_prompt(void);
 
 #endif

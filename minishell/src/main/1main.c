@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 12:29:47 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:53:09 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_control	**control(void)
 
 void	catch_input(t_control *get)
 {
-	get->input = readline(get->pwd);
+	get->input = readline(get->prompt);
 	if (!get->input)
 		control_D(0);
 	else
