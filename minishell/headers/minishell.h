@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 10:01:44 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:41:06 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <sys/wait.h>
-// # include <readline/readline.h>
-// # include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 // # define HERE write(1, "here\n", 5)
 // # define ALMOST write(1, "almost\n", 7)
 // # define THERE write(1, "there\n", 6)
@@ -49,7 +49,6 @@ struct s_command {
 	char		*exec_path;
 	char		**flags;
 	char		**terminal;
-	char		*tempfile;
 	int			id;
 	int			in_pipe[2];
 	int			out_pipe[2];
@@ -69,7 +68,7 @@ void		catch_input(t_control *get);
 t_control	**control(void);
 
 //Execution
-void		run_input(t_list *node);
+void		run_input(t_control *get);
 void		find_directions(t_list *this);
 void		execute_command(t_command *get);
 void		check_dup2(int in, int out);
@@ -127,6 +126,6 @@ int			is_space(char c);
 void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
 void		control_D(int signal);
-
+char		*this_folder(void);
 
 #endif

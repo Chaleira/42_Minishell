@@ -12,34 +12,16 @@
 
 #include <minishell.h>
 
-int	get_tempfile(t_command *get)
+void	here_doc(char *eof, t_command *get)
 {
-	int		i;
-	int		fd;
-	char	*file;
-
-	file = ft_strdup("/tmp/minishell.temp");
-	i = 0;
-	while (!access(file, F_OK))
-	{
-		free(file);
-		file = ft_strjoin("/tmp/minishell.temp", sttc_itoa(i));
-		i++;
-	}
-	fd = open(file, O_CREAT | O_RDWR | 0644);
-	get->tempfile = file;
-	return (fd);
-}
-
-int	here_doc(char *eof, t_command *get)
-{
-	int		fd;
 	char	*line;
 	int		length;
 
-	fd = get_tempfile(get);
-	if (fd < 0)
-		return (fd);
+	if (pipe(get->in_pipe) < 0)
+	{
+		get->in_pipe[0] = -1;
+		return ;
+	}
 	eof = ft_strjoin(eof, "\n");
 	while (eof)
 	{
@@ -49,18 +31,17 @@ int	here_doc(char *eof, t_command *get)
 		if (!ft_strncmp(line, eof, length))
 			safe_free_null(&eof);
 		else if (line)
-			write(fd, line, length);
-		free(line);
+		{
+			write(get->in_pipe[1], line, length);
+			free(line);
+		}
 	}
-	close(fd);
-	return (open(get->tempfile, O_RDONLY, 0644));
 }
 
 void	input_redirect(t_command *command, int index)
 {
 	if (!ft_strncmp(command->terminal[index], "<<", 2))
-		command->in_pipe[0]
-			= here_doc(command->terminal[index + 1], command);
+		here_doc(command->terminal[index + 1], command);
 	else
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);

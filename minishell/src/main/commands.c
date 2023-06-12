@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:52:08 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:44:10 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ t_command	*new_command(t_control *get)
 
 void	structure_commands(t_control *get)
 {
-	t_command	*command;
 	int			i;
 	int			j;
+	t_command	*command;
 
 	i = 0;
 	while (get->pieces && get->pieces[i])
@@ -106,10 +106,7 @@ void	structure_commands(t_control *get)
 			(solve(get->pieces[i][j]))(command, j);
 			j++;
 		}
-		if (command->valid)
-			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
-		else
-			delete_command(command);
+		ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/09 17:59:25 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 11:26:22 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ void	cd_execute(char *str)
 	if (!str)
 		return ;
 	if (chdir(str))
+	{
 		ft_printf("minishell: cd: %s: Not a directory\n", str);
+		return ;
+	}
 	free((*control())->pwd);
-	(*control())->pwd = getcwd(NULL, 0);
+	(*control())->pwd = this_folder();
 }
 
 void	cd_prepare(t_command *command, int index)

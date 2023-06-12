@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:44:35 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:29:47 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,12 @@ t_control	**control(void)
 
 void	catch_input(t_control *get)
 {
-	char	*new;
-
-	(void)get;
-	new = ft_strrchr(get->pwd, '/');
-	ft_printf("\033[1m\033[31mMinishell \033[0m\033[34m%s \
-\033[0;33m✗ \033[0m", (new + 1));
-	get->input = get_next_line(0);
+	get->input = readline(get->pwd);
 	if (!get->input)
 		control_D(0);
+	else
+		add_history(get->input);
+	rl_on_new_line();
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -44,8 +41,8 @@ int	main(int argc, char **argv, char **envp)
 		catch_input(&get);
 		normalize_input(&get);
 		structure_commands(&get);
-		run_input(get.commands);
+		run_input(&get);
 		input_reset(&get);
 	}
-	return (1);
+	return (get.status);
 }
