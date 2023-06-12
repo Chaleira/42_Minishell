@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:24:40 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:35:29 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,17 @@ char	*sttc_itoa(int number)
 	if (sign < 0)
 		to_ascii[--index] = '-';
 	return (&to_ascii[index]);
+}
+
+void	finish_list_with(char **list, char *put)
+{
+	char	*temp;
+
+	while (*list)
+	{
+		temp = ft_strjoin(*list, put);
+		free(*list);
+		*list = temp;
+		list++;
+	}
 }

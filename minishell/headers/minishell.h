@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 13:00:06 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:35:44 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,7 @@ void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
 void		control_D(int signal);
 char		*get_prompt(void);
+void		finish_list_with(char **list, char *put);
+
 
 #endif
