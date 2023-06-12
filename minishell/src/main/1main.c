@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   1main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 12:53:09 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:38:56 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	catch_input(t_control *get)
 {
 	get->input = readline(get->prompt);
 	if (!get->input)
-		control_D(0);
+		control_d(0);
 	else
 		add_history(get->input);
 	rl_on_new_line();

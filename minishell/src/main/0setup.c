@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 13:35:23 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:42:31 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ int	get_paths(char **envp, t_control *get)
 	return (0);
 }
 
-void	control_C(int signal)
+void	control_c(int signal)
 {
 	(void)signal;
 	rl_replace_line("", 1);
 	rl_on_new_line();
-	write(1, "\n",1);
+	write(1, "\n", 1);
 	rl_redisplay();
 }
 
-void	control_D(int signal)
+void	control_d(int signal)
 {
 	(void)signal;
 	write(1, "\n[\033[32minfo\033[0m]: Leaving Minishell\n", 36);
@@ -53,7 +53,7 @@ char	*get_prompt(void)
 
 	temp = getcwd(NULL, 0);
 	folder = ft_strjoin("\033[1m\033[31mMinishell\033[0m\033[34m ",
-		ft_strrchr(temp, '/') + 1);
+			ft_strrchr(temp, '/') + 1);
 	free(temp);
 	ft_stradd(&folder, " \033[0;33m✗ \033[0m");
 	return (folder);
@@ -66,8 +66,8 @@ void	setup(t_control *get, char **envp)
 	get->prompt = get_prompt();
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);
-	signal(SIGINT, control_C);
- 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGUSR1, control_D);
- 	*control() = get;
+	signal(SIGINT, control_c);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGUSR1, control_d);
+	(*control()) = get;
 }
