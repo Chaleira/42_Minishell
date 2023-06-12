@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 13:42:43 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:35:58 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termios.h>
 // # define HERE write(1, "here\n", 5)
 // # define ALMOST write(1, "almost\n", 7)
 // # define THERE write(1, "there\n", 6)
