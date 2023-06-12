@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 14:40:17 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:41:52 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ void	control_d(int signal)
 
 char	*get_prompt(void)
 {
-	char		*temp;
 	char		*folder;
+	char		*prompt;
 
-	temp = getcwd(NULL, 0);
-	folder = ft_strjoin("\001\033[1m\002\001\033[31m\
+	folder = getcwd(NULL, 0);
+	prompt = ft_strjoin("\001\033[1m\002\001\033[31m\
 Minishell\002\001\033[0m\002\001\033[34m\002 ",
-			ft_strrchr(temp, '/') + 1);
-	free(temp);
-	ft_stradd(&folder, " \001\033[0\002;33m✗ \001\033[0m\002");
-	return (folder);
+			ft_strrchr(folder, '/') + 1);
+	free(folder);
+	ft_stradd(&prompt, " \001\033[0\002;33m✗ \001\033[0m\002");
+	return (prompt);
 }
 
 void	setup(t_control *get, char **envp)
