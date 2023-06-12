@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:53:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 10:01:44 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ struct s_control {
 	char		**paths;
 	char		***pieces;
 	char		*pwd;
-	char		*tempfile;
 	int			in_out[2];
 	int			pipe[2];
 	int			pipes;
@@ -50,6 +49,7 @@ typedef struct s_command {
 	char		*exec_path;
 	char		**flags;
 	char		**terminal;
+	char		*tempfile;
 	int			id;
 	int			in_pipe[2];
 	int			out_pipe[2];

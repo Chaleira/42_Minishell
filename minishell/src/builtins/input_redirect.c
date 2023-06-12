@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-int	get_tempfile(t_control *get)
+int	get_tempfile(t_command *get)
 {
 	int		i;
 	int		fd;
@@ -31,7 +31,7 @@ int	get_tempfile(t_control *get)
 	return (fd);
 }
 
-int	here_doc(char *eof, t_control *get)
+int	here_doc(char *eof, t_command *get)
 {
 	int		fd;
 	char	*line;
@@ -60,7 +60,7 @@ void	input_redirect(t_command *command, int index)
 {
 	if (!ft_strncmp(command->terminal[index], "<<", 2))
 		command->in_pipe[0]
-			= here_doc(command->terminal[index + 1], command->main);
+			= here_doc(command->terminal[index + 1], command);
 	else
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);
