@@ -28,8 +28,8 @@ void	catch_input(t_control *get)
 	ft_printf("\033[1m\033[31mMinishell \033[0m\033[34m%s \
 \033[0;33m✗ \033[0m", (new + 1));
 	get->input = get_next_line(0);
-	if (get->input)
-		get->input[ft_strlen(get->input) - 1] = 0;
+	if (!get->input)
+		control_D(0);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	setup(&get, envp);
-	while (!get.end)
+	while (true)
 	{
 		catch_input(&get);
 		normalize_input(&get);

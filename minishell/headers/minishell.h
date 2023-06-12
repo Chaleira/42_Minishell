@@ -28,6 +28,7 @@
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
+typedef struct s_terminal	t_terminal;
 typedef struct sigaction	t_sigaction;
 typedef void				(*t_exe)();
 
@@ -38,14 +39,13 @@ struct s_control {
 	char		***pieces;
 	char		*pwd;
 	int			in_out[2];
-	int			pipe[2];
 	int			pipes;
-	int			end;
+	int			status;
 	t_sigaction	siginfo;
 	t_list		*commands;
 } ;
 
-typedef struct s_command {
+struct s_command {
 	char		*exec_path;
 	char		**flags;
 	char		**terminal;
@@ -57,7 +57,12 @@ typedef struct s_command {
 	int			parse;
 	t_control	*main;
 	t_exe		execute;
-}	t_command;
+} ;
+
+struct s_terminal {
+	int		a;
+	t_list	*history;
+} ;
 
 // Main
 void		catch_input(t_control *get);
@@ -121,5 +126,7 @@ int			is_space(char c);
 
 void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
+void		control_D(int signal);
+
 
 #endif

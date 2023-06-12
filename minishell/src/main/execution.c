@@ -17,7 +17,7 @@ void	find_directions(t_list *this)
 	t_command	*get;
 
 	get = ((t_command *)(this->content));
-	if (this->previous)
+	if (this->previous && isatty(get->in_pipe[0]))
 	{
 		get->in_pipe[0] = ((t_command *)(this->previous->content))->out_pipe[0];
 		get->in_pipe[1] = ((t_command *)(this->previous->content))->out_pipe[1];
@@ -32,8 +32,10 @@ void	find_directions(t_list *this)
 void	run_input(t_list *node)
 {
 	int	pid;
-	int	status;
+	int	*status;
 
+	if (node)
+		status = &((t_command *)node->content)->main->status;
 	while (node)
 	{
 		find_directions(node);
@@ -41,7 +43,22 @@ void	run_input(t_list *node)
 		pid = ((t_command *)node->content)->id;
 		node = node->next;
 	}
-	waitpid(pid, &status, 0);
+	waitpid(pid, status, 0);
+}
+
+void	execute_command(t_command *get)
+{
+	get->id = fork();
+	if (!get->id)
+	{
+		if (!isatty(get->out_pipe[0]))
+			close(get->out_pipe[0]);
+		check_dup2(get->in_pipe[0], get->out_pipe[1]);
+		get->execute(get->exec_path, get->flags, get->main->envp, get);
+		end_shell(get->main);
+	}
+	else
+		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
 }
 
 void	safe_close_fd(int fd, int fd2)
@@ -58,19 +75,4 @@ void	check_dup2(int in, int out)
 		dup2(in, STDIN_FILENO);
 	if (!isatty(out))
 		dup2(out, STDOUT_FILENO);
-}
-
-void	execute_command(t_command *get)
-{
-	get->id = fork();
-	if (!get->id)
-	{
-		if (!isatty(get->out_pipe[0]))
-			close(get->out_pipe[0]);
-		check_dup2(get->in_pipe[0], get->out_pipe[1]);
-		get->execute(get->exec_path, get->flags, get->main->envp, get);
-		end_shell(get->main);
-	}
-	else
-		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
 }

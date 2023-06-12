@@ -12,13 +12,27 @@
 
 #include "minishell.h"
 
+static int	check_flair(char *string)
+{
+	int	i;
+
+	if (!string || *string != '-')
+		return (0);
+	i = 1;
+	while (string[i] && string[i] == 'n')
+		i++;
+	if (string[i])
+		return (0);
+	return (1);
+}
+
 void	echo_execute(char *a, char **print)
 {
 	int	i;
 	int	flag;
 
 	(void)a;
-	flag = !(ft_strncmp(print[0], "-n", 2));
+	flag = check_flair(*print);
 	i = flag;
 	while (print[i])
 	{

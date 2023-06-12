@@ -43,12 +43,13 @@ int	get_paths(char **envp, t_control *get)
 	return (0);
 }
 
-void	signal_handler(void)
+void	control_C(int signal)
 {
-	return ;
+	(void)signal;
+	write(1, "\n", 1);
 }
 
-void	temp_controlc(int signal)
+void	control_D(int signal)
 {
 	(void)signal;
 	write(1, "\n[\033[32minfo\033[0m]: Leaving Minishell\n", 36);
@@ -62,6 +63,7 @@ void	setup(t_control *get, char **envp)
 	get->pwd = getcwd(NULL, 0);
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);
-	signal(SIGINT, temp_controlc);
-	*control() = get;
+	signal(SIGINT, control_C);
+ 	signal(SIGQUIT, SIG_IGN);
+ 	*control() = get;
 }
