@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.c                                         :+:      :+:    :+:   */
+/*   3commands.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 11:44:10 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 18:21:14 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ t_exe	solve(char *find)
 {
 	int				index;
 	int				length;
-	static char		*cases[13] = {
+	static char		*cases[16] = {
 		"", ">>", "<<", ">",
 		"<", "echo", "cd", "pwd",
 		"export", "unset", "env", "exit",
-		NULL
+		";", "&&", "||", NULL
 	};
-	static t_exe	functions[13] = {
+	static t_exe	functions[16] = {
 		do_nothing, output_redirect, input_redirect, output_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
 		export_prepare, unset_prepare, env_prepare, exit_execute,
-		try_command
+		execute_list, check_and_execute, check_or_execute, try_command
 	};
 
 	length = ft_strlen(find);
@@ -101,12 +101,13 @@ void	structure_commands(t_control *get)
 		command = new_command(get);
 		command->terminal = get->pieces[i];
 		j = 0;
-		while (get->pieces[i][j] && command->parse)
+		while (get->pieces[i][j] && command && command->parse)
 		{
 			(solve(get->pieces[i][j]))(command, j);
 			j++;
 		}
-		ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
+		if (command)
+			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
 		i++;
 	}
 }

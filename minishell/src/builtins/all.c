@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   all.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/12 18:17:44 by rteles-f         ###   ########.fr       */
+/*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/06/12 18:20:52 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <minishell.h>
 
-void	export_prepare(t_command *command, int index)
+void	execute_list(t_command *command, int index)
 {
 	(void)index;
-	command->exec_path = ft_unsplit(command->main->envp, 0, '\n');
-	command->execute = export_execute;
-}
-
-void	export_execute(char *print)
-{
-	char	**split;
-	int		i;
-
-	split = ft_split(print, '\n');
-	i = 0;
-	while (split[i])
-	{
-		ft_printf("declare -x %s\n", split[i]);
-		i++;
-	}
+	ft_lstadd_back(&command->main->commands, ft_lstnew((void *)command));
+	run_input(command->main);
+	ft_lstclear(&command->main->commands, delete_command);
 }

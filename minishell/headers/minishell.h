@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 14:35:58 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 18:16:48 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ void		builtin_execute(char *print);
 void		cd_execute(char	*str);
 void		exit_execute(t_command *command, int index);
 void		export_execute(char *print);
+void		check_or_execute(t_command *command, int index);
+void		check_and_execute(t_command *command, int index);
+void		execute_list(t_command *command, int index);
+
 
 // Shellsplit + 4
 char		**shell_split(char *s);
@@ -123,5 +127,8 @@ void		printf_input(t_control *get);
 void		control_d(int signal);
 char		*get_prompt(void);
 void		finish_list_with(char **list, char *put);
+
+int			valid_sequence(t_list *node);
+
 
 #endif

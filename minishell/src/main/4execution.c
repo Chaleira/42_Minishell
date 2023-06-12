@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   4execution.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 11:48:19 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:35:29 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,8 @@ void	run_input(t_control *get)
 	int		pid;
 	t_list	*node;
 
-	node = get->commands;
-	while (node)
-	{
-		if (!((t_command *)node->content)->valid)
-			return ;
-		node = node->next;
-	}
+	if (!valid_sequence(get->commands))
+		return ;
 	node = get->commands;
 	while (node)
 	{

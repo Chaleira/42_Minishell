@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/10 04:20:52 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:40:30 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,11 @@ int	split_case(char *line)
 		return (2);
 	else if (*line == '>' && *(line + 1) && *(line + 1) == '>')
 		return (2);
-	else if (*line == '>' || *line == '<')
+	else if (*line == '|' && *(line + 1) && *(line + 1) == '|')
+		return (2);
+	else if (*line == '&' && *(line + 1) && *(line + 1) == '&')
+		return (2);
+	else if (*line == '>' || *line == '<' || *line == ';')
 		return (1);
 	else if (*line == '|')
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 18:08:28 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 13:44:05 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:08:59 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,32 @@ int	count_cases(char **string, char find)
 	return (count);
 }
 
+void	fix_quotes(char *string)
+{
+	int	i;
+	int	close;
+	int	stop;
+
+	i = 0;
+	while (string[i])
+	{
+		close = ignore_quotes(&string[i]);
+		if (close)
+		{
+			stop = i + close;
+			while (i++ < stop)
+				string[i - 1] = string[i];
+			while (string[++stop])
+				string[stop - 2] = string[stop];
+			string[stop - 1] = 0;
+			string[stop - 2] = 0;
+			i -= 2;
+		}
+		else
+			i++;
+	}
+}
+
 void	normalize_input(t_control *get)
 {
 	char	**split;
@@ -46,6 +72,7 @@ void	normalize_input(t_control *get)
 	i = 0;
 	while (split[i])
 	{
+		fix_quotes(split[i]);
 		if (split[i][0] == '|')
 		{
 			get->pieces[j++] = &split[i + 1];
