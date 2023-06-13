@@ -34,7 +34,7 @@ void	delete_command(void *command)
 void	input_reset(t_control *get)
 {
 	ft_lstclear(&get->commands, (void *)delete_command);
-	free_shellsplit(&get->pieces);
+	free_triple_pointer(&get->pieces);
 	safe_free_null(&get->input);
 }
 
