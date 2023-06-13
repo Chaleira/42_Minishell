@@ -12,10 +12,13 @@
 
 #include <minishell.h>
 
-void	execute_list(t_command *command, int index)
+void	check_condition_execute(t_command *command, int index)
 {
 	(void)index;
-	ft_lstadd_back(&command->main->commands, ft_lstnew((void *)command));
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
+	if (*command->terminal[index] == '|' && command->main->status > 0)
+		free_triple_pointer(command->main->pieces);
+	else if (*command->terminal[index] == '&' && command->main->status < 0)
+		free_triple_pointer(command->main->pieces);
 }

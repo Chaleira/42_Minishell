@@ -15,19 +15,8 @@
 void	check_or_execute(t_command *command, int index)
 {
 	(void)index;
-	command->parse = 0;
-	if (valid_sequence(command->main->commands))
-	{
-		command->parse = 0;
-		command->valid = 0;
-		return ;
-	}
-	ft_lstadd_back(&command->main->commands, ft_lstnew((void *)command));
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
-	if (command->main->status < 0)
-	{
-		command->parse = 0;
-		command->valid = 0;
-	}
+	if (command->main->status > 0)
+		free_triple_pointer(command->main->pieces);
 }

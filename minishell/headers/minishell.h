@@ -48,7 +48,7 @@ struct s_control {
 struct s_command {
 	char		*exec_path;
 	char		**flags;
-	char		**terminal;
+	const char	**terminal;
 	int			id;
 	int			in_pipe[2];
 	int			out_pipe[2];
@@ -88,22 +88,22 @@ void		safe_free_null(char **string);
 
 // Built-in: prepare | execute
 void		cd_prepare(t_command *command, int index);
-void		echo_prepare(t_command *command, int index);
 void		pwd_prepare(t_command *get, int index);
 void		env_prepare(t_command *command, int index);
-void		export_prepare(t_command *command, int index);
+void		echo_prepare(t_command *command, int index);
 void		unset_prepare(t_command *command, int index);
-void		output_redirect(t_command *command, int index);
+void		export_prepare(t_command *command, int index);
 void		input_redirect(t_command *command, int index);
+void		output_redirect(t_command *command, int index);
 
 void		do_nothing(void);
-void		builtin_execute(char *print);
 void		cd_execute(char	*str);
 void		exit_execute(t_command *command, int index);
 void		export_execute(char *print);
+void		builtin_execute(char *print);
 void		check_or_execute(t_command *command, int index);
 void		check_and_execute(t_command *command, int index);
-void		execute_list(t_command *command, int index);
+void		check_condition_execute(t_command *command, int index)
 
 
 // Shellsplit + 4
@@ -121,6 +121,7 @@ char		*sttc_itoa(int number);
 char		*ft_stradd(char **original, char *add);
 char		*ft_unsplit(char **split, int posize, char c);
 int			is_space(char c);
+void		free_triple_pointer(char ***commands);
 
 void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);

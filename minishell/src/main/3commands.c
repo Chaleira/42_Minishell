@@ -55,17 +55,19 @@ t_exe	solve(char *find)
 {
 	int				index;
 	int				length;
-	static char		*cases[16] = {
+	static char		*cases[17] = {
 		"", ">>", "<<", ">",
 		"<", "echo", "cd", "pwd",
 		"export", "unset", "env", "exit",
-		";", "&&", "||", NULL
+		"|", ";", "&&",
+		"||", NULL
 	};
-	static t_exe	functions[16] = {
+	static t_exe	functions[17] = {
 		do_nothing, output_redirect, input_redirect, output_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
 		export_prepare, unset_prepare, env_prepare, exit_execute,
-		execute_list, check_and_execute, check_or_execute, try_command
+		do_nothing, check_condition_execute, check_condition_execute,
+		check_condition_execute, try_command
 	};
 
 	length = ft_strlen(find);
@@ -101,12 +103,12 @@ void	structure_commands(t_control *get)
 		command = new_command(get);
 		command->terminal = get->pieces[i];
 		j = 0;
-		while (get->pieces[i][j] && command && command->parse)
+		while (get->pieces && get->pieces[i][j] && command->parse)
 		{
 			(solve(get->pieces[i][j]))(command, j);
 			j++;
 		}
-		if (command)
+		if (get->pieces)
 			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
 		i++;
 	}

@@ -23,19 +23,13 @@ int	valid_sequence(t_list *node)
 	return (1);
 }
 
+
+
 void	check_and_execute(t_command *command, int index)
 {
 	(void)index;
-	if (!valid_sequence(command->main->commands))
-	{
-		command->parse = 0;
-		command->valid = 0;
-		return ;
-	}
 	run_input(command->main);
+	ft_lstclear(&command->main->commands, delete_command);
 	if (command->main->status < 0)
-	{
-		command->parse = 0;
-		command->valid = 0;
-	}
+		free_triple_pointer(command->main->pieces);
 }

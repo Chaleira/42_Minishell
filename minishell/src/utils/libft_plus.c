@@ -19,6 +19,26 @@ int	is_space(char c)
 	return (0);
 }
 
+void	free_triple_pointer(char ***commands)
+{
+	int	i;
+	int	j;
+
+	if (commands)
+	{
+		i = 0;
+		while (commands[i])
+		{
+			j = 0;
+			while (commands[i][j])
+				free(commands[i][j++]);
+			free(commands[i++]);
+		}
+		free(commands);
+		commands = NULL;
+	}
+}
+
 char	*ft_stradd(char **original, char *add)
 {
 	int		i;

@@ -59,57 +59,57 @@ void	fix_quotes(char *string)
 
 void	
 
-void	normalize_input(t_control *get)
-{
-	int			index;
-	int			end;
-	int			total;
-	char		**split;
-	t_command	*new;
-
-	if (!get->input)
-		return ;
-	split = shell_split(get->input);
-	i = 0;
-	end = 0;
-	while (split[index])
-	{
-		if (*split[index] == '|' || *split[index] == '&' || *split[index] == ';')
-		{
-			j = 0;
-			new->terminal = ft_calloc(sizeof(char *), index - end + 1);
-			while (end < index)
-				new->terminal[j++] = split[end++];
-			ft_lstaddback(&get->pieces2, ft_lstnew((void *)new));
-		}
-		index++;
-	}
-	free(split);
-}
-
 // void	normalize_input(t_control *get)
 // {
-// 	char	**split;
-// 	int		i;
-// 	int		j;
+// 	int			index;
+// 	int			end;
+// 	int			total;
+// 	char		**split;
+// 	t_command	*new;
 
 // 	if (!get->input)
 // 		return ;
 // 	split = shell_split(get->input);
-// 	get->pipes = count_cases(split, '|');
-// 	get->pieces = ft_calloc(sizeof(char **), get->pipes + 2);
-// 	get->pieces[0] = split;
-// 	j = 1;
 // 	i = 0;
-// 	while (split[i])
+// 	end = 0;
+// 	while (split[index])
 // 	{
-// 		fix_quotes(split[i]);
-// 		if (*split[index] == '|' || *split[index] == '&' || *split[index] == '|' || *split[index] == ';')
+// 		if (*split[index] == '|' || *split[index] == '&' || *split[index] == ';')
 // 		{
-// 			get->pieces[j++] = &split[i + 1];
-// 			free(split[i]);
-// 			split[i] = NULL;
+// 			j = 0;
+// 			new->terminal = ft_calloc(sizeof(char *), index - end + 1);
+// 			while (end < index)
+// 				new->terminal[j++] = split[end++];
+// 			ft_lstaddback(&get->pieces2, ft_lstnew((void *)new));
 // 		}
-// 		i++;
+// 		index++;
 // 	}
+// 	free(split);
 // }
+
+void	normalize_input(t_control *get)
+{
+	char	**split;
+	int		i;
+	int		j;
+
+	if (!get->input)
+		return ;
+	split = shell_split(get->input);
+	get->pipes = count_cases(split, '|');
+	get->pieces = ft_calloc(sizeof(char **), get->pipes + 2);
+	get->pieces[0] = split;
+	j = 1;
+	i = 0;
+	while (split[i])
+	{
+		fix_quotes(split[i]);
+		if (*split[index] == '|' || *split[index] == '&' || *split[index] == '|' || *split[index] == ';')
+		{
+			get->pieces[j++] = &split[i + 1];
+			free(split[i]);
+			split[i] = NULL;
+		}
+		i++;
+	}
+}
