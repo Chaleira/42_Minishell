@@ -17,8 +17,8 @@ void	check_condition_execute(t_command *command, int index)
 	(void)index;
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
-	if (*command->terminal[index] == '|' && command->main->status > 0)
+	if (*command->terminal[index] == '|' && command->main->status == 0)
 		free_triple_pointer(command->main->pieces);
-	else if (*command->terminal[index] == '&' && command->main->status < 0)
+	else if (*command->terminal[index] == '&' && command->main->status != 0)
 		free_triple_pointer(command->main->pieces);
 }
