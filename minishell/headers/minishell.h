@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/14 20:49:39 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:06:01 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ struct s_command {
 	t_exe		execute;
 } ;
 
+// Setup
+void		setup(t_control *get, char **envp);
+char		*get_prompt(void);
+void		control_d(int signal);
+void		control_c(int signal);
+
 // Main
 void		catch_input(t_control *get);
 t_control	**control(void);
@@ -101,12 +107,12 @@ void		output_redirect(t_command *command, int index);
 void		do_nothing(void);
 void		cd_execute(char	*str);
 void		exit_execute(t_command *command, int index);
+void		status_execute(char *print);
 void		export_execute(char *print);
 void		builtin_execute(char *print);
 void		check_or_execute(t_command *command, int index);
 void		check_and_execute(t_command *command, int index);
 void		check_condition_execute(t_command *command, int index);
-
 
 // Shellsplit + 4
 char		**shell_split(char *s);
@@ -125,12 +131,8 @@ char		*ft_unsplit(char **split, int posize, char c);
 int			is_space(char c);
 void		*free_triple_pointer(char ***pointer);
 
-void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
-void		control_d(int signal);
-char		*get_prompt(void);
 void		finish_list_with(char **list, char *put);
-
 int			valid_sequence(t_list *node);
 
 
