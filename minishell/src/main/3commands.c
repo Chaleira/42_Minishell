@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 18:21:14 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:34:08 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*build_executable_path(t_control *get, char *command)
 		ft_printf("command not found: %s\n", command);
 		return (NULL);
 	}
-	if (!access(command, F_OK) && *command == '/')
+	if (!access(command, F_OK) && (*command == '/' ||
+		(*command == '.' && *(command + 1) == '/')))
 		return (ft_strdup(command));
 	i = 0;
 	while (get->paths[i])
@@ -110,6 +111,8 @@ void	structure_commands(t_control *get)
 		}
 		if (get->pieces)
 			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
+		else
+			delete_command(command);
 		i++;
 	}
 }

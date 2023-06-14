@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 13:35:29 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:26:16 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,26 @@ int	is_space(char c)
 	return (0);
 }
 
-void	free_triple_pointer(char ***commands)
+void	*free_triple_pointer(char ***pointer)
 {
 	int	i;
 	int	j;
 
-	if (commands)
+	if (pointer)
 	{
 		i = 0;
-		while (commands[i])
+		while (pointer[i])
 		{
 			j = 0;
-			while (commands[i][j])
-				free(commands[i][j++]);
-			free(commands[i++]);
+			while (pointer[i][j])
+			{
+				free(pointer[i][j++]);
+			}
+			free(pointer[i++]);
 		}
-		free(commands);
-		commands = NULL;
+		free(pointer);
 	}
+	return (NULL);
 }
 
 char	*ft_stradd(char **original, char *add)

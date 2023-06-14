@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 18:16:48 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:19:01 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
-// # define HERE write(1, "here\n", 5)
-// # define ALMOST write(1, "almost\n", 7)
-// # define THERE write(1, "there\n", 6)
+# define HERE write(1, "here\n", 5)
+# define ALMOST write(1, "almost\n", 7)
+# define THERE write(1, "there\n", 6)
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
@@ -48,7 +48,7 @@ struct s_control {
 struct s_command {
 	char		*exec_path;
 	char		**flags;
-	const char	**terminal;
+	char		**terminal;
 	int			id;
 	int			in_pipe[2];
 	int			out_pipe[2];
@@ -78,7 +78,7 @@ char		*build_executable_path(t_control *get, char *command);
 
 // Normalize
 void		normalize_input(t_control *get);
-int			count_cases(char **string, char find);
+int		count_cases(char **string);
 
 // Cleanup/Reset
 void		end_shell(t_control *get);
@@ -103,7 +103,7 @@ void		export_execute(char *print);
 void		builtin_execute(char *print);
 void		check_or_execute(t_command *command, int index);
 void		check_and_execute(t_command *command, int index);
-void		check_condition_execute(t_command *command, int index)
+void		check_condition_execute(t_command *command, int index);
 
 
 // Shellsplit + 4
@@ -121,7 +121,7 @@ char		*sttc_itoa(int number);
 char		*ft_stradd(char **original, char *add);
 char		*ft_unsplit(char **split, int posize, char c);
 int			is_space(char c);
-void		free_triple_pointer(char ***commands);
+void		*free_triple_pointer(char ***pointer);
 
 void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
