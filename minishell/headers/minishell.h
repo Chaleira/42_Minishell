@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/14 21:06:01 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:08:26 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
 
+typedef void				(*t_exe)();
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
 typedef struct sigaction	t_sigaction;
-typedef void				(*t_exe)();
 
 struct s_control {
 	char		*input;
@@ -85,7 +85,7 @@ char		*build_executable_path(t_control *get, char *command);
 
 // Normalize
 void		normalize_input(t_control *get);
-int		count_cases(char **string);
+int			count_cases(char **string);
 
 // Cleanup/Reset
 void		end_shell(t_control *get);
