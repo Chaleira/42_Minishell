@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 17:35:29 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:40:41 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ void	safe_close_fd(int fd, int fd2)
 void	check_dup2(int in, int out)
 {
 	if (!isatty(in))
+	{
 		dup2(in, STDIN_FILENO);
+	}
 	if (!isatty(out))
 		dup2(out, STDOUT_FILENO);
 }

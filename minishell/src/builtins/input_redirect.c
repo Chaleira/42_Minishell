@@ -36,6 +36,7 @@ void	here_doc(char *eof, t_command *get)
 			free(line);
 		}
 	}
+	close(get->in_pipe[1]);
 }
 
 void	input_redirect(t_command *command, int index)

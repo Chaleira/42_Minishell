@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/14 18:23:10 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 21:01:03 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,18 @@ void	check_condition_execute(t_command *command, int index)
 		command->main->pieces = free_triple_pointer(command->main->pieces);
 	else if (command->terminal[index][0] == '&' && command->main->status != 0)
 		command->main->pieces = free_triple_pointer(command->main->pieces);
+}
+
+
+void	status_execute(char *print)
+{
+	ft_printf("%s\n", print);
+	(*control())->status = 0;
+}
+
+void	status_prepare(t_command *command, int index)
+{
+	(void)index;
+	command->exec_path = ft_itoa(command->main->status);
+	command->execute = (void *)status_execute;
 }

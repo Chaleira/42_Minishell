@@ -6,11 +6,32 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 17:40:30 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:50:31 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	split_case(char *line)
+{
+	if (!*line)
+		return (0);
+	else if (*line == '<' && *(line + 1) && *(line + 1) == '<')
+		return (2);
+	else if (*line == '>' && *(line + 1) && *(line + 1) == '>')
+		return (2);
+	else if (*line == '|' && *(line + 1) && *(line + 1) == '|')
+		return (2);
+	else if (*line == '&' && *(line + 1) && *(line + 1) == '&')
+		return (2);
+	else if (*line == '$' && *(line + 1) && *(line + 1) == '?')
+		return (2);
+	else if (*line == '>' || *line == '<' || *line == ';')
+		return (1);
+	else if (*line == '|')
+		return (1);
+	return (0);
+}
 
 void	free_split(char **split)
 {
@@ -81,23 +102,4 @@ int	ignore_quotes(char *string)
 			return (0);
 	}
 	return (i);
-}
-
-int	split_case(char *line)
-{
-	if (!*line)
-		return (0);
-	else if (*line == '<' && *(line + 1) && *(line + 1) == '<')
-		return (2);
-	else if (*line == '>' && *(line + 1) && *(line + 1) == '>')
-		return (2);
-	else if (*line == '|' && *(line + 1) && *(line + 1) == '|')
-		return (2);
-	else if (*line == '&' && *(line + 1) && *(line + 1) == '&')
-		return (2);
-	else if (*line == '>' || *line == '<' || *line == ';')
-		return (1);
-	else if (*line == '|')
-		return (1);
-	return (0);
 }

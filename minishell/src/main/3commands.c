@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/14 19:05:09 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:49:48 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,19 @@ t_exe	solve(char *find)
 {
 	int				index;
 	int				length;
-	static char		*cases[17] = {
+	static char		*cases[18] = {
 		"", ">>", "<<", ">",
 		"<", "echo", "cd", "pwd",
 		"export", "unset", "env", "exit",
 		"|", ";", "&&",
-		"||", NULL
+		"||", "$?", NULL
 	};
-	static t_exe	functions[17] = {
+	static t_exe	functions[18] = {
 		do_nothing, output_redirect, input_redirect, output_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
 		export_prepare, unset_prepare, env_prepare, exit_execute,
 		do_nothing, check_condition_execute, check_condition_execute,
-		check_condition_execute, try_command
+		check_condition_execute, status_prepare, try_command
 	};
 
 	length = ft_strlen(find);
