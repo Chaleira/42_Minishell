@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/14 18:30:24 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:07:28 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ int	valid_sequence(t_list *node)
 	{
 		if (!((t_command *)node->content)->valid)
 			return (0);
+		if (((t_command *)node->content)->status)
+		{
+			((t_command *)node->content)->main->status =
+				((t_command *)node->content)->status;
+			return (0);
+		}
 		node = node->next;
 	}
 	return (1);

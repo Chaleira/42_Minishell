@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/14 17:19:01 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:00:28 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ struct s_command {
 	int			in_pipe[2];
 	int			out_pipe[2];
 	int			valid;
+	int			status;
 	int			parse;
 	t_control	*main;
 	t_exe		execute;

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/12 18:18:07 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:00:38 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	cd_prepare(t_command *command, int index)
 	{
 		ft_printf("minishell: cd: too many arguments\n");
 		command->valid = 0;
+		command->status = 1;
 		return ;
 	}
 	command->exec_path = ft_strdup(command->terminal[index + 1]);
