@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/15 14:46:31 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:02:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	execute_now(t_control *get)
 
 	index = ft_lstsize(get->commands);
 	if (get->tokens[index + 1] && !ft_strncmp(get->tokens[index + 1][0], "|", 2))
-			return (0);
+		return (0);
 	else if (get->tokens[index] && !ft_strncmp(get->tokens[index][0], "|", 2))
 		return (0);
 	return (1);

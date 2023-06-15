@@ -28,7 +28,7 @@ void	here_doc(char *eof, t_command *get)
 		write (1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 		length = ft_strlen(line);
-		if (!ft_strncmp(line, eof, length))
+		if (!line || !ft_strncmp(line, eof, length))
 			safe_free_null(&eof);
 		else if (line)
 		{
