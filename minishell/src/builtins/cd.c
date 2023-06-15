@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/15 14:37:45 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:46:31 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	execute_now(t_control *get)
 	return (1);
 }
 
+// Parse needs to be continued from here because cd execute will change directory
+// every token after that will be executed potentially from a wrong folder.
 void	cd_prepare(t_command *command, int index)
 {
 	int	args;
@@ -54,8 +56,11 @@ void	cd_prepare(t_command *command, int index)
 		return ;
 	}
 	command->exec_path = ft_strdup(command->terminal[index + 1]);
-	if (command->terminal[args])
+	while (command->terminal[args])
+	{
 		(solve(command->terminal[args]))(command, args);
+		args++;
+	}
 	if (execute_now(command->main))
 		cd_execute(command->exec_path);
 	else
