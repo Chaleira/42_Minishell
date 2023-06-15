@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/14 20:49:48 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:02:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	try_command(t_command *get, int index)
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
 	if (!get->exec_path)
 	{
-		get->main->status = 127;
-		get->valid = 0;
+		get->status = 127;
 		return ;
 	}
 	get->flags = copy_shellsplit(&get->terminal[index++]);
@@ -85,7 +84,6 @@ t_command	*new_command(t_control *get)
 
 	new = ft_calloc(sizeof(t_command), 1);
 	new->main = get;
-	new->valid = 1;
 	new->parse = 1;
 	new->in_pipe[0] = get->in_out[0];
 	new->out_pipe[1] = get->in_out[1];
@@ -100,17 +98,17 @@ void	structure_commands(t_control *get)
 	t_command	*command;
 
 	i = 0;
-	while (get->pieces && get->pieces[i])
+	while (get->tokens && get->tokens[i])
 	{
 		command = new_command(get);
-		command->terminal = get->pieces[i];
+		command->terminal = get->tokens[i];
 		j = 0;
-		while (get->pieces && get->pieces[i][j] && command->parse)
+		while (get->tokens && get->tokens[i][j] && command->parse)
 		{
-			(solve(get->pieces[i][j]))(command, j);
+			(solve(get->tokens[i][j]))(command, j);
 			j++;
 		}
-		if (get->pieces)
+		if (get->tokens)
 			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
 		else
 			delete_command(command);

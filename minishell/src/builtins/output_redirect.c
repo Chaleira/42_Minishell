@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:29:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 18:19:35 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:53:01 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	output_redirect(t_command *command, int index)
 				O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (command->out_pipe[1] < 0)
 	{
-		command->valid = 0;
+		command->status = 5;
 		command->parse = 0;
 		ft_printf("Error opening file: %s\n", command->terminal[index + 1]);
 		return ;

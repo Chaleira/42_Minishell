@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/14 20:40:41 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:50:01 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	run_input(t_control *get)
 		execute_command((t_command *)node->content);
 		pid = ((t_command *)node->content)->id;
 		node = node->next;
-		if (!node)
-			waitpid(pid, &get->status, 0);
+		waitpid(pid, &get->status, 0);
 	}
 }
 

@@ -87,8 +87,7 @@ void	normalize_input(t_control *get)
 	if (!get->input)
 		return ;
 	split = shell_split(get->input);
-	get->pipes = count_cases(split);
-	get->pieces = ft_calloc(sizeof(char **), get->pipes + 2);
+	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
 	index = 0;
 	j = 0;
 	start = 0;
@@ -96,11 +95,11 @@ void	normalize_input(t_control *get)
 	{
 		if (split[index][0] == '|' || split[index][0] == '&' || split[index][0] == ';')
 		{
-			get->pieces[j++] = copy_split_size(&split[start], index - start);
+			get->tokens[j++] = copy_split_size(&split[start], index - start);
 			start = index;
 		}
 		index++;
 	}
-	get->pieces[j++] = copy_split_size(&split[start], index - start);
+	get->tokens[j++] = copy_split_size(&split[start], index - start);
 	free(split);
 }

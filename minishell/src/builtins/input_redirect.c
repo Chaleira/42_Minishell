@@ -48,7 +48,7 @@ void	input_redirect(t_command *command, int index)
 			= open(command->terminal[index + 1], O_RDONLY | 0644);
 	if (command->in_pipe[0] < 0)
 	{
-		command->valid = 0;
+		command->status = 1;
 		command->parse = 0;
 		ft_printf("Error opening file: %s\n", command->terminal[index + 1]);
 		return ;

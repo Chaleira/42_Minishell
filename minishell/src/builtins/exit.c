@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/12 18:17:53 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:24:43 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	exit_execute(t_command *command, int index)
 
 	input = 0;
 	command->parse = 0;
-	if (command->main->pipes)
-		return ;
+	// if (command->main->pipes)
+	// 	return ;
 	ft_printf("exit\n");
 	if (command->terminal[index + 1])
 	{
