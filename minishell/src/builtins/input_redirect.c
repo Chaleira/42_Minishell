@@ -30,11 +30,9 @@ void	here_doc(char *eof, t_command *get)
 		length = ft_strlen(line);
 		if (!line || !ft_strncmp(line, eof, length))
 			safe_free_null(&eof);
-		else if (line)
-		{
+		else
 			write(get->in_pipe[1], line, length);
-			free(line);
-		}
+		safe_free_null(&line);
 	}
 	close(get->in_pipe[1]);
 }

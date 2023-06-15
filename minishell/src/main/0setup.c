@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/15 16:07:35 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:18:34 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ char	*get_prompt(void)
 	char		*prompt;
 
 	folder = getcwd(NULL, 0);
-	prompt = ft_strjoin("\001\033[1m\033[31m\
-Minishell \033[0m\033[34m\002",
+	prompt = ft_strjoin("\001\033[1m\002\001\033[31m\002\
+Minishell \001\033[0m\002\001\033[34m\002",
 			ft_strrchr(folder, '/') + 1);
 	free(folder);
-	ft_stradd(&prompt, "\001\033[0;33m✗ \033[0m\002");
+	ft_stradd(&prompt, " \001\033[0;33m\002✗ \001\033[0m\002");
 	return (prompt);
 }
 
