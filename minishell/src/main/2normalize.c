@@ -18,32 +18,6 @@ int	count_cases(char **string)
 	return (count);
 }
 
-void	fix_quotes(char *string)
-{
-	int	i;
-	int	close;
-	int	stop;
-
-	i = 0;
-	while (string[i])
-	{
-		close = ignore_quotes(&string[i]);
-		if (close)
-		{
-			stop = i + close;
-			while (i++ < stop)
-				string[i - 1] = string[i];
-			while (string[++stop])
-				string[stop - 2] = string[stop];
-			string[stop - 1] = 0;
-			string[stop - 2] = 0;
-			i -= 2;
-		}
-		else
-			i++;
-	}
-}
-
 void	print_split_input(char ***input)
 {
 	int	i;
