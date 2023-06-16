@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 18:16:48 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:23:55 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,22 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
-// # define HERE write(1, "here\n", 5)
-// # define ALMOST write(1, "almost\n", 7)
-// # define THERE write(1, "there\n", 6)
+# define HERE write(1, "here\n", 5)
+# define ALMOST write(1, "almost\n", 7)
+# define THERE write(1, "there\n", 6)
 
+typedef void				(*t_exe)();
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
 typedef struct sigaction	t_sigaction;
-typedef void				(*t_exe)();
 
 struct s_control {
 	char		*input;
 	char		**envp;
 	char		**paths;
-	char		***pieces;
+	char		***tokens;
 	char		*prompt;
 	int			in_out[2];
-	int			pipes;
 	int			status;
 	t_sigaction	siginfo;
 	t_list		*commands;
@@ -48,15 +47,21 @@ struct s_control {
 struct s_command {
 	char		*exec_path;
 	char		**flags;
-	const char	**terminal;
+	char		**terminal;
 	int			id;
 	int			in_pipe[2];
 	int			out_pipe[2];
-	int			valid;
+	int			status;
 	int			parse;
 	t_control	*main;
 	t_exe		execute;
 } ;
+
+// Setup
+void		setup(t_control *get, char **envp);
+char		*get_prompt(void);
+void		control_d(int signal);
+void		control_c(int signal);
 
 // Main
 void		catch_input(t_control *get);
@@ -78,7 +83,7 @@ char		*build_executable_path(t_control *get, char *command);
 
 // Normalize
 void		normalize_input(t_control *get);
-int			count_cases(char **string, char find);
+int			count_cases(char **string);
 
 // Cleanup/Reset
 void		end_shell(t_control *get);
@@ -92,6 +97,7 @@ void		pwd_prepare(t_command *get, int index);
 void		env_prepare(t_command *command, int index);
 void		echo_prepare(t_command *command, int index);
 void		unset_prepare(t_command *command, int index);
+void		status_prepare(t_command *command, int index);
 void		export_prepare(t_command *command, int index);
 void		input_redirect(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
@@ -99,12 +105,10 @@ void		output_redirect(t_command *command, int index);
 void		do_nothing(void);
 void		cd_execute(char	*str);
 void		exit_execute(t_command *command, int index);
+void		status_execute(char *print);
 void		export_execute(char *print);
 void		builtin_execute(char *print);
-void		check_or_execute(t_command *command, int index);
-void		check_and_execute(t_command *command, int index);
-void		check_condition_execute(t_command *command, int index)
-
+void		check_condition_execute(t_command *command, int index);
 
 // Shellsplit + 4
 char		**shell_split(char *s);
@@ -121,14 +125,10 @@ char		*sttc_itoa(int number);
 char		*ft_stradd(char **original, char *add);
 char		*ft_unsplit(char **split, int posize, char c);
 int			is_space(char c);
-void		free_triple_pointer(char ***commands);
+void		*free_triple_pointer(char ***pointer);
 
-void		setup(t_control *get, char **envp);
 void		printf_input(t_control *get);
-void		control_d(int signal);
-char		*get_prompt(void);
 void		finish_list_with(char **list, char *put);
-
 int			valid_sequence(t_list *node);
 
 

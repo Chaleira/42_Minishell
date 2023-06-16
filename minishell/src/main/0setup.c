@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 14:41:52 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:18:34 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,24 @@ int	get_paths(char **envp, t_control *get)
 	return (0);
 }
 
+void	kill_child_list(t_list *child)
+{
+	t_command	*command;
+	
+	while (child)
+	{
+		command = (t_command *)child->content;
+		if (command->id)
+			kill(SIGUSR1, command->id);
+		child = child->next;
+	}
+}
+
 void	control_c(int signal)
 {
 	(void)signal;
+	(*control())->status = 130;
+	// kill_child_list((*control())->commands);
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	write(1, "\n", 1);
@@ -52,11 +67,11 @@ char	*get_prompt(void)
 	char		*prompt;
 
 	folder = getcwd(NULL, 0);
-	prompt = ft_strjoin("\001\033[1m\002\001\033[31m\
-Minishell\002\001\033[0m\002\001\033[34m\002 ",
+	prompt = ft_strjoin("\001\033[1m\002\001\033[31m\002\
+Minishell \001\033[0m\002\001\033[34m\002",
 			ft_strrchr(folder, '/') + 1);
 	free(folder);
-	ft_stradd(&prompt, " \001\033[0\002;33m✗ \001\033[0m\002");
+	ft_stradd(&prompt, " \001\033[0;33m\002✗ \001\033[0m\002");
 	return (prompt);
 }
 

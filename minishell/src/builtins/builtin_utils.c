@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 13:55:18 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:30:12 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	do_nothing(void)
 // void	printf_input(t_control *get)
 // {
 // 	ft_printf("\nInput-->\n");
-// 	for (int i = 0; get->pieces[i]; i++)
+// 	for (int i = 0; get->tokens[i]; i++)
 // 	{
 // 		ft_printf("command %i->\n", i);
-// 		for (int j = 0; get->pieces[i][j]; j++)
-// 			ft_printf("%s\n", get->pieces[i][j]);
+// 		for (int j = 0; get->tokens[i][j]; j++)
+// 			ft_printf("%s\n", get->tokens[i][j]);
 // 	}
 // 	ft_printf("end.\n");
 // }

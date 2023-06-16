@@ -28,14 +28,13 @@ void	here_doc(char *eof, t_command *get)
 		write (1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 		length = ft_strlen(line);
-		if (!ft_strncmp(line, eof, length))
+		if (!line || !ft_strncmp(line, eof, length))
 			safe_free_null(&eof);
-		else if (line)
-		{
+		else
 			write(get->in_pipe[1], line, length);
-			free(line);
-		}
+		safe_free_null(&line);
 	}
+	close(get->in_pipe[1]);
 }
 
 void	input_redirect(t_command *command, int index)
@@ -47,7 +46,7 @@ void	input_redirect(t_command *command, int index)
 			= open(command->terminal[index + 1], O_RDONLY | 0644);
 	if (command->in_pipe[0] < 0)
 	{
-		command->valid = 0;
+		command->status = 1;
 		command->parse = 0;
 		ft_printf("Error opening file: %s\n", command->terminal[index + 1]);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 18:21:14 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:02:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*build_executable_path(t_control *get, char *command)
 		ft_printf("command not found: %s\n", command);
 		return (NULL);
 	}
-	if (!access(command, F_OK) && *command == '/')
+	if (!access(command, F_OK) && (*command == '/' ||
+		(*command == '.' && *(command + 1) == '/')))
 		return (ft_strdup(command));
 	i = 0;
 	while (get->paths[i])
@@ -42,7 +43,7 @@ void	try_command(t_command *get, int index)
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
 	if (!get->exec_path)
 	{
-		get->valid = 0;
+		get->status = 127;
 		return ;
 	}
 	get->flags = copy_shellsplit(&get->terminal[index++]);
@@ -55,19 +56,19 @@ t_exe	solve(char *find)
 {
 	int				index;
 	int				length;
-	static char		*cases[17] = {
+	static char		*cases[18] = {
 		"", ">>", "<<", ">",
 		"<", "echo", "cd", "pwd",
 		"export", "unset", "env", "exit",
 		"|", ";", "&&",
-		"||", NULL
+		"||", "$?", NULL
 	};
-	static t_exe	functions[17] = {
+	static t_exe	functions[18] = {
 		do_nothing, output_redirect, input_redirect, output_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
 		export_prepare, unset_prepare, env_prepare, exit_execute,
 		do_nothing, check_condition_execute, check_condition_execute,
-		check_condition_execute, try_command
+		check_condition_execute, status_prepare, try_command
 	};
 
 	length = ft_strlen(find);
@@ -83,7 +84,6 @@ t_command	*new_command(t_control *get)
 
 	new = ft_calloc(sizeof(t_command), 1);
 	new->main = get;
-	new->valid = 1;
 	new->parse = 1;
 	new->in_pipe[0] = get->in_out[0];
 	new->out_pipe[1] = get->in_out[1];
@@ -98,18 +98,20 @@ void	structure_commands(t_control *get)
 	t_command	*command;
 
 	i = 0;
-	while (get->pieces && get->pieces[i])
+	while (get->tokens && get->tokens[i])
 	{
 		command = new_command(get);
-		command->terminal = get->pieces[i];
+		command->terminal = get->tokens[i];
 		j = 0;
-		while (get->pieces && get->pieces[i][j] && command->parse)
+		while (get->tokens && get->tokens[i][j] && command->parse)
 		{
-			(solve(get->pieces[i][j]))(command, j);
+			(solve(get->tokens[i][j]))(command, j);
 			j++;
 		}
-		if (get->pieces)
+		if (get->tokens)
 			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
+		else
+			delete_command(command);
 		i++;
 	}
 }
