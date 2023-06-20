@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/15 17:18:34 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:41:15 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_prompt(void)
 Minishell \001\033[0m\002\001\033[34m\002",
 			ft_strrchr(folder, '/') + 1);
 	free(folder);
-	ft_stradd(&prompt, " \001\033[0;33m\002✗ \001\033[0m\002");
+	ft_stradd(&prompt, " \001\033[0;33m\002\001\u2717\002 \001\033[0m\002");
 	return (prompt);
 }
 
