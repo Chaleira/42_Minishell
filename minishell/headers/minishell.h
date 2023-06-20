@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/15 14:23:55 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:48:50 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void		exit_execute(t_command *command, int index);
 void		status_execute(char *print);
 void		export_execute(char *print);
 void		builtin_execute(char *print);
-void		check_condition_execute(t_command *command, int index);
+void		bonus_execute(t_command *command, int index);
 
 // Shellsplit + 4
 char		**shell_split(char *s);
@@ -118,7 +118,7 @@ int			split_case(char *line);
 void		free_shellsplit(char ****arg);
 char		**copy_shellsplit(char **split);
 int			ignore_quotes(char *string);
-void		free_split(char **arg);
+void		*free_split(char **arg);
 
 // Libft Plus
 char		*sttc_itoa(int number);
@@ -130,6 +130,7 @@ void		*free_triple_pointer(char ***pointer);
 void		printf_input(t_control *get);
 void		finish_list_with(char **list, char *put);
 int			valid_sequence(t_list *node);
+void		print_split_input(char ***input);
 
 
 #endif

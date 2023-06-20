@@ -6,20 +6,52 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/15 14:02:57 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:17:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	check_condition_execute(t_command *command, int index)
+void	stop_command(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		*(split[i]) = 0;
+		i++;
+	}
+}
+
+int	next_command(char ***tokens)
+{
+	int	i;
+
+	if (!tokens || !*tokens)
+		return (0);
+	i = 0;
+	while (tokens[i])
+	{
+		if (**(tokens[i]) == ')' || **(tokens[i]) == ';')
+			return (1);
+		else
+			stop_command(tokens[i]);
+		i++;
+	}
+	if (tokens[i] && (**(tokens[i]) == ')' || **(tokens[i]) == ';'))
+		return (1);
+	return (0);
+}
+
+void	bonus_execute(t_command *command, int index)
 {
 	(void)index;
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
-	if (command->terminal[index][0] == '|' && command->main->status == 0)
+	if (command->main->status == 0 && command->terminal[index][0] == '|')
 		command->main->tokens = free_triple_pointer(command->main->tokens);
-	else if (command->terminal[index][0] == '&' && command->main->status != 0)
+	else if (command->main->status != 0 && command->terminal[index][0] == '&')
 		command->main->tokens = free_triple_pointer(command->main->tokens);
 }
 

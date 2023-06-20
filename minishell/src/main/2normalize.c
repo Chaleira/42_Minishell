@@ -11,7 +11,8 @@ int	count_cases(char **string)
 		return (0);
 	while (string[i])
 	{
-		if (string[i][0] == '|' || string[i][0] == '&' || string[i][0] == ';')
+		if (string[i][0] == '|' || string[i][0] == '&' || string[i][0] == ';'
+			|| string[i][0] == '(' || string[i][0] == ')')
 			count++;
 		i++;
 	}
@@ -32,6 +33,7 @@ void	print_split_input(char ***input)
 			ft_printf("%s\n", input[i][j]);
 			j++;
 		}
+		ft_printf("-\n");
 		i++;
 	}
 }
@@ -69,7 +71,7 @@ void	normalize_input(t_control *get)
 		return ;
 	split = shell_split(get->input);
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
-	index = 0;
+	index = 1;
 	j = 0;
 	start = 0;
 	while (split[index])
