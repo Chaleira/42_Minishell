@@ -55,7 +55,7 @@ char	**copy_split_size(char **split, int size)
 
 int	is_end_of_command(char c)
 {
-	if (c == '|' || c == '&' || c == ';' || c == '(' | c == ')')
+	if (c == '|' || c == '&' || c == ';' || c == '(' || c == ')')
 		return (1);
 	return (0);
 }
@@ -71,7 +71,7 @@ void	normalize_input(t_control *get)
 		return ;
 	split = shell_split(get->input);
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
-	index = 1;
+	index = 0;
 	j = 0;
 	start = 0;
 	while (split[index])
