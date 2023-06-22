@@ -54,7 +54,7 @@ char	**copy_split_size(char **split, int size)
 
 int	is_end_of_command(char c)
 {
-	if (c == '|' || c == '&' || c == ';' || c == '(' || c == ')')
+	if (c == '|' || c == '&' || c == ';')
 		return (1);
 	return (0);
 }

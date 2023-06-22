@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/22 19:39:16 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/22 22:57:55 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ void	stop_command(char **split)
 	}
 }
 
-int	next_command(char ***tokens, int index)
+int	next_command(char ***tokens, char **split)
 {
+	int	index;
+
 	if (!tokens || !*tokens)
 		return (0);
-	stop_command(tokens[index]);
-	ft_printf("%s\n", tokens[index][0]);
+	index = 0;
+	while (tokens[index] != split)
+		index++;
+	stop_command(split);
 	while (tokens[index])
 	{
-		if (!ft_strncmp(*(tokens[index]), "||", 2) || **(tokens[index]) == ';'
+		if (!ft_strncmp((tokens[index][0]), "||", 10) || **(tokens[index]) == ';'
 			|| **(tokens[index]) == '&')
-		{
-			HERE;
 			return (1);
-		}
 		else
 			stop_command(tokens[index]);
 		index++;
@@ -51,9 +52,9 @@ void	bonus_execute(t_command *command, int index)
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
 	if (command->main->status == 0 && command->terminal[index][0] == '|')
-		next_command(command->main->tokens, index);
+		next_command(command->main->tokens, command->terminal);
 	else if (command->main->status != 0 && command->terminal[index][0] == '&')
-		next_command(command->main->tokens, index);
+		next_command(command->main->tokens, command->terminal);
 }
 
 // void	bonus_execute(t_command *command, int index)
