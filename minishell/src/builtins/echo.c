@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/12 18:18:02 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/22 23:01:45 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	echo_execute(char *a, char **print)
 	}
 	if (!flag)
 		ft_printf("\n");
+	(*control())->status = 0;
 }
 
 void	echo_prepare(t_command *command, int index)
