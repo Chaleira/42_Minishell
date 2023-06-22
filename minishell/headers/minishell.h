@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/22 20:46:35 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/23 00:19:29 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
-# define INT (int *)
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
@@ -63,6 +62,7 @@ void		setup(t_control *get, char **envp);
 char		*get_prompt(void);
 void		control_d(int signal);
 void		control_c(int signal);
+char 		**dup_env(char **env);
 
 // Main
 void		catch_input(t_control *get);

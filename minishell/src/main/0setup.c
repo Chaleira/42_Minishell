@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/21 23:46:05 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/23 00:19:42 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ Minishell \001\033[0m\002\001\033[34m\002",
 
 void	setup(t_control *get, char **envp)
 {
-	get->envp = envp;
+	get->envp = dup_env(envp);
 	get_paths(envp, get);
 	get->prompt = get_prompt();
 	get->in_out[0] = dup(STDIN_FILENO);
@@ -86,4 +86,23 @@ void	setup(t_control *get, char **envp)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGUSR1, control_d);
 	(*control()) = get;
+}
+
+char **dup_env(char **env)
+{
+	int i;
+	char **new_env;
+
+	i = 0;
+	while (env[i])
+		i++;
+	new_env = ft_calloc(sizeof(char *), i + 1);
+	i = 0;
+	while (env[i])
+	{
+		new_env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	new_env[i] = NULL;
+	return (new_env);
 }
