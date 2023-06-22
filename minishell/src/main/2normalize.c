@@ -11,8 +11,7 @@ int	count_cases(char **string)
 		return (0);
 	while (string[i])
 	{
-		if (string[i][0] == '|' || string[i][0] == '&' || string[i][0] == ';'
-			|| string[i][0] == '(' || string[i][0] == ')')
+		if (string[i][0] == '|' || string[i][0] == '&' || string[i][0] == ';')
 			count++;
 		i++;
 	}

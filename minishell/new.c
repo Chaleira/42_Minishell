@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/22 20:30:56 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/06/22 20:30:56 by rteles-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 char	*expand_variable(char *string, int limite)
 {
 	int	i;
@@ -51,6 +63,9 @@ void	remove_pair(char *string, int find)
 			i++;
 	}
 }
+
+
+#define NT (*int(int *))&
 
 char	*fix_quotes_expand(char *string, int expand)
 {

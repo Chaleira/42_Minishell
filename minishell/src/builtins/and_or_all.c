@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/20 18:17:57 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:39:16 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,24 @@ void	stop_command(char **split)
 	}
 }
 
-int	next_command(char ***tokens)
+int	next_command(char ***tokens, int index)
 {
-	int	i;
-
 	if (!tokens || !*tokens)
 		return (0);
-	i = 0;
-	while (tokens[i])
+	stop_command(tokens[index]);
+	ft_printf("%s\n", tokens[index][0]);
+	while (tokens[index])
 	{
-		if (**(tokens[i]) == ')' || **(tokens[i]) == ';')
+		if (!ft_strncmp(*(tokens[index]), "||", 2) || **(tokens[index]) == ';'
+			|| **(tokens[index]) == '&')
+		{
+			HERE;
 			return (1);
+		}
 		else
-			stop_command(tokens[i]);
-		i++;
+			stop_command(tokens[index]);
+		index++;
 	}
-	if (tokens[i] && (**(tokens[i]) == ')' || **(tokens[i]) == ';'))
-		return (1);
 	return (0);
 }
 
@@ -50,10 +51,21 @@ void	bonus_execute(t_command *command, int index)
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
 	if (command->main->status == 0 && command->terminal[index][0] == '|')
-		command->main->tokens = free_triple_pointer(command->main->tokens);
+		next_command(command->main->tokens, index);
 	else if (command->main->status != 0 && command->terminal[index][0] == '&')
-		command->main->tokens = free_triple_pointer(command->main->tokens);
+		next_command(command->main->tokens, index);
 }
+
+// void	bonus_execute(t_command *command, int index)
+// {
+// 	(void)index;
+// 	run_input(command->main);
+// 	ft_lstclear(&command->main->commands, delete_command);
+// 	if (command->main->status == 0 && command->terminal[index][0] == '|')
+// 		command->main->tokens = free_triple_pointer(command->main->tokens);
+// 	else if (command->main->status != 0 && command->terminal[index][0] == '&')
+// 		command->main->tokens = free_triple_pointer(command->main->tokens);
+// }
 
 void	status_execute(char *print)
 {
