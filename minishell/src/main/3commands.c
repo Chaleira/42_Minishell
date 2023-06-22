@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3commands.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/21 23:45:53 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/22 22:32:39 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	try_command(t_command *get, int index)
 t_exe	solve(char *find)
 {
 	int				index;
-	int				length;
 	static char		*cases[20] = {
 		"", ">>", "<<", ">",
 		"<", "echo", "cd", "pwd",
@@ -71,9 +70,8 @@ t_exe	solve(char *find)
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 
-	length = ft_strlen(find);
 	index = 0;
-	while (cases[index] && ft_strncmp(find, cases[index], length))
+	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;
 	return (functions[index]);
 }
