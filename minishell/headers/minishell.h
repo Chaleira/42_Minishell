@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/20 14:48:50 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/22 20:46:35 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# define INT (int *)
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
@@ -106,7 +107,6 @@ void		do_nothing(void);
 void		cd_execute(char	*str);
 void		exit_execute(t_command *command, int index);
 void		status_execute(char *print);
-void		export_execute(char *print);
 void		builtin_execute(char *print);
 void		bonus_execute(t_command *command, int index);
 
