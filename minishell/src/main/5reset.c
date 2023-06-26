@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/26 16:01:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:26:24 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	end_shell(t_control *get)
 	free_split(get->paths);
 	safe_free_null(&get->prompt);
 	rl_clear_history();
+	free_split(get->envp);
 	exit(get->status);
 }
 
