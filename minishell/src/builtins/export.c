@@ -6,43 +6,58 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/23 00:21:12 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:21:26 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	export_execute_no_input(char *print, char **flags, char **env);
-static void	export_execute_with_input(char *str, char** flags, char **env);
+static void export_execute_no_input(char *print, char **flags, char **env);
+static void export_execute_with_input(char *str, char **flags, char **env);
+static void split_with_one_equal(char *str, char **env);
+char **find_var(char *name, char **env);
+char **env_copy(char **env, char *new_str);
 
-void	export_prepare(t_command *command, int index)
+void export_prepare(t_command *command, int index)
 {
-	(void)index;
-	if (!command->terminal[1])
-		command->execute = export_execute_no_input;
+	int i;
+	int len;
+
+	if (!command->terminal[index + 1])
+		export_execute_no_input(NULL, NULL, command->main->envp);
 	else
 	{
-		command->execute = export_execute_with_input;
-		if (ft_isdigit(command->terminal[1][0]))
-		{
-			ft_printf("Minishell: export: '%s': not a valid identifier\n", command->terminal[1]);
-			command->execute = do_nothing;
-		}
-		command->exec_path = ft_strdup(command->terminal[index + 1]);
-		command->terminal[1][0] = 0;
-	}
-	while (command->terminal[index + 1] && command->terminal[index + 2])
-	{
-		ft_printf("Minishell: export: '%s': not a valid identifier\n", command->terminal[index + 2]);
-		command->terminal[index + 2][0] = 0;
+		len = 0;
+		while (command->terminal[len])
+			len++;
+		command->flags = ft_calloc(sizeof(char *), len);
+		if (!command->flags)
+			return;
+		// command->execute = export_execute_with_input;
 		index++;
+		i = 0;
+		while (command->terminal[index])
+		{
+			if (ft_isdigit(command->terminal[index][0]))
+			{
+				ft_printf("Minishell: export: '%s': not a valid identifier\n", command->terminal[index]);
+			}
+			else
+			{
+				command->flags[i] = ft_strdup(command->terminal[index]);
+				i++;
+			}
+			command->terminal[index][0] = 0;
+			index++;
+		}
+		export_execute_with_input(NULL, command->flags, command->main->envp);
 	}
 }
 
-static void	export_execute_no_input(char *print, char **flags, char **env)
+static void export_execute_no_input(char *print, char **flags, char **env)
 {
 	int i;
-	
+
 	(void)flags;
 	(void)print;
 	i = 0;
@@ -53,20 +68,78 @@ static void	export_execute_no_input(char *print, char **flags, char **env)
 	}
 }
 
-static void	export_execute_with_input(char *str, char** flags, char **env)
+static void export_execute_with_input(char *str, char **flags, char **env)
 {
-	char *value;
-	char **matrix;
-	int	i;
+	int i;
 
-	(void)flags;
+	(void)str;
 	i = 0;
-	matrix = ft_split(str, '=');
-	value = getenv(matrix[0]);
-	if (value && matrix[1])
-		value = matrix[1];
-	while (env[i])
+	while (flags[i])
+	{
+		split_with_one_equal(flags[i], env);
 		i++;
-	env[i] = ft_strdup(str);
-	env[i++] = NULL;
+	}
+}
+
+static void split_with_one_equal(char *str, char **env)
+{
+	char 	**var;
+	char	*value;
+	char	*name;
+
+	name = ft_strdup(str);
+	value = ft_strchr(name, '=');
+	if (value)
+		*value++ = 0;
+	var = find_var(name, env);
+	printf("var: %s\n", var[0]);
+	if (var && value)
+	{
+		free(*var);
+		*var = ft_strdup(str);
+	}
+	else if (!var && value)
+	{
+		HERE;
+		env = env_copy(env, str);
+	}
+	ft_printf("name: %s\n", name);
+	ft_printf("value: %s\n", value);
+
+}
+
+char **find_var(char *name, char **env)
+{
+	int i;
+	int	len;
+
+	len = ft_strlen(name);
+	i = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(name, env[i], len))
+			return (&env[i]);
+		i++;
+	}
+	return (NULL);
+}
+
+char **env_copy(char **env, char *new_str)
+{
+	int	i;
+	char **new_env;
+
+	i = 0;
+	while (env && env[i])
+		i++;
+	new_env = ft_calloc(sizeof(char *), i + 2);
+	i = 0;
+	while (env && env[i])
+	{
+		new_env[i] = env[i];
+		i++;
+	}
+	new_env[i] = new_str;
+	free(env);
+	return (new_env);
 }
