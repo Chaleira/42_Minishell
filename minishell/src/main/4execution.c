@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/26 12:10:05 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:08:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	run_input(t_control *get)
 	int		pid;
 	t_list	*node;
 
-	if (!valid_sequence(get->commands))
-		return ;
+	// if (!valid_sequence(get->commands))
+	// 	return ;
 	node = get->commands;
 	while (node)
 	{
