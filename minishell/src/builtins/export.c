@@ -6,14 +6,14 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/26 16:21:26 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:33:38 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void export_execute_no_input(char *print, char **flags, char **env);
-static void export_execute_with_input(char *str, char **flags, char **env);
+static void export_execute_with_input(char *str, char **flags);
 static void split_with_one_equal(char *str, char **env);
 char **find_var(char *name, char **env);
 char **env_copy(char **env, char *new_str);
@@ -50,25 +50,39 @@ void export_prepare(t_command *command, int index)
 			command->terminal[index][0] = 0;
 			index++;
 		}
-		export_execute_with_input(NULL, command->flags, command->main->envp);
+		export_execute_with_input(NULL, command->flags);
 	}
 }
 
 static void export_execute_no_input(char *print, char **flags, char **env)
 {
 	int i;
+	int j;
+	int	counter;
 
 	(void)flags;
 	(void)print;
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
-		ft_printf("declare -x %s\n", env[i]);
+		counter = 0;
+		j = 0;
+		while (env[i][j])
+		{
+			write(1, &env[i][j], 1);
+			if (env[i][j] == '=' && !counter)
+			{
+				write(1, "\"", 1);
+				counter++;
+			}
+			j++;
+		}
+		write(1, "\"\n", 2);
 		i++;
 	}
 }
 
-static void export_execute_with_input(char *str, char **flags, char **env)
+static void export_execute_with_input(char *str, char **flags)
 {
 	int i;
 
@@ -76,7 +90,7 @@ static void export_execute_with_input(char *str, char **flags, char **env)
 	i = 0;
 	while (flags[i])
 	{
-		split_with_one_equal(flags[i], env);
+		split_with_one_equal(flags[i], (*control())->envp);
 		i++;
 	}
 }
@@ -92,32 +106,30 @@ static void split_with_one_equal(char *str, char **env)
 	if (value)
 		*value++ = 0;
 	var = find_var(name, env);
-	printf("var: %s\n", var[0]);
 	if (var && value)
 	{
 		free(*var);
 		*var = ft_strdup(str);
 	}
 	else if (!var && value)
-	{
-		HERE;
-		env = env_copy(env, str);
-	}
-	ft_printf("name: %s\n", name);
-	ft_printf("value: %s\n", value);
-
+		(*control())->envp = env_copy(env, ft_strdup(str));
+	else if (!var && !value)
+		(*control())->envp = env_copy(env, ft_strdup(name));
+	free(name);
 }
 
 char **find_var(char *name, char **env)
 {
 	int i;
-	int	len;
+	int	j;
 
-	len = ft_strlen(name);
 	i = 0;
 	while (env[i])
 	{
-		if (!ft_strncmp(name, env[i], len))
+		j = 0;
+		while (name[j] && name[j] == env[i][j])
+			j++;
+		if (!name[j])
 			return (&env[i]);
 		i++;
 	}
