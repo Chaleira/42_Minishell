@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/26 19:33:38 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:37:13 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,14 @@ void export_prepare(t_command *command, int index)
 		command->flags = ft_calloc(sizeof(char *), len);
 		if (!command->flags)
 			return;
-		// command->execute = export_execute_with_input;
-		index++;
 		i = 0;
-		while (command->terminal[index])
+		while (command->terminal[++index])
 		{
 			if (ft_isdigit(command->terminal[index][0]))
-			{
 				ft_printf("Minishell: export: '%s': not a valid identifier\n", command->terminal[index]);
-			}
 			else
-			{
-				command->flags[i] = ft_strdup(command->terminal[index]);
-				i++;
-			}
+				command->flags[i++] = ft_strdup(command->terminal[index]);
 			command->terminal[index][0] = 0;
-			index++;
 		}
 		export_execute_with_input(NULL, command->flags);
 	}
