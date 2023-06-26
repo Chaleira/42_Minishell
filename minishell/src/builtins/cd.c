@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/22 22:39:56 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:19:45 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	cd_prepare(t_command *command, int index)
 
 	command->parse = 0;
 	args = 0;
-	while (command->terminal[args] && !split_case(command->terminal[args]))
+	while (command->terminal[index + args] && !split_case(command->terminal[index + args]))
 		args++;
 	if (args > 2)
 	{
@@ -56,13 +56,16 @@ void	cd_prepare(t_command *command, int index)
 		return ;
 	}
 	command->exec_path = ft_strdup(command->terminal[index + 1]);
+	if (execute_now(command->main))
+	{
+		cd_execute(command->exec_path);
+		command->terminal[index + 1][0] = 0;
+	}
+	else
+		command->execute = (void *)cd_execute;
 	while (command->terminal[args])
 	{
 		(solve(command->terminal[args]))(command, args);
 		args++;
 	}
-	if (execute_now(command->main))
-		cd_execute(command->exec_path);
-	else
-		command->execute = (void *)cd_execute;
 }

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/20 15:07:00 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:09:21 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (get.status);
 }
-// (true || false) && echo "Condition succeeded"
