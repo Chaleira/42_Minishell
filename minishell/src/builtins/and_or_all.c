@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/22 22:57:55 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:12:01 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	stop_command(char **split)
 	}
 }
 
-int	next_command(char ***tokens, char **split)
+int	stop_next_command(char ***tokens, char **split)
 {
 	int	index;
 
@@ -49,12 +49,13 @@ int	next_command(char ***tokens, char **split)
 void	bonus_execute(t_command *command, int index)
 {
 	(void)index;
+	command->terminal[index][0] = 0;
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
 	if (command->main->status == 0 && command->terminal[index][0] == '|')
-		next_command(command->main->tokens, command->terminal);
+		stop_next_command(command->main->tokens, command->terminal);
 	else if (command->main->status != 0 && command->terminal[index][0] == '&')
-		next_command(command->main->tokens, command->terminal);
+		stop_next_command(command->main->tokens, command->terminal);
 }
 
 // void	bonus_execute(t_command *command, int index)

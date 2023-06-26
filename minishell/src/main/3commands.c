@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/22 22:32:39 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:00:20 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_exe	solve(char *find)
 		do_nothing, output_redirect, input_redirect, output_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
 		export_prepare, unset_prepare, env_prepare, exit_execute,
-		do_nothing, status_prepare, do_nothing, do_nothing,
+		do_nothing, status_prepare, start_subshell, end_subshell,
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 

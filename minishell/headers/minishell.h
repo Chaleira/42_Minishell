@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/23 00:19:29 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:17:21 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,10 @@ void		printf_input(t_control *get);
 void		finish_list_with(char **list, char *put);
 int			valid_sequence(t_list *node);
 void		print_split_input(char ***input);
+void		stop_command(char **split);
+
+void		start_subshell(t_command *command, int index);
+void		end_subshell(t_command *command);
 
 
 #endif

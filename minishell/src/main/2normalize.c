@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   2normalize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:07:40 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/06/26 13:07:40 by rteles-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
+
+int	is_end_of_command(char c)
+{
+	if (c == '|' || c == '&' || c == ';' || c == '(' || c == ')')
+		return (1);
+	return (0);
+}
 
 int	count_cases(char **string)
 {
@@ -11,7 +30,7 @@ int	count_cases(char **string)
 		return (0);
 	while (string[i])
 	{
-		if (string[i][0] == '|' || string[i][0] == '&' || string[i][0] == ';')
+		if (is_end_of_command(string[i][0]))
 			count++;
 		i++;
 	}
@@ -50,13 +69,6 @@ char	**copy_split_size(char **split, int size)
 		i++;
 	}
 	return (new);
-}
-
-int	is_end_of_command(char c)
-{
-	if (c == '|' || c == '&' || c == ';')
-		return (1);
-	return (0);
 }
 
 void	normalize_input(t_control *get)
