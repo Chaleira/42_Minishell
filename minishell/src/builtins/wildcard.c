@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:33:16 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/27 18:58:39 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:20:56 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ char	**wildcard(char *str)
 	count = 0;
 	while (entry)
 	{
-		if (entry->d_type == DT_REG)
-		{
+		// if (entry->d_type == DT_REG)
+		// {
 			if (compare(str, entry->d_name))
 				count++;
-		}
+		// }
 		entry = readdir(dir);
 	}
 	closedir(dir);
@@ -49,14 +49,14 @@ char	**wildcard(char *str)
 	count = 0;
 	while (entry)
 	{
-		if (entry->d_type == DT_REG)
-		{
+		// if (entry->d_type == DT_REG)
+		// {
 			if (compare(str, entry->d_name))
 			{
 				list[count] = ft_strdup(entry->d_name);
 				count++;
 			}
-		}
+		// }
 		entry = readdir(dir);
 	}
 	list[count] = NULL;
@@ -85,6 +85,8 @@ int	compare(char *str, char *name)
 			free_split(matrix);
 			return (0);
 		}
+		else
+			name += len;
 	}
 	if (str && str[ft_strlen(str) - 1] != '*')
 	{
@@ -94,6 +96,8 @@ int	compare(char *str, char *name)
 			free_split(matrix);
 			return (0);
 		}
+		else
+			name += len;
 	}
 	while (matrix && matrix[i])
 	{
@@ -103,11 +107,11 @@ int	compare(char *str, char *name)
 			free_split(matrix);
 			return (0);
 		}
+		else
+			name += ft_strlen(matrix[i]);
 		i++;
 	}
 	free_split(matrix);
-	if ((str && str[ft_strlen(str) - 1] == '*'))
-		return (0);
 	return (1);
 }
 
@@ -116,7 +120,7 @@ int	compare(char *str, char *name)
 // 	char 	**matrix;
 // 	int		i;
 
-// 	matrix = wildcard("Ma*le*le*le");
+// 	matrix = wildcard("*c");
 // 	i = 0;
 // 	while (matrix[i])
 // 	{
