@@ -64,9 +64,6 @@ void	remove_pair(char *string, int find)
 	}
 }
 
-
-#define NT (*int(int *))&
-
 char	*fix_quotes_expand(char *string, int expand)
 {
 	int	i;
