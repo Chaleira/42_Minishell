@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/27 12:31:56 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:41:56 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <dirent.h>
+# include <sys/types.h>
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
