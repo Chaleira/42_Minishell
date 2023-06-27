@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/26 19:37:13 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:26:36 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void export_execute_no_input(char *print, char **flags, char **env);
 static void export_execute_with_input(char *str, char **flags);
 static void split_with_one_equal(char *str, char **env);
-char **find_var(char *name, char **env);
 char **env_copy(char **env, char *new_str);
 
 void export_prepare(t_command *command, int index)
@@ -36,7 +35,7 @@ void export_prepare(t_command *command, int index)
 		i = 0;
 		while (command->terminal[++index])
 		{
-			if (ft_isdigit(command->terminal[index][0]))
+			if (!ft_isalpha(command->terminal[index][0]))
 				ft_printf("Minishell: export: '%s': not a valid identifier\n", command->terminal[index]);
 			else
 				command->flags[i++] = ft_strdup(command->terminal[index]);
@@ -69,7 +68,9 @@ static void export_execute_no_input(char *print, char **flags, char **env)
 			}
 			j++;
 		}
-		write(1, "\"\n", 2);
+		if (counter)
+			write(1, "\"", 1);
+		write(1, "\n", 1);
 		i++;
 	}
 }
@@ -97,7 +98,7 @@ static void split_with_one_equal(char *str, char **env)
 	value = ft_strchr(name, '=');
 	if (value)
 		*value++ = 0;
-	var = find_var(name, env);
+	var = find_var(name, env, NULL, NULL);
 	if (var && value)
 	{
 		free(*var);
@@ -110,11 +111,16 @@ static void split_with_one_equal(char *str, char **env)
 	free(name);
 }
 
-char **find_var(char *name, char **env)
+char **find_var(char *name, char **env, int *index, int *size)
 {
 	int i;
 	int	j;
 
+	i = 0;
+	while (env[i])
+		i++;
+	if (size)
+		*size = i;
 	i = 0;
 	while (env[i])
 	{
@@ -122,9 +128,15 @@ char **find_var(char *name, char **env)
 		while (name[j] && name[j] == env[i][j])
 			j++;
 		if (!name[j])
+		{
+			if (index)
+				*index = i;
 			return (&env[i]);
+		}
 		i++;
 	}
+	if (index)
+		*index = -1;
 	return (NULL);
 }
 

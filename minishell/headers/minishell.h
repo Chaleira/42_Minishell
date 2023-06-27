@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/26 13:29:29 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:31:56 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,6 @@ void		stop_command(char **split);
 void		start_subshell(t_command *command, int index);
 void		end_subshell(t_command *command);
 
+char 		**find_var(char *name, char **env, int *index, int *size);
 
 #endif
