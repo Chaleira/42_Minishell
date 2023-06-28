@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/28 17:28:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:15:18 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,4 @@ int	count_char(char *str, char c)
 // 	ft_printf("before: %s\n", split[1]);
 // 	// parse(split);
 // }
+// asd
