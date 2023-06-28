@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:33:16 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/27 19:20:56 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:21:10 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ char	**wildcard(char *str)
 	count = 0;
 	while (entry)
 	{
-		// if (entry->d_type == DT_REG)
-		// {
-			if (compare(str, entry->d_name))
-				count++;
-		// }
+		if (compare(str, entry->d_name))
+			count++;
 		entry = readdir(dir);
 	}
 	closedir(dir);
@@ -49,14 +46,11 @@ char	**wildcard(char *str)
 	count = 0;
 	while (entry)
 	{
-		// if (entry->d_type == DT_REG)
-		// {
-			if (compare(str, entry->d_name))
-			{
-				list[count] = ft_strdup(entry->d_name);
-				count++;
-			}
-		// }
+		if (compare(str, entry->d_name))
+		{
+			list[count] = ft_strdup(entry->d_name);
+			count++;
+		}
 		entry = readdir(dir);
 	}
 	list[count] = NULL;
