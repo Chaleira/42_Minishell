@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/28 12:54:22 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:05:47 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_exe	solve(char *find)
 		do_nothing, output_redirect, input_redirect, output_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
 		export_prepare, unset_prepare, env_prepare, exit_execute,
-		do_nothing, status_prepare, start_subshell, end_subshell,
+		do_nothing, status_prepare, do_nothing, do_nothing,
 		bonus_execute, bonus_execute, bonus_execute, jump_command, try_command
 	};
 
@@ -107,12 +107,9 @@ void	structure_commands(t_control *get)
 	{
 		command = new_command(get);
 		command->terminal = get->tokens[i];
-		j = 0;
-		while (get->tokens && get->tokens[i][j] && command->parse)
-		{
+		j = -1;
+		while (get->tokens && get->tokens[i][++j] && command->parse)
 			(solve(get->tokens[i][j]))(command, j);
-			j++;
-		}
 		if (command->status == PARENT)
 		{
 			command->execute(command->exec_path, command->flags,

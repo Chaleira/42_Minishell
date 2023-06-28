@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:33:16 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/28 09:21:10 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:28:47 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,19 +108,3 @@ int	compare(char *str, char *name)
 	free_split(matrix);
 	return (1);
 }
-
-// int main(void)
-// {
-// 	char 	**matrix;
-// 	int		i;
-
-// 	matrix = wildcard("*c");
-// 	i = 0;
-// 	while (matrix[i])
-// 	{
-// 		ft_printf("%i: %s\n", i, matrix[i]);
-// 		i++;
-// 	}
-// 	free_split(matrix);
-// 	return (0);
-// }

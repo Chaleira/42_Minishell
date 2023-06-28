@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/28 11:41:01 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:48:40 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ struct s_control {
 	char		**paths;
 	char		***tokens;
 	char		*prompt;
-	int			temp;
 	int			in_out[2];
 	int			status;
+	int			input_count;
 	t_sigaction	siginfo;
 	t_list		*commands;
 } ;
@@ -141,5 +141,6 @@ void		start_subshell(t_command *command, int index);
 void		end_subshell(t_command *command);
 
 char 		**find_var(char *name, char **env, int *index, int *size);
+void		jump_command(t_command *command, int index);
 
 #endif

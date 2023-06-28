@@ -14,7 +14,7 @@
 
 int	is_end_of_command(char c)
 {
-	if (c == '|' || c == '&' || c == ';' || c == ')')
+	if (c == '|' || c == '&' || c == ';')
 		return (1);
 	return (0);
 }
@@ -95,5 +95,6 @@ void	normalize_input(t_control *get)
 		index++;
 	}
 	get->tokens[j++] = copy_split_size(&split[start], index - start);
+	// print_split_input(get->tokens);
 	free(split);
 }

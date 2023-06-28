@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/27 19:21:02 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:44:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	catch_input(t_control *get)
 	if (!get->input)
 		control_d(0);
 	else
+	{
 		add_history(get->input);
+		get->input_count++;
+	}
 	rl_on_new_line();
 }
 

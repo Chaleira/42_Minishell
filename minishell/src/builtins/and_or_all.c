@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/28 09:18:57 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:32:29 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@ void	stop_command(char **split)
 	split[0] = ft_strdup("ignore");
 }
 
+int	find_parenthesis(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		if (ft_strchr(split[i++], ')'))
+			return (1);
+	}
+	return (0);
+}
+
 int	stop_next_command(char ***tokens, char **split)
 {
 	int	index;
@@ -27,10 +40,16 @@ int	stop_next_command(char ***tokens, char **split)
 	index = 0;
 	while (tokens[index] != split)
 		index++;
-	stop_command(split);
 	while (tokens[index])
 	{
-		if (!ft_strncmp((tokens[index][0]), "||", 10) || **(tokens[index]) == ';'
+		if (**(tokens[index]) == '(' || *(tokens[index][1]) == '(')
+		{
+			while (tokens[index] && !find_parenthesis(tokens[index]))
+				stop_command(tokens[index++]);
+			stop_command(tokens[index]);
+			return (1);
+		}
+		else if (!ft_strncmp((tokens[index][0]), "||", 10) || **(tokens[index]) == ';'
 			|| **(tokens[index]) == '&')
 			return (1);
 		else
@@ -39,6 +58,7 @@ int	stop_next_command(char ***tokens, char **split)
 	}
 	return (0);
 }
+//cat a && (cat b || cat c)
 
 void	bonus_execute(t_command *command, int index)
 {
@@ -46,10 +66,15 @@ void	bonus_execute(t_command *command, int index)
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
 	if (command->main->status == 0 && command->terminal[index][0] == '|')
+	{
+		jump_command(command, 0);
 		stop_next_command(command->main->tokens, command->terminal);
+	}
 	else if (command->main->status != 0 && command->terminal[index][0] == '&')
+	{
+		jump_command(command, 0);
 		stop_next_command(command->main->tokens, command->terminal);
-	command->terminal[index][0] = 0;
+	}
 }
 
 void	status_execute(char *print)

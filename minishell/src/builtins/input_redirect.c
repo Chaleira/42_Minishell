@@ -12,6 +12,13 @@
 
 #include <minishell.h>
 
+void	warning_control_d(char *eof, int counter)
+{
+	eof[ft_strlen(eof) - 1] = 0;
+	ft_printf("Minishell: warning: here-document at line %i delimited\
+ by end-of-file (wanted `%s')\n", counter, eof);
+}
+
 void	here_doc(char *eof, t_command *get)
 {
 	char	*line;
@@ -28,7 +35,12 @@ void	here_doc(char *eof, t_command *get)
 		write (1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 		length = ft_strlen(line);
-		if (!line || !ft_strncmp(line, eof, length))
+		if (!line)
+		{
+			warning_control_d(eof, get->main->input_count);
+			safe_free_null(&eof);
+		}
+		else if (!ft_strncmp(line, eof, length))
 			safe_free_null(&eof);
 		else
 			write(get->in_pipe[1], line, length);
