@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/26 17:36:30 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:18:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ void	control_c(int signal)
 {
 	(void)signal;
 	(*control())->status = 130;
-	// kill_child_list((*control())->commands);
 	rl_replace_line("", 1);
 	rl_on_new_line();
-	write(1, "\n", 1);
+	write(1, "\n\0", 2);
 	rl_redisplay();
 }
 
@@ -84,7 +83,7 @@ void	setup(t_control *get, char **envp)
 	get->in_out[1] = dup(STDOUT_FILENO);
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGUSR1, control_d);
+	// signal(SIGUSR1, control_d);
 	(*control()) = get;
 }
 
