@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/27 15:41:56 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:41:01 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <termios.h>
 # include <dirent.h>
 # include <sys/types.h>
+# define PARENT -350
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
@@ -40,6 +41,7 @@ struct s_control {
 	char		**paths;
 	char		***tokens;
 	char		*prompt;
+	int			temp;
 	int			in_out[2];
 	int			status;
 	t_sigaction	siginfo;

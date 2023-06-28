@@ -21,13 +21,13 @@ char	*expand_variable(char *string, int limite)
 	}
 }
 
-int	find_pair(char *string, char *jump)
+int	find_pair(char *string, int jump)
 {
 	int		i;
 	char	stop;
 
 	i = 0;
-	if (ft_strchr(jump, string[i]) || string[i] == -1)
+	if (ft_strchr(jump, string[i]))
 	{
 		stop = string[i++];
 		while (string[i] && string[i] != stop)
@@ -47,7 +47,7 @@ void	remove_pair(char *string, int find)
 	i = 0;
 	while (string[i])
 	{
-		close = find_pair(&string[i], (char *)(&find));
+		close = find_pair(&string[i], find);
 		if (close)
 		{
 			stop = i + close;

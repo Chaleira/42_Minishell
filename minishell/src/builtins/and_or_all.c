@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/27 13:42:25 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:18:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 
 void	stop_command(char **split)
 {
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		*(split[i]) = 0;
-		i++;
-	}
+	free(split[0]);
+	split[0] = ft_strdup("ignore");
 }
 
 int	stop_next_command(char ***tokens, char **split)

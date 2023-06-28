@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3commands.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/27 18:59:35 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:54:22 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,29 @@ void	try_command(t_command *get, int index)
 	get->execute = (void *)execve;
 }
 
+void	jump_command(t_command *command, int index)
+{
+	(void)index;
+	command->parse = 0;
+	command->status = PARENT;
+}
+
 t_exe	solve(char *find)
 {
 	int				index;
-	static char		*cases[20] = {
+	static char		*cases[21] = {
 		"", ">>", "<<", ">",
 		"<", "echo", "cd", "pwd",
 		"export", "unset", "env", "exit",
 		"|", "$?", "(", ")",
-		"&&", ";", "||", NULL
+		"&&", ";", "||", "ignore", NULL
 	};
-	static t_exe	functions[20] = {
+	static t_exe	functions[21] = {
 		do_nothing, output_redirect, input_redirect, output_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
 		export_prepare, unset_prepare, env_prepare, exit_execute,
 		do_nothing, status_prepare, start_subshell, end_subshell,
-		bonus_execute, bonus_execute, bonus_execute, try_command
+		bonus_execute, bonus_execute, bonus_execute, jump_command, try_command
 	};
 
 	index = 0;
@@ -106,10 +113,14 @@ void	structure_commands(t_control *get)
 			(solve(get->tokens[i][j]))(command, j);
 			j++;
 		}
-		if (get->tokens)
-			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
-		else
+		if (command->status == PARENT)
+		{
+			command->execute(command->exec_path, command->flags,
+				command->main->envp);
 			delete_command(command);
+		}
+		else
+			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
 		i++;
 	}
 }

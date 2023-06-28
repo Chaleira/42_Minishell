@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/26 18:18:28 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:12:59 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ static int	execute_now(t_control *get)
 	return (1);
 }
 
-// Parse needs to be continued from here because cd execute will change directory
-// every token after that will be executed potentially from a wrong folder.
+/* If the folder is changed here, it will compromise next arguments
+such as redirections, the change of directory has to be done
+at the end of the command structure - change to parent execution
+later, or keep this mess*/
 void	cd_prepare(t_command *command, int index)
 {
 	int	args;
 
-	command->parse = 0;
 	args = 0;
 	while (command->terminal[index + args] && !split_case(command->terminal[index + args]))
 		args++;
@@ -56,16 +57,8 @@ void	cd_prepare(t_command *command, int index)
 		return ;
 	}
 	command->exec_path = ft_strdup(command->terminal[index + 1]);
-	while (command->terminal[args])
-	{
-		(solve(command->terminal[args]))(command, args);
-		args++;
-	}
+	command->terminal[index + 1][0] = 0;
+	command->execute = (void *)cd_execute;
 	if (execute_now(command->main))
-	{
-		cd_execute(command->exec_path);
-		command->terminal[index + 1][0] = 0;
-	}
-	else
-		command->execute = (void *)cd_execute;
+		command->status = PARENT;
 }
