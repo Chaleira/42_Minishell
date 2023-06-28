@@ -15,37 +15,50 @@
 void	warning_control_d(char *eof, int counter)
 {
 	eof[ft_strlen(eof) - 1] = 0;
-	ft_printf("Minishell: warning: here-document at line %i delimited\
+	ft_printf("\nMinishell: warning: here-document at line %i delimited\
  by end-of-file (wanted `%s')\n", counter, eof);
+}
+
+void	stop_heredoc(int signal)
+{
+	(void)signal;
+	write(1, "\n", 1);
+	close(STDIN_FILENO);
+}
+
+void	get_input(int fd, int std_in, char *eof, int counter)
+{
+	char	*line;
+
+	while (eof)
+	{
+		line = readline(">");
+		if (!line)
+		{
+			if (isatty(STDIN_FILENO))
+				warning_control_d(eof, counter);
+			else
+				dup2(std_in, STDIN_FILENO);
+			return ;
+		}
+		else if (!ft_strncmp(line, eof, -1))
+			return ;
+		else
+			write(fd, line, ft_strlen(line));
+		free(line);
+	}
 }
 
 void	here_doc(char *eof, t_command *get)
 {
-	char	*line;
-	int		length;
-
 	if (pipe(get->in_pipe) < 0)
 	{
 		get->in_pipe[0] = -1;
 		return ;
 	}
-	eof = ft_strjoin(eof, "\n");
-	while (eof)
-	{
-		write (1, "> ", 2);
-		line = get_next_line(STDIN_FILENO);
-		length = ft_strlen(line);
-		if (!line)
-		{
-			warning_control_d(eof, get->main->input_count);
-			safe_free_null(&eof);
-		}
-		else if (!ft_strncmp(line, eof, length))
-			safe_free_null(&eof);
-		else
-			write(get->in_pipe[1], line, length);
-		safe_free_null(&line);
-	}
+	signal(SIGINT, stop_heredoc);
+	get_input(get->in_pipe[1], get->main->in_out[0], eof, get->main->input_count);
+	signal(SIGINT, control_c);
 	close(get->in_pipe[1]);
 }
 
