@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 11:12:57 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:23:03 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	control_c(int signal)
 	(*control())->status = 130;
 	rl_replace_line("", 1);
 	rl_on_new_line();
-	write(1, "\n\0", 2);
+	write(1, "\n", 2);
 	rl_redisplay();
 }
 

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 11:29:22 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:21:51 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <dirent.h>
 # include <sys/types.h>
 # define PARENT -350
-// # define HERE write(1, "here\n", 5)
-// # define ALMOST write(1, "almost\n", 7)
-// # define THERE write(1, "there\n", 6)
+# define HERE write(1, "here\n", 5)
+# define ALMOST write(1, "almost\n", 7)
+# define THERE write(1, "there\n", 6)
 
 typedef void				(*t_exe)();
 typedef struct s_control	t_control;
@@ -53,10 +53,10 @@ struct s_command {
 	char		**flags;
 	char		**terminal;
 	int			id;
-	int			in_pipe[2];
-	int			out_pipe[2];
 	int			status;
 	int			parse;
+	int			in_pipe[2];
+	int			out_pipe[2];
 	t_control	*main;
 	t_exe		execute;
 } ;

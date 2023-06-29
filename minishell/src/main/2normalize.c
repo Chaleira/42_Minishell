@@ -78,7 +78,7 @@ void	normalize_input(t_control *get)
 	int			j;
 	char		**split;
 
-	if (!get->input)
+	if (!get->input || !*get->input)
 		return ;
 	split = shell_split(get->input);
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);

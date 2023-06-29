@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 18:03:47 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:23:18 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ void	find_directions(t_list *this)
 	}
 }
 
+void	cut_wait(void)
+{
+	write(1, "\n", 1);
+}
+
 void	run_input(t_control *get)
 {
 	int		pid;
@@ -41,6 +46,7 @@ void	run_input(t_control *get)
 		execute_command((t_command *)node->content);
 		node = node->next;
 	}
+	signal(SIGINT, (void *)cut_wait);
 	node = get->commands;
 	while (node)
 	{
@@ -49,6 +55,7 @@ void	run_input(t_control *get)
 		get->status = WEXITSTATUS(get->status);
 		node = node->next;
 	}
+	signal(SIGINT, control_c);
 }
 
 void	execute_command(t_command *get)
