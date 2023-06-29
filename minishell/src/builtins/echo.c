@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/22 23:01:45 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:27:40 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	check_flair(char *string)
 	return (1);
 }
 
-void	echo_execute(char *a, char **print)
+static void	echo_execute(char *a, char **print)
 {
 	int	i;
 	int	flag;

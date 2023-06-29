@@ -6,13 +6,13 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 11:09:35 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:28:59 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	find_parenthesis(char **split)
+static int	find_parenthesis(char **split)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ int	find_parenthesis(char **split)
 	return (0);
 }
 
-int	stop_next_command(char ***tokens, char **split)
+static int	stop_next_command(char ***tokens, char **split)
 {
 	int	index;
 

@@ -6,13 +6,13 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/29 11:11:41 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:27:21 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd_execute(char *str)
+static void	cd_execute(char *str)
 {
 	if (!str)
 		return ;

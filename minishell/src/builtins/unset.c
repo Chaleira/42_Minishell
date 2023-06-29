@@ -3,39 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:01 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/27 12:29:44 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:28:17 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	unset_execute(char *str, char **flags);
-
-void	unset_prepare(t_command *command, int index)
-{
-	int	i;
-	int	len;
-
-	if (command->terminal[1])
-	{
-		len = 0;
-		while (command->terminal[len])
-			len++;
-		command->flags = ft_calloc(sizeof(char *), len);
-		i = 0;
-		while (command->terminal[++index])
-		{
-			command->flags[i++] = ft_strdup(command->terminal[index]);
-			command->terminal[index][0] = 0;
-		}
-		unset_execute(NULL, command->flags);
-	}
-}
-
-void	unset_execute(char *str, char **flags)
+static void	unset_execute(char *str, char **flags)
 {
 	char		**var;
 	int			index;
@@ -55,5 +32,26 @@ void	unset_execute(char *str, char **flags)
 				sizeof(char *) * (size - index));
 		}
 		i++;
+	}
+}
+
+void	unset_prepare(t_command *command, int index)
+{
+	int	i;
+	int	len;
+
+	if (command->terminal[1])
+	{
+		len = 0;
+		while (command->terminal[len])
+			len++;
+		command->flags = ft_calloc(sizeof(char *), len);
+		i = 0;
+		while (command->terminal[++index])
+		{
+			command->flags[i++] = ft_strdup(command->terminal[index]);
+			command->terminal[index][0] = 0;
+		}
+		unset_execute(NULL, command->flags);
 	}
 }
