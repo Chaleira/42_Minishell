@@ -14,8 +14,8 @@
 
 void	warning_control_d(char *eof, int counter)
 {
-	ft_printf("Minishell: warning: here-document at line %i delimited\
- by end-of-file (wanted `%s')\n", counter, eof);
+	ft_printf("Minishell: warning: here-document at line %i delimited \
+by end-of-file (wanted `%s')\n", counter, eof);
 }
 
 void	stop_heredoc(int signal)
