@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 11:13:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:28:21 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	try_command(t_command *get, int index)
 	if (!get->exec_path)
 	{
 		get->status = 127;
+		get->parse = 0;
 		return ;
 	}
 	get->flags = copy_shellsplit(&get->terminal[index++]);

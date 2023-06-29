@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 19:24:14 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:26:11 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	catch_input(t_control *get)
 		control_d(0);
 	else
 	{
+		get->input_count++;
 		if (*get->input)
 			add_history(get->input);
-		get->input_count++;
 	}
 	rl_on_new_line();
 }
