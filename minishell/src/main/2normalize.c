@@ -95,6 +95,6 @@ void	normalize_input(t_control *get)
 		index++;
 	}
 	get->tokens[j++] = copy_split_size(&split[start], index - start);
-	// print_split_input(get->tokens);
 	free(split);
 }
+	// print_split_input(get->tokens);

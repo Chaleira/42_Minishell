@@ -14,8 +14,7 @@
 
 void	warning_control_d(char *eof, int counter)
 {
-	eof[ft_strlen(eof) - 1] = 0;
-	ft_printf("\nMinishell: warning: here-document at line %i delimited\
+	ft_printf("Minishell: warning: here-document at line %i delimited\
  by end-of-file (wanted `%s')\n", counter, eof);
 }
 
@@ -44,8 +43,11 @@ void	get_input(int fd, int std_in, char *eof, int counter)
 		else if (!ft_strncmp(line, eof, -1))
 			return ;
 		else
+		{
+			ft_stradd(&line, "\n");
 			write(fd, line, ft_strlen(line));
-		free(line);
+		}
+		safe_free_null(&line);
 	}
 }
 
@@ -71,10 +73,10 @@ void	input_redirect(t_command *command, int index)
 			= open(command->terminal[index + 1], O_RDONLY | 0644);
 	if (command->in_pipe[0] < 0)
 	{
-		command->status = 1;
-		command->parse = 0;
-		ft_printf("Error opening file: %s\n", command->terminal[index + 1]);
-		return ;
+		command->main->status = 1;
+		command->execute = do_nothing;
+		jump_command(command, 0);
+		ft_printf("Minishell: %s: No such file or directory\n", command->terminal[index + 1]);
 	}
 	*command->terminal[index + 1] = 0;
 }

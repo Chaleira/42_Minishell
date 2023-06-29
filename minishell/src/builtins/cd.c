@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/28 09:12:59 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:11:41 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,21 @@ static int	execute_now(t_control *get)
 	int	index;
 
 	index = ft_lstsize(get->commands);
-	if (get->tokens[index + 1] && !ft_strncmp(get->tokens[index + 1][0], "|", 2))
+	if (get->tokens[index + 1]
+		&& !ft_strncmp(get->tokens[index + 1][0], "|", 2))
 		return (0);
 	else if (get->tokens[index] && !ft_strncmp(get->tokens[index][0], "|", 2))
 		return (0);
 	return (1);
 }
 
-/* If the folder is changed here, it will compromise next arguments
-such as redirections, the change of directory has to be done
-at the end of the command structure - change to parent execution
-later, or keep this mess*/
 void	cd_prepare(t_command *command, int index)
 {
 	int	args;
 
 	args = 0;
-	while (command->terminal[index + args] && !split_case(command->terminal[index + args]))
+	while (command->terminal[index + args]
+		&& !split_case(command->terminal[index + args]))
 		args++;
 	if (args > 2)
 	{

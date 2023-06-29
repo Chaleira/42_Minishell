@@ -6,17 +6,11 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/28 15:32:29 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:09:35 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	stop_command(char **split)
-{
-	free(split[0]);
-	split[0] = ft_strdup("ignore");
-}
 
 int	find_parenthesis(char **split)
 {
@@ -49,8 +43,8 @@ int	stop_next_command(char ***tokens, char **split)
 			stop_command(tokens[index]);
 			return (1);
 		}
-		else if (!ft_strncmp((tokens[index][0]), "||", 10) || **(tokens[index]) == ';'
-			|| **(tokens[index]) == '&')
+		else if (!ft_strncmp((tokens[index][0]), "||", 10)
+			|| **(tokens[index]) == ';' || **(tokens[index]) == '&')
 			return (1);
 		else
 			stop_command(tokens[index]);
@@ -58,19 +52,14 @@ int	stop_next_command(char ***tokens, char **split)
 	}
 	return (0);
 }
-//cat a && (cat b || cat c)
 
 void	bonus_execute(t_command *command, int index)
 {
 	(void)index;
 	run_input(command->main);
 	ft_lstclear(&command->main->commands, delete_command);
-	if (command->main->status == 0 && command->terminal[index][0] == '|')
-	{
-		jump_command(command, 0);
-		stop_next_command(command->main->tokens, command->terminal);
-	}
-	else if (command->main->status != 0 && command->terminal[index][0] == '&')
+	if ((command->main->status == 0 && command->terminal[index][0] == '|')
+		|| (command->main->status != 0 && command->terminal[index][0] == '&'))
 	{
 		jump_command(command, 0);
 		stop_next_command(command->main->tokens, command->terminal);

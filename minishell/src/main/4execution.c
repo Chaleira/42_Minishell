@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/28 14:09:26 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:21:01 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	find_directions(t_list *this)
 	}
 }
 
-	// if (!valid_sequence(get->commands))
-	// 	return ;
 void	run_input(t_control *get)
 {
 	int		pid;
@@ -44,7 +42,10 @@ void	run_input(t_control *get)
 		pid = ((t_command *)node->content)->id;
 		node = node->next;
 		if (!node)
+		{
 			waitpid(pid, &get->status, 0);
+			get->status = WEXITSTATUS(get->status);
+		}
 	}
 }
 
@@ -57,6 +58,7 @@ void	execute_command(t_command *get)
 			close(get->out_pipe[0]);
 		check_dup2(get->in_pipe[0], get->out_pipe[1]);
 		get->execute(get->exec_path, get->flags, get->main->envp, get);
+		get->main->status = get->status;
 		end_shell(get->main);
 	}
 	else

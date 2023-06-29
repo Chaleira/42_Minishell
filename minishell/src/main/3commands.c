@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/28 15:05:47 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:13:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*build_executable_path(t_control *get, char *command)
 		ft_printf("command not found: %s\n", command);
 		return (NULL);
 	}
-	if (!access(command, F_OK) && (*command == '/' ||
-		(*command == '.' && *(command + 1) == '/')))
+	if (!access(command, F_OK) && (*command == '/'
+			|| (*command == '.' && *(command + 1) == '/')))
 		return (ft_strdup(command));
 	i = 0;
 	while (get->paths[i])
@@ -52,13 +52,6 @@ void	try_command(t_command *get, int index)
 	get->execute = (void *)execve;
 }
 
-void	jump_command(t_command *command, int index)
-{
-	(void)index;
-	command->parse = 0;
-	command->status = PARENT;
-}
-
 t_exe	solve(char *find)
 {
 	int				index;
@@ -67,7 +60,7 @@ t_exe	solve(char *find)
 		"<", "echo", "cd", "pwd",
 		"export", "unset", "env", "exit",
 		"|", "$?", "(", ")",
-		"&&", ";", "||", "ignore", NULL
+		"&&", ";", "||", "ignore\xFF", NULL
 	};
 	static t_exe	functions[21] = {
 		do_nothing, output_redirect, input_redirect, output_redirect,

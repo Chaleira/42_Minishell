@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/28 17:18:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:12:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_paths(char **envp, t_control *get)
 void	kill_child_list(t_list *child)
 {
 	t_command	*command;
-	
+
 	while (child)
 	{
 		command = (t_command *)child->content;
@@ -74,6 +74,7 @@ Minishell \001\033[0m\002\001\033[34m\002",
 	return (prompt);
 }
 
+	// signal(SIGUSR1, control_d);
 void	setup(t_control *get, char **envp)
 {
 	get->envp = dup_env(envp);
@@ -83,14 +84,13 @@ void	setup(t_control *get, char **envp)
 	get->in_out[1] = dup(STDOUT_FILENO);
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, SIG_IGN);
-	// signal(SIGUSR1, control_d);
 	(*control()) = get;
 }
 
-char **dup_env(char **env)
+char	**dup_env(char **env)
 {
-	int i;
-	char **new_env;
+	int		i;
+	char	**new_env;
 
 	i = 0;
 	while (env[i])

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <minishell.h>
+
 char	*expand_variable(char *string, int limite)
 {
 	int	i;
@@ -21,7 +23,7 @@ char	*expand_variable(char *string, int limite)
 	}
 }
 
-int	find_pair(char *string, int jump)
+int	find_pair(char *string, char *jump)
 {
 	int		i;
 	char	stop;

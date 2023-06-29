@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/28 17:25:36 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:15:48 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <dirent.h>
 # include <sys/types.h>
 # define PARENT -350
-# define HERE write(1, "here\n", 5)
-# define ALMOST write(1, "almost\n", 7)
-# define THERE write(1, "there\n", 6)
+// # define HERE write(1, "here\n", 5)
+// # define ALMOST write(1, "almost\n", 7)
+// # define THERE write(1, "there\n", 6)
 
 typedef void				(*t_exe)();
 typedef struct s_control	t_control;
@@ -66,7 +66,7 @@ void		setup(t_control *get, char **envp);
 char		*get_prompt(void);
 void		control_d(int signal);
 void		control_c(int signal);
-char 		**dup_env(char **env);
+char		**dup_env(char **env);
 
 // Main
 void		catch_input(t_control *get);
@@ -131,16 +131,12 @@ char		*ft_unsplit(char **split, int posize, char c);
 int			is_space(char c);
 void		*free_triple_pointer(char ***pointer);
 
-void		printf_input(t_control *get);
 void		finish_list_with(char **list, char *put);
 int			valid_sequence(t_list *node);
 void		print_split_input(char ***input);
 void		stop_command(char **split);
 
-void		start_subshell(t_command *command, int index);
-void		end_subshell(t_command *command);
-
-char 		**find_var(char *name, char **env, int *index, int *size);
+char		**find_var(char *name, char **env, int *index, int *size);
 void		jump_command(t_command *command, int index);
 
 #endif
