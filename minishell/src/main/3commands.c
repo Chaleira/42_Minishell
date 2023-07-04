@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 19:28:21 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:58:30 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*build_executable_path(t_control *get, char *command)
 			return (exec_path);
 		free(exec_path);
 	}
-	ft_printf("command not found: %s\n", command);
+	ft_printf("%s: command not found\n", command);
 	return (NULL);
 }
 
@@ -56,19 +56,19 @@ void	try_command(t_command *get, int index)
 t_exe	solve(char *find)
 {
 	int				index;
-	static char		*cases[21] = {
-		"", ">>", "<<", ">",
-		"<", "echo", "cd", "pwd",
-		"export", "unset", "env", "exit",
-		"|", "$?", "(", ")",
-		"&&", ";", "||", "ignore\xFF", NULL
+	static char		*cases[19] = {
+		"", ">>", ">", "<",
+		"echo", "cd", "pwd", "export",
+		"unset", "env", "exit",
+		"|", "(", ")",  "ignore\xFF",
+		"&&", ";", "||", NULL
 	};
-	static t_exe	functions[21] = {
-		do_nothing, output_redirect, input_redirect, output_redirect,
-		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
-		export_prepare, unset_prepare, env_prepare, exit_execute,
-		do_nothing, status_prepare, do_nothing, do_nothing,
-		bonus_execute, bonus_execute, bonus_execute, jump_command, try_command
+	static t_exe	functions[19] = {
+		do_nothing, output_redirect, output_redirect, input_redirect,
+		echo_prepare, cd_prepare, pwd_prepare, export_prepare,
+		unset_prepare, env_prepare, exit_execute,
+		do_nothing, do_nothing, do_nothing, jump_command,
+		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 
 	index = 0;

@@ -29,7 +29,7 @@ void	get_input(int fd, int std_in, char *eof, int counter)
 {
 	char	*line;
 
-	while (eof)
+	while (true)
 	{
 		line = readline(">");
 		if (!line)
@@ -66,11 +66,7 @@ void	here_doc(char *eof, t_command *get)
 
 void	input_redirect(t_command *command, int index)
 {
-	if (!ft_strncmp(command->terminal[index], "<<", 2))
-		here_doc(command->terminal[index + 1], command);
-	else
-		command->in_pipe[0]
-			= open(command->terminal[index + 1], O_RDONLY | 0644);
+	command->in_pipe[0] = open(command->terminal[index + 1], O_RDONLY | 0644);
 	if (command->in_pipe[0] < 0)
 	{
 		command->main->status = 1;

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 19:21:51 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:58:02 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ struct s_command {
 // Setup
 void		setup(t_control *get, char **envp);
 char		*get_prompt(void);
-void		control_d(int signal);
+void		control_d(t_control *get);
 void		control_c(int signal);
 char		**dup_env(char **env);
 
@@ -137,5 +137,7 @@ void		stop_command(char **split);
 
 char		**find_var(char *name, char **env, int *index, int *size);
 void		jump_command(t_command *command, int index);
+char		*fix_quotes_expand(char *string, int expand);
+
 
 #endif

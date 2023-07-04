@@ -20,7 +20,9 @@ char	*expand_variable(char *string, int limite)
 	while (i < limite)
 	{
 		if (string[i] == '$')
+			;
 	}
+	return (NULL);
 }
 
 int	find_pair(char *string, char *jump)
@@ -40,7 +42,7 @@ int	find_pair(char *string, char *jump)
 	return (i);
 }
 
-void	remove_pair(char *string, int find)
+void	remove_pair(char *string, char *find)
 {
 	int	i;
 	int	close;
@@ -77,15 +79,15 @@ char	*fix_quotes_expand(char *string, int expand)
 		quotes = find_pair(&string[i], "\"\'");
 		if (quotes)
 		{
-			string[i] = -1;
-			string[i + quotes] = -1;
+			string[i + quotes] = '\xFF';
+			string[i++] = '\xFF';
 			if (expand && string[i] == '"')
 				string = expand_variable(&string[i], i + quotes);
-			while (string[i] != -1)
+			while (string[i] && string[i] != '\xFF')
 				i++;
 		}
 		i++;
 	}
-	remove_pair(string, -1);
+	remove_pair(string, "\xFF");
 	return (string);
 }
