@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:29:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/15 10:53:01 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:01:08 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	output_redirect(t_command *command, int index)
 {
-	if (!ft_strncmp(command->terminal[index], ">>", 2))
+	if (!ft_strncmp(command->terminal[index], ">>", 10))
 		command->out_pipe[1] = open(command->terminal[index + 1],
 				O_CREAT | O_APPEND | O_WRONLY, 0644);
 	else

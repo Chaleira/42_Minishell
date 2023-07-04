@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/29 11:27:21 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:07:33 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ static void	cd_execute(char *str)
 	(*control())->status = 0;
 }
 
-static int	execute_now(t_control *get)
+static int	execute_now(t_command *get)
 {
 	int	index;
 
-	index = ft_lstsize(get->commands);
-	if (get->tokens[index + 1]
-		&& !ft_strncmp(get->tokens[index + 1][0], "|", 2))
+	index = 0;
+	while (get->main->tokens[index] != get->terminal)
+		index++;
+	if (get->main->tokens[index + 1]
+		&& !ft_strncmp(get->main->tokens[index + 1][0], "|", 2))
 		return (0);
-	else if (get->tokens[index] && !ft_strncmp(get->tokens[index][0], "|", 2))
+	else if (get->main->tokens[index] && !ft_strncmp(get->main->tokens[index][0], "|", 2))
 		return (0);
 	return (1);
 }
@@ -57,6 +59,6 @@ void	cd_prepare(t_command *command, int index)
 	command->exec_path = ft_strdup(command->terminal[index + 1]);
 	command->terminal[index + 1][0] = 0;
 	command->execute = (void *)cd_execute;
-	if (execute_now(command->main))
+	if (execute_now(command))
 		command->status = PARENT;
 }
