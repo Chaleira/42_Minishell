@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/12 14:11:26 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:47:08 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,37 @@ void	catch_input(t_control *get)
 {
 	get->input = readline(get->prompt);
 	if (!get->input)
-		control_d(0);
+		control_d(get);
 	else
-		add_history(get->input);
+	{
+		get->input_count++;
+		if (*get->input)
+			add_history(get->input);
+	}
 	rl_on_new_line();
+}
+
+static	int tester(t_control *get, char *argv)
+{
+	get->input = ft_strdup(argv);
+	add_history(get->input);
+	normalize_input(get);
+	structure_commands(get);
+	run_input(get);
+	input_reset(get);
+	end_shell(get);
+	return (get->status);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	static t_control	get;
-
-	(void)argv;
+	
 	(void)argc;
+	(void)argv;
 	setup(&get, envp);
+	if (argc == 3)
+		return (tester(&get, argv[2]));
 	while (true)
 	{
 		catch_input(&get);

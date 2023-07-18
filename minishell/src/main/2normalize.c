@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   2normalize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:07:40 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/06/26 13:07:40 by rteles-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
+
+int	is_end_of_command(char c)
+{
+	if (c == '|' || c == '&' || c == ';')
+		return (1);
+	return (0);
+}
 
 int	count_cases(char **string)
 {
@@ -11,7 +30,7 @@ int	count_cases(char **string)
 		return (0);
 	while (string[i])
 	{
-		if (string[i][0] == '|' || string[i][0] == '&' || string[i][0] == ';')
+		if (is_end_of_command(string[i][0]))
 			count++;
 		i++;
 	}
@@ -32,6 +51,7 @@ void	print_split_input(char ***input)
 			ft_printf("%s\n", input[i][j]);
 			j++;
 		}
+		ft_printf("-\n");
 		i++;
 	}
 }
@@ -58,7 +78,7 @@ void	normalize_input(t_control *get)
 	int			j;
 	char		**split;
 
-	if (!get->input)
+	if (!get->input || !*get->input)
 		return ;
 	split = shell_split(get->input);
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
@@ -67,7 +87,7 @@ void	normalize_input(t_control *get)
 	start = 0;
 	while (split[index])
 	{
-		if (split[index][0] == '|' || split[index][0] == '&' || split[index][0] == ';')
+		if (is_end_of_command(split[index][0]))
 		{
 			get->tokens[j++] = copy_split_size(&split[start], index - start);
 			start = index;
@@ -77,3 +97,4 @@ void	normalize_input(t_control *get)
 	get->tokens[j++] = copy_split_size(&split[start], index - start);
 	free(split);
 }
+	// print_split_input(get->tokens);

@@ -6,7 +6,7 @@
 #    By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 13:50:32 by rteles-f          #+#    #+#              #
-#    Updated: 2023/06/12 11:32:16 by rteles-f         ###   ########.fr        #
+#    Updated: 2023/06/29 19:30:31 by rteles-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ COLOR_GREEN =	\033[32m
 
 NAME		= 	minishell
 
-CC			= 	cc #-g -fsanitize=address
+CC			= 	cc -g #-fsanitize=address
 
 CFLAGS		=  -Wall -Wextra -Werror $(INCLUDES)
 

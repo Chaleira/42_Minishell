@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/15 18:06:04 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:23:18 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,33 @@ void	find_directions(t_list *this)
 	}
 }
 
+void	cut_wait(void)
+{
+	write(1, "\n", 1);
+}
+
 void	run_input(t_control *get)
 {
 	int		pid;
 	t_list	*node;
 
-	if (!valid_sequence(get->commands))
-		return ;
 	node = get->commands;
 	while (node)
 	{
 		find_directions(node);
 		execute_command((t_command *)node->content);
-		pid = ((t_command *)node->content)->id;
 		node = node->next;
-		if (!node)
-			waitpid(pid, &get->status, 0);
 	}
+	signal(SIGINT, (void *)cut_wait);
+	node = get->commands;
+	while (node)
+	{
+		pid = ((t_command *)node->content)->id;
+		waitpid(pid, &get->status, 0);
+		get->status = WEXITSTATUS(get->status);
+		node = node->next;
+	}
+	signal(SIGINT, control_c);
 }
 
 void	execute_command(t_command *get)
@@ -57,6 +67,7 @@ void	execute_command(t_command *get)
 			close(get->out_pipe[0]);
 		check_dup2(get->in_pipe[0], get->out_pipe[1]);
 		get->execute(get->exec_path, get->flags, get->main->envp, get);
+		get->main->status = get->status;
 		end_shell(get->main);
 	}
 	else

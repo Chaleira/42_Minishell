@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/15 14:23:55 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/04 20:58:02 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <dirent.h>
+# include <sys/types.h>
+# define PARENT -350
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
@@ -40,6 +43,7 @@ struct s_control {
 	char		***tokens;
 	int			in_out[2];
 	int			status;
+	int			input_count;
 	t_sigaction	siginfo;
 	t_list		*commands;
 } ;
@@ -49,10 +53,10 @@ struct s_command {
 	char		**flags;
 	char		**terminal;
 	int			id;
-	int			in_pipe[2];
-	int			out_pipe[2];
 	int			status;
 	int			parse;
+	int			in_pipe[2];
+	int			out_pipe[2];
 	t_control	*main;
 	t_exe		execute;
 } ;
@@ -60,8 +64,9 @@ struct s_command {
 // Setup
 void		setup(t_control *get, char **envp);
 char		*get_prompt(void);
-void		control_d(int signal);
+void		control_d(t_control *get);
 void		control_c(int signal);
+char		**dup_env(char **env);
 
 // Main
 void		catch_input(t_control *get);
@@ -103,12 +108,10 @@ void		input_redirect(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
 
 void		do_nothing(void);
-void		cd_execute(char	*str);
 void		exit_execute(t_command *command, int index);
 void		status_execute(char *print);
-void		export_execute(char *print);
 void		builtin_execute(char *print);
-void		check_condition_execute(t_command *command, int index);
+void		bonus_execute(t_command *command, int index);
 
 // Shellsplit + 4
 char		**shell_split(char *s);
@@ -118,7 +121,7 @@ int			split_case(char *line);
 void		free_shellsplit(char ****arg);
 char		**copy_shellsplit(char **split);
 int			ignore_quotes(char *string);
-void		free_split(char **arg);
+void		*free_split(char **arg);
 
 // Libft Plus
 char		*sttc_itoa(int number);
@@ -127,9 +130,14 @@ char		*ft_unsplit(char **split, int posize, char c);
 int			is_space(char c);
 void		*free_triple_pointer(char ***pointer);
 
-void		printf_input(t_control *get);
 void		finish_list_with(char **list, char *put);
 int			valid_sequence(t_list *node);
+void		print_split_input(char ***input);
+void		stop_command(char **split);
+
+char		**find_var(char *name, char **env, int *index, int *size);
+void		jump_command(t_command *command, int index);
+char		*fix_quotes_expand(char *string, int expand);
 
 
 #endif

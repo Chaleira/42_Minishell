@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:05:53 by plopes-c          #+#    #+#             */
-/*   Updated: 2022/11/03 19:54:15 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:07:31 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ char	*ft_strchr(const char *s, int c)
 	i = 0;
 	while (s[i])
 	{
-		if ((unsigned char)c == (s[i]))
+		if ((char)c == (s[i]))
 			return (&((char *)s)[i]);
 		i++;
 	}
-	if ((unsigned char)c == (s[i]))
+	if ((char)c == (s[i]))
 		return (&((char *)s)[i]);
 	return (NULL);
 }
