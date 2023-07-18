@@ -34,10 +34,10 @@ typedef struct sigaction	t_sigaction;
 
 struct s_control {
 	char		*input;
+	char		*prompt;
 	char		**envp;
 	char		**paths;
 	char		***tokens;
-	char		*prompt;
 	int			in_out[2];
 	int			status;
 	t_sigaction	siginfo;

@@ -55,7 +55,6 @@ void	try_command(t_command *get, int index)
 t_exe	solve(char *find)
 {
 	int				index;
-	int				length;
 	static char		*cases[18] = {
 		"", ">>", "<<", ">",
 		"<", "echo", "cd", "pwd",
@@ -71,9 +70,8 @@ t_exe	solve(char *find)
 		check_condition_execute, status_prepare, try_command
 	};
 
-	length = ft_strlen(find);
 	index = 0;
-	while (cases[index] && ft_strncmp(find, cases[index], length))
+	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;
 	return (functions[index]);
 }
