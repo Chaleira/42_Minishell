@@ -42,7 +42,8 @@ void	control_c(int signal)
 
 void	control_d(t_control *get)
 {
-	write(1, "\n[\033[32minfo\033[0m]: Leaving Minishell\n", 36);
+	write(1, "exit\n", 5);
+	write(1, "[\033[32minfo\033[0m]: Leaving Minishell\n", 36);
 	end_shell(get);
 }
 
