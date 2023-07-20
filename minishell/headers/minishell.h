@@ -66,6 +66,7 @@ void		setup(t_control *get, char **envp);
 char		*get_prompt(void);
 void		control_d(t_control *get);
 void		control_c(int signal);
+char		**get_envaddress(char **envp, char *find);
 
 // Main
 void		catch_input(t_control *get);

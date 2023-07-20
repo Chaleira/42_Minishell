@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-static char	**get_envaddress(char **envp, char *find)
+char	**get_envaddress(char **envp, char *find)
 {
 	int		i;
 	int		length;
