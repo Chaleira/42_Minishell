@@ -988,34 +988,6 @@ $OLDPWD$
 $OLDPWD$
 ================================================================================
 
-|> WITH Cd .\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Cd: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Cd: command not found$
-================================================================================
-
-|> WITH cD .\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: cD: command not found$
-|---------------------------------------ACTUAL----------------------------------
-cD: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] Cd .\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Cd: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Cd: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] cD .\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: cD: command not found$
-|---------------------------------------ACTUAL----------------------------------
-cD: command not found$
-================================================================================
-
 |> WITH echo a '' b '' c '' d\n
 |---------------------------------------EXPECTED--------------------------------
 a  b  c  d$
@@ -1049,125 +1021,6 @@ a "" b "" c "" d
   $
 |---------------------------------------ACTUAL----------------------------------
 '' '' ''$
-================================================================================
-
-|> WITH Echo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Echo: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Echo: command not found$
-================================================================================
-
-|> WITH eCho bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: eCho: command not found$
-|---------------------------------------ACTUAL----------------------------------
-eCho: command not found$
-================================================================================
-
-|> WITH ecHo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: ecHo: command not found$
-|---------------------------------------ACTUAL----------------------------------
-ecHo: command not found$
-================================================================================
-
-|> WITH echO bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: echO: command not found$
-|---------------------------------------ACTUAL----------------------------------
-echO: command not found$
-================================================================================
-
-|> WITH EchO bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: EchO: command not found$
-|---------------------------------------ACTUAL----------------------------------
-EchO: command not found$
-================================================================================
-
-|> WITH eCHo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: eCHo: command not found$
-|---------------------------------------ACTUAL----------------------------------
-eCHo: command not found$
-================================================================================
-
-|> WITH EcHo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: EcHo: command not found$
-|---------------------------------------ACTUAL----------------------------------
-EcHo: command not found$
-================================================================================
-
-|> WITH eChO bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: eChO: command not found$
-|---------------------------------------ACTUAL----------------------------------
-eChO: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] Echo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Echo: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Echo: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] eCho bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: eCho: command not found$
-|---------------------------------------ACTUAL----------------------------------
-eCho: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] ecHo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: ecHo: command not found$
-|---------------------------------------ACTUAL----------------------------------
-ecHo: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] echO bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: echO: command not found$
-|---------------------------------------ACTUAL----------------------------------
-echO: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] EchO bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: EchO: command not found$
-|---------------------------------------ACTUAL----------------------------------
-EchO: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] eCHo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: eCHo: command not found$
-|---------------------------------------ACTUAL----------------------------------
-eCHo: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] EcHo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: EcHo: command not found$
-|---------------------------------------ACTUAL----------------------------------
-EcHo: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] eChO bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: eChO: command not found$
-|---------------------------------------ACTUAL----------------------------------
-eChO: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] eChO -e 'bonjo\nur'\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: eChO: command not found$
-|---------------------------------------ACTUAL----------------------------------
-eChO: command not found$
 ================================================================================
 
 |> WITH echo -n -n -n -n bonjour\n
@@ -1228,34 +1081,6 @@ TERM=xterm-256color
 
 |> WITH [SETUP export A=a B=b C=c] env | cat -e\n
 TIMEOUT
-================================================================================
-
-|> WITH Env\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Env: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Env: command not found$
-================================================================================
-
-|> WITH enV\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: enV: command not found$
-|---------------------------------------ACTUAL----------------------------------
-enV: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] Env\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Env: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Env: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] enV\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: enV: command not found$
-|---------------------------------------ACTUAL----------------------------------
-enV: command not found$
 ================================================================================
 
 |> WITH exit\n
@@ -1860,42 +1685,6 @@ exit$
 exit$
 ================================================================================
 
-|> WITH Exit; echo a\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Exit: command not found$
-a$
-|---------------------------------------ACTUAL----------------------------------
-Exit: command not found$
-a$
-================================================================================
-
-|> WITH exiT; echo a\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: exiT: command not found$
-a$
-|---------------------------------------ACTUAL----------------------------------
-exiT: command not found$
-a$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] Exit; echo a\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Exit: command not found$
-a$
-|---------------------------------------ACTUAL----------------------------------
-Exit: command not found$
-a$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] exiT; echo a\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: exiT: command not found$
-a$
-|---------------------------------------ACTUAL----------------------------------
-exiT: command not found$
-a$
-================================================================================
-
 |> WITH export\n
 |---------------------------------------EXPECTED--------------------------------
 $
@@ -2171,7 +1960,7 @@ minishell: export: `BONJOUR&JESUIS=a': not a valid identifier$
 |---------------------------------------EXPECTED--------------------------------
 minishell: export: `BONJOUR|JESUIS=a': not a valid identifier$
 |---------------------------------------ACTUAL----------------------------------
-JESUIS=a: command not found$
+minishell: JESUIS=a: command not found$
 ================================================================================
 
 |> WITH export BONJOUR\;JESUIS=a\n
@@ -2179,7 +1968,7 @@ JESUIS=a: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell: export: `BONJOUR;JESUIS=a': not a valid identifier$
 |---------------------------------------ACTUAL----------------------------------
-JESUIS=a: command not found$
+minishell: JESUIS=a: command not found$
 ================================================================================
 
 |> WITH export \B\O\N\ \ \ \ \ \ \ JOURJESUIS=a\n
@@ -2458,7 +2247,7 @@ minishell: export: `BONJOUR&JESUIS': not a valid identifier$
 |---------------------------------------EXPECTED--------------------------------
 minishell: export: `BONJOUR|JESUIS': not a valid identifier$
 |---------------------------------------ACTUAL----------------------------------
-JESUIS: command not found$
+minishell: JESUIS: command not found$
 ================================================================================
 
 |> WITH export BONJOUR\;JESUIS\n
@@ -2466,35 +2255,7 @@ JESUIS: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell: export: `BONJOUR;JESUIS': not a valid identifier$
 |---------------------------------------ACTUAL----------------------------------
-JESUIS: command not found$
-================================================================================
-
-|> WITH Export B=bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Export: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Export: command not found$
-================================================================================
-
-|> WITH exporT B=bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: exporT: command not found$
-|---------------------------------------ACTUAL----------------------------------
-exporT: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] Export B=bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Export: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Export: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] exporT B=bonjour\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: exporT: command not found$
-|---------------------------------------ACTUAL----------------------------------
-exporT: command not found$
+minishell: JESUIS: command not found$
 ================================================================================
 
 |> WITH pwd\n
@@ -2567,34 +2328,6 @@ foo$
 $PWD$
 ================================================================================
 
-|> WITH Pwd\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Pwd: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Pwd: command not found$
-================================================================================
-
-|> WITH pwD\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: pwD: command not found$
-|---------------------------------------ACTUAL----------------------------------
-pwD: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] Pwd\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Pwd: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Pwd: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] pwD\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: pwD: command not found$
-|---------------------------------------ACTUAL----------------------------------
-pwD: command not found$
-================================================================================
-
 |> WITH [EXPORTS A='a'] unset A; echo $A\n
 |---------------------------------------EXPECTED--------------------------------
 $
@@ -2658,48 +2391,6 @@ ab$
 $A$B$C$
 ================================================================================
 
-|> WITH Unset TERM\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Unset: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Unset: command not found$
-================================================================================
-
-|> WITH unseT TERM\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: unseT: command not found$
-|---------------------------------------ACTUAL----------------------------------
-unseT: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] Unset TERM\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Unset: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Unset: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/bin:/usr/bin'] unseT TERM\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: unseT: command not found$
-|---------------------------------------ACTUAL----------------------------------
-unseT: command not found$
-================================================================================
-
-|> WITH notfound\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: notfound: command not found$
-|---------------------------------------ACTUAL----------------------------------
-notfound: command not found$
-================================================================================
-
-|> WITH notfound a b c\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: notfound: command not found$
-|---------------------------------------ACTUAL----------------------------------
-notfound: command not found$
-================================================================================
-
 |> WITH echo "\"" >>a"b""c"  \n
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
@@ -2717,7 +2408,7 @@ FROM TEST: File not created
 minishell: =?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{}~: command not found$
 |---------------------------------------ACTUAL----------------------------------
   !#$%*+,-./0123456789:$
-=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_abcdefghijklmnopqrstuvwxyz{}~: command not found$
+minishell: =?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_abcdefghijklmnopqrstuvwxyz{}~: command not found$
 ================================================================================
 
 |> WITH [SETUP echo > somefile; chmod 000 somefile] ./somefile\n
@@ -2900,7 +2591,7 @@ minishell: ./somefile: Permission denied$
 |---------------------------------------EXPECTED--------------------------------
 minishell: somedir/: is a directory$
 |---------------------------------------ACTUAL----------------------------------
-somedir/: command not found$
+minishell: somedir/: command not found$
 ================================================================================
 
 |> WITH [SETUP mkdir somedir] ./somedir/\n
@@ -2910,13 +2601,6 @@ minishell: ./somedir/: is a directory$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
-|> WITH [SETUP mkdir somedir] somedir\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: somedir: command not found$
-|---------------------------------------ACTUAL----------------------------------
-somedir: command not found$
-================================================================================
-
 |> WITH [SETUP mkdir somedir] ./somedir\n
 |  STATUS: expected 126 actual 0
 |---------------------------------------EXPECTED--------------------------------
@@ -2924,19 +2608,12 @@ minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
-|> WITH [SETUP mkdir somedir] somedir\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: somedir: command not found$
-|---------------------------------------ACTUAL----------------------------------
-somedir: command not found$
-================================================================================
-
 |> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] somedirsoftlink/\n
 |  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: somedirsoftlink/: is a directory$
 |---------------------------------------ACTUAL----------------------------------
-somedirsoftlink/: command not found$
+minishell: somedirsoftlink/: command not found$
 ================================================================================
 
 |> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] ./somedirsoftlink/\n
@@ -2946,13 +2623,6 @@ minishell: ./somedirsoftlink/: is a directory$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
-|> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] somedirsoftlink\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: somedirsoftlink: command not found$
-|---------------------------------------ACTUAL----------------------------------
-somedirsoftlink: command not found$
-================================================================================
-
 |> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] ./somedirsoftlink\n
 |  STATUS: expected 126 actual 0
 |---------------------------------------EXPECTED--------------------------------
@@ -2960,18 +2630,11 @@ minishell: ./somedirsoftlink: is a directory$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
-|> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] somedirsoftlink\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: somedirsoftlink: command not found$
-|---------------------------------------ACTUAL----------------------------------
-somedirsoftlink: command not found$
-================================================================================
-
 |> WITH [SETUP touch somefile; ln -s somefile someremovedlink; rm -f somefile] ./someremovedlink\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./someremovedlink: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-./someremovedlink: command not found$
+minishell: ./someremovedlink: command not found$
 ================================================================================
 
 |> WITH [SETUP touch somefile; ln -s somefile somelink1; ln -s somelink1 somelink2] ./somelink2\n
@@ -2999,35 +2662,28 @@ minishell: ./somelink4: Permission denied$
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somelink2ls: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-./somelink2ls: command not found$
+minishell: ./somelink2ls: command not found$
 ================================================================================
 
 |> WITH [SETUP cp /usr/bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3] ./somelink3ls\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somelink3ls: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-./somelink3ls: command not found$
+minishell: ./somelink3ls: command not found$
 ================================================================================
 
 |> WITH [SETUP cp /usr/bin/ls somefile;ln -s somefile somelink1; ln -s somelink1 somelink2;ln -s somelink2 somelink3; ln -s somelink3 somelink4] ./somelink4ls\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somelink4ls: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-./somelink4ls: command not found$
-================================================================================
-
-|> WITH [SETUP touch _] _\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: _: command not found$
-|---------------------------------------ACTUAL----------------------------------
-_: command not found$
+minishell: ./somelink4ls: command not found$
 ================================================================================
 
 |> WITH [SETUP touch -] '-'\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: -: command not found$
 |---------------------------------------ACTUAL----------------------------------
-'-': command not found$
+minishell: '-': command not found$
 ================================================================================
 
 |> WITH [SETUP touch _] ./_\n
@@ -3223,21 +2879,21 @@ minishell: ./somedir: is a directory$
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./Somefile: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-./Somefile: command not found$
+minishell: ./Somefile: command not found$
 ================================================================================
 
 |> WITH [SETUP echo > somefile && chmod 000 somefile] ./someFILE\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./someFILE: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-./someFILE: command not found$
+minishell: ./someFILE: command not found$
 ================================================================================
 
 |> WITH echo > test bonjour\n
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE test
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
@@ -3249,7 +2905,7 @@ $
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE test
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
@@ -3261,7 +2917,7 @@ $
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE teststicked
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
@@ -3289,7 +2945,7 @@ FROM TEST: File not created
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE teststicked
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
@@ -3325,7 +2981,7 @@ Minishell: test'sticked': No such file or directory$
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE teststicked
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
@@ -3353,7 +3009,7 @@ FROM TEST: File not created
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE teststicked
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
@@ -3389,7 +3045,7 @@ Minishell: test"sticked": No such file or directory$
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE testyosticked
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
@@ -3417,7 +3073,7 @@ FROM TEST: File not created
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE testyosticked
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
@@ -3453,7 +3109,7 @@ Minishell: test'yo'"sticked": No such file or directory$
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE je
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
@@ -3470,7 +3126,7 @@ FROM TEST: File not created
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE test
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
@@ -3492,7 +3148,7 @@ FROM TEST: File not created
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-bonjour: command not found$
+minishell: bonjour: command not found$
 |# FILE je
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
@@ -3576,7 +3232,7 @@ Minishell: (null): No such file or directory$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `>'$
 |---------------------------------------ACTUAL----------------------------------
-bar: command not found$
+minishell: bar: command not found$
 ================================================================================
 
 |> WITH echo foo >>>> bar\n
@@ -3584,7 +3240,7 @@ bar: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `>>'$
 |---------------------------------------ACTUAL----------------------------------
-bar: command not found$
+minishell: bar: command not found$
 ================================================================================
 
 |> WITH echo foo >>>>> bar\n
@@ -3599,7 +3255,7 @@ minishell: syntax error near unexpected token `>>'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `<'$
 |---------------------------------------ACTUAL----------------------------------
-<<: command not found$
+minishell: <<: command not found$
 ================================================================================
 
 |> WITH [SETUP echo bonjour > bar] cat << << bar\n
@@ -3607,7 +3263,7 @@ minishell: syntax error near unexpected token `<'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `<<'$
 |---------------------------------------ACTUAL----------------------------------
-<<: command not found$
+minishell: <<: command not found$
 ================================================================================
 
 |> WITH [SETUP echo bonjour > bar] cat <<<<< bar\n
@@ -3615,7 +3271,7 @@ minishell: syntax error near unexpected token `<<'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `<<'$
 |---------------------------------------ACTUAL----------------------------------
-<<: command not found$
+minishell: <<: command not found$
 ================================================================================
 
 |> WITH cat < doesnotexist\n
@@ -3630,7 +3286,7 @@ Minishell: doesnotexist: No such file or directory$
 |---------------------------------------EXPECTED--------------------------------
 0$
 |---------------------------------------ACTUAL----------------------------------
-$?: command not found$
+minishell: $?: command not found$
 $
 ================================================================================
 
@@ -3641,7 +3297,7 @@ $
 0$
 |---------------------------------------ACTUAL----------------------------------
 $
-$?: command not found$
+minishell: $?: command not found$
 $
 ================================================================================
 
@@ -3651,8 +3307,8 @@ $
 minishell: notfound: command not found$
 127$
 |---------------------------------------ACTUAL----------------------------------
-notfound: command not found$
-$?: command not found$
+minishell: notfound: command not found$
+minishell: $?: command not found$
 $
 ================================================================================
 
@@ -3663,7 +3319,7 @@ minishell: doesntexist: No such file or directory$
 1$
 |---------------------------------------ACTUAL----------------------------------
 Minishell: doesntexist: No such file or directory$
-$?: command not found$
+minishell: $?: command not found$
 $
 ================================================================================
 
@@ -3674,15 +3330,8 @@ minishell: noperm: Permission denied$
 1$
 |---------------------------------------ACTUAL----------------------------------
 Minishell: noperm: No such file or directory$
-$?: command not found$
+minishell: $?: command not found$
 $
-================================================================================
-
-|> WITH notfound\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: notfound: command not found$
-|---------------------------------------ACTUAL----------------------------------
-notfound: command not found$
 ================================================================================
 
 |> WITH cat < doesntexist\n
@@ -3868,15 +3517,15 @@ TIMEOUT
 |---------------------------------------EXPECTED--------------------------------
 bonjour$$
 |---------------------------------------ACTUAL----------------------------------
-bonjour$$
 total 16$
--rw-rw-r-- 1 plopes-c plopes-c    8 Jul 18 22:37 a$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 18 22:37 b$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 18 22:37 c$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 18 22:37 d$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 18 22:37 m1$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 18 22:37 m2$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 18 22:37 m3$
+-rw-rw-r-- 1 plopes-c plopes-c    8 Jul 20 02:09 a$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 02:09 b$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 02:09 c$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 02:09 d$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 02:09 m1$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 02:09 m2$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 02:09 m3$
+bonjour$$
 ================================================================================
 
 |> WITH echo|\n
@@ -3923,16 +3572,7 @@ TIMEOUT
 |---------------------------------------EXPECTED--------------------------------
 minishell: asdf: command not found$
 |---------------------------------------ACTUAL----------------------------------
-asdf: command not found$
-bonjour$
-================================================================================
-
-|> WITH asdf | echo bonjour\n
-|---------------------------------------EXPECTED--------------------------------
 minishell: asdf: command not found$
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-asdf: command not found$
 bonjour$
 ================================================================================
 
@@ -4374,7 +4014,7 @@ Minishell: (null): No such file or directory$
 minishell: syntax error near unexpected token `|'$
 |---------------------------------------ACTUAL----------------------------------
 Error opening file: (null)$
-a: command not found$
+minishell: a: command not found$
 ================================================================================
 
 |> WITH >> | a\n
@@ -4383,7 +4023,7 @@ a: command not found$
 minishell: syntax error near unexpected token `|'$
 |---------------------------------------ACTUAL----------------------------------
 Error opening file: (null)$
-a: command not found$
+minishell: a: command not found$
 ================================================================================
 
 |> WITH < ; a\n
@@ -4400,7 +4040,7 @@ Minishell: (null): No such file or directory$
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
 Error opening file: (null)$
-a: command not found$
+minishell: a: command not found$
 ================================================================================
 
 |> WITH >> ; a\n
@@ -4409,7 +4049,7 @@ a: command not found$
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
 Error opening file: (null)$
-a: command not found$
+minishell: a: command not found$
 ================================================================================
 
 |> WITH ; | a\n
@@ -4417,7 +4057,7 @@ a: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
-a: command not found$
+minishell: a: command not found$
 ================================================================================
 
 |> WITH ; < a\n
@@ -4446,7 +4086,7 @@ minishell: syntax error near unexpected token `;'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `|'$
 |---------------------------------------ACTUAL----------------------------------
-a: command not found$
+minishell: a: command not found$
 ================================================================================
 
 |> WITH | < a\n
@@ -4471,27 +4111,13 @@ minishell: syntax error near unexpected token `|'$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
-|> WITH > a ; a\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: a: command not found$
-|---------------------------------------ACTUAL----------------------------------
-a: command not found$
-================================================================================
-
 |> WITH < a ; a\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: a: No such file or directory$
 minishell: a: command not found$
 |---------------------------------------ACTUAL----------------------------------
 Minishell: a: No such file or directory$
-a: command not found$
-================================================================================
-
-|> WITH >> a ; a\n
-|---------------------------------------EXPECTED--------------------------------
 minishell: a: command not found$
-|---------------------------------------ACTUAL----------------------------------
-a: command not found$
 ================================================================================
 
 |> WITH Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum.  > >Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. \n
@@ -4499,7 +4125,7 @@ a: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `>'$
 |---------------------------------------ACTUAL----------------------------------
-Mollitia: command not found$
+minishell: Mollitia: command not found$
 ================================================================================
 
 |> WITH Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum.  < <Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. \n
@@ -4507,7 +4133,7 @@ Mollitia: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `<'$
 |---------------------------------------ACTUAL----------------------------------
-Mollitia: command not found$
+minishell: Mollitia: command not found$
 ================================================================================
 
 |> WITH Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum.  ; |Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. \n
@@ -4515,8 +4141,8 @@ Mollitia: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `|'$
 |---------------------------------------ACTUAL----------------------------------
-Mollitia: command not found$
-Mollitia: command not found$
+minishell: Mollitia: command not found$
+minishell: Mollitia: command not found$
 ================================================================================
 
 |> WITH Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum.  | ;Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. \n
@@ -4524,8 +4150,8 @@ Mollitia: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
-Mollitia: command not found$
-Mollitia: command not found$
+minishell: Mollitia: command not found$
+minishell: Mollitia: command not found$
 ================================================================================
 
 |> WITH echo $_\n
@@ -5299,27 +4925,6 @@ minishell: path/a: Permission denied$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
-|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 000 ./path/a] [EXPORTS PATH='path'] A\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: A: command not found$
-|---------------------------------------ACTUAL----------------------------------
-A: command not found$
-================================================================================
-
-|> WITH [SETUP mkdir path && mkfifo path/a] a\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: a: command not found$
-|---------------------------------------ACTUAL----------------------------------
-a: command not found$
-================================================================================
-
-|> WITH [SETUP mkdir path && mkfifo path/a && chmod 777 path/a] a\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: a: command not found$
-|---------------------------------------ACTUAL----------------------------------
-a: command not found$
-================================================================================
-
 |> WITH [SETUP mkdir -p path/a; cp /usr/bin/which path/a/b] [EXPORTS PATH='path'] a/b\n
 |  STATUS: expected 127 actual 1
 |---------------------------------------EXPECTED--------------------------------
@@ -5432,116 +5037,18 @@ $PATH$
 $PATH$
 ================================================================================
 
-|> WITH [EXPORTS PATH='doesnotexits'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='doesnotexits:asdfasdfas'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='a:b:c:d:e:f:g:h:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x:y:z'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='________'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='        '] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='   :    '] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='     /usr/bin      '] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='     /sbin      '] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/sbin:/sbin:/sbin:/sbin'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
 |> WITH [EXPORTS PATH=''] whoami\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: whoami: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
+minishell: whoami: command not found$
 ================================================================================
 
 |> WITH unset PATH; whoami\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: whoami: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH=':'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
 minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH=':::::::::::::::::::'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/asdfasdf'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/usr/asdf:/usr/lib/asdfasdf'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [SETUP unset PATH] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=''] somecmd\n
@@ -5549,7 +5056,7 @@ whoami: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
+minishell: somecmd: command not found$
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':'] somecmd\n
@@ -5557,7 +5064,7 @@ somecmd: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
+minishell: somecmd: command not found$
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='::::::::'] somecmd\n
@@ -5565,28 +5072,7 @@ somecmd: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
-================================================================================
-
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/asdfasdf'] somecmd\n
-|---------------------------------------EXPECTED--------------------------------
 minishell: somecmd: command not found$
-|---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
-================================================================================
-
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/usr/asdf:/usr/lib/asdfasdf'] somecmd\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: somecmd: command not found$
-|---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
-================================================================================
-
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd; unset PATH] somecmd\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: somecmd: command not found$
-|---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/bin:'] somecmd\n
@@ -5594,7 +5080,7 @@ somecmd: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
+minishell: somecmd: command not found$
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin'] somecmd\n
@@ -5602,7 +5088,7 @@ somecmd: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
+minishell: somecmd: command not found$
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin:'] somecmd\n
@@ -5610,63 +5096,21 @@ somecmd: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-somecmd: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/usr/bin'] Whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/usr/bin'] wHoAMi\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: wHoAMi: command not found$
-|---------------------------------------ACTUAL----------------------------------
-wHoAMi: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/usr/bIn'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/Usr/bin'] whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/usr/bIn'] Whoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: Whoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-Whoami: command not found$
-================================================================================
-
-|> WITH [EXPORTS PATH='/Usr/bin'] wHoami\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: wHoami: command not found$
-|---------------------------------------ACTUAL----------------------------------
-wHoami: command not found$
+minishell: somecmd: command not found$
 ================================================================================
 
 |> WITH [EXPORTS PATH=''] Whoami\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: Whoami: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-Whoami: command not found$
+minishell: Whoami: command not found$
 ================================================================================
 
 |> WITH [EXPORTS PATH=''] wHoami\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: wHoami: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
-wHoami: command not found$
+minishell: wHoami: command not found$
 ================================================================================
 
 |> WITH echo \a\n
@@ -5681,7 +5125,7 @@ a$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-\e\c\h\o: command not found$
+minishell: \e\c\h\o: command not found$
 ================================================================================
 
 |> WITH echo charles\ \n
@@ -5704,7 +5148,7 @@ charles\$
   jesuis;  charles$
 |---------------------------------------ACTUAL----------------------------------
 \ \ jesuis\$
-\: command not found$
+minishell: \: command not found$
 ================================================================================
 
 |> WITH echo \ \ jesuis\&\& \ charles\n
@@ -5719,8 +5163,8 @@ charles\$
 |---------------------------------------EXPECTED--------------------------------
   jesuis||  charles$
 |---------------------------------------ACTUAL----------------------------------
-\: command not found$
-\: command not found$
+minishell: \: command not found$
+minishell: \: command not found$
 \ \ jesuis\$
 ================================================================================
 
@@ -5729,8 +5173,8 @@ charles\$
 |---------------------------------------EXPECTED--------------------------------
   jesuis ||  charles$
 |---------------------------------------ACTUAL----------------------------------
-\: command not found$
-\: command not found$
+minishell: \: command not found$
+minishell: \: command not found$
 \ \ jesuis \$
 ================================================================================
 
@@ -5740,7 +5184,7 @@ charles\$
   jesuis;  charles$
 |---------------------------------------ACTUAL----------------------------------
 \ \ jesuis\$
-\: command not found$
+minishell: \: command not found$
 ================================================================================
 
 |> WITH echo \ \ \ \ \ \ \ \ \n
@@ -5775,42 +5219,42 @@ $PATH$
 |---------------------------------------EXPECTED--------------------------------
 minishell: echo bonjour: command not found$
 |---------------------------------------ACTUAL----------------------------------
-echo\: command not found$
+minishell: echo\: command not found$
 ================================================================================
 
 |> WITH \ echo bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 minishell:  echo: command not found$
 |---------------------------------------ACTUAL----------------------------------
-\: command not found$
+minishell: \: command not found$
 ================================================================================
 
 |> WITH  \ echo bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 minishell:  echo: command not found$
 |---------------------------------------ACTUAL----------------------------------
-\: command not found$
+minishell: \: command not found$
 ================================================================================
 
 |> WITH                  \ echo bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 minishell:  echo: command not found$
 |---------------------------------------ACTUAL----------------------------------
-\: command not found$
+minishell: \: command not found$
 ================================================================================
 
 |> WITH  \                 echo bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 minishell:  : command not found$
 |---------------------------------------ACTUAL----------------------------------
-\: command not found$
+minishell: \: command not found$
 ================================================================================
 
 |> WITH                  \                    echo bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 minishell:  : command not found$
 |---------------------------------------ACTUAL----------------------------------
-\: command not found$
+minishell: \: command not found$
 ================================================================================
 
 |> WITH /bin/echo " \  "\n
@@ -6427,7 +5871,7 @@ $A$
 |---------------------------------------EXPECTED--------------------------------
 echo$
 |---------------------------------------ACTUAL----------------------------------
-$ECHO: command not found$
+minishell: $ECHO: command not found$
 ================================================================================
 
 |> WITH [EXPORTS A='ec' B='ho'] $A$B bonjour\n
@@ -6435,18 +5879,18 @@ $ECHO: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-$A$B: command not found$
+minishell: $A$B: command not found$
 ================================================================================
 
 |> WITH [SETUP touch a b c] [EXPORTS LS='ls -l'] $LS\n
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 total 0$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 18 22:37 a$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 18 22:37 b$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 18 22:37 c$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 02:10 a$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 02:10 b$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 02:10 c$
 |---------------------------------------ACTUAL----------------------------------
-$LS: command not found$
+minishell: $LS: command not found$
 ================================================================================
 
 |> WITH echo \$\n
@@ -6708,7 +6152,7 @@ FROM TEST: File not created
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-'echo': command not found$
+minishell: 'echo': command not found$
 ================================================================================
 
 |> WITH 'echo' 'je' 'suis' 'charles'\n
@@ -6716,7 +6160,7 @@ bonjour$
 |---------------------------------------EXPECTED--------------------------------
 je suis charles$
 |---------------------------------------ACTUAL----------------------------------
-'echo': command not found$
+minishell: 'echo': command not found$
 ================================================================================
 
 |> WITH "echo" "bonjour"\n
@@ -6724,7 +6168,7 @@ je suis charles$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-"echo": command not found$
+minishell: "echo": command not found$
 ================================================================================
 
 |> WITH "echo" "je" "suis" "charles"\n
@@ -6732,7 +6176,7 @@ bonjour$
 |---------------------------------------EXPECTED--------------------------------
 je suis charles$
 |---------------------------------------ACTUAL----------------------------------
-"echo": command not found$
+minishell: "echo": command not found$
 ================================================================================
 
 |> WITH echo je'suis'"charles"\n
@@ -6837,28 +6281,28 @@ ls: cannot access "''": No such file or directory$
 |---------------------------------------EXPECTED--------------------------------
 minishell:      echo: command not found$
 |---------------------------------------ACTUAL----------------------------------
-'     echo': command not found$
+minishell: '     echo': command not found$
 ================================================================================
 
 |> WITH 'echo     ' bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: echo     : command not found$
 |---------------------------------------ACTUAL----------------------------------
-'echo     ': command not found$
+minishell: 'echo     ': command not found$
 ================================================================================
 
 |> WITH "     echo" bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 minishell:      echo: command not found$
 |---------------------------------------ACTUAL----------------------------------
-"     echo": command not found$
+minishell: "     echo": command not found$
 ================================================================================
 
 |> WITH "echo     " bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: echo     : command not found$
 |---------------------------------------ACTUAL----------------------------------
-"echo     ": command not found$
+minishell: "echo     ": command not found$
 ================================================================================
 
 |> WITH ''echo bonjour\n
@@ -6866,7 +6310,7 @@ minishell: echo     : command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-''echo: command not found$
+minishell: ''echo: command not found$
 ================================================================================
 
 |> WITH ""echo bonjour\n
@@ -6874,7 +6318,7 @@ bonjour$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-""echo: command not found$
+minishell: ""echo: command not found$
 ================================================================================
 
 |> WITH ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''echo bonjour\n
@@ -6882,7 +6326,7 @@ bonjour$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-''''''''''''''''''''''''''''''''''''''''''''''''''''''''''echo: command not found$
+minishell: ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''echo: command not found$
 ================================================================================
 
 |> WITH """"""""""""""""""""""""""""""""""""""""""""""""""""""""""echo bonjour\n
@@ -6890,7 +6334,7 @@ bonjour$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""echo: command not found$
+minishell: """"""""""""""""""""""""""""""""""""""""""""""""""""""""""echo: command not found$
 ================================================================================
 
 |> WITH echo'' bonjour\n
@@ -6898,7 +6342,7 @@ bonjour$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-echo'': command not found$
+minishell: echo'': command not found$
 ================================================================================
 
 |> WITH echo"" bonjour\n
@@ -6906,7 +6350,7 @@ echo'': command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-echo"": command not found$
+minishell: echo"": command not found$
 ================================================================================
 
 |> WITH echo'''''''''''''''''''''''''''''''''''''''''''''''''''''''''' bonjour\n
@@ -6914,7 +6358,7 @@ echo"": command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-echo'''''''''''''''''''''''''''''''''''''''''''''''''''''''''': command not found$
+minishell: echo'''''''''''''''''''''''''''''''''''''''''''''''''''''''''': command not found$
 ================================================================================
 
 |> WITH echo"""""""""""""""""""""""""""""""""""""""""""""""""""""""""" bonjour\n
@@ -6922,7 +6366,7 @@ echo'''''''''''''''''''''''''''''''''''''''''''''''''''''''''': command not foun
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-echo"""""""""""""""""""""""""""""""""""""""""""""""""""""""""": command not found$
+minishell: echo"""""""""""""""""""""""""""""""""""""""""""""""""""""""""": command not found$
 ================================================================================
 
 |> WITH ec''ho bonjour\n
@@ -6930,7 +6374,7 @@ echo"""""""""""""""""""""""""""""""""""""""""""""""""""""""""": command not foun
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-ec''ho: command not found$
+minishell: ec''ho: command not found$
 ================================================================================
 
 |> WITH ec""ho bonjour\n
@@ -6938,7 +6382,7 @@ ec''ho: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-ec""ho: command not found$
+minishell: ec""ho: command not found$
 ================================================================================
 
 |> WITH ec''''''''''''''''''''''''''''''''''''''''''''''''''''''''''ho bonjour\n
@@ -6946,7 +6390,7 @@ ec""ho: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-ec''''''''''''''''''''''''''''''''''''''''''''''''''''''''''ho: command not found$
+minishell: ec''''''''''''''''''''''''''''''''''''''''''''''''''''''''''ho: command not found$
 ================================================================================
 
 |> WITH ec""""""""""""""""""""""""""""""""""""""""""""""""""""""""""ho bonjour\n
@@ -6954,7 +6398,7 @@ ec''''''''''''''''''''''''''''''''''''''''''''''''''''''''''ho: command not foun
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-ec""""""""""""""""""""""""""""""""""""""""""""""""""""""""""ho: command not found$
+minishell: ec""""""""""""""""""""""""""""""""""""""""""""""""""""""""""ho: command not found$
 ================================================================================
 
 |> WITH '''''''e''''''''''c''''''''''''h''''''''o''''''''''''''''''''' bonjour\n
@@ -6962,7 +6406,7 @@ ec""""""""""""""""""""""""""""""""""""""""""""""""""""""""""ho: command not foun
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-'''''''e''''''''''c''''''''''''h''''''''o''''''''''''''''''''': command not found$
+minishell: '''''''e''''''''''c''''''''''''h''''''''o''''''''''''''''''''': command not found$
 ================================================================================
 
 |> WITH """""""e""""""""""c""""""""""""h""""""""o""""""""""""""""""""" bonjour\n
@@ -6970,7 +6414,7 @@ bonjour$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-"""""""e""""""""""c""""""""""""h""""""""o""""""""""""""""""""": command not found$
+minishell: """""""e""""""""""c""""""""""""h""""""""o""""""""""""""""""""": command not found$
 ================================================================================
 
 |> WITH echo '"'\n

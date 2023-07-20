@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3commands.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/04 21:00:32 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/20 02:09:12 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*build_executable_path(t_control *get, char *command)
 			return (exec_path);
 		free(exec_path);
 	}
-	ft_printf("%s: command not found\n", command);
+	ft_printf("minishell: %s: command not found\n", command);
 	return (NULL);
 }
 
