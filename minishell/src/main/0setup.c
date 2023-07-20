@@ -12,6 +12,26 @@
 
 #include <minishell.h>
 
+int	increase_shlvl(char **envp)
+{
+	int		i;
+	int		increase;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp("SHLVL=", envp[i], 6))
+		{
+			increase = ft_atoi(&envp[i][6]) + 1;
+			*(envp[i] + 6) = 0;
+			ft_stradd(&envp[i], sttc_itoa(increase));
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	get_paths(char **envp, t_control *get)
 {
 	int		i;
@@ -64,10 +84,11 @@ Minishell \001\033[0m\002\001\033[34m\002",
 void	setup(t_control *get, char **envp)
 {
 	get->envp = dup_env(envp);
-	get_paths(envp, get);
 	get->prompt = get_prompt();
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);
+	get_paths(envp, get);
+	increase_shlvl(get->envp);
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, SIG_IGN);
 	(*control()) = get;
