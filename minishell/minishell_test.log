@@ -1,4 +1,5 @@
 |> WITH echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -7,12 +8,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -21,12 +21,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -35,12 +34,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ../../..; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -49,12 +47,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ../../../..; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -63,12 +60,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ../../../../..; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -77,12 +73,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ../../../../../..; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -91,12 +86,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -106,11 +100,10 @@ $
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
 $OLDPWD$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -121,11 +114,18 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: '': Not a directory$
-(null)$PWD$
-$OLDPWD$
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd '' ''; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd '' '' ''; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ' '; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -137,11 +137,22 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: ' ': Not a directory$
-(null)$PWD$
-$OLDPWD$
+================================================================================
+
+|> WITH [SETUP mkdir d] echo $PWD; echo $OLDPWD; cd d ''; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
+================================================================================
+
+|> WITH [SETUP mkdir d] echo $PWD; echo $OLDPWD; cd d d; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
+================================================================================
+
+|> WITH [SETUP mkdir d] echo $PWD; echo $OLDPWD; cd d ' '; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 ================================================================================
 
 |> WITH [EXPORTS HOME='/home/plopes-c'] echo $PWD; echo $OLDPWD; cd $HOME; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -152,11 +163,10 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: $HOME: Not a directory$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -165,12 +175,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd /.; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -179,12 +188,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd /./; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -193,12 +201,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd /././././; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -207,12 +214,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -221,12 +227,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ///; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -235,12 +240,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ////; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -249,12 +253,11 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd //////////////////////////////////////////////////////; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -263,8 +266,6 @@ $
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
-$OLDPWD$
-(null)$PWD$
 $OLDPWD$
 ================================================================================
 
@@ -293,6 +294,7 @@ $OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ' /'; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -304,11 +306,10 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: ' /': Not a directory$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ' / '; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -320,11 +321,10 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: ' / ': Not a directory$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd '                  /'; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -336,11 +336,10 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: '                  /': Not a directory$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd '                  /              '; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -352,11 +351,10 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: '                  /              ': Not a directory$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ' // '; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -368,11 +366,10 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: ' // ': Not a directory$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -382,11 +379,10 @@ $
 |---------------------------------------ACTUAL----------------------------------
 $PWD$
 $OLDPWD$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -398,11 +394,10 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: ' //home': Not a directory$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH echo $PWD; echo $OLDPWD; cd '     //home    '; pwd; echo $PWD; echo $OLDPWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
@@ -414,8 +409,6 @@ $
 $PWD$
 $OLDPWD$
 minishell: cd: '     //home    ': Not a directory$
-(null)$PWD$
-$OLDPWD$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 000 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
@@ -2259,49 +2252,52 @@ minishell: JESUIS: command not found$
 ================================================================================
 
 |> WITH pwd\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
-(null)
 ================================================================================
 
 |> WITH [SETUP cd ..] pwd\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
-(null)
 ================================================================================
 
 |> WITH [SETUP cd ../..] pwd\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
-(null)
 ================================================================================
 
 |> WITH [SETUP cd ../../..] pwd\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
-(null)
 ================================================================================
 
 |> WITH [SETUP cd /] pwd\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
-(null)
 ================================================================================
 
 |> WITH [SETUP cd $HOME] pwd\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 |---------------------------------------ACTUAL----------------------------------
-(null)
 ================================================================================
 
 |> WITH pwd | cat -e\n
-TIMEOUT
+|  STATUS: expected 0 actual -11
+|---------------------------------------EXPECTED--------------------------------
+/home/plopes-c/.cache/minishell_test/sandbox$$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH [EXPORTS PWD='/etc'] pwd\n
@@ -2312,11 +2308,11 @@ TIMEOUT
 ================================================================================
 
 |> WITH unset PWD; pwd; echo $PWD\n
+|  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
 /home/plopes-c/.cache/minishell_test/sandbox$
 $
 |---------------------------------------ACTUAL----------------------------------
-(null)$PWD$
 ================================================================================
 
 |> WITH export PWD=foo; pwd; echo $PWD\n
@@ -3377,7 +3373,7 @@ $
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
-a$
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH echo a ; ;\n
@@ -3385,7 +3381,7 @@ a$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
-a$
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH ;\n
@@ -3400,6 +3396,7 @@ minishell: syntax error near unexpected token `;'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH ; ; ;\n
@@ -3407,6 +3404,7 @@ minishell: syntax error near unexpected token `;'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH echo a ; ; echo b\n
@@ -3414,8 +3412,7 @@ minishell: syntax error near unexpected token `;'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
-a$
-b$
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH ;;\n
@@ -3423,6 +3420,7 @@ b$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH ;;;\n
@@ -3430,6 +3428,7 @@ minishell: syntax error near unexpected token `;'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH ;;;;;\n
@@ -3437,6 +3436,7 @@ minishell: syntax error near unexpected token `;'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH echo a ;; echo b\n
@@ -3444,8 +3444,7 @@ minishell: syntax error near unexpected token `;'$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
-a$
-b$
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH echo a ;;;;; echo b\n
@@ -3453,8 +3452,7 @@ b$
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `;'$
 |---------------------------------------ACTUAL----------------------------------
-a$
-b$
+minishell: syntax error near unexpected token ';'$
 ================================================================================
 
 |> WITH cat /etc/shells | head -c 10\n
@@ -3517,15 +3515,15 @@ TIMEOUT
 |---------------------------------------EXPECTED--------------------------------
 bonjour$$
 |---------------------------------------ACTUAL----------------------------------
-total 16$
--rw-rw-r-- 1 plopes-c plopes-c    8 Jul 20 02:09 a$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 02:09 b$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 02:09 c$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 02:09 d$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 02:09 m1$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 02:09 m2$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 02:09 m3$
 bonjour$$
+total 16$
+-rw-rw-r-- 1 plopes-c plopes-c    8 Jul 20 22:00 a$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 22:00 b$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 22:00 c$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 20 22:00 d$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 22:00 m1$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 22:00 m2$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 20 22:00 m3$
 ================================================================================
 
 |> WITH echo|\n
@@ -5886,9 +5884,9 @@ minishell: $A$B: command not found$
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 total 0$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 02:10 a$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 02:10 b$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 02:10 c$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 22:00 a$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 22:00 b$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 20 22:00 c$
 |---------------------------------------ACTUAL----------------------------------
 minishell: $LS: command not found$
 ================================================================================

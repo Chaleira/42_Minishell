@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/18 22:47:08 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:47:03 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ int	main(int argc, char **argv, char **envp)
 	while (true)
 	{
 		catch_input(&get);
-		normalize_input(&get);
-		structure_commands(&get);
-		run_input(&get);
+		if (normalize_input(&get))
+		{
+			structure_commands(&get);
+			run_input(&get);
+		}
 		input_reset(&get);
 	}
 	return (get.status);

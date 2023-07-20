@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/04 20:58:02 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:47:47 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		try_command(t_command *get, int index);
 char		*build_executable_path(t_control *get, char *command);
 
 // Normalize
-void		normalize_input(t_control *get);
+int			normalize_input(t_control *get);
 int			count_cases(char **string);
 
 // Cleanup/Reset
@@ -120,7 +120,6 @@ char		**shell_split(char *s);
 int			split_case(char *line);
 void		free_shellsplit(char ****arg);
 char		**copy_shellsplit(char **split);
-int			ignore_quotes(char *string);
 void		*free_split(char **arg);
 
 // Libft Plus
@@ -139,5 +138,12 @@ char		**find_var(char *name, char **env, int *index, int *size);
 void		jump_command(t_command *command, int index);
 char		*fix_quotes_expand(char *string, int expand);
 
+// Parse
+int	parse(char **split);
+// void		quotes(char **split);
+
+int 		check_quotes(char *str);
+int			ignore_quotes(char *string);
+void 		print_split(char **split);
 
 #endif
