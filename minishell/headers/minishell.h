@@ -66,7 +66,6 @@ void		setup(t_control *get, char **envp);
 char		*get_prompt(void);
 void		control_d(t_control *get);
 void		control_c(int signal);
-char		**dup_env(char **env);
 
 // Main
 void		catch_input(t_control *get);
