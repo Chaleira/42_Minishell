@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/04 21:00:32 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:18:16 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	try_command(t_command *get, int index)
 
 t_exe	solve(char *find)
 {
+	int				index;
 	static char		*cases[19] = {
 		"", ">>", ">", "<",
 		"echo", "cd", "pwd", "export",
@@ -69,7 +70,6 @@ t_exe	solve(char *find)
 		do_nothing, do_nothing, do_nothing, jump_command,
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
-	int				index;
 
 	index = 0;
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
