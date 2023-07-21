@@ -19,6 +19,8 @@ void	end_shell(t_control *get)
 	safe_free_null(&get->prompt);
 	rl_clear_history();
 	free_split(get->envp);
+	close(get->in_out[0]);
+	close(get->in_out[1]);
 	exit(get->status);
 }
 

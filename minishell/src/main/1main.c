@@ -6,9 +6,10 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/18 22:34:08 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/21 09:45:28 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <minishell.h>
 
@@ -33,19 +34,35 @@ void	catch_input(t_control *get)
 	rl_on_new_line();
 }
 
+static	int tester(t_control *get, char *argv)
+{
+	get->input = ft_strdup(argv);
+	add_history(get->input);
+	normalize_input(get);
+	structure_commands(get);
+	run_input(get);
+	input_reset(get);
+	end_shell(get);
+	return (get->status);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	static t_control	get;
-
-	(void)argv;
+	
 	(void)argc;
+	(void)argv;
 	setup(&get, envp);
+	if (argc == 3)
+		return (tester(&get, argv[2]));
 	while (true)
 	{
 		catch_input(&get);
-		normalize_input(&get);
-		structure_commands(&get);
-		run_input(&get);
+		if (normalize_input(&get))
+		{
+			structure_commands(&get);
+			run_input(&get);
+		}
 		input_reset(&get);
 	}
 	return (get.status);

@@ -57,6 +57,7 @@ void	run_input(t_control *get)
 	}
 	signal(SIGINT, control_c);
 }
+	// ft_printf("status: %i\n", get->status);
 
 void	execute_command(t_command *get)
 {

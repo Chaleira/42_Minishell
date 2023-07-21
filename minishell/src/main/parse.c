@@ -6,59 +6,58 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/28 18:15:18 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:58:26 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	count_char(char *str, char c);
-
-void	parse(char **split)
+int	parse(char **split)
 {
-	int	j;
 	int	i;
-
-	j = 0;
-	while (split && split[j])
+	
+	i = 0;
+	while (split && split[i])
 	{
-		i = 0;
-		while (split && split[j][i])
+		if (split[i][0] == ';')
 		{
-			i += !!(ignore_quotes(&split[j][i])) + ignore_quotes(&split[j][i]);
-			
-			i++;
+			if (split[i + 1] && split[i + 1][0] == ';')
+			{
+				ft_printf("minishell: syntax error near unexpected token '%s'\n", split[i]);
+				return (0);
+			}
 		}
-		j++;
-		ft_printf("\n");
+		i++;
 	}
+	return (1);
 }
 
-int	count_char(char *str, char c)
+int check_char(char *str)
 {
 	int	i;
-	int	count;
-
+	int count;
+	
 	count = 0;
 	i = 0;
 	while (str && str[i])
 	{
-		if (str[i] == c)
-			count++;
+		count += (str[i] == '"');
 		i++;
 	}
-	return (count);
+	if (count == 1)
+		return (0);
+	return (1);
 }
 
-// int main (void)
-// {
-// 	char *split[3];
+void print_split(char **split)
+{
+	int	i;
 
-// 	split[0] = "abc\"abc";
-// 	split[1] = "def \"123\"def";
-// 	split[2] = NULL;
-// 	ft_printf("before: %s\n", split[0]);
-// 	ft_printf("before: %s\n", split[1]);
-// 	// parse(split);
-// }
-// asd
+	i = 0;
+	while (split && split[i])
+	{
+		ft_printf("%s\n", split[i]);
+		i++;
+	}
+	ft_printf("END PRINT SPlIT\n");
+}

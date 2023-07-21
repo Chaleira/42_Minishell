@@ -10,20 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <minishell.h>
 
 void	pwd_prepare(t_command *command, int index)
 {
-	index = 0;
-	while (command->main->envp[index])
-	{
-		if (!ft_strncmp("PWD=", command->main->envp[index], 4))
-		{
-			command->exec_path = ft_strdup(&command->main->envp[index][4]);
-			ft_stradd(&command->exec_path, "\n");
-		}
-		index++;
-	}
+	(void)index;
+	command->exec_path = ft_strdup(
+		&(*get_envaddress(command->main->envp, "PWD="))[4]);
+	ft_stradd(&command->exec_path, "\n");
 	command->parse = 0;
 	command->execute = builtin_execute;
 }

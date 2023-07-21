@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/18 22:18:16 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/21 09:43:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*build_executable_path(t_control *get, char *command)
 			return (exec_path);
 		free(exec_path);
 	}
-	ft_printf("%s: command not found\n", command);
+	ft_printf("minishell: %s: command not found\n", command);
 	return (NULL);
 }
 
