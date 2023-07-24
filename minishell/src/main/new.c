@@ -12,82 +12,145 @@
 
 #include <minishell.h>
 
-// char	*expand_variable(char *string, int limite)
+char	*expand_variable(char *string, int limite)
+{
+	int	i;
+
+	i = 0;
+	HERE;
+	while (i < limite)
+	{
+		if (string[i] == '$')
+			;
+	}
+	return (NULL);
+}
+
+int	find_pair(char *string, char *jump)
+{
+	int		i;
+	char	stop;
+
+	i = 0;
+	if (ft_strchr(jump, string[i]))
+	{
+		stop = string[i++];
+		while (string[i] && string[i] != stop)
+			i++;
+		if (string[i] != stop)
+			return (0);
+	}
+	return (i);
+}
+
+void	remove_pair(char *string, char *find)
+{
+	int	i;
+	int	close;
+	int	stop;
+
+	i = 0;
+	while (string[i])
+	{
+		close = find_pair(&string[i], find);
+		if (close)
+		{
+			stop = i + close;
+			while (i++ < stop)
+				string[i - 1] = string[i];
+			while (string[++stop])
+				string[stop - 2] = string[stop];
+			string[stop - 1] = 0;
+			string[stop - 2] = 0;
+			i -= 2;
+		}
+		else
+			i++;
+	}
+}
+
+char	*fix_quotes_expand(char *string)
+{
+	int	i;
+	int	quotes;
+
+	i = 0;
+	while (string[i])
+	{
+		quotes = find_pair(&string[i], "\"\'");
+		if (quotes)
+		{
+			string[i + quotes] = '\xFF';
+			string[i++] = '\xFF';
+			while (string[i] && string[i] != '\xFF')
+				i++;
+		}
+		i++;
+	}
+	remove_pair(string, "\xFF");
+	return (string);
+}
+
+char	*insert_envar(char *string, int start, char **envp)
+{
+	int		i;
+	int		count;
+	char	*envar;
+	char	**temp;
+
+	i = -1;
+	count = 0;
+	while (string[++i + start] && !split_case(string[i + start]))
+		count++;
+	envar = ft_calloc(sizeof(char), count + 1);
+	i = -1;
+	while (string[++i + start] && !split_case(string[i + start]))
+		envar[i] = string[i + start];
+	temp = get_envaddress(envp, envar);
+	free(envar);
+	if (!temp)
+	{
+		remove_var_call();
+		return (NULL);
+	}
+	envar = ft_strdup();
+	free(string);
+	return (string);
+}
+
+char	*input_expand(char *input, char **envp)
+{
+	int	i;
+	int	quotes;
+
+	while (input[i])
+	{
+		quotes = find_pair(&input[i], "\"\'");
+		if (quotes && input[i] == '\'')
+			i += quotes;
+		else if (quotes && input[i] == '\"')
+		{
+			while (input[i] != '\"')
+			{
+				if (input[i] == '$')
+					input = insert_envar(input, i, envp);
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+}
+
+/*
+expand all $ in and out of double quotes. Its possible that a $
+expand to another $, it necessary to rerun the function until no
+expantions are executed.
+*/
+
+// int	main(int argc, char **argv)
 // {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < limite)
-// 	{
-// 		if (string[i] == '$')
-// 			;
-// 	}
-// 	return (NULL);
-// }
-
-// int	find_pair(char *string, char *jump)
-// {
-// 	int		i;
-// 	char	stop;
-
-// 	i = 0;
-// 	if (ft_strchr(jump, string[i]))
-// 	{
-// 		stop = string[i++];
-// 		while (string[i] && string[i] != stop)
-// 			i++;
-// 		if (string[i] != stop)
-// 			return (0);
-// 	}
-// 	return (i);
-// }
-
-// void	remove_pair(char *string, char *find)
-// {
-// 	int	i;
-// 	int	close;
-// 	int	stop;
-
-// 	i = 0;
-// 	while (string[i])
-// 	{
-// 		close = find_pair(&string[i], find);
-// 		if (close)
-// 		{
-// 			stop = i + close;
-// 			while (i++ < stop)
-// 				string[i - 1] = string[i];
-// 			while (string[++stop])
-// 				string[stop - 2] = string[stop];
-// 			string[stop - 1] = 0;
-// 			string[stop - 2] = 0;
-// 			i -= 2;
-// 		}
-// 		else
-// 			i++;
-// 	}
-// }
-
-// char	*fix_quotes_expand(char *string, int expand)
-// {
-// 	int	i;
-// 	int	quotes;
-
-// 	i = 0;
-// 	while (string[i])
-// 	{
-// 		quotes = find_pair(&string[i], "\"\'");
-// 		if (quotes)
-// 		{
-// 			string[i + quotes] = '\xFF';
-// 			string[i++] = '\xFF';
-// 			if (expand && string[i] == '"')
-// 				string = expand_variable(&string[i], i + quotes);
-// 			while (string[i] && string[i] != '\xFF')
-// 				i++;
-// 		}
-// 		i++;
-// 	}
-// 	remove_pair(string, "\xFF");
-// 	return (string);
+// 	(void)argc;
+// 	ft_printf("no\n%s\n", (argv[1]));
+// 	ft_printf("yes\n%s\n", fix_quotes_expand(argv[1]));
 // }

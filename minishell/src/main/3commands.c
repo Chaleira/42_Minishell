@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/21 09:43:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/24 10:10:04 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*build_executable_path(t_control *get, char *command)
 	if ((command[0] == '.' && command[1] == '.')
 		|| (command[0] == '.' && !command[1]))
 	{
-		ft_printf("command not found: %s\n", command);
+		ft_printf("minishell: %s: command not found\n", command);
 		return (NULL);
 	}
 	if (!access(command, F_OK) && (*command == '/'
@@ -60,7 +60,7 @@ t_exe	solve(char *find)
 		"", ">>", ">", "<",
 		"echo", "cd", "pwd", "export",
 		"unset", "env", "exit",
-		"|", "(", ")",  "ignore\xFF",
+		"|", "(", ")", "ignore\xFF",
 		"&&", ";", "||", NULL
 	};
 	static t_exe	functions[19] = {

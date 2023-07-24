@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/18 21:38:52 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:01:24 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,22 @@ static void	increase_shlvl(char **envp)
 	if (!shlvl)
 		return ;
 	increase = ft_atoi(&(*shlvl)[6]) + 1;
+	if (increase >= 1000)
+		increase = 1;
 	(*shlvl)[6] = 0;
 	ft_stradd(shlvl, sttc_itoa(increase));
 }
 
 
-static void	get_paths(char **envp, t_control *get)
+void	update_paths(char **envp, t_control *get)
 {
 	char	**paths;
 
 	paths = get_envaddress(envp, "PATH=");
 	if (!paths)
-		return ;
-	get->paths = ft_split(*paths + 5, ':');
+		get->paths = ft_calloc(sizeof(char **), 2);
+	else
+		get->paths = ft_split(*paths + 5, ':');
 	finish_list_with(get->paths, "/");
 }
 
@@ -77,10 +80,10 @@ char	*get_prompt(void)
 
 	folder = getcwd(NULL, 0);
 	prompt = ft_strjoin("\001\033[1m\002\001\033[31m\002\
-Minishell \001\033[0m\002\001\033[34m\002",
+\001Minishell\002\001\033[0m\002\001\033[34m\002 ",
 			ft_strrchr(folder, '/') + 1);
 	free(folder);
-	ft_stradd(&prompt, " \001\033[0;33m\002\001\u2717\002 \001\033[0m\002");
+	ft_stradd(&prompt, "\001\033[0;33m\002\001 \u2717 \002\001\033[0m\002");
 	return (prompt);
 }
 
@@ -109,7 +112,7 @@ void	setup(t_control *get, char **envp)
 	get->prompt = get_prompt();
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);
-	get_paths(envp, get);
+	update_paths(envp, get);
 	increase_shlvl(get->envp);
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, SIG_IGN);
