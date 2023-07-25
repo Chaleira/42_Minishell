@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/20 21:58:26 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:38:10 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,8 @@
 
 int	parse(char **split)
 {
-	int	i;
-	
-	i = 0;
-	while (split && split[i])
-	{
-		if (split[i][0] == ';')
-		{
-			if (split[i + 1] && split[i + 1][0] == ';')
-			{
-				ft_printf("minishell: syntax error near unexpected token '%s'\n", split[i]);
-				return (0);
-			}
-		}
-		i++;
-	}
-	return (1);
+	static char *check_cases[] = {
+		">", ">>", "<", "<<", ";", "|"}
 }
 
 int check_char(char *str)
