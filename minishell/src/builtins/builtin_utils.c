@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 11:09:39 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:48:25 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	builtin_execute(char *print)
 {
-	ft_printf("%s", print);
+	if (print)
+		ft_printf("%s", print);
 }
 
 void	stop_command(char **split)
