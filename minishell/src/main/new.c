@@ -12,19 +12,19 @@
 
 #include <minishell.h>
 
-char	*expand_variable(char *string, int limite)
-{
-	int	i;
+// char	*expand_variable(char *string, int limite)
+// {
+// 	int	i;
 
-	i = 0;
-	HERE;
-	while (i < limite)
-	{
-		if (string[i] == '$')
-			;
-	}
-	return (NULL);
-}
+// 	i = 0;
+// 	HERE;
+// 	while (i < limite)
+// 	{
+// 		if (string[i] == '$')
+// 			;
+// 	}
+// 	return (NULL);
+// }
 
 int	find_pair(char *string, char *jump)
 {
@@ -91,31 +91,40 @@ char	*fix_quotes_expand(char *string)
 	return (string);
 }
 
-char	*insert_envar(char *string, int start, char **envp)
+char	**position_and_var(char *string)
 {
-	int		i;
-	int		count;
-	char	*envar;
-	char	**temp;
+	int		index;
+	char	*envvar;
 
-	i = -1;
-	count = 0;
-	while (string[++i + start] && !split_case(string[i + start]))
-		count++;
-	envar = ft_calloc(sizeof(char), count + 1);
-	i = -1;
-	while (string[++i + start] && !split_case(string[i + start]))
-		envar[i] = string[i + start];
-	temp = get_envaddress(envp, envar);
-	free(envar);
-	if (!temp)
-	{
-		remove_var_call();
+	if (!string)
 		return (NULL);
+	index = 0;
+	while (string[index] && !split_case(&string[index]))
+		index++;
+	envvar = ft_calloc(sizeof(char), index + 1);
+	index = 0;
+	while (string[index] && !split_case(&string[index]))
+	{
+		envvar[index] = string[index];
+		index++;
 	}
-	envar = ft_strdup();
-	free(string);
-	return (string);
+	return ((char *[]){envvar, &string[index]});
+}
+
+void	insert_envar(char **string, char *varplus, char **envp)
+{
+	char	*build;
+
+	*varplus = 0;
+	varplus = (char *)position_and_var(varplus + 1);
+	envp = get_envaddress(envp, ((char **)varplus)[0]);
+	*envp = ft_strchr(*envp, '=') + 1;
+	free(((char **)varplus)[0]);
+	varplus = ((char **)varplus)[1];
+	build = ft_strjoin(*string, *envp);
+	ft_stradd(&build, varplus);
+	free(*string);
+	*string = build;
 }
 
 char	*input_expand(char *input, char **envp)
@@ -126,20 +135,20 @@ char	*input_expand(char *input, char **envp)
 	while (input[i])
 	{
 		quotes = find_pair(&input[i], "\"\'");
-		if (quotes && input[i] == '\'')
-			i += quotes;
-		else if (quotes && input[i] == '\"')
+		i += quotes * (input[i] == '\'');
+		if (quotes && input[i] == '\"')
 		{
 			while (input[i] != '\"')
 			{
 				if (input[i] == '$')
-					input = insert_envar(input, i, envp);
+					insert_envar(&input, &input[i], envp);
 				i++;
 			}
 		}
 		else
 			i++;
 	}
+	return (input);
 }
 
 /*
