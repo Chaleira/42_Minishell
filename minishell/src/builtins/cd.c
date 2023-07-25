@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/04 22:07:33 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:41:36 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	cd_prepare(t_command *command, int index)
 	while (command->terminal[index + args]
 		&& !split_case(command->terminal[index + args]))
 		args++;
+	if (args == 1)
+		return ;
 	if (args > 2)
 	{
 		ft_printf("minishell: cd: too many arguments\n");

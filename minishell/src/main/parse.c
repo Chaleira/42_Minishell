@@ -6,17 +6,39 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/21 11:38:10 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:27:52 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	parse(char **split)
-{
-	static char *check_cases[] = {
-		">", ">>", "<", "<<", ";", "|"}
-}
+// t_exe	solver_parse(char *str);
+
+// int	parse(char **split)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (split && split[i])
+// 	{
+// 		(solver_parse(split[i]))(split[i]);
+// 		i++;
+// 	}
+// }
+
+// t_exe	solver_parse(char *str)
+// {
+// 	int	index;
+	
+// 	static char *check_cases[7] = {
+// 		"\"", ">", ">>", "<", "<<", ";", "|"};
+	
+// 	// static t_exe functions[8] = {
+// 	// 	quotes, redirect_right, here_doc_right, redirect_left, here_doc_left,
+// 	// 	semicolon, check_pipe, do_nothing};
+	
+// 	// return (functions[index]);
+// }
 
 int check_char(char *str)
 {

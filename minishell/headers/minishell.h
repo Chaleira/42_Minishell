@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/24 11:32:30 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:38:47 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void		update_paths(char **envp, t_control *get);
 int	parse(char **split);
 // void		quotes(char **split);
 
-int 		check_quotes(char *str);
+int			count_quotes(char *str);
 int			ignore_quotes(char *string);
 void 		print_split(char **split);
 
