@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/20 21:47:47 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/24 11:32:30 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
 
-typedef void				(*t_exe)();
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
 typedef struct sigaction	t_sigaction;
+typedef void				(*t_exe)();
 
 struct s_control {
 	char		*input;
@@ -136,7 +136,9 @@ void		stop_command(char **split);
 
 char		**find_var(char *name, char **env, int *index, int *size);
 void		jump_command(t_command *command, int index);
-char		*fix_quotes_expand(char *string, int expand);
+char		*fix_quotes_expand(char *string);
+
+void		update_paths(char **envp, t_control *get);
 
 // Parse
 int	parse(char **split);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3commands.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/20 02:09:12 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/24 10:10:04 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*build_executable_path(t_control *get, char *command)
 	if ((command[0] == '.' && command[1] == '.')
 		|| (command[0] == '.' && !command[1]))
 	{
-		ft_printf("command not found: %s\n", command);
+		ft_printf("minishell: %s: command not found\n", command);
 		return (NULL);
 	}
 	if (!access(command, F_OK) && (*command == '/'
@@ -55,11 +55,12 @@ void	try_command(t_command *get, int index)
 
 t_exe	solve(char *find)
 {
+	int				index;
 	static char		*cases[19] = {
 		"", ">>", ">", "<",
 		"echo", "cd", "pwd", "export",
 		"unset", "env", "exit",
-		"|", "(", ")",  "ignore\xFF",
+		"|", "(", ")", "ignore\xFF",
 		"&&", ";", "||", NULL
 	};
 	static t_exe	functions[19] = {
@@ -69,7 +70,6 @@ t_exe	solve(char *find)
 		do_nothing, do_nothing, do_nothing, jump_command,
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
-	int				index;
 
 	index = 0;
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
