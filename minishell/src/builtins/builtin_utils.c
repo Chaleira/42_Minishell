@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/25 18:25:02 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:58:04 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	builtin_execute(char *print)
 {
 	if (print)
-		if (print)
 		ft_printf("%s", print);
 }
 
