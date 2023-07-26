@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/25 17:23:09 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:10:16 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void export_prepare(t_command *command, int index)
 	int len;
 
 	if (!command->terminal[index + 1])
-		export_execute_no_input(NULL, NULL, command->main->envp);
+		command->execute = export_execute_no_input;
 	else
 	{
 		len = 0;
@@ -41,7 +41,9 @@ void export_prepare(t_command *command, int index)
 				command->flags[i++] = ft_strdup(command->terminal[index]);
 			command->terminal[index][0] = 0;
 		}
-		export_execute_with_input(NULL, command->flags);
+		command->execute = export_execute_with_input;
+		if (execute_now(command))
+			command->status = PARENT;
 	}
 }
 
@@ -58,6 +60,7 @@ static void export_execute_no_input(char *print, char **flags, char **env)
 	{
 		counter = 0;
 		j = 0;
+		write(1, "declare -x ", 11);
 		while (env[i][j])
 		{
 			write(1, &env[i][j], 1);

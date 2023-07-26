@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   0setup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 09:39:23 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 09:55:14 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	increase_shlvl(char **envp)
 	if (!shlvl)
 		return ;
 	increase = ft_atoi(&(*shlvl)[6]) + 1;
-	if (increase >= 1000)
-		increase = 1;
+	// if (increase >= 1000)
+	// 	increase = 1;
 	(*shlvl)[6] = 0;
 	ft_stradd(shlvl, sttc_itoa(increase));
 }

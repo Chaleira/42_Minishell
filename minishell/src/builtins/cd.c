@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/25 17:41:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:11:53 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	cd_execute(char *str)
 	(*control())->status = 0;
 }
 
-static int	execute_now(t_command *get)
+int	execute_now(t_command *get)
 {
 	int	index;
 
