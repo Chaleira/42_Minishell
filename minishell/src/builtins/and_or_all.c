@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/06/29 11:28:59 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:17:08 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ void	status_execute(char *print)
 	(*control())->status = 0;
 }
 
-void	status_prepare(t_command *command, int index)
+void	status_expand(t_command *command, int index)
 {
-	(void)index;
-	command->exec_path = ft_itoa(command->main->status);
-	command->execute = (void *)status_execute;
+	free(command->terminal[index]);
+	command->terminal[index] = ft_itoa(command->main->status);
 }

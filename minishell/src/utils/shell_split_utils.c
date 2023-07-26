@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/25 18:26:56 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:27:16 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	split_case(char *line)
 	else if (*line == '|' && *(line + 1) && *(line + 1) == '|')
 		return (2);
 	else if (*line == '&' && *(line + 1) && *(line + 1) == '&')
-		return (2);
-	else if (*line == '$' && *(line + 1) && *(line + 1) == '?')
 		return (2);
 	else if (*line == '>' || *line == '<' || *line == ';' || *line == '|'
 		|| *line == '(' || *line == ')')

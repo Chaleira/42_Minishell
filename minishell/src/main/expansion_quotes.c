@@ -93,15 +93,20 @@ void	insert_envar(char **string, char *end, char **envp)
 {
 	char	*name;
 
-	*end = 0;
-	name = variable_name(end + 1);
+	*(end++) = 0;
+	name = variable_name(end);
 	envp = get_envaddress(envp, name);
-	end += ft_strlen(name) + 1;
+	if (*end == '?')
+		end++;
+	else
+		end += ft_strlen(name);
 	end = ft_strdup(end);
-	safe_free_null(&name);
 	if (envp && *envp)
 		ft_stradd(string, ft_strchr(*envp , '=') + 1);
+	else if (*name == '?')
+		ft_stradd(string, sttc_itoa((*control())->status));
 	ft_stradd(string, end);
+	safe_free_null(&name);
 	safe_free_null(&end);
 }
 

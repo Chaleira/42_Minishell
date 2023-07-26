@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 10:11:47 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/26 11:14:34 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void		export_prepare(t_command *command, int index);
 void		input_redirect(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
 int			execute_now(t_command *get);
-
+void		status_expand(t_command *command, int index);
 void		do_nothing(void);
 void		exit_execute(t_command *command, int index);
 void		status_execute(char *print);
