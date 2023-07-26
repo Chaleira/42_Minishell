@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 11:14:34 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:01:44 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void		jump_command(t_command *command, int index);
 char		*fix_quotes_expand(char *string);
 
 void		update_paths(char **envp, t_control *get);
-void		remove_pair(char *string, char *find);
+int			remove_pair(char *string, char *find);
 char		*input_expand(char *input, char **envp);
 
 // Parse

@@ -111,7 +111,6 @@ int		normalize_input(t_control *get)
 	while (split[index])
 	{
 		split[index] = input_expand(split[index], get->envp);
-		remove_pair(split[index], "\"\'");
 		index++;
 	}
 	break_tokens(get, split);
