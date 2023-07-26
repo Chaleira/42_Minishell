@@ -1121,7 +1121,8 @@ minishell: exit: '	3': numeric argument required$
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
 exit$
-minishell: exit: '	 3': numeric argument required$
+minishell: exit: '	
+ 3': numeric argument required$
 ================================================================================
 
 |> WITH exit '3 '\n
@@ -1143,19 +1144,23 @@ minishell: exit: '3	': numeric argument required$
 |> WITH exit '3\r'\n
 |  STATUS: expected 255 actual 1
 |---------------------------------------EXPECTED--------------------------------
-minishell: exit: 3: numeric argument required$
+minishell: exit: 3
+: numeric argument required$
 |---------------------------------------ACTUAL----------------------------------
 exit$
-minishell: exit: '3': numeric argument required$
+minishell: exit: '3
+': numeric argument required$
 ================================================================================
 
 |> WITH exit '3\t\f\r '\n
 |  STATUS: expected 255 actual 1
 |---------------------------------------EXPECTED--------------------------------
-minishell: exit: 3	 : numeric argument required$
+minishell: exit: 3	
+ : numeric argument required$
 |---------------------------------------ACTUAL----------------------------------
 exit$
-minishell: exit: '3	 ': numeric argument required$
+minishell: exit: '3	
+ ': numeric argument required$
 ================================================================================
 
 |> WITH exit '3     a'\n
@@ -2400,7 +2405,8 @@ FROM TEST: File not created
 
 |> WITH echo \t\v\f\r !#$%*+,-./0123456789:;=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_abcdefghijklmnopqrstuvwxyz{}~\n
 |---------------------------------------EXPECTED--------------------------------
-  !#$%*+,-./0123456789:$
+ 
+ !#$%*+,-./0123456789:$
 minishell: =?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{}~: command not found$
 |---------------------------------------ACTUAL----------------------------------
   !#$%*+,-./0123456789:$

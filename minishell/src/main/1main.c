@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1main.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/24 12:29:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:26:22 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_control	**control(void)
 
 void	catch_input(t_control *get)
 {
+	rl_on_new_line();
 	get->input = readline(get->prompt);
 	if (!get->input)
 		control_d(get);

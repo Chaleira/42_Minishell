@@ -6,31 +6,39 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/20 21:58:26 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:27:52 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	parse(char **split)
-{
-	int	i;
+// t_exe	solver_parse(char *str);
+
+// int	parse(char **split)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (split && split[i])
+// 	{
+// 		(solver_parse(split[i]))(split[i]);
+// 		i++;
+// 	}
+// }
+
+// t_exe	solver_parse(char *str)
+// {
+// 	int	index;
 	
-	i = 0;
-	while (split && split[i])
-	{
-		if (split[i][0] == ';')
-		{
-			if (split[i + 1] && split[i + 1][0] == ';')
-			{
-				ft_printf("minishell: syntax error near unexpected token '%s'\n", split[i]);
-				return (0);
-			}
-		}
-		i++;
-	}
-	return (1);
-}
+// 	static char *check_cases[7] = {
+// 		"\"", ">", ">>", "<", "<<", ";", "|"};
+	
+// 	// static t_exe functions[8] = {
+// 	// 	quotes, redirect_right, here_doc_right, redirect_left, here_doc_left,
+// 	// 	semicolon, check_pipe, do_nothing};
+	
+// 	// return (functions[index]);
+// }
 
 int check_char(char *str)
 {

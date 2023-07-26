@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:37:39 by plopes-c          #+#    #+#             */
-/*   Updated: 2022/11/03 19:42:50 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:00:07 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		n;
 
-	i = 0;
-	n = 0;
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
 	str = malloc((ft_strlen(s1)) + (ft_strlen(s2)) + 1);
 	if (str == NULL)
 		return (NULL);
-	while (s1[i] != '\0')
+	i = 0;
+	while (s1 && s1[i])
 	{
 		str[i] = s1[i];
 		i++;
 	}
-	while (s2[n] != '\0')
-	{
-		str[i] = s2[n];
-		i++;
-		n++;
-	}
+	n = 0;
+	while (s2 && s2[n])
+		str[i++] = s2[n++];
 	str[i] = '\0';
 	return (str);
 }

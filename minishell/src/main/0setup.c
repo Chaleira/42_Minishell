@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   0setup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/24 11:01:24 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:26:05 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+#define RED "\001\e[01;31m\004"
+#define BOLD "\001\e[01;1m\004"
+#define BLUE "\001\e[01;34m\004"
+#define YELLOW "\001\e[01;33m\004"
+#define RESET "\001\e[0m\004"
 
 char	**get_envaddress(char **envp, char *find)
 {
@@ -62,7 +68,7 @@ void	control_c(int signal)
 	(*control())->status = 130;
 	rl_replace_line("", 1);
 	rl_on_new_line();
-	write(1, "\n", 2);
+	write(1, "\n", 1);
 	rl_redisplay();
 }
 
@@ -73,17 +79,30 @@ void	control_d(t_control *get)
 	end_shell(get);
 }
 
+// char	*get_prompt(void)
+// {
+// 	char		*folder;
+// 	char		*prompt;
+
+// 	folder = getcwd(NULL, 0);
+	// prompt = ft_strjoin("\001\033[1m\002\001\033[31m\002
+// \001Minishell\002\001\033[0m\002\001\033[34m\002 ",
+// 			ft_strrchr(folder, '/') + 1);
+// 	free(folder);
+// 	ft_stradd(&prompt, "\001\033[0;33m\002\001 \u2717 \002\001\033[0m\002");
+// 	return (prompt);
+// }
+
 char	*get_prompt(void)
 {
 	char		*folder;
 	char		*prompt;
 
 	folder = getcwd(NULL, 0);
-	prompt = ft_strjoin("\001\033[1m\002\001\033[31m\002\
-\001Minishell\002\001\033[0m\002\001\033[34m\002 ",
+	prompt = ft_strjoin("\001\r\033[1;31m\002Minishell\040\001\033[0;34m\002",
 			ft_strrchr(folder, '/') + 1);
 	free(folder);
-	ft_stradd(&prompt, "\001\033[0;33m\002\001 \u2717 \002\001\033[0m\002");
+	ft_stradd(&prompt, "\040\001\033[0;33m\u2717\033[0;0m\002\040");
 	return (prompt);
 }
 
