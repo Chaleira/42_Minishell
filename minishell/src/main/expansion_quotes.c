@@ -29,7 +29,7 @@ int	find_pair(char *string, char *jump)
 	return (i);
 }
 
-void	remove_pair(char *string, char *find)
+int	remove_pair(char *string, char *find)
 {
 	int	i;
 	int	close;
@@ -53,6 +53,7 @@ void	remove_pair(char *string, char *find)
 		else
 			i++;
 	}
+	return (1);
 }
 
 

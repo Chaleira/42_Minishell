@@ -1006,8 +1006,7 @@ _=/home/plopes-c/.cache/minishell_test/bin/env
 |---------------------------------------ACTUAL----------------------------------
 $
 PATH=/home/plopes-c/.cache/minishell_test/bin$
-TERM=xterm-256color$
-here
+TERM=xterm-256color
 ================================================================================
 
 |> WITH [SETUP export A=a] env\n
@@ -1021,8 +1020,7 @@ _=/home/plopes-c/.cache/minishell_test/bin/env
 |---------------------------------------ACTUAL----------------------------------
 $
 PATH=/home/plopes-c/.cache/minishell_test/bin$
-TERM=xterm-256color$
-here
+TERM=xterm-256color
 ================================================================================
 
 |> WITH [SETUP export A=a B=b C=c] env\n
@@ -1036,8 +1034,7 @@ _=/home/plopes-c/.cache/minishell_test/bin/env
 |---------------------------------------ACTUAL----------------------------------
 $
 PATH=/home/plopes-c/.cache/minishell_test/bin$
-TERM=xterm-256color$
-here
+TERM=xterm-256color
 ================================================================================
 
 |> WITH [SETUP export A=a B=b C=c] env | cat -e\n
@@ -1646,6 +1643,28 @@ exit$
 exit$
 ================================================================================
 
+|> WITH exiT; echo a\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: exiT: command not found$
+a$
+|---------------------------------------ACTUAL----------------------------------
+minishell: exiT: Is a directory.$
+a$
+minishell: exiT: Is a directory.$
+minishell: exiT: Is a directory.$
+================================================================================
+
+|> WITH [EXPORTS PATH='/bin:/usr/bin'] Exit; echo a\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: Exit: command not found$
+a$
+|---------------------------------------ACTUAL----------------------------------
+minishell: Exit: Is a directory.$
+a$
+minishell: Exit: Is a directory.$
+minishell: Exit: Is a directory.$
+================================================================================
+
 |> WITH export\n
 |---------------------------------------EXPECTED--------------------------------
 $
@@ -2074,8 +2093,7 @@ A$
 B$
 C$
 PATH=/home/plopes-c/.cache/minishell_test/bin$
-TERM=xterm-256color$
-here
+TERM=xterm-256color
 ================================================================================
 
 |> WITH export 'AH@'=nop\n
@@ -2298,6 +2316,14 @@ $
 ab$
 |---------------------------------------ACTUAL----------------------------------
 $
+================================================================================
+
+|> WITH unseT TERM\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: unseT: command not found$
+|---------------------------------------ACTUAL----------------------------------
+minishell: unseT: Is a directory.$
+minishell: unseT: Is a directory.$
 ================================================================================
 
 |> WITH echo "\"" >>a"b""c"  \n
@@ -2905,13 +2931,12 @@ $
 |> WITH echo >> test bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-minishell: bonjour: Is a directory.$
+minishell: bonjour: command not found$
 |# FILE test
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
 $
-minishell: bonjour: Is a directory.$
 ================================================================================
 
 |> WITH echo > test'sticked' bonjour\n
@@ -2961,13 +2986,12 @@ $
 |> WITH echo > test'yo'"sticked" bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-minishell: bonjour: Is a directory.$
+minishell: bonjour: command not found$
 |# FILE testyosticked
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
 $
-minishell: bonjour: Is a directory.$
 ================================================================================
 
 |> WITH echo >> test'yo'"sticked" bonjour\n
@@ -3136,29 +3160,13 @@ minishell: doesnotexist: No such file or directory$
 Minishell: doesnotexist: No such file or directory$
 ================================================================================
 
-|> WITH echo $?\n
-|---------------------------------------EXPECTED--------------------------------
-0$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH echo; echo $?\n
-|---------------------------------------EXPECTED--------------------------------
-$
-0$
-|---------------------------------------ACTUAL----------------------------------
-$
-$
-================================================================================
-
 |> WITH notfound; echo $?\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: notfound: command not found$
 127$
 |---------------------------------------ACTUAL----------------------------------
 minishell: notfound: command not found$
-$
+0$
 ================================================================================
 
 |> WITH cat < doesntexist; echo $?\n
@@ -3167,7 +3175,7 @@ minishell: doesntexist: No such file or directory$
 1$
 |---------------------------------------ACTUAL----------------------------------
 Minishell: doesntexist: No such file or directory$
-$
+0$
 ================================================================================
 
 |> WITH [SETUP echo bonjour > noperm; chmod 000 noperm] cat < noperm; echo $?\n
@@ -3176,7 +3184,7 @@ minishell: noperm: Permission denied$
 1$
 |---------------------------------------ACTUAL----------------------------------
 Minishell: noperm: No such file or directory$
-$
+0$
 ================================================================================
 
 |> WITH cat < doesntexist\n
@@ -3302,6 +3310,1238 @@ a$
 b$
 ================================================================================
 
+|> WITH [SETUP touch a b c] ls  ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls\n
+|---------------------------------------EXPECTED--------------------------------
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+|---------------------------------------ACTUAL----------------------------------
+minishell: ls: Is a directory.$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+minishell: ls: Is a directory.$
+================================================================================
+
+|> WITH [SETUP touch a b c] ls  ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls;\n
+|---------------------------------------EXPECTED--------------------------------
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+|---------------------------------------ACTUAL----------------------------------
+minishell: ls: Is a directory.$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+minishell: ls: Is a directory.$
+minishell: ls: Is a directory.$
+================================================================================
+
+|> WITH [SETUP touch a b c] ls  ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls ; ls;\n
+|---------------------------------------EXPECTED--------------------------------
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+|---------------------------------------ACTUAL----------------------------------
+minishell: ls: Is a directory.$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+a$
+b$
+c$
+minishell: ls: Is a directory.$
+minishell: ls: Is a directory.$
+================================================================================
+
 |> WITH cat /etc/shells | head -c 10\n
 TIMEOUT
 ================================================================================
@@ -3364,13 +4604,13 @@ bonjour$$
 |---------------------------------------ACTUAL----------------------------------
 bonjour$$
 total 16$
--rw-rw-r-- 1 plopes-c plopes-c    8 Jul 26 11:00 a$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:00 b$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:00 c$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:00 d$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:00 m1$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:00 m2$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:00 m3$
+-rw-rw-r-- 1 plopes-c plopes-c    8 Jul 26 11:36 a$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:36 b$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:36 c$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:36 d$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:36 m1$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:36 m2$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:36 m3$
 ================================================================================
 
 |> WITH echo|\n
@@ -3394,7 +4634,13 @@ TIMEOUT
 ================================================================================
 
 |> WITH  | cat\n
-TIMEOUT
+|  STATUS: expected 2 actual 127
+|---------------------------------------EXPECTED--------------------------------
+minishell: syntax error near unexpected token `|'$
+|---------------------------------------ACTUAL----------------------------------
+minishell: cat: Is a directory.$
+minishell: cat: Is a directory.$
+minishell: cat: Is a directory.$
 ================================================================================
 
 |> WITH echo a | export A=a; echo $A\n
@@ -3419,6 +4665,17 @@ minishell: asdf: command not found$
 |---------------------------------------ACTUAL----------------------------------
 minishell: asdf: command not found$
 bonjour$
+================================================================================
+
+|> WITH asdf | echo bonjour\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: asdf: command not found$
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+minishell: asdf: Is a directory.$
+bonjour$
+minishell: asdf: Is a directory.$
+minishell: asdf: Is a directory.$
 ================================================================================
 
 |> WITH echo a ||| echo b\n
@@ -3827,20 +5084,6 @@ a$
 ls: cannot access 'asdfasdf': No such file or directory$
 ================================================================================
 
-|> WITH ls asdfasdf | echo a; echo b\n
-|---------------------------------------EXPECTED--------------------------------
-a$
-ls: cannot access 'asdfasdf': No such file or directory$
-b$
-|---------------------------------------ACTUAL----------------------------------
-minishell: ls: Is a directory.$
-a$
-minishell: ls: Is a directory.$
-b$
-minishell: ls: Is a directory.$
-minishell: ls: Is a directory.$
-================================================================================
-
 |> WITH echo a | ls asdfasdf; echo b\n
 |---------------------------------------EXPECTED--------------------------------
 ls: cannot access 'asdfasdf': No such file or directory$
@@ -4052,7 +5295,6 @@ PATH=/home/plopes-c/.cache/minishell_test/bin$
 _=/home/plopes-c/.cache/minishell_test/bin/env$
 env$
 |---------------------------------------ACTUAL----------------------------------
-here$
 PATH=/home/plopes-c/.cache/minishell_test/bin$
 TERM=xterm-256color$
 $
@@ -4336,10 +5578,21 @@ minishell: path/a: Permission denied$
 ================================================================================
 
 |> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 070 ./path/a] [EXPORTS PATH='path'] a\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: path/a: Permission denied$
 |---------------------------------------ACTUAL----------------------------------
+minishell: a: Is a directory.$
+minishell: a: Is a directory.$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 100 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 2 actual 127
+|---------------------------------------EXPECTED--------------------------------
+/bin/sh: 0: cannot open path/a: Permission denied$
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: Is a directory.$
+minishell: a: Is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 200 ./path/a] [EXPORTS PATH='path'] a\n
@@ -4357,10 +5610,20 @@ minishell: path/a: Permission denied$
 ================================================================================
 
 |> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 600 ./path/a] [EXPORTS PATH='path'] a\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: path/a: Permission denied$
 |---------------------------------------ACTUAL----------------------------------
+minishell: a: Is a directory.$
+minishell: a: Is a directory.$
+================================================================================
+
+|> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 755 ./path/a] [EXPORTS PATH='path'] a\n
+|  STATUS: expected 1 actual 127
+|---------------------------------------EXPECTED--------------------------------
+|---------------------------------------ACTUAL----------------------------------
+minishell: a: Is a directory.$
+minishell: a: Is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 644 ./path/a] [EXPORTS PATH='path'] a\n
@@ -4427,17 +5690,20 @@ minishell: path/a: Permission denied$
 ================================================================================
 
 |> WITH [SETUP mkdir path && cp /usr/bin/which ./path/a && chmod 0000 ./path/a] [EXPORTS PATH='path'] a\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: path/a: Permission denied$
 |---------------------------------------ACTUAL----------------------------------
+minishell: a: Is a directory.$
+minishell: a: Is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -p path/a; cp /usr/bin/which path/a/b] [EXPORTS PATH='path'] a/b\n
-|  STATUS: expected 127 actual 1
 |---------------------------------------EXPECTED--------------------------------
 minishell: a/b: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: a/b: Is a directory.$
+minishell: a/b: Is a directory.$
 ================================================================================
 
 |> WITH [EXPORTS PATH='        '] echo $PATH\n
@@ -4480,6 +5746,14 @@ minishell: whoami: command not found$
 minishell: whoami: No such file or directory$
 |---------------------------------------ACTUAL----------------------------------
 minishell: whoami: command not found$
+================================================================================
+
+|> WITH [EXPORTS PATH='/usr/asdf:/usr/lib/asdfasdf'] whoami\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: whoami: command not found$
+|---------------------------------------ACTUAL----------------------------------
+minishell: whoami: Is a directory.$
+minishell: whoami: Is a directory.$
 ================================================================================
 
 |> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/asdfasdf'] somecmd\n
@@ -4626,7 +5900,8 @@ $PATH$
 |---------------------------------------EXPECTED--------------------------------
 minishell: echo bonjour: command not found$
 |---------------------------------------ACTUAL----------------------------------
-minishell: echo\: command not found$
+minishell: echo\: Is a directory.$
+minishell: echo\: Is a directory.$
 ================================================================================
 
 |> WITH \ echo bonjour\n
@@ -4647,7 +5922,8 @@ minishell: \: command not found$
 |---------------------------------------EXPECTED--------------------------------
 minishell:  echo: command not found$
 |---------------------------------------ACTUAL----------------------------------
-minishell: \: command not found$
+minishell: \: Is a directory.$
+minishell: \: Is a directory.$
 ================================================================================
 
 |> WITH  \                 echo bonjour\n
@@ -4689,7 +5965,7 @@ minishell: \: command not found$
 |---------------------------------------EXPECTED--------------------------------
  $? $
 |---------------------------------------ACTUAL----------------------------------
- \ $
+ \0 $
 ================================================================================
 
 |> WITH /bin/echo " \\ "\n
@@ -5072,9 +6348,9 @@ minishell: bonjour: command not found$
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 total 0$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:00 a$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:00 b$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:00 c$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:36 a$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:36 b$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:36 c$
 |---------------------------------------ACTUAL----------------------------------
 minishell: ls -l: command not found$
 ================================================================================
@@ -5257,6 +6533,23 @@ $$
 \$
 |---------------------------------------ACTUAL----------------------------------
 \\$
+================================================================================
+
+|> WITH ls ''\n
+|  STATUS: expected 2 actual 127
+|---------------------------------------EXPECTED--------------------------------
+ls: cannot access '': No such file or directory$
+|---------------------------------------ACTUAL----------------------------------
+minishell: ls: Is a directory.$
+minishell: ls: Is a directory.$
+================================================================================
+
+|> WITH '     echo' bonjour\n
+|---------------------------------------EXPECTED--------------------------------
+minishell:      echo: command not found$
+|---------------------------------------ACTUAL----------------------------------
+minishell:      echo: Is a directory.$
+minishell:      echo: Is a directory.$
 ================================================================================
 
 |> WITH echo '\n

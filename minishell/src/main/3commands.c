@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 11:16:13 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:06:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_exe	solve(char *find)
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 
+	remove_pair(find, "\"\'");
 	index = 0;
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;
