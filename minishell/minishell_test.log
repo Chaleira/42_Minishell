@@ -2320,6 +2320,23 @@ minishell: =?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{}~: comma
 minishell: =?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_abcdefghijklmnopqrstuvwxyz{}~: command not found$
 ================================================================================
 
+|> WITH [SETUP touch a b c; echo bonjour > a; cp /usr/bin/cat ls] ls . a b c\n
+|  STATUS: expected 0 actual 1
+|---------------------------------------EXPECTED--------------------------------
+a$
+b$
+c$
+$
+.:$
+a$
+b$
+c$
+ls$
+|---------------------------------------ACTUAL----------------------------------
+ls: .: Is a directory$
+bonjour$
+================================================================================
+
 |> WITH [SETUP echo > somefile; chmod 000 somefile] ./somefile\n
 |  STATUS: expected 126 actual 0
 |---------------------------------------EXPECTED--------------------------------
@@ -2500,21 +2517,42 @@ minishell: ./somefile: Permission denied$
 |---------------------------------------EXPECTED--------------------------------
 minishell: somedir/: is a directory$
 |---------------------------------------ACTUAL----------------------------------
-minishell: somedir/: command not found$
+minishell: somedir/: is a directory.$
+minishell: somedir/: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir somedir] ./somedir/\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir/: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir/: is a directory.$
+minishell: ./somedir/: is a directory.$
+================================================================================
+
+|> WITH [SETUP mkdir somedir] somedir\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: somedir: command not found$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somedir: Is a directory.$
+minishell: somedir: Is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
+================================================================================
+
+|> WITH [SETUP mkdir somedir] somedir\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: somedir: command not found$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somedir: Is a directory.$
+minishell: somedir: Is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] somedirsoftlink/\n
@@ -2522,21 +2560,42 @@ minishell: ./somedir: is a directory$
 |---------------------------------------EXPECTED--------------------------------
 minishell: somedirsoftlink/: is a directory$
 |---------------------------------------ACTUAL----------------------------------
-minishell: somedirsoftlink/: command not found$
+minishell: somedirsoftlink/: is a directory.$
+minishell: somedirsoftlink/: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] ./somedirsoftlink/\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedirsoftlink/: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedirsoftlink/: is a directory.$
+minishell: ./somedirsoftlink/: is a directory.$
+================================================================================
+
+|> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] somedirsoftlink\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: somedirsoftlink: command not found$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somedirsoftlink: Is a directory.$
+minishell: somedirsoftlink: Is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] ./somedirsoftlink\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedirsoftlink: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedirsoftlink: is a directory.$
+minishell: ./somedirsoftlink: is a directory.$
+================================================================================
+
+|> WITH [SETUP mkdir somedir; ln -s somedir somedirsoftlink] somedirsoftlink\n
+|---------------------------------------EXPECTED--------------------------------
+minishell: somedirsoftlink: command not found$
+|---------------------------------------ACTUAL----------------------------------
+minishell: somedirsoftlink: Is a directory.$
+minishell: somedirsoftlink: Is a directory.$
 ================================================================================
 
 |> WITH [SETUP touch somefile; ln -s somefile someremovedlink; rm -f somefile] ./someremovedlink\n
@@ -2588,6 +2647,13 @@ minishell: ./somelink4ls: No such file or directory$
 minishell: ./somelink4ls: command not found$
 ================================================================================
 
+|> WITH [SETUP touch _] _\n
+|  STATUS: expected 127 actual 0
+|---------------------------------------EXPECTED--------------------------------
+minishell: _: command not found$
+|---------------------------------------ACTUAL----------------------------------
+================================================================================
+
 |> WITH [SETUP touch _] ./_\n
 |  STATUS: expected 126 actual 0
 |---------------------------------------EXPECTED--------------------------------
@@ -2603,17 +2669,21 @@ minishell: ./-: Permission denied$
 ================================================================================
 
 |> WITH [SETUP touch .] ./.\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./.: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./.: is a directory.$
+minishell: ./.: is a directory.$
 ================================================================================
 
 |> WITH [SETUP touch ..] ./..\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./..: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./..: is a directory.$
+minishell: ./..: is a directory.$
 ================================================================================
 
 |> WITH [SETUP echo > somefile && chmod 1000 somefile] ./somefile\n
@@ -2673,108 +2743,138 @@ minishell: ./somefile: Permission denied$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 0777 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 1000 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 2000 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 3000 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 4000 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 5000 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 6000 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 7000 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 1777 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 2777 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 3777 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 4777 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 5777 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 6777 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP mkdir -m 0000 somedir] ./somedir\n
-|  STATUS: expected 126 actual 0
+|  STATUS: expected 126 actual 127
 |---------------------------------------EXPECTED--------------------------------
 minishell: ./somedir: is a directory$
 |---------------------------------------ACTUAL----------------------------------
+minishell: ./somedir: is a directory.$
+minishell: ./somedir: is a directory.$
 ================================================================================
 
 |> WITH [SETUP echo > somefile && chmod 000 somefile] ./Somefile\n
@@ -2805,12 +2905,13 @@ $
 |> WITH echo >> test bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-minishell: bonjour: command not found$
+minishell: bonjour: Is a directory.$
 |# FILE test
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
 $
+minishell: bonjour: Is a directory.$
 ================================================================================
 
 |> WITH echo > test'sticked' bonjour\n
@@ -2860,12 +2961,13 @@ $
 |> WITH echo > test'yo'"sticked" bonjour\n
 |---------------------------------------EXPECTED--------------------------------
 |---------------------------------------ACTUAL----------------------------------
-minishell: bonjour: command not found$
+minishell: bonjour: Is a directory.$
 |# FILE testyosticked
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
 $
+minishell: bonjour: Is a directory.$
 ================================================================================
 
 |> WITH echo >> test'yo'"sticked" bonjour\n
@@ -3262,13 +3364,13 @@ bonjour$$
 |---------------------------------------ACTUAL----------------------------------
 bonjour$$
 total 16$
--rw-rw-r-- 1 plopes-c plopes-c    8 Jul 26 10:52 a$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 10:52 b$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 10:52 c$
--rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 10:52 d$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 10:52 m1$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 10:52 m2$
-drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 10:52 m3$
+-rw-rw-r-- 1 plopes-c plopes-c    8 Jul 26 11:00 a$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:00 b$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:00 c$
+-rw-rw-r-- 1 plopes-c plopes-c    0 Jul 26 11:00 d$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:00 m1$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:00 m2$
+drwxrwxr-x 2 plopes-c plopes-c 4096 Jul 26 11:00 m3$
 ================================================================================
 
 |> WITH echo|\n
@@ -3725,6 +3827,20 @@ a$
 ls: cannot access 'asdfasdf': No such file or directory$
 ================================================================================
 
+|> WITH ls asdfasdf | echo a; echo b\n
+|---------------------------------------EXPECTED--------------------------------
+a$
+ls: cannot access 'asdfasdf': No such file or directory$
+b$
+|---------------------------------------ACTUAL----------------------------------
+minishell: ls: Is a directory.$
+a$
+minishell: ls: Is a directory.$
+b$
+minishell: ls: Is a directory.$
+minishell: ls: Is a directory.$
+================================================================================
+
 |> WITH echo a | ls asdfasdf; echo b\n
 |---------------------------------------EXPECTED--------------------------------
 ls: cannot access 'asdfasdf': No such file or directory$
@@ -3854,6 +3970,13 @@ minishell: syntax error near unexpected token `|'$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
+|> WITH > a ; a\n
+|  STATUS: expected 127 actual 0
+|---------------------------------------EXPECTED--------------------------------
+minishell: a: command not found$
+|---------------------------------------ACTUAL----------------------------------
+================================================================================
+
 |> WITH < a ; a\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: a: No such file or directory$
@@ -3861,6 +3984,13 @@ minishell: a: command not found$
 |---------------------------------------ACTUAL----------------------------------
 Minishell: a: No such file or directory$
 minishell: a: command not found$
+================================================================================
+
+|> WITH >> a ; a\n
+|  STATUS: expected 127 actual 0
+|---------------------------------------EXPECTED--------------------------------
+minishell: a: command not found$
+|---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
 |> WITH Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum.  > >Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. \n
@@ -4352,52 +4482,28 @@ minishell: whoami: No such file or directory$
 minishell: whoami: command not found$
 ================================================================================
 
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=''] somecmd\n
-|  STATUS: expected 0 actual 127
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/asdfasdf'] somecmd\n
+|  STATUS: expected 127 actual 0
 |---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
 minishell: somecmd: command not found$
+|---------------------------------------ACTUAL----------------------------------
+bonjour$
 ================================================================================
 
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':'] somecmd\n
-|  STATUS: expected 0 actual 127
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/usr/asdf:/usr/lib/asdfasdf'] somecmd\n
+|  STATUS: expected 127 actual 0
 |---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
 minishell: somecmd: command not found$
+|---------------------------------------ACTUAL----------------------------------
+bonjour$
 ================================================================================
 
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='::::::::'] somecmd\n
-|  STATUS: expected 0 actual 127
+|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd; unset PATH] somecmd\n
+|  STATUS: expected 127 actual 0
 |---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
 minishell: somecmd: command not found$
-================================================================================
-
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH='/bin:'] somecmd\n
-|  STATUS: expected 0 actual 127
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
 |---------------------------------------ACTUAL----------------------------------
-minishell: somecmd: command not found$
-================================================================================
-
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin'] somecmd\n
-|  STATUS: expected 0 actual 127
-|---------------------------------------EXPECTED--------------------------------
 bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell: somecmd: command not found$
-================================================================================
-
-|> WITH [SETUP echo '#!/bin/sh\necho bonjour' > somecmd; chmod +x somecmd] [EXPORTS PATH=':/bin:'] somecmd\n
-|  STATUS: expected 0 actual 127
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell: somecmd: command not found$
 ================================================================================
 
 |> WITH [EXPORTS PATH=''] Whoami\n
@@ -4966,9 +5072,9 @@ minishell: bonjour: command not found$
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 total 0$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 10:52 a$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 10:52 b$
--rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 10:52 c$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:00 a$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:00 b$
+-rw-rw-r-- 1 plopes-c plopes-c 0 Jul 26 11:00 c$
 |---------------------------------------ACTUAL----------------------------------
 minishell: ls -l: command not found$
 ================================================================================
