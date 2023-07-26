@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 14:42:57 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:22:53 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*build_executable_path(t_control *get, char *command)
 	int			i;
 	char		*exec_path;
 
+	bzero(&fileStat, sizeof(struct stat));
 	stat(command, &fileStat);
 	if (S_ISDIR(fileStat.st_mode))
 	{
@@ -108,7 +109,7 @@ void	structure_commands(t_control *get)
 		if (command->status == PARENT)
 		{
 			command->execute(command->exec_path, command->flags,
-				command->main->envp);
+				command->main->envp, command);
 			delete_command(command);
 		}
 		else
