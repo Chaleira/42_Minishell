@@ -6,30 +6,25 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 09:48:11 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:33:05 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// char	*check_for_folder(char *string)
-// {
-	
-// }
-
 char	*build_executable_path(t_control *get, char *command)
 {
-	int		i;
-	char	*exec_path;
+	struct stat fileStat;
+	int			i;
+	char		*exec_path;
 
-	if ((command[0] == '.' && command[1] == '.')
-		|| (command[0] == '.' && !command[1]))
+	stat(command, &fileStat);
+	if (S_ISDIR(fileStat.st_mode))
 	{
-		ft_printf("minishell: %s: command not found\n", command);
+    	printf("minishell: %s: Is a directory.\n", command);
 		return (NULL);
 	}
-	if (!access(command, F_OK) && (*command == '/'
-			|| (*command == '.' && *(command + 1) == '/')))
+	else if (!access(command, F_OK))
 		return (ft_strdup(command));
 	i = 0;
 	while (get->paths[i])
