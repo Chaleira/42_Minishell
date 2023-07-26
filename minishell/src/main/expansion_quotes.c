@@ -161,20 +161,20 @@ expand all $ in and out of double quotes. Its possible that a $
 expand to another $, it necessary to rerun the function until no
 expantions are executed.
 */
-int	main(int argc, char **argv, char **envp)
-{
-	char	*input;
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	char	*input;
 
-	(void)argc;
-	(void)argv;
-	input = ft_strdup("asdj\"j\"\"\'$asd\'\"\" \"\"\"asd");
-	// input = ft_strdup("asd \" asd \" a \"\"");
-	ft_printf("no\n%s\n", input);
-	input = input_expand(input, envp);
-	remove_pair(input, "\"\'");
-	ft_printf("yes\n%s\n", input);
-	free(input);
-}
+// 	(void)argc;
+// 	(void)argv;
+// 	input = ft_strdup("asdj\"j\"\"\'$asd\'\"\" \"\"\"asd");
+// 	// input = ft_strdup("asd \" asd \" a \"\"");
+// 	ft_printf("no\n%s\n", input);
+// 	input = input_expand(input, envp);
+// 	remove_pair(input, "\"\'");
+// 	ft_printf("yes\n%s\n", input);
+// 	free(input);
+// }
 
 // char	*fix_quotes_expand(char *string)
 // {
