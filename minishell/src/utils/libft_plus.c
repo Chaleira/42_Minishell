@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_plus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/25 18:57:02 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/26 09:34:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_unsplit(char **split, int posize, char c)
 	char	*line;
 	int		i;
 
-	if (!split || !*split)
+	if (!split || (!*split && !posize))
 		return (NULL);
 	if (*split)
 		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1, c);

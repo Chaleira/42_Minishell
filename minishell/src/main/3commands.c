@@ -6,11 +6,16 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/24 10:10:04 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 09:48:11 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+// char	*check_for_folder(char *string)
+// {
+	
+// }
 
 char	*build_executable_path(t_control *get, char *command)
 {
