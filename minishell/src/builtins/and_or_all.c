@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 11:17:08 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:36:41 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,4 @@ void	bonus_execute(t_command *command, int index)
 		jump_command(command, 0);
 		stop_next_command(command->main->tokens, command->terminal);
 	}
-}
-
-void	status_execute(char *print)
-{
-	ft_printf("%s\n", print);
-	(*control())->status = 0;
-}
-
-void	status_expand(t_command *command, int index)
-{
-	free(command->terminal[index]);
-	command->terminal[index] = ft_itoa(command->main->status);
 }

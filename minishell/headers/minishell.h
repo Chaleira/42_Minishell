@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 12:01:44 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:32:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void		exit_execute(t_command *command, int index);
 void		status_execute(char *print);
 void		builtin_execute(char *print);
 void		bonus_execute(t_command *command, int index);
+void		cd_execute(char *str, char **directory, char **envp, t_command *get);
 
 // Shellsplit + 4
 char		**shell_split(char *s);

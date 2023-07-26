@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/24 10:18:50 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:40:18 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	execute_command(t_command *get)
 		if (!isatty(get->out_pipe[0]))
 			close(get->out_pipe[0]);
 		check_dup2(get->in_pipe[0], get->out_pipe[1]);
-		get->main->status = get->status;
 		get->execute(get->exec_path, get->flags, get->main->envp, get);
 		end_shell(get->main);
 	}

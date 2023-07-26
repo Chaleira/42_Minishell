@@ -6,25 +6,26 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/26 10:59:03 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:28:33 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	cd_execute(char *str)
+ void	cd_execute(char *str, char **directory, char **envp, t_command *get)
 {
-	if (!str)
+	(void)str;
+	(void)envp;
+	if (!directory || !*directory)
 		return ;
-	if (chdir(str))
+	if (chdir(*directory))
 	{
-		ft_printf("minishell: cd: %s: Not a directory\n", str);
-		(*control())->status = 1;
-		return ;
+		ft_printf("minishell: cd: %s: Not a directory\n", *directory);
+		get->main->status = 1;
 	}
-	free((*control())->prompt);
-	(*control())->prompt = get_prompt();
-	(*control())->status = 0;
+	free(get->main->prompt);
+	get->main->prompt = get_prompt();
+	get->main->status = 0;
 }
 
 int	execute_now(t_command *get)
@@ -58,7 +59,7 @@ void	cd_prepare(t_command *command, int index)
 		command->status = 1;
 		return ;
 	}
-	command->exec_path = ft_strdup(command->terminal[index + 1]);
+	command->flags = copy_shellsplit(&command->terminal[index + 1]);
 	command->terminal[index + 1][0] = 0;
 	command->execute = (void *)cd_execute;
 	if (execute_now(command))

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 12:06:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:26:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*build_executable_path(t_control *get, char *command)
 	int			i;
 	char		*exec_path;
 
+	bzero(&fileStat, sizeof(struct stat));
 	stat(command, &fileStat);
 	if (S_ISDIR(fileStat.st_mode))
 	{
@@ -108,7 +109,7 @@ void	structure_commands(t_control *get)
 		if (command->status == PARENT)
 		{
 			command->execute(command->exec_path, command->flags,
-				command->main->envp);
+				command->main->envp, command);
 			delete_command(command);
 		}
 		else
