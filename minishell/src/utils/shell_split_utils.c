@@ -27,7 +27,7 @@ int	split_case(char *line)
 	else if (*line == '$' && *(line + 1) && *(line + 1) == '?')
 		return (2);
 	else if (*line == '>' || *line == '<' || *line == ';' || *line == '|'
-		|| *line == '(' || *line == ')' || *line == ' ')
+		|| *line == '(' || *line == ')')
 		return (1);
 	return (0);
 }

@@ -89,11 +89,13 @@ char	*variable_name(char *string)
 	if (!string)
 		return (NULL);
 	index = 0;
-	while (string[index] && string[index] != '\"' && !split_case(&string[index]))
+	while (string[index] && string[index] != '\"'
+		&& !split_case(&string[index]) && !is_space(*line))
 		index++;
 	envvar = ft_calloc(sizeof(char), index + 1);
 	index = 0;
-	while (string[index] && string[index] != '\"' && !split_case(&string[index]))
+	while (string[index] && string[index] != '\"'
+		&& !split_case(&string[index]) && !is_space(*line))
 	{
 		envvar[index] = string[index];
 		index++;
@@ -109,7 +111,6 @@ Set the expansion to start after '='
 Sets varplus to point only to the end of the string.
 Join the 3 parts.
 */
-
 void	insert_envar(char **string, char *end, char **envp)
 {
 	char	*build;
