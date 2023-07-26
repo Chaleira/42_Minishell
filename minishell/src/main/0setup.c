@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 09:54:19 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:58:39 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	increase_shlvl(char **envp)
 	if (!shlvl)
 		return ;
 	increase = ft_atoi(&(*shlvl)[6]) + 1;
-	if (increase >= 1000)
-		increase = 1;
+	// if (increase >= 1000)
+	// 	increase = 1;
 	(*shlvl)[6] = 0;
 	ft_stradd(shlvl, sttc_itoa(increase));
 }

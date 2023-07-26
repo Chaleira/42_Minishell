@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/26 10:12:06 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:59:03 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	cd_execute(char *str)
 	(*control())->status = 0;
 }
 
-static int	execute_now(t_command *get)
+int	execute_now(t_command *get)
 {
 	int	index;
 
