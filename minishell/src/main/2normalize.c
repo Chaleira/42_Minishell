@@ -90,6 +90,8 @@ int		normalize_input(t_control *get)
 	start = 0;
 	while (split[index])
 	{
+		split[index] = input_expand(split[index], get->envp);
+		remove_pair(split[index], "\"\'");
 		if (is_end_of_command(split[index][0]))
 		{
 			get->tokens[j++] = copy_split_size(&split[start], index - start);

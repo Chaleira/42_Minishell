@@ -139,6 +139,8 @@ void		jump_command(t_command *command, int index);
 char		*fix_quotes_expand(char *string);
 
 void		update_paths(char **envp, t_control *get);
+void		remove_pair(char *string, char *find);
+char		*input_expand(char *input, char **envp);
 
 // Parse
 int	parse(char **split);
