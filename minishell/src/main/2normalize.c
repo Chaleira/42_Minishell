@@ -106,6 +106,7 @@ int		normalize_input(t_control *get)
 	if (!get->input || !*get->input)
 		return (0);
 	split = shell_split(get->input);
+	// print_split(split);
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
 	index = 0;
 	while (split[index])
