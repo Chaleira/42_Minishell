@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:23:54 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:02:05 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ int			split_case(char *line);
 void		free_shellsplit(char ****arg);
 char		**copy_shellsplit(char **split);
 void		*free_split(char **arg);
+int			ignore_quotes(char *string);
+
 
 /////////////////////////
 // Libft Plus
@@ -176,11 +178,7 @@ void		cut_wait(void);
 
 /////////////////////////
 // Parse
-int			parse(char **split);
-// void		quotes(char **split);
-
-int			count_quotes(char *str);
-int			ignore_quotes(char *string);
-void		print_split(char **split);
+int			 parse(char **split);
+void		here_doc(char *eof, t_command *get);
 
 #endif

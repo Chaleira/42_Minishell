@@ -6,73 +6,117 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/26 16:20:10 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:08:58 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// t_exe	solver_parse(char *str);
-
-// int	parse(char **split)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (split && split[i])
-// 	{
-// 		(solver_parse(split[i]))(split[i]);
-// 		i++;
-// 	}
-// }
-
-// t_exe	solver_parse(char *str)
-// {
-// 	int	index;
+int last_split_index(char **split)
+{
+	int	i;
 	
-// 	static char *check_cases[7] = {
-// 		"\'","\"", ">", ">>", "<", "<<", "|"
-// 	};
-// 	static t_exe functions[8] = {
-// 		quotes, double_quotes, redirect_right, here_doc_right, redirect_left, here_doc_left,
-// 		check_pipe, do_nothing
-// 	};
-// 	while (check_cases[index] && ft_strncmp(str, check_cases[index], 3))
-// 		index++;
-// 	return (functions[index]);
-// }
 
-// int	quotes(char *str)
-// {
-// 	solver_parse(str[ignore_quotes()]);
-// }
+	i = 0;
+	while (split && split[i] && split[i + 1])
+		i++;
+	return (i);
+}
 
-// int	double_quotes(char *str)
-// {
+int	check_near_special_char(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split && split[i])
+	{
+		if (split[i] && split_case(split[i]) && *split[i] != ';')
+		{
+			if (split[i + 1] && split_case(split[i + 1])
+				&& *split[i + 1] != ';')
+			{
+				ft_printf("minishell: syntax error near unexpected token `%s'\n",
+					split[i + 1]);
+				return (0);
+			}
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_alone_char(char **split)
+{
+	if (*split && split_case(*split) && **split && **split != ';' && !split[1])
+	{
+		ft_printf("minishell: syntax error near unexpected token `newline'\n");
+		return (0);
+	}
+	return (1);
+}
+
+int	check_first_char(char **split)
+{
+	if (*split && split[1] && (!ft_strncmp(*split, "|", 1)
+			|| !ft_strncmp(*split, ")", 1) || !ft_strncmp(*split, "&&", 2)
+			|| !ft_strncmp(*split, "||", 2)))
+	{
+		ft_printf("minishell: syntax error near unexpected token `%s'\n",
+			*split);
+		return (0);
+	}
+	return (1);
+}
+
+int	check_last_char(char **split)
+{
+	int	last_split;
 	
-// }
+	last_split = last_split_index(split);
+	if (split[last_split] && (!ft_strncmp(split[last_split], ">>", 2)
+			|| !ft_strncmp(split[last_split], "<<", 2) || !ft_strncmp(split[last_split], ">", 1)
+			|| !ft_strncmp(split[last_split], "<", 1)))
+	{
+		ft_printf("minishell: syntax error near unexpected token `newline'\n");
+		return (0);
+	}
+	return (1);
+}
 
-// int	redirect_right(char *str)
-// {
-	
-// }
+int	goto_here_doc(char **split)
+{
+	int	last_split;
 
-// int	here_doc_right(char *str)
-// {
-	
-// }
+	last_split = last_split_index(split);
+	if (!ft_strncmp(*split, "<<", 2))
+		return (1);
+	if (!ft_strncmp(split[last_split], "||", 2) || !ft_strncmp(split[last_split], "&&", 2)
+		|| !ft_strncmp(split[last_split], "(", 1) || !ft_strncmp(split[last_split], "|", 1))
+			return (2);
+	return (0);
+}
 
-// int	redirect_left(char *str)
-// {
-	
-// }
+int	parse(char **split)
+{
+	int	here_doc_flag;
 
-// int	here_doc_left(char *str)
-// {
-	
-// }
+	if (!split)
+		return (0);
+	if (!check_alone_char(split) || !check_first_char(split)
+		|| !check_near_special_char(split) || !check_last_char(split))
+		return (0);
+	here_doc_flag = goto_here_doc(split);
+	if (here_doc_flag)
+		ft_printf(">\n");
+	return (1);
+}
 
-// int	check_pipe(char *str)
-// {
-	
-// }
+//  (   )    >    >>    <    <<    |    &&    || 
+
+// Ver o par dos parenteses (syntax errror quando apareçer ")" sem um "(" antes).
+// Ver o segfault quando executado "||"
+// Tratar do here_doc
+
+
+// // OUTROS ERROS
+// Ver o "cd ~"
