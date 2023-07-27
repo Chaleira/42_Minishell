@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/26 15:52:53 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:29:24 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	exit_execute(t_command *command, int index)
 
 	input = 0;
 	command->parse = 0;
-	ft_printf("exit\n");
 	if (command->terminal[index + 1])
 	{
 		input = ft_atoi(command->terminal[index + 1]);
@@ -33,7 +32,11 @@ void	exit_execute(t_command *command, int index)
 			do_exit(command, input);
 		}
 	}
-	do_exit(command, input);
+	if (execute_now(command))
+	{
+		ft_printf("exit\n");
+		do_exit(command, input);
+	}
 }
 
 void	do_exit(t_command *command, int input)

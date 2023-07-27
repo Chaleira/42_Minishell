@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 11:24:23 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:42:38 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ static int	stop_next_command(char ***tokens, char **split)
 	index = 0;
 	while (tokens[index] != split)
 		index++;
-	while (tokens[index])
+	while (tokens[index] && *(tokens[index]) && **(tokens[index]))
 	{
-		if ((**(tokens[index]) == '('  )|| *(tokens[index][1]) == '(')
+		if ((**(tokens[index]) == '('|| *(tokens[index][1]) == '('))
 		{
+			ft_printf("%s\n", *tokens[index]);
 			while (tokens[index] && !find_parenthesis(tokens[index]))
 				stop_command(tokens[index++]);
 			stop_command(tokens[index]);
