@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 15:22:23 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:44:18 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ t_exe	solve(char *find)
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 
+	index = !!(find_pair(find, "\'\""));
 	remove_pair(find, "\"\'");
-	index = 0;
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;
 	return (functions[index]);
