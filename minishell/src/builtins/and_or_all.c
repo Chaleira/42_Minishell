@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:24:01 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:24:23 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	find_parenthesis(char **split)
 {
 	int	i;
 
+	if (!split || !*split)
+		return (0);
 	i = 0;
 	while (split[i])
 	{
@@ -36,7 +38,7 @@ static int	stop_next_command(char ***tokens, char **split)
 		index++;
 	while (tokens[index])
 	{
-		if (**(tokens[index]) == '(' || *(tokens[index][1]) == '(')
+		if ((**(tokens[index]) == '('  )|| *(tokens[index][1]) == '(')
 		{
 			while (tokens[index] && !find_parenthesis(tokens[index]))
 				stop_command(tokens[index++]);

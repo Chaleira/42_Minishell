@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:49:10 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:07:32 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:56:34 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	**get_envaddress(char **envp, char *find)
 	int		i;
 	int		length;
 
+	if (!find)
+		return (NULL);
 	length = ft_strlen(find);
 	i = 0;
 	while (envp[i])

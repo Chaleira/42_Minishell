@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:12:50 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:58:18 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static char	*variable_name(char *string)
 
 	if (!string)
 		return (NULL);
+	envvar = NULL;
 	index = 0;
 	while (string[index] && !ft_strchr("\"\'", string[index])
 		&& !is_space(string[index]) && !split_case(&string[index]))
@@ -78,7 +79,7 @@ char	*input_expand(char *input, char **envp)
 		if (quotes && input[i] == '\"')
 			jump = false;
 		i += quotes * (input[i] == '\'') * jump;
-		if (input[i] == '$')
+		if (input[i] == '$' && input[i + 1])
 		{
 			insert_envar(&input, &input[i], envp);
 			i = -1;

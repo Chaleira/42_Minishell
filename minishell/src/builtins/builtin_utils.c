@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:02:29 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:08:12 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	builtin_execute(char *print)
 
 void	stop_command(char **split)
 {
+	if (!split || !*split)
+		return ;
 	free(split[0]);
 	split[0] = ft_strdup("ignore\xFF");
 }

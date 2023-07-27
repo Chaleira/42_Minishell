@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   4execution.c                                       :+:      :+:    :+:   */
+/*   4.execution.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 09:40:16 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:24:12 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	execute_command(t_command *get)
 			close(get->out_pipe[0]);
 		check_dup2(get->in_pipe[0], get->out_pipe[1]);
 		get->execute(get->exec_path, get->flags, get->main->envp, get);
+		get->main->status = get->status;
 		end_shell(get->main);
 	}
 	else
