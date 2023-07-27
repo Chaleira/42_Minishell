@@ -12,23 +12,30 @@
 
 #include <minishell.h>
 
+int	is_folder_or_file(char *check)
+{
+	struct stat status;
+
+	bzero(&status, sizeof(struct stat));
+	stat(check, &status);
+	if (S_ISDIR(status.st_mode))
+    	return (printf("minishell: %s: Is a directory.\n", check));
+	else if (!S_ISREG(status.st_mode))
+		return (ft_printf("minishell: %s: command not found\n", check));
+	return (0);
+}
+
 char	*build_executable_path(t_control *get, char *command)
 {
-	struct stat fileStat;
 	int			i;
 	char		*exec_path;
 
-	bzero(&fileStat, sizeof(struct stat));
-	stat(command, &fileStat);
-	if (S_ISDIR(fileStat.st_mode))
-	{
-    	printf("minishell: %s: Is a directory.\n", command);
+	if (is_folder_or_file(command))
 		return (NULL);
-	}
-	else if (!access(command, F_OK))
+	else if (!access(command, F_OK) && *command)
 		return (ft_strdup(command));
 	i = 0;
-	while (get->paths[i])
+	while (get->paths[i] && *command)
 	{
 		exec_path = ft_strjoin(get->paths[i++], command);
 		if (!access(exec_path, F_OK))
@@ -72,7 +79,6 @@ t_exe	solve(char *find)
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 
-	remove_pair(find, "\"\'");
 	index = 0;
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;

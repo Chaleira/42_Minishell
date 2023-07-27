@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	check_flair(char *string)
+static int	check_flag(char *string)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ static void	echo_execute(char *a, char **print)
 	int	flag;
 
 	(void)a;
-	flag = check_flair(*print);
+	flag = check_flag(*print);
 	i = flag;
 	while (print[i])
 	{

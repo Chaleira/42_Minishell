@@ -81,13 +81,12 @@ void	break_tokens(t_control *get, char **split)
 	int			start;
 	int			j;
 
-	if (!get->input || !*get->input)
-		return ;
 	j = 0;
 	start = 0;
 	index = 0;
 	while (split[index])
 	{
+		split[index] = input_expand(split[index], get->envp);
 		if (is_end_of_command(split[index][0]))
 		{
 			get->tokens[j++] = copy_split_size(&split[start], index - start);
@@ -101,19 +100,11 @@ void	break_tokens(t_control *get, char **split)
 int		normalize_input(t_control *get)
 {
 	char		**split;
-	int			index;
 
 	if (!get->input || !*get->input)
 		return (0);
 	split = shell_split(get->input);
-	// print_split(split);
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
-	index = 0;
-	while (split[index])
-	{
-		split[index] = input_expand(split[index], get->envp);
-		index++;
-	}
 	break_tokens(get, split);
 	free(split);
 	return (1);

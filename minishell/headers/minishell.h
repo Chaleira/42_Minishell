@@ -143,6 +143,8 @@ char		*fix_quotes_expand(char *string);
 void		update_paths(char **envp, t_control *get);
 int			remove_pair(char *string, char *find);
 char		*input_expand(char *input, char **envp);
+int			find_pair(char *string, char *jump);
+
 
 // Parse
 int	parse(char **split);

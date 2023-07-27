@@ -12,6 +12,22 @@
 
 #include <minishell.h>
 
+
+int	execute_now(t_command *get)
+{
+	int	index;
+
+	index = 0;
+	while (get->main->tokens[index] != get->terminal)
+		index++;
+	if (get->main->tokens[index + 1]
+		&& !ft_strncmp(get->main->tokens[index + 1][0], "|", 2))
+		return (0);
+	else if (get->main->tokens[index] && !ft_strncmp(get->main->tokens[index][0], "|", 2))
+		return (0);
+	return (1);
+}
+
 void	builtin_execute(char *print)
 {
 	if (print)

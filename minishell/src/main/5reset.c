@@ -52,19 +52,3 @@ void	safe_free_null(char **string)
 	}
 }
 
-int	valid_sequence(t_list *node)
-{
-	t_command	*command;
-
-	while (node)
-	{
-		command = (t_command *)node->content;
-		if (command->status)
-		{
-			command->main->status = command->status;
-			return (0);
-		}
-		node = node->next;
-	}
-	return (1);
-}
