@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 09:50:28 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:18:05 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ static void	increase_shlvl(char **envp)
 	int		increase;
 	char	**shlvl;
 
-	shlvl = get_envaddress(envp, "SHLVL=");
+	shlvl = get_envaddress(envp, "SHLVL");
 	if (!shlvl)
 		return ;
 	increase = ft_atoi(&(*shlvl)[6]) + 1;
 	(*shlvl)[6] = 0;
 	ft_stradd(shlvl, sttc_itoa(increase));
 }
-	// if (increase >= 1000)
-	// 	increase = 1;
+	// if (increase >
+	
 
 void	update_paths(char **envp, t_control *get)
 {
 	char	**paths;
 
-	paths = get_envaddress(envp, "PATH=");
+	paths = get_envaddress(envp, "PATH");
 	if (!paths)
 		get->paths = ft_calloc(sizeof(char **), 2);
 	else

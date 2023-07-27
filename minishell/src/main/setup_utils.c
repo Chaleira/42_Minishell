@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:49:10 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:56:34 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:01:52 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**get_envaddress(char **envp, char *find)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(find, envp[i], length))
+		if (!ft_strncmp(find, envp[i], length) && envp[i][length] == '=')
 			return (&envp[i]);
 		i++;
 	}

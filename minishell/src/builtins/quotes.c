@@ -17,6 +17,8 @@ int	find_pair(char *string, char *jump)
 	int		i;
 	char	stop;
 
+	if (!string || !*string)
+		return (0);
 	i = 0;
 	if (ft_strchr(jump, string[i]))
 	{

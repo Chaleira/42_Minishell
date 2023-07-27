@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 11:42:38 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:45:49 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,14 @@ static int	stop_next_command(char ***tokens, char **split)
 		index++;
 	while (tokens[index] && *(tokens[index]) && **(tokens[index]))
 	{
-		if ((**(tokens[index]) == '('|| *(tokens[index][1]) == '('))
+		if ((**(tokens[index]) == '(' || (tokens[index][0][1]) == '('))
 		{
-			ft_printf("%s\n", *tokens[index]);
 			while (tokens[index] && !find_parenthesis(tokens[index]))
 				stop_command(tokens[index++]);
 			stop_command(tokens[index]);
 			return (1);
 		}
-		else if (!ft_strncmp((tokens[index][0]), "||", 10)
+		else if ((!ft_strncmp(tokens[index][0], "||", 10))
 			|| **(tokens[index]) == ';' || **(tokens[index]) == '&')
 			return (1);
 		else
@@ -64,6 +63,7 @@ void	bonus_execute(t_command *command, int index)
 	if ((command->main->status == 0 && command->terminal[index][0] == '|')
 		|| (command->main->status != 0 && command->terminal[index][0] == '&'))
 	{
+		// THERE;
 		jump_command(command, 0);
 		stop_next_command(command->main->tokens, command->terminal);
 	}
