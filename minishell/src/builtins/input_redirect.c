@@ -59,7 +59,8 @@ void	here_doc(char *eof, t_command *get)
 		return ;
 	}
 	signal(SIGINT, stop_heredoc);
-	get_input(get->in_pipe[1], get->main->in_out[0], eof, get->main->input_count);
+	get_input(get->in_pipe[1], get->main->in_out[0],
+		eof, get->main->input_count);
 	signal(SIGINT, control_c);
 	close(get->in_pipe[1]);
 }
@@ -77,7 +78,8 @@ void	input_redirect(t_command *command, int index)
 		command->main->status = 1;
 		command->execute = do_nothing;
 		jump_command(command, 0);
-		ft_printf("Minishell: %s: No such file or directory\n", command->terminal[index + 1]);
+		ft_printf("Minishell: %s: No such file or directory\n",
+			command->terminal[index + 1]);
 	}
-	*command->terminal[index + 1]= 0;
+	*command->terminal[index + 1] = 0;
 }

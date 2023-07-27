@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 10:35:43 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/05/03 20:31:10 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:37:53 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ char	**ft_aux(char	**str, char const *s, char c, int count)
 	i = 0;
 	line = NULL;
 	while (*s && *s == c)
-			s++;
+		s++;
 	while (s[size] && s[size] != c)
-			size++;
+		size++;
 	if (size)
 		line = ft_calloc((size + 1), sizeof(char));
 	while (line && *s && *s != c)

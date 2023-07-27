@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 14:40:18 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:40:16 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ void	find_directions(t_list *this)
 		if (pipe(get->out_pipe) < 0)
 			end_shell(*control());
 	}
-}
-
-void	cut_wait(void)
-{
-	write(1, "\n", 1);
 }
 
 void	run_input(t_control *get)
@@ -72,22 +67,4 @@ void	execute_command(t_command *get)
 	}
 	else
 		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
-}
-
-void	safe_close_fd(int fd, int fd2)
-{
-	if (!isatty(fd))
-		close(fd);
-	if (!isatty(fd2))
-		close(fd2);
-}
-
-void	check_dup2(int in, int out)
-{
-	if (!isatty(in))
-	{
-		dup2(in, STDIN_FILENO);
-	}
-	if (!isatty(out))
-		dup2(out, STDOUT_FILENO);
 }

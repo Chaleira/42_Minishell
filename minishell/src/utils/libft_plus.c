@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_plus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 14:41:41 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:45:56 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,6 @@ int	is_space(char c)
 	if ((8 < c && c < 14) || c == 32)
 		return (1);
 	return (0);
-}
-
-void	*free_triple_pointer(char ***pointer)
-{
-	int	i;
-	int	j;
-
-	if (pointer)
-	{
-		i = 0;
-		while (pointer[i])
-		{
-			j = 0;
-			while (pointer[i][j])
-			{
-				free(pointer[i][j++]);
-			}
-			free(pointer[i++]);
-		}
-		free(pointer);
-	}
-	return (NULL);
 }
 
 char	*ft_stradd(char **original, char *add)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/26 15:28:33 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:00:51 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- void	cd_execute(char *str, char **directory, char **envp, t_command *get)
+void	cd_execute(char *str, char **directory, char **envp, t_command *get)
 {
 	(void)str;
 	(void)envp;
@@ -45,7 +45,7 @@ void	cd_prepare(t_command *command, int index)
 		return ;
 	}
 	command->flags = copy_shellsplit(&command->terminal[index + 1]);
-	command->terminal[index + 1][0]= 0;
+	command->terminal[index + 1][0] = 0;
 	command->execute = (void *)cd_execute;
 	if (execute_now(command))
 		command->status = PARENT;

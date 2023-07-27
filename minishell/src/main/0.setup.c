@@ -1,38 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   0setup.c                                           :+:      :+:    :+:   */
+/*   0.setup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 14:25:24 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:50:28 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-#define RED "\001\e[01;31m\004"
-#define BOLD "\001\e[01;1m\004"
-#define BLUE "\001\e[01;34m\004"
-#define YELLOW "\001\e[01;33m\004"
-#define RESET "\001\e[0m\004"
-
-char	**get_envaddress(char **envp, char *find)
-{
-	int		i;
-	int		length;
-
-	length = ft_strlen(find);
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(find, envp[i], length))
-			return (&envp[i]);
-		i++;
-	}
-	return (NULL);
-}
 
 static void	increase_shlvl(char **envp)
 {
@@ -43,12 +21,11 @@ static void	increase_shlvl(char **envp)
 	if (!shlvl)
 		return ;
 	increase = ft_atoi(&(*shlvl)[6]) + 1;
-	// if (increase >= 1000)
-	// 	increase = 1;
 	(*shlvl)[6] = 0;
 	ft_stradd(shlvl, sttc_itoa(increase));
 }
-
+	// if (increase >= 1000)
+	// 	increase = 1;
 
 void	update_paths(char **envp, t_control *get)
 {
@@ -60,23 +37,6 @@ void	update_paths(char **envp, t_control *get)
 	else
 		get->paths = ft_split(*paths + 5, ':');
 	finish_list_with(get->paths, "/");
-}
-
-void	control_c(int signal)
-{
-	(void)signal;
-	(*control())->status = 130;
-	rl_replace_line("", 1);
-	rl_on_new_line();
-	write(1, "\n", 1);
-	rl_redisplay();
-}
-
-void	control_d(t_control *get)
-{
-	write(1, "exit\n", 5);
-	write(1, "[\033[32minfo\033[0m]: Leaving Minishell\n", 36);
-	end_shell(get);
 }
 
 char	*get_prompt(void)

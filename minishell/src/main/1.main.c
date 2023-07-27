@@ -1,15 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1main.c                                            :+:      :+:    :+:   */
+/*   1.main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/25 18:26:22 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:55:44 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <minishell.h>
 
@@ -35,7 +34,7 @@ void	catch_input(t_control *get)
 	rl_on_new_line();
 }
 
-static	int tester(t_control *get, char *argv)
+static int	tester(t_control *get, char *argv)
 {
 	get->input = ft_strdup(argv);
 	add_history(get->input);
@@ -47,12 +46,10 @@ static	int tester(t_control *get, char *argv)
 	return (get->status);
 }
 
-
-
 int	main(int argc, char **argv, char **envp)
 {
 	static t_control	get;
-	
+
 	(void)argc;
 	(void)argv;
 	setup(&get, envp);

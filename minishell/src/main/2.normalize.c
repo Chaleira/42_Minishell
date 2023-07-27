@@ -97,7 +97,7 @@ void	break_tokens(t_control *get, char **split)
 	get->tokens[j++] = copy_split_size(&split[start], index - start);
 }
 
-int		normalize_input(t_control *get)
+int	normalize_input(t_control *get)
 {
 	char		**split;
 

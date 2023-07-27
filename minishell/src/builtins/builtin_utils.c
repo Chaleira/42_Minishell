@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/25 18:58:04 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:02:29 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 int	execute_now(t_command *get)
 {
@@ -23,7 +22,8 @@ int	execute_now(t_command *get)
 	if (get->main->tokens[index + 1]
 		&& !ft_strncmp(get->main->tokens[index + 1][0], "|", 2))
 		return (0);
-	else if (get->main->tokens[index] && !ft_strncmp(get->main->tokens[index][0], "|", 2))
+	else if (get->main->tokens[index]
+		&& !ft_strncmp(get->main->tokens[index][0], "|", 2))
 		return (0);
 	return (1);
 }

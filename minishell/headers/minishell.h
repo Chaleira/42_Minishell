@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/26 14:32:37 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:49:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 # define HERE write(1, "here\n", 5)
 # define ALMOST write(1, "almost\n", 7)
 # define THERE write(1, "there\n", 6)
+# define RED "\001\e[01;31m\004"
+# define BOLD "\001\e[01;1m\004"
+# define BLUE "\001\e[01;34m\004"
+# define YELLOW "\001\e[01;33m\004"
+# define RESET "\001\e[0m\004"
+
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;

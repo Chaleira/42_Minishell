@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/24 11:09:19 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 09:46:53 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,6 @@ void	end_shell(t_control *get)
 	close(get->in_out[0]);
 	close(get->in_out[1]);
 	exit(get->status);
-}
-
-void	delete_command(void *command)
-{
-	t_command	*get;
-
-	get = (t_command *)command;
-	safe_free_null(&get->exec_path);
-	safe_close_fd(get->in_pipe[0], get->in_pipe[1]);
-	safe_close_fd(get->out_pipe[0], get->out_pipe[1]);
-	free_split(get->flags);
-	free(command);
 }
 
 void	input_reset(t_control *get)
@@ -52,3 +40,24 @@ void	safe_free_null(char **string)
 	}
 }
 
+void	*free_triple_pointer(char ***pointer)
+{
+	int	i;
+	int	j;
+
+	if (pointer)
+	{
+		i = 0;
+		while (pointer[i])
+		{
+			j = 0;
+			while (pointer[i][j])
+			{
+				free(pointer[i][j++]);
+			}
+			free(pointer[i++]);
+		}
+		free(pointer);
+	}
+	return (NULL);
+}
