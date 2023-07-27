@@ -20,7 +20,7 @@ int	is_folder_or_file(char *check)
 	stat(check, &status);
 	if (S_ISDIR(status.st_mode))
     	return (printf("minishell: %s: Is a directory.\n", check));
-	else if (!S_ISREG(status.st_mode))
+	else if (!access(check, F_OK) && !S_ISREG(status.st_mode))
 		return (ft_printf("minishell: %s: command not found\n", check));
 	return (0);
 }
@@ -79,7 +79,8 @@ t_exe	solve(char *find)
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 
-	index = 0;
+	remove_pair(find, "\"\'");
+	index = (!*find && !*(find + 1));
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;
 	return (functions[index]);

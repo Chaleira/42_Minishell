@@ -28,5 +28,5 @@ void	output_redirect(t_command *command, int index)
 		return ;
 	}
 	command->out_pipe[0] = open("/dev/null", O_RDONLY);
-	command->terminal[index + 1][0] = 0;
+	command->terminal[index + 1][0]= 0;
 }

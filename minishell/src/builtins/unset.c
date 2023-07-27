@@ -50,7 +50,7 @@ void	unset_prepare(t_command *command, int index)
 		while (command->terminal[++index])
 		{
 			command->flags[i++] = ft_strdup(command->terminal[index]);
-			command->terminal[index][0] = 0;
+			command->terminal[index][0]= 0;
 		}
 		unset_execute(NULL, command->flags);
 	}

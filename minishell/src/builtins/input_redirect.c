@@ -79,5 +79,5 @@ void	input_redirect(t_command *command, int index)
 		jump_command(command, 0);
 		ft_printf("Minishell: %s: No such file or directory\n", command->terminal[index + 1]);
 	}
-	*command->terminal[index + 1] = 0;
+	*command->terminal[index + 1]= 0;
 }
