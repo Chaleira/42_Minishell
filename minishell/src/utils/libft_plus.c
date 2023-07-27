@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 09:45:56 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:03:53 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	finish_list_with(char **list, char *put)
 	}
 }
 
-void print_split(char **split)
+void	print_split(char **split)
 {
 	int	i;
 

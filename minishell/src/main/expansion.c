@@ -6,11 +6,13 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 09:51:59 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:12:50 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*variable_name(char *string)
+#include <minishell.h>
+
+static char	*variable_name(char *string)
 {
 	int		index;
 	char	*envvar;
@@ -39,7 +41,7 @@ Get the found name's expansion.
 Copy the end of the string after the variable name call
 If a expansion is found, add it to the start, and then add the end of the string
 */
-void	insert_envar(char **string, char *end, char **envp)
+static void	insert_envar(char **string, char *end, char **envp)
 {
 	char	*name;
 

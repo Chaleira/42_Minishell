@@ -12,14 +12,14 @@
 
 #include <minishell.h>
 
-int	is_end_of_command(char c)
+static int	is_end_of_command(char c)
 {
 	if (c == '|' || c == '&' || c == ';')
 		return (1);
 	return (0);
 }
 
-int	count_cases(char **string)
+static int	count_cases(char **string)
 {
 	int	count;
 	int	i;
@@ -75,7 +75,7 @@ char	**copy_split_size(char **split, int size)
 	// if (!parse(split))
 	// 	return (0);
 
-void	break_tokens(t_control *get, char **split)
+static void	break_tokens(t_control *get, char **split)
 {
 	int			index;
 	int			start;
