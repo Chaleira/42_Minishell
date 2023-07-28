@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/28 11:39:54 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:30:09 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,3 +129,7 @@ int	parse(char **split, t_control *get)
 
 // // OUTROS ERROS
 // Ver o "cd ~"
+
+/*
+check if executable or folder, else command not found
+*/
