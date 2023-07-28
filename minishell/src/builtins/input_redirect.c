@@ -45,7 +45,7 @@ char	**get_input(char *eof, char **matrix, int counter)
 	return (matrix);
 }
 
-char	**here_doc(char *eof, t_command *get)
+char	**here_doc(char *eof, t_control *get)
 {
 	char	**matrix;
 
@@ -54,10 +54,10 @@ char	**here_doc(char *eof, t_command *get)
 	if (*eof != FOUND)
 	{
 		if (isatty(STDIN_FILENO))
-			warning_control_d(eof, get->main->input_count);
+			warning_control_d(eof, get->input_count);
 		else
 		{
-			dup2(get->main->in_out[0], STDIN_FILENO);
+			dup2(get->in_out[0], STDIN_FILENO);
 			matrix = free_split(matrix);
 		}
 	}
@@ -65,54 +65,10 @@ char	**here_doc(char *eof, t_command *get)
 	return (matrix);
 }
 
-
-// void	get_input(int fd, int std_in, char *eof, int counter)
-// {
-// 	char	*line;
-
-// 	while (true)
-// 	{
-// 		line = readline(">");
-// 		if (!line)
-// 		{
-// 			if (isatty(STDIN_FILENO))
-// 				warning_control_d(eof, counter);
-// 			else
-// 				dup2(std_in, STDIN_FILENO);
-// 			return ;
-// 		}
-// 		else if (!ft_strncmp(line, eof, -1))
-// 			return ;
-// 		else
-// 		{
-// 			ft_stradd(&line, "\n");
-// 			write(fd, line, ft_strlen(line));
-// 		}
-// 		safe_free_null(&line);
-// 	}
-// }
-
-// void	here_doc(char *eof, t_command *get)
-// {
-// 	if (pipe(get->in_pipe) < 0)
-// 	{
-// 		get->in_pipe[0] = -1;
-// 		return ;
-// 	}
-// 	signal(SIGINT, stop_heredoc);
-// 	get_input(get->in_pipe[1], get->main->in_out[0],
-// 		eof, get->main->input_count);
-// 	signal(SIGINT, control_c);
-// 	close(get->in_pipe[1]);
-// }
-
 void	input_redirect(t_command *command, int index)
 {
-	if (!ft_strncmp(command->terminal[index], "<<", 2))
-		here_doc(command->terminal[index + 1], command);
-	else
-		command->in_pipe[0]
-			= open(command->terminal[index + 1], O_RDONLY | 0644);
+	command->in_pipe[0]
+		= open(command->terminal[index + 1], O_RDONLY | 0644);
 	command->in_pipe[0] = open(command->terminal[index + 1], O_RDONLY | 0644);
 	if (command->in_pipe[0] < 0)
 	{
