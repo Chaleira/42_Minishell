@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/27 17:08:58 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:39:54 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,31 +83,40 @@ int	check_last_char(char **split)
 	return (1);
 }
 
-int	goto_here_doc(char **split)
+char	*goto_here_doc(char **split)
 {
 	int	last_split;
+	int	i;
 
 	last_split = last_split_index(split);
-	if (!ft_strncmp(*split, "<<", 2))
-		return (1);
+	i = 0;
+	while (split && split[i])
+	{
+		if (!ft_strncmp(split[i], "<<", 2))
+			return (split[i + 1]);
+		i++;
+	}
 	if (!ft_strncmp(split[last_split], "||", 2) || !ft_strncmp(split[last_split], "&&", 2)
 		|| !ft_strncmp(split[last_split], "(", 1) || !ft_strncmp(split[last_split], "|", 1))
-			return (2);
-	return (0);
+			return ("\n");
+	return (NULL);
 }
 
-int	parse(char **split)
+int	parse(char **split, t_control *get)
 {
-	int	here_doc_flag;
+	char	*eof;
+	char	**add;
 
 	if (!split)
 		return (0);
 	if (!check_alone_char(split) || !check_first_char(split)
 		|| !check_near_special_char(split) || !check_last_char(split))
 		return (0);
-	here_doc_flag = goto_here_doc(split);
-	if (here_doc_flag)
-		ft_printf(">\n");
+	eof = goto_here_doc(split);
+	if (eof)
+		add = here_doc(eof, get);
+	if (!add)
+		write (1, "control c\n", 10);
 	return (1);
 }
 

@@ -29,7 +29,7 @@ char	**get_input(char *eof, char **matrix, int counter)
 {
 	char	*line;
 
-	line = readline(">");
+	line = readline("> ");
 	if (!ft_strncmp(line, eof, -1))
 	{
 		*eof = FOUND;
