@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:54:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/27 09:58:40 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:33:01 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	pwd_prepare(t_command *command, int index)
 {
 	(void)index;
 	command->exec_path = ft_strdup(
-			&(*get_envaddress(command->main->envp, "PWD="))[4]);
+			&(*get_envaddress(command->main->envp, "PWD"))[4]);
 	ft_stradd(&command->exec_path, "\n");
 	command->parse = 0;
 	command->execute = builtin_execute;
