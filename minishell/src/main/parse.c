@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/27 17:08:58 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:50:45 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,3 +120,7 @@ int	parse(char **split)
 
 // // OUTROS ERROS
 // Ver o "cd ~"
+
+/*
+check if executable or folder, else command not found
+*/

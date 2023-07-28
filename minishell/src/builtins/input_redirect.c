@@ -25,22 +25,22 @@ void	stop_heredoc(int signal)
 	close(STDIN_FILENO);
 }
 
-char	**get_input(char *eof, char **matrix, int counter)
+char	**find_eof(char *eof, char **matrix, int counter)
 {
 	char	*line;
 
 	line = readline(">");
-	if (!ft_strncmp(line, eof, -1))
+	if (line && ft_stradd(&line, "\n") && !ft_strncmp(line, eof, -1))
 	{
 		*eof = FOUND;
 		safe_free_null(&line);
 	}
-	if (!line)
+	if (!line || !eof)
 		matrix = ft_calloc(sizeof(char *), counter + 1);
 	else
 	{
-		matrix = get_input(eof, matrix, (counter + 1));
-		matrix[counter] = ft_stradd(&line, "\n");
+		matrix = find_eof(eof, matrix, (counter + 1));
+		matrix[counter] = line;
 	}
 	return (matrix);
 }
@@ -50,7 +50,7 @@ char	**here_doc(char *eof, t_control *get)
 	char	**matrix;
 
 	signal(SIGINT, stop_heredoc);
-	matrix = get_input(eof, NULL, 0);
+	matrix = find_eof(eof, NULL, 0);
 	if (*eof != FOUND)
 	{
 		if (isatty(STDIN_FILENO))
