@@ -25,45 +25,86 @@ void	stop_heredoc(int signal)
 	close(STDIN_FILENO);
 }
 
-void	get_input(int fd, int std_in, char *eof, int counter)
+char	**get_input(char *eof, char **matrix, int counter)
 {
 	char	*line;
 
-	while (true)
+	line = readline(">");
+	if (!ft_strncmp(line, eof, -1))
 	{
-		line = readline(">");
-		if (!line)
-		{
-			if (isatty(STDIN_FILENO))
-				warning_control_d(eof, counter);
-			else
-				dup2(std_in, STDIN_FILENO);
-			return ;
-		}
-		else if (!ft_strncmp(line, eof, -1))
-			return ;
-		else
-		{
-			ft_stradd(&line, "\n");
-			write(fd, line, ft_strlen(line));
-		}
+		*eof = FOUND;
 		safe_free_null(&line);
 	}
+	if (!line)
+		matrix = ft_calloc(sizeof(char *), counter + 1);
+	else
+	{
+		matrix = get_input(eof, matrix, (counter + 1));
+		matrix[counter] = ft_stradd(&line, "\n");
+	}
+	return (matrix);
 }
 
-void	here_doc(char *eof, t_command *get)
+char	**here_doc(char *eof, t_command *get)
 {
-	if (pipe(get->in_pipe) < 0)
-	{
-		get->in_pipe[0] = -1;
-		return ;
-	}
+	char	**matrix;
+
 	signal(SIGINT, stop_heredoc);
-	get_input(get->in_pipe[1], get->main->in_out[0],
-		eof, get->main->input_count);
+	matrix = get_input(eof, NULL, 0);
+	if (*eof != FOUND)
+	{
+		if (isatty(STDIN_FILENO))
+			warning_control_d(eof, get->main->input_count);
+		else
+		{
+			dup2(get->main->in_out[0], STDIN_FILENO);
+			matrix = free_split(matrix);
+		}
+	}
 	signal(SIGINT, control_c);
-	close(get->in_pipe[1]);
+	return (matrix);
 }
+
+
+// void	get_input(int fd, int std_in, char *eof, int counter)
+// {
+// 	char	*line;
+
+// 	while (true)
+// 	{
+// 		line = readline(">");
+// 		if (!line)
+// 		{
+// 			if (isatty(STDIN_FILENO))
+// 				warning_control_d(eof, counter);
+// 			else
+// 				dup2(std_in, STDIN_FILENO);
+// 			return ;
+// 		}
+// 		else if (!ft_strncmp(line, eof, -1))
+// 			return ;
+// 		else
+// 		{
+// 			ft_stradd(&line, "\n");
+// 			write(fd, line, ft_strlen(line));
+// 		}
+// 		safe_free_null(&line);
+// 	}
+// }
+
+// void	here_doc(char *eof, t_command *get)
+// {
+// 	if (pipe(get->in_pipe) < 0)
+// 	{
+// 		get->in_pipe[0] = -1;
+// 		return ;
+// 	}
+// 	signal(SIGINT, stop_heredoc);
+// 	get_input(get->in_pipe[1], get->main->in_out[0],
+// 		eof, get->main->input_count);
+// 	signal(SIGINT, control_c);
+// 	close(get->in_pipe[1]);
+// }
 
 void	input_redirect(t_command *command, int index)
 {

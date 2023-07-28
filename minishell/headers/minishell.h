@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 17:02:05 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:44:53 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define BLUE "\001\e[01;34m\004"
 # define YELLOW "\001\e[01;33m\004"
 # define RESET "\001\e[0m\004"
+# define FOUND '\xFF'
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
@@ -179,6 +180,6 @@ void		cut_wait(void);
 /////////////////////////
 // Parse
 int			 parse(char **split);
-void		here_doc(char *eof, t_command *get);
+char		**here_doc(char *eof, t_command *get);
 
 #endif
