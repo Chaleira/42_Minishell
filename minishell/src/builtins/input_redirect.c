@@ -29,14 +29,19 @@ char	**find_eof(char *eof, char **matrix, int counter)
 {
 	char	*line;
 
-	line = readline(">");
-	if (line && ft_stradd(&line, "\n") && !ft_strncmp(line, eof, -1))
+	line = readline("> ");
+	if (line && !ft_strncmp(line, eof, -1))
 	{
 		*eof = FOUND;
 		safe_free_null(&line);
 	}
-	if (!line || !eof)
+	if (!line)
 		matrix = ft_calloc(sizeof(char *), counter + 1);
+	else if (!eof)
+	{
+		matrix = ft_calloc(sizeof(char *), counter + 1);
+		*matrix = ft_strdup(line);
+	}
 	else
 	{
 		matrix = find_eof(eof, matrix, (counter + 1));
@@ -51,7 +56,7 @@ char	**here_doc(char *eof, t_control *get)
 
 	signal(SIGINT, stop_heredoc);
 	matrix = find_eof(eof, NULL, 0);
-	if (*eof != FOUND)
+	if (eof && *eof != FOUND)
 	{
 		if (isatty(STDIN_FILENO))
 			warning_control_d(eof, get->input_count);
