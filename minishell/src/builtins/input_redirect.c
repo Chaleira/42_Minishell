@@ -12,10 +12,10 @@
 
 #include <minishell.h>
 
-void	warning_control_d(char *eof, int counter)
+void	warning_control_d(t_control * get, char *eof)
 {
 	ft_printf("Minishell: warning: here-document at line %i delimited \
-by end-of-file (wanted `%s')\n", counter, eof);
+by end-of-file (wanted `%s')\n", get->input_count, eof);
 }
 
 void	stop_heredoc(int signal)
@@ -35,26 +35,33 @@ char	**find_eof(char *eof, char **matrix, int counter)
 		*eof = FOUND;
 		safe_free_null(&line);
 	}
-	if (!line)
+	if (matrix && line && *line)
+		*matrix = line;
+	else if (matrix && line && !*line)
+		matrix = find_eof(eof, matrix, (counter + 1));
+	else if (!line)
 		matrix = ft_calloc(sizeof(char *), counter + 1);
 	else
 	{
 		matrix = find_eof(eof, matrix, (counter + 1));
-		matrix[counter] = line;
+		matrix[counter] = ft_stradd(&line, "\n");
 	}
 	return (matrix);
 }
 
-char	**here_doc(char *eof, t_control *get)
+char	**here_doc(t_control *get, char *eof, t_exe doc_end)
 {
 	char	**matrix;
 
+	matrix = NULL;
+	if (!eof)
+		matrix = ft_calloc(sizeof(char *), 2);
 	signal(SIGINT, stop_heredoc);
-	matrix = find_eof(eof, NULL, 0);
-	if (eof && *eof != FOUND)
+	matrix = find_eof(eof, matrix, 0);
+	if ((eof && *eof != FOUND) || (!eof && !*matrix))
 	{
 		if (isatty(STDIN_FILENO))
-			warning_control_d(eof, get->input_count);
+			doc_end(get, eof);
 		else
 		{
 			dup2(get->in_out[0], STDIN_FILENO);

@@ -107,6 +107,7 @@ int	goto_here_doc(char **split, char **eof)
 		}
 	return (0);
 }
+void	warning_control_d(t_control * get, char *eof);
 
 int	parse(char **split, t_control *get)
 {
@@ -119,10 +120,15 @@ int	parse(char **split, t_control *get)
 	if (!check_alone_char(split) || !check_first_char(split)
 		|| !check_near_special_char(split) || !check_last_char(split))
 		return (0);
-	if (goto_here_doc(split, &eof))
-		add = here_doc(eof, get);
+	goto_here_doc(split, &eof);
+	if (eof)
+		add = here_doc(get, eof, warning_control_d);
+	else
+		add = here_doc(get, NULL, end_shell);
 	if (add)
 		print_split(add);
+	if (add)
+		free_split(add);
 	return (1);
 }
 

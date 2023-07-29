@@ -35,6 +35,7 @@ t_command	*new_command(t_control *get)
 	new->out_pipe[1] = get->in_out[1];
 	new->execute = do_nothing;
 	return (new);
+	
 }
 
 int	is_folder_or_file(char *check)
