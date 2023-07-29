@@ -22,7 +22,7 @@ void export_prepare(t_command *command, int index)
 	int i;
 	int len;
 
-	if (!command->terminal[index + 1])
+	if (!command->terminal[index + 1] && !command->status)
 		command->execute = export_execute_no_input;
 	else
 	{
@@ -41,9 +41,10 @@ void export_prepare(t_command *command, int index)
 				command->flags[i++] = ft_strdup(command->terminal[index]);
 			command->terminal[index][0] = 0;
 		}
+	if (!command->status)
 		command->execute = export_execute_with_input;
-		if (execute_now(command))
-			command->status = PARENT;
+	if (execute_now(command))
+		command->status = PARENT;
 	}
 }
 

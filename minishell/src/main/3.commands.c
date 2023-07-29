@@ -39,13 +39,14 @@ void	try_command(t_command *get, int index)
 	if (!get->exec_path)
 	{
 		get->status = 127;
-		get->parse = 0;
+		get->execute = do_nothing;
 		return ;
 	}
 	get->flags = copy_shellsplit(&get->terminal[index++]);
 	while (get->terminal[index] && !split_case(get->terminal[index]))
 		get->terminal[index++][0] = 0;
-	get->execute = (void *)execve;
+	if (!get->status)
+		get->execute = (void *)execve;
 }
 
 t_exe	solve(char *find)

@@ -19,5 +19,6 @@ void	pwd_prepare(t_command *command, int index)
 			&(*get_envaddress(command->main->envp, "PWD"))[4]);
 	ft_stradd(&command->exec_path, "\n");
 	command->parse = 0;
-	command->execute = builtin_execute;
+	if (!command->status)
+		command->execute = builtin_execute;
 }
