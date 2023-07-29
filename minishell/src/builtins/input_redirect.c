@@ -35,10 +35,6 @@ char	**find_eof(char *eof, char **matrix, int counter)
 		*eof = FOUND;
 		safe_free_null(&line);
 	}
-	if (matrix && line && *line)
-		*matrix = line;
-	else if (matrix && line && !*line)
-		matrix = find_eof(eof, matrix, (counter + 1));
 	else if (!line)
 		matrix = ft_calloc(sizeof(char *), counter + 1);
 	else
@@ -49,19 +45,18 @@ char	**find_eof(char *eof, char **matrix, int counter)
 	return (matrix);
 }
 
-char	**here_doc(t_control *get, char *eof, t_exe doc_end)
+char	**here_doc(t_control *get, char *eof)
 {
 	char	**matrix;
 
-	matrix = NULL;
 	if (!eof)
-		matrix = ft_calloc(sizeof(char *), 2);
+
 	signal(SIGINT, stop_heredoc);
-	matrix = find_eof(eof, matrix, 0);
-	if ((eof && *eof != FOUND) || (!eof && !*matrix))
+	matrix = find_eof(eof, NULL, 0);
+	if (eof && *eof != FOUND)
 	{
 		if (isatty(STDIN_FILENO))
-			doc_end(get, eof);
+			warning_control_d(get, eof);
 		else
 		{
 			dup2(get->in_out[0], STDIN_FILENO);
@@ -71,6 +66,83 @@ char	**here_doc(t_control *get, char *eof, t_exe doc_end)
 	signal(SIGINT, control_c);
 	return (matrix);
 }
+
+char	*catch_one(t_control *get)
+{
+	char	*line;
+
+	signal(SIGINT, stop_heredoc);
+	while (true)
+	{
+		line = readline("> ");
+		if (!line)
+		{
+			if (isatty(STDIN_FILENO))
+				end_shell(get);
+			else
+			{
+				dup2(get->in_out[0], STDIN_FILENO);
+				break ;
+			}
+		}
+		else if (!*line)
+			safe_free_null(&line);
+		else
+			break;
+	}
+	signal(SIGINT, control_c);
+	return (line);
+}
+
+// char	**find_eof(char *eof, char **matrix, int counter)
+// {
+// 	char	*line;
+
+// 	line = readline("> ");
+// 	if (line && !ft_strncmp(line, eof, -1))
+// 	{
+// 		*eof = FOUND;
+// 		safe_free_null(&line);
+// 	}
+// 	if (matrix && line && *line)
+// 		*matrix = line;
+// 	else if (matrix && line && !*line)
+// 	{
+// 		safe_free_null(&line);
+// 		matrix = find_eof(eof, matrix, (counter + 1));
+// 	}
+// 	else if (!line)
+// 		matrix = ft_calloc(sizeof(char *), counter + 1);
+// 	else
+// 	{
+// 		matrix = find_eof(eof, matrix, (counter + 1));
+// 		matrix[counter] = ft_stradd(&line, "\n");
+// 	}
+// 	return (matrix);
+// }
+
+// char	**here_doc(t_control *get, char *eof, t_exe doc_end)
+// {
+// 	char	**matrix;
+
+// 	matrix = NULL;
+// 	if (!eof)
+// 		matrix = ft_calloc(sizeof(char *), 2);
+// 	signal(SIGINT, stop_heredoc);
+// 	matrix = find_eof(eof, matrix, 0);
+// 	if ((eof && *eof != FOUND) || (!eof && !*matrix))
+// 	{
+// 		if (isatty(STDIN_FILENO))
+// 			doc_end(get, eof);
+// 		else
+// 		{
+// 			dup2(get->in_out[0], STDIN_FILENO);
+// 			matrix = free_split(matrix);
+// 		}
+// 	}
+// 	signal(SIGINT, control_c);
+// 	return (matrix);
+// }
 
 void	input_redirect(t_command *command, int index)
 {

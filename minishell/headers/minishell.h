@@ -182,6 +182,6 @@ void		print_split(char **input);
 /////////////////////////
 // Parse
 int			 parse(char **split, t_control *get);
-char		**here_doc(t_control *get, char *eof, t_exe doc_end);
+char		**here_doc(t_control *get, char *eof);
 
 #endif
