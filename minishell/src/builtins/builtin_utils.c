@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 11:08:12 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:46:03 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,6 @@ void	builtin_execute(char *print)
 {
 	if (print)
 		ft_printf("%s", print);
-}
-
-void	stop_command(char **split)
-{
-	if (!split || !*split)
-		return ;
-	free(split[0]);
-	split[0] = ft_strdup("ignore\xFF");
-}
-
-void	jump_command(t_command *command, int index)
-{
-	(void)index;
-	command->parse = 0;
-	command->status = PARENT;
 }
 
 void	do_nothing(void)

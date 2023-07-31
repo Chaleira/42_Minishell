@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3.commands.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 17:44:18 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:42:15 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,22 @@
 Test if the string starts with ./ and is a executable, if not
 Try building the command with path and check if is a executable.
 */
-	// if (*((int *)command) == *((int *)"./"))
+
 char	*build_executable_path(t_control *get, char *command)
 {
-	int			i;
+	int			index;
 	char		*exec_path;
 
-	if (*((short *)command) == *((short *)"./") /*is_executable(command)*/)
+	index = is_executable(command);
+	if (index == 1 && *((short *)command) == *((short *)"./"))
 		return (ft_strdup(command));
-	i = 0;
-	while (get->paths[i] && *command)
+	else if (index == 2 || index == -1)
+		return (NULL);
+	index = 0;
+	while (get->paths[index] && *command)
 	{
-		exec_path = ft_strjoin(get->paths[i++], command);
-		if (is_folder_or_file(exec_path))
+		exec_path = ft_strjoin(get->paths[index++], command);
+		if (is_executable(exec_path) == 1)
 			return (exec_path);
 		free(exec_path);
 	}

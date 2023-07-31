@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:58:18 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:12:18 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ static void	insert_envar(char **string, char *end, char **envp)
 	safe_free_null(&end);
 }
 
+/*
+After it finds the first quote it sets jump to false
+so when it finds the second quote it multiples by 0
+so it doesnt check as a new set of quotes, and afterwards
+the jump is set to true again.
+*/
 char	*input_expand(char *input, char **envp)
 {
 	int	i;

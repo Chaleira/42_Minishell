@@ -50,7 +50,7 @@ char	**here_doc(t_control *get, char *eof)
 	char	**matrix;
 
 	if (!eof)
-
+		return (NULL);
 	signal(SIGINT, stop_heredoc);
 	matrix = find_eof(eof, NULL, 0);
 	if (eof && *eof != FOUND)
