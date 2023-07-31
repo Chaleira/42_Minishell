@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 09:53:18 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:51:38 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	**copy_shellsplit(char **split)
 		counter++;
 	new = ft_calloc(sizeof(char *), counter + 1);
 	counter = 0;
+	
 	while (split[counter] && !split_case(split[counter]))
 	{
 		new[counter] = ft_strdup(split[counter]);

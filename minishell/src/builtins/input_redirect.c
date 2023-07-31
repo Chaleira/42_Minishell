@@ -35,7 +35,7 @@ char	**find_eof(char *eof, char **matrix, int counter)
 		*eof = FOUND;
 		safe_free_null(&line);
 	}
-	else if (!line)
+	if (!line)
 		matrix = ft_calloc(sizeof(char *), counter + 1);
 	else
 	{

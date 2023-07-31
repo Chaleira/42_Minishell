@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/31 16:23:05 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:11:28 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_near_special_char(char **split)
 		if (split[i] && split_case(split[i]) && *split[i] != ';')
 		{
 			if (split[i + 1] && split_case(split[i + 1])
-				&& *split[i + 1] != ';')
+				&& *split[i + 1] != ';' && (*split[i] != '|' && (*(short *)split[i] != *(short *)"<<")))
 			{
 				ft_printf("minishell: syntax error near unexpected token `%s'\n",
 					split[i + 1]);
@@ -104,16 +104,21 @@ int	goto_here_doc(char **split, char **eof)
 		|| !ft_strncmp(split[last_split], "(", 1) || !ft_strncmp(split[last_split], "|", 1))
 	{
 		*eof = NULL;
-		return (0);
+		return (2);
 	}
 	return (0);
 }
+
+// char **join_add(char **add, int temp)
+// {
+	
+// }
 
 int	parse(char **split, t_control *get)
 {
 	char	*eof;
 	char	**add;
-	// int		temp;
+	int		temp;
 
 	add = NULL;
 	if (!split)
@@ -121,13 +126,17 @@ int	parse(char **split, t_control *get)
 	if (!check_alone_char(split) || !check_first_char(split)
 		|| !check_near_special_char(split) || !check_last_char(split))
 		return (0);
-	goto_here_doc(split, &eof);
+	temp = goto_here_doc(split, &eof);
 	eof = ft_strdup(eof);
-	if (eof)
+	if (temp == 1)
 		add = here_doc(get, eof);
-	if (!add)
-		write (1, "control c\n", 10);
+	else if (temp == 2)
+		add = (char **)catch_one(get);
 	free(eof);
+	if (temp > 0 && !add)
+		return (0);
+	// else
+	// 	join_add(split, temp);
 	return (1);
 }
 
