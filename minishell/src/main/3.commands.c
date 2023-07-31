@@ -12,33 +12,37 @@
 
 #include <minishell.h>
 
+/*
+Test if the string starts with ./ and is a executable, if not
+Try building the command with path and check if is a executable.
+*/
+	// if (*((int *)command) == *((int *)"./"))
 char	*build_executable_path(t_control *get, char *command)
 {
 	int			i;
 	char		*exec_path;
 
-	if (is_folder_or_file(command))
-		return (NULL);
-	else if (!access(command, F_OK) && *command)
+	if (*((short *)command) == *((short *)"./") /*is_executable(command)*/)
 		return (ft_strdup(command));
 	i = 0;
 	while (get->paths[i] && *command)
 	{
 		exec_path = ft_strjoin(get->paths[i++], command);
-		if (!access(exec_path, F_OK))
+		if (is_folder_or_file(exec_path))
 			return (exec_path);
 		free(exec_path);
 	}
+	ft_printf("minishell: %s: command not found\n", command);
 	return (NULL);
 }
 
 void	try_command(t_command *get, int index)
 {
+	if (get->status)
+		return ;
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
 	if (!get->exec_path)
 	{
-		if (!get->status)
-			ft_printf("minishell: %s: command not found\n", get->terminal[index]);
 		get->status = 127;
 		get->execute = do_nothing;
 		return ;
@@ -68,7 +72,7 @@ t_exe	solve(char *find)
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 
-	index = !!(find_pair(find, "\'\""));
+	index = !!(*find);
 	remove_pair(find, "\"\'");
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;
