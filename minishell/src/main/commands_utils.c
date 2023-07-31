@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:38:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:08:14 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:42:15 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,42 @@ t_command	*new_command(t_control *get)
 	return (new);
 }
 
-int	is_folder_or_file(char *check)
+int	is_executable(char *check)
 {
 	struct stat	status;
 
 	bzero(&status, sizeof(struct stat));
-	stat(check, &status);
-	if (S_ISDIR(status.st_mode))
-		return (printf("minishell: %s: Is a directory.\n", check));
-	else if (!access(check, F_OK) && !S_ISREG(status.st_mode))
-		return (ft_printf("minishell: %s: command not found\n", check));
+	if (!access(check, F_OK))
+	{
+		if (stat(check, &status))
+		{
+			ft_printf("minishell: error checking file\n");
+			return (-1);
+		}
+		if (S_ISDIR(status.st_mode))
+		{
+			ft_printf("minishell: %s: is a directory\n", check);
+			return (2);
+		}
+		if (S_ISREG(status.st_mode) && (status.st_mode & S_IXUSR
+			|| status.st_mode & S_IXGRP || status.st_mode & S_IXOTH))
+			return (1);
+	}
 	return (0);
+}
+
+void	stop_command(char **split)
+{
+	if (!split || !*split)
+		return ;
+	free(split[0]);
+	split[0] = ft_strdup("ignore\xFF");
+}
+
+void	jump_command(t_command *command, int index)
+{
+	(void)index;
+	command->parse = 0;
+	command->execute = do_nothing;
+	command->status = PARENT;
 }

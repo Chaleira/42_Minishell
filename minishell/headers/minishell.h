@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/28 18:54:03 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/31 10:13:13 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define YELLOW "\001\e[01;33m\004"
 # define RESET "\001\e[0m\004"
 # define FOUND '\xFF'
+# define ERROR -1
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
@@ -99,7 +100,7 @@ char		*build_executable_path(t_control *get, char *command);
 
 t_command	*new_command(t_control *get);
 void		delete_command(void *command);
-int			is_folder_or_file(char *check);
+int			is_executable(char *check);
 
 /////////////////////////
 // Normalize + 3
@@ -182,6 +183,6 @@ void		print_split(char **input);
 /////////////////////////
 // Parse
 int			 parse(char **split, t_control *get);
-char		**here_doc(char *eof, t_control *get);
+char		**here_doc(t_control *get, char *eof);
 
 #endif

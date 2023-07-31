@@ -6,9 +6,10 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/31 15:24:05 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:24:54 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <minishell.h>
 
@@ -101,10 +102,10 @@ int	goto_here_doc(char **split, char **eof)
 	}
 	if (!ft_strncmp(split[last_split], "||", 2) || !ft_strncmp(split[last_split], "&&", 2)
 		|| !ft_strncmp(split[last_split], "(", 1) || !ft_strncmp(split[last_split], "|", 1))
-		{
-			*eof = NULL;
-			return (1);
-		}
+	{
+		*eof = NULL;
+		return (0);
+	}
 	return (0);
 }
 
@@ -112,6 +113,7 @@ int	parse(char **split, t_control *get)
 {
 	char	*eof;
 	char	**add;
+	int		temp;
 
 	add = NULL;
 	if (!split)
@@ -119,10 +121,13 @@ int	parse(char **split, t_control *get)
 	if (!check_alone_char(split) || !check_first_char(split)
 		|| !check_near_special_char(split) || !check_last_char(split))
 		return (0);
-	if (goto_here_doc(split, &eof))
-		add = here_doc(eof, get);
-	if (add)
-		print_split(add);
+	temp = goto_here_doc(split, &eof);
+	eof = ft_strdup(eof);
+	if (eof)
+		add = here_doc(get, eof);
+	if (!add)
+		write (1, "control c\n", 10);
+	free(eof);
 	return (1);
 }
 

@@ -3,29 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   3.commands.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 17:44:18 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/31 11:42:15 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+/*
+Test if the string starts with ./ and is a executable, if not
+Try building the command with path and check if is a executable.
+*/
+
 char	*build_executable_path(t_control *get, char *command)
 {
-	int			i;
+	int			index;
 	char		*exec_path;
 
-	if (is_folder_or_file(command))
-		return (NULL);
-	else if (!access(command, F_OK) && *command)
+	index = is_executable(command);
+	if (index == 1 && *((short *)command) == *((short *)"./"))
 		return (ft_strdup(command));
-	i = 0;
-	while (get->paths[i] && *command)
+	else if (index == 2 || index == -1)
+		return (NULL);
+	index = 0;
+	while (get->paths[index] && *command)
 	{
-		exec_path = ft_strjoin(get->paths[i++], command);
-		if (!access(exec_path, F_OK))
+		exec_path = ft_strjoin(get->paths[index++], command);
+		if (is_executable(exec_path) == 1)
 			return (exec_path);
 		free(exec_path);
 	}
@@ -35,17 +41,20 @@ char	*build_executable_path(t_control *get, char *command)
 
 void	try_command(t_command *get, int index)
 {
+	if (get->status)
+		return ;
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
 	if (!get->exec_path)
 	{
 		get->status = 127;
-		get->parse = 0;
+		get->execute = do_nothing;
 		return ;
 	}
 	get->flags = copy_shellsplit(&get->terminal[index++]);
 	while (get->terminal[index] && !split_case(get->terminal[index]))
 		get->terminal[index++][0] = 0;
-	get->execute = (void *)execve;
+	if (!get->status)
+		get->execute = (void *)execve;
 }
 
 t_exe	solve(char *find)
@@ -66,7 +75,7 @@ t_exe	solve(char *find)
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
 
-	index = !!(find_pair(find, "\'\""));
+	index = !!(*find);
 	remove_pair(find, "\"\'");
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;

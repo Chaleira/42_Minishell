@@ -16,5 +16,6 @@ void	env_prepare(t_command *command, int index)
 {
 	(void)index;
 	command->exec_path = ft_unsplit(command->main->envp, 0, '\n');
-	command->execute = builtin_execute;
+	if (!command->status)
+		command->execute = builtin_execute;
 }
