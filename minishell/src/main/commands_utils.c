@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:38:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/31 11:42:15 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:39:00 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ int	is_executable(char *check)
 	return (0);
 }
 
-void	stop_command(char **split)
+void	stop_command(char ***split)
 {
 	if (!split || !*split)
 		return ;
-	free(split[0]);
-	split[0] = ft_strdup("ignore\xFF");
+	*split = free_split(*split);
+	*split = ft_calloc(sizeof(char *), 2);
+	(*split)[0] = ft_strdup("ignore\xFF");
 }
 
 void	jump_command(t_command *command, int index)

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/31 11:42:15 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:25:41 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 Test if the string starts with ./ and is a executable, if not
 Try building the command with path and check if is a executable.
 */
-
 char	*build_executable_path(t_control *get, char *command)
 {
 	int			index;

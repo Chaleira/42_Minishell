@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/31 10:13:13 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:37:32 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void		*free_triple_pointer(char ***pointer);
 void		finish_list_with(char **list, char *put);
 int			valid_sequence(t_list *node);
 void		print_split_input(char ***input);
-void		stop_command(char **split);
+void		stop_command(char ***split);
 
 char		**find_var(char *name, char **env, int *index, int *size);
 void		jump_command(t_command *command, int index);

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/31 11:12:18 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:32:29 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ char	*input_expand(char *input, char **envp)
 			i = -1;
 		}
 	}
+	if (*((short *)input) == *((short *)"~\0"))
+		HERE;
 	return (input);
 }
