@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/28 12:30:09 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/28 13:06:58 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*goto_here_doc(char **split)
 	}
 	if (!ft_strncmp(split[last_split], "||", 2) || !ft_strncmp(split[last_split], "&&", 2)
 		|| !ft_strncmp(split[last_split], "(", 1) || !ft_strncmp(split[last_split], "|", 1))
-			return ("\n");
+			return ("");
 	return (NULL);
 }
 
@@ -107,16 +107,19 @@ int	parse(char **split, t_control *get)
 	char	*eof;
 	char	**add;
 
+	add = NULL;
 	if (!split)
 		return (0);
 	if (!check_alone_char(split) || !check_first_char(split)
 		|| !check_near_special_char(split) || !check_last_char(split))
 		return (0);
 	eof = goto_here_doc(split);
-	if (eof)
+	eof = ft_strdup(eof);
+	if (eof && ft_stradd(&eof, "\n"))
 		add = here_doc(eof, get);
 	if (!add)
 		write (1, "control c\n", 10);
+	free(eof);
 	return (1);
 }
 

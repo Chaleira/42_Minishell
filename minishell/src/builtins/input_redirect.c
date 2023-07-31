@@ -29,7 +29,7 @@ char	**find_eof(char *eof, char **matrix, int counter)
 {
 	char	*line;
 
-	line = readline(">");
+	line = readline("> ");
 	if (line && ft_stradd(&line, "\n") && !ft_strncmp(line, eof, -1))
 	{
 		*eof = FOUND;
