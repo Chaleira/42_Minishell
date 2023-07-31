@@ -6,9 +6,10 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/28 13:06:58 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/31 09:34:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <minishell.h>
 
@@ -83,7 +84,7 @@ int	check_last_char(char **split)
 	return (1);
 }
 
-char	*goto_here_doc(char **split)
+int	goto_here_doc(char **split, char **eof)
 {
 	int	last_split;
 	int	i;
@@ -93,13 +94,21 @@ char	*goto_here_doc(char **split)
 	while (split && split[i])
 	{
 		if (!ft_strncmp(split[i], "<<", 2))
-			return (split[i + 1]);
+		{
+			*eof = split[i + 1];
+			return (1);
+		}
 		i++;
 	}
 	if (!ft_strncmp(split[last_split], "||", 2) || !ft_strncmp(split[last_split], "&&", 2)
 		|| !ft_strncmp(split[last_split], "(", 1) || !ft_strncmp(split[last_split], "|", 1))
 			return ("");
 	return (NULL);
+		{
+			*eof = NULL;
+			return (1);
+		}
+	return (0);
 }
 
 int	parse(char **split, t_control *get)

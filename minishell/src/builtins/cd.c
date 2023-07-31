@@ -46,7 +46,8 @@ void	cd_prepare(t_command *command, int index)
 	}
 	command->flags = copy_shellsplit(&command->terminal[index + 1]);
 	command->terminal[index + 1][0] = 0;
-	command->execute = (void *)cd_execute;
+	if (!command->status)
+		command->execute = (void *)cd_execute;
 	if (execute_now(command))
 		command->status = PARENT;
 }

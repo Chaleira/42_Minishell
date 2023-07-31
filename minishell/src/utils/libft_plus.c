@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_plus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:03:53 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:53:23 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,17 @@ void	finish_list_with(char **list, char *put)
 	}
 }
 
-void	print_split(char **split)
+void	print_split(char **input)
 {
 	int	i;
 
 	i = 0;
-	while (split && split[i])
+	ft_printf("\n|::SPLIT:::\n");
+	while (input && input[i])
 	{
-		ft_printf("%s\n", split[i]);
+
+		ft_printf("|%i - %s\n", i + 1, input[i]);
+		ft_printf("|\n");
 		i++;
 	}
-	ft_printf("END PRINT SPlIT\n");
 }

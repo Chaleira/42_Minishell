@@ -29,7 +29,6 @@ char	*build_executable_path(t_control *get, char *command)
 			return (exec_path);
 		free(exec_path);
 	}
-	ft_printf("minishell: %s: command not found\n", command);
 	return (NULL);
 }
 
@@ -38,14 +37,17 @@ void	try_command(t_command *get, int index)
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
 	if (!get->exec_path)
 	{
+		if (!get->status)
+			ft_printf("minishell: %s: command not found\n", get->terminal[index]);
 		get->status = 127;
-		get->parse = 0;
+		get->execute = do_nothing;
 		return ;
 	}
 	get->flags = copy_shellsplit(&get->terminal[index++]);
 	while (get->terminal[index] && !split_case(get->terminal[index]))
 		get->terminal[index++][0] = 0;
-	get->execute = (void *)execve;
+	if (!get->status)
+		get->execute = (void *)execve;
 }
 
 t_exe	solve(char *find)

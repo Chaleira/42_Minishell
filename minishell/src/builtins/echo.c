@@ -51,5 +51,6 @@ void	echo_prepare(t_command *command, int index)
 	command->flags = copy_shellsplit(&command->terminal[index + 1]);
 	while (command->terminal[index] && !split_case(command->terminal[index]))
 		*command->terminal[index++] = 0;
-	command->execute = echo_execute;
+	if (!command->status)
+		command->execute = echo_execute;
 }

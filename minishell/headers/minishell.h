@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/28 11:14:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:54:03 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,10 +176,12 @@ int			find_pair(char *string, char *jump);
 
 int			is_folder_or_file(char *check);
 void		cut_wait(void);
+void		print_split(char **input);
+
 
 /////////////////////////
 // Parse
 int			 parse(char **split, t_control *get);
-char		**here_doc(char *eof, t_control *get);
+char		**here_doc(t_control *get, char *eof);
 
 #endif
