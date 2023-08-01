@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/31 16:19:33 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:23:47 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,24 @@ so when it finds the second quote it multiples by 0
 so it doesnt check as a new set of quotes, and afterwards
 the jump is set to true again.
 */
-void	*myternary(void *result1, void *result2)
+
+static char	*expand_tilde(char *input)
 {
-	if (result1)
-		return (result1);
-	else
-		return (result2);
+	char	*keep;
+
+	keep = NULL;
+	if (COMP2 input == COMP2"~\0"
+		|| COMP2 input == COMP2"~/")
+	{
+		if (*(input + 1))
+			keep = ft_strdup(input + 1);
+		free(input);
+		input = ft_strdup(getenv("HOME"));
+		if (!input)
+			input = ft_calloc(sizeof(char), 2);
+		ft_stradd(&input, keep);
+	}
+	return (input);
 }
 
 char	*input_expand(char *input, char **envp)
@@ -99,12 +111,6 @@ char	*input_expand(char *input, char **envp)
 			i = -1;
 		}
 	}
-	if (*((short *)input) == *((short *)"~\0"))
-	{
-		free(input);
-		input = ft_strdup(getenv("HOME"));
-		if (!input)
-			input = ft_calloc(sizeof(char), 2);
-	}
+	input = expand_tilde(input);
 	return (input);
 }

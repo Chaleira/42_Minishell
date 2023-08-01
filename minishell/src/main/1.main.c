@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/28 09:36:00 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:59:35 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	setup(&get, envp);
 	if (argc == 3)
 		return (tester(&get, argv[2]));
+	envp = NULL;
 	while (true)
 	{
 		catch_input(&get);

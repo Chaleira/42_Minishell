@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/31 17:59:09 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:00:59 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define RESET "\001\e[0m\004"
 # define FOUND '\xFF'
 # define ERROR -1
+# define COMP2 *(short *)
+# define COMP4 *(int *)
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
