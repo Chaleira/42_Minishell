@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 11:29:24 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:25:03 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_control	t_control;
 typedef struct s_command	t_command;
 typedef struct sigaction	t_sigaction;
 typedef void				(*t_exe)();
+typedef struct s_iterate	t_iterate;
 
 struct s_control {
 	char		*input;
@@ -54,6 +55,16 @@ struct s_control {
 	t_sigaction	siginfo;
 	t_list		*commands;
 } ;
+
+struct s_iterate {
+	int	index;
+	int	I;
+	int	J;
+	int	K;
+	int	O;
+	int	T;
+};
+
 
 struct s_command {
 	char		*exec_path;
