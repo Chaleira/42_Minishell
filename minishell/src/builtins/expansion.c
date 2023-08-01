@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 10:23:47 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:18:05 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ static char	*expand_tilde(char *input)
 	char	*keep;
 
 	keep = NULL;
-	if (COMP2 input == COMP2"~\0"
-		|| COMP2 input == COMP2"~/")
+	if (*(short *) input == *(short *)"~\0"
+		|| *(short *) input == *(short *)"~/")
 	{
 		if (*(input + 1))
 			keep = ft_strdup(input + 1);

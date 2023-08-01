@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 10:27:44 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:46:48 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static void	increase_shlvl(char **envp)
 	(*shlvl)[6] = 0;
 	ft_stradd(shlvl, sttc_itoa(increase));
 }
-	// if (increase >
-	
+
 
 void	update_paths(char **envp, t_control *get)
 {

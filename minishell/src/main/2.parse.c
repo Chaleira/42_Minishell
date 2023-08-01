@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   2.parse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/01 10:24:20 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:18:42 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_near_special_char(char **split)
 		if (split[i] && split_case(split[i]) && *split[i] != ';')
 		{
 			if (split[i + 1] && split_case(split[i + 1])
-				&& *split[i + 1] != ';' && (*split[i] != '|' && (COMP2 split[i] != COMP2"<<")))
+				&& *split[i + 1] != ';' && (*split[i] != '|' && (*(short *) split[i] != *(short *)"<<")))
 			{
 				ft_printf("minishell: syntax error near unexpected token `%s'\n",
 					split[i + 1]);

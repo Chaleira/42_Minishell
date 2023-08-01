@@ -6,26 +6,32 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/27 10:00:51 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:45:18 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd_execute(char *str, char **directory, char **envp, t_command *get)
+void	cd_execute(char *current, char **directory, char **envp, t_command *get)
 {
-	(void)str;
-	(void)envp;
 	if (!directory || !*directory)
 		return ;
 	if (chdir(*directory))
 	{
 		ft_printf("minishell: cd: %s: Not a directory\n", *directory);
 		get->main->status = 1;
+		return ;
 	}
 	free(get->main->prompt);
 	get->main->prompt = get_prompt();
 	get->main->status = 0;
+	directory = get_envaddress(envp, "PWD");
+	if (directory && *directory)
+		return ;
+	current = ft_calloc(sizeof(char), PATH_MAX);
+	(*directory)[4] = 0;
+	ft_stradd(directory, getcwd(current, PATH_MAX));
+	free(current);
 }
 
 void	cd_prepare(t_command *command, int index)

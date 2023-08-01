@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 10:00:59 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 11:29:24 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,16 @@
 # include <dirent.h>
 # include <sys/types.h>
 # define PARENT -350
-# define HERE write(1, "here\n", 5)
-# define ALMOST write(1, "almost\n", 7)
-# define THERE write(1, "there\n", 6)
+// # define HERE write(1, "here\n", 5)
+// # define ALMOST write(1, "almost\n", 7)
+// # define THERE write(1, "there\n", 6)
 # define RED "\001\e[01;31m\004"
 # define BOLD "\001\e[01;1m\004"
 # define BLUE "\001\e[01;34m\004"
 # define YELLOW "\001\e[01;33m\004"
 # define RESET "\001\e[0m\004"
-# define FOUND '\xFF'
 # define ERROR -1
-# define COMP2 *(short *)
-# define COMP4 *(int *)
+# define FOUND "\xFF"
 
 typedef struct s_control	t_control;
 typedef struct s_command	t_command;
@@ -79,11 +77,9 @@ char		**get_envaddress(char **envp, char *find);
 void		control_c(int signal);
 void		control_d(t_control *get);
 
-/////////////////////////
 // Main + 1
 t_control	**control(void);
 
-/////////////////////////
 //Execution | Utils
 void		run_input(t_control *get);
 void		find_directions(t_list *this);
@@ -93,7 +89,6 @@ void		safe_close_fd(int fd, int fd2);
 void		check_dup2(int in, int out);
 void		cut_wait(void);
 
-/////////////////////////
 // Commands | Utils
 void		structure_commands(t_control *get);
 t_exe		solve(char *find);
@@ -104,27 +99,22 @@ t_command	*new_command(t_control *get);
 void		delete_command(void *command);
 int			is_executable(char *check);
 
-/////////////////////////
 // Normalize + 3
 int			normalize_input(t_control *get);
 char		**copy_split_size(char **split, int size);
 
-/////////////////////////
 // Cleanup/Reset
 void		end_shell(t_control *get);
 void		input_reset(t_control *get);
 void		safe_free_null(char **string);
 
-/////////////////////////
 // Quotes
 int			remove_pair(char *string, char *find);
 int			find_pair(char *string, char *jump);
 
-/////////////////////////
 // Expansion + 2
 char		*input_expand(char *input, char **envp);
 
-/////////////////////////
 // Built-in: prepare | execute
 void		cd_prepare(t_command *command, int index);
 void		pwd_prepare(t_command *get, int index);
@@ -142,11 +132,9 @@ void		do_nothing(void);
 int			execute_now(t_command *get);
 void		status_expand(t_command *command, int index);
 
-/////////////////////////
 // Shellsplit + 4
 char		**shell_split(char *s);
 
-/////////////////////////
 // Shellsplit Utils
 int			split_case(char *line);
 void		free_shellsplit(char ****arg);
@@ -154,8 +142,6 @@ char		**copy_shellsplit(char **split);
 void		*free_split(char **arg);
 int			ignore_quotes(char *string);
 
-
-/////////////////////////
 // Libft Plus
 char		*sttc_itoa(int number);
 char		*ft_stradd(char **original, char *add);
@@ -181,12 +167,9 @@ int			is_folder_or_file(char *check);
 void		cut_wait(void);
 void		print_split(char **input);
 
-
-/////////////////////////
 // Parse
-int			 parse(char **split, t_control *get);
+int			parse(char **split, t_control *get);
 char		**here_doc(t_control *get, char *eof);
 char		*catch_one(t_control *get);
-
 
 #endif

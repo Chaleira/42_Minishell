@@ -32,7 +32,7 @@ char	**find_eof(char *eof, char **matrix, int counter)
 	line = readline("> ");
 	if (line && !ft_strncmp(line, eof, -1))
 	{
-		*eof = FOUND;
+		*eof = *FOUND;
 		safe_free_null(&line);
 	}
 	if (!line)
@@ -53,7 +53,7 @@ char	**here_doc(t_control *get, char *eof)
 		return (NULL);
 	signal(SIGINT, stop_heredoc);
 	matrix = find_eof(eof, NULL, 0);
-	if (eof && *eof != FOUND)
+	if (eof && *eof != *FOUND)
 	{
 		if (isatty(STDIN_FILENO))
 			warning_control_d(get, eof);
