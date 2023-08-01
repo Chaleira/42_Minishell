@@ -104,7 +104,8 @@ int	normalize_input(t_control *get)
 	if (!get->input || !*get->input)
 		return (0);
 	split = shell_split(get->input);
-	if (!parse(split, get))
+	split = parse(split, get);
+	if (!split)
 	{
 		free_split(split);
 		return (0);

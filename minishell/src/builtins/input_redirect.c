@@ -72,7 +72,7 @@ char	*catch_one(t_control *get)
 	char	*line;
 
 	signal(SIGINT, stop_heredoc);
-	while (true)
+	while (line)
 	{
 		line = readline("> ");
 		if (!line)

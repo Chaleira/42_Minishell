@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 11:29:24 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:23:52 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <dirent.h>
 # include <sys/types.h>
 # define PARENT -350
-// # define HERE write(1, "here\n", 5)
-// # define ALMOST write(1, "almost\n", 7)
-// # define THERE write(1, "there\n", 6)
+# define HERE write(1, "here\n", 5)
+# define ALMOST write(1, "almost\n", 7)
+# define THERE write(1, "there\n", 6)
 # define RED "\001\e[01;31m\004"
 # define BOLD "\001\e[01;1m\004"
 # define BLUE "\001\e[01;34m\004"
@@ -168,8 +168,11 @@ void		cut_wait(void);
 void		print_split(char **input);
 
 // Parse
-int			parse(char **split, t_control *get);
+char		**parse(char **split, t_control *get);
 char		**here_doc(t_control *get, char *eof);
 char		*catch_one(t_control *get);
+char		**ft_split_join(char **split, char **add, int index);
+char		*(*goto_here_doc(char **split))();
+int 		last_split_index(char **split);
 
 #endif
