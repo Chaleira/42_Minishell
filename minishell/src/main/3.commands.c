@@ -22,7 +22,8 @@ char	*build_executable_path(t_control *get, char *command)
 	char		*exec_path;
 
 	index = is_executable(command);
-	if (index == 1 && *((short *)command) == *((short *)"./"))
+	if (index == 1 && (*command == '/'
+		|| *((short *)command) == *((short *)"./")))
 		return (ft_strdup(command));
 	else if (index == 2 || index == -1)
 		return (NULL);
