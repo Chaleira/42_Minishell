@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 17:29:56 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:00:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ void	try_command(t_command *get, int index)
 t_exe	solve(char *find)
 {
 	int				index;
-	static char		*cases[19] = {
+	static char		*cases[20] = {
 		"", ">>", ">", "<",
-		"echo", "cd", "pwd", "export",
-		"unset", "env", "exit",
+		"<<", "echo", "cd", "pwd",
+		"export", "unset", "env", "exit",
 		"|", "(", ")", "ignore\xFF",
 		"&&", ";", "||", NULL
 	};
-	static t_exe	functions[19] = {
+	static t_exe	functions[20] = {
 		do_nothing, output_redirect, output_redirect, input_redirect,
-		echo_prepare, cd_prepare, pwd_prepare, export_prepare,
-		unset_prepare, env_prepare, exit_execute,
+		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
+		export_prepare, unset_prepare, env_prepare, exit_execute,
 		do_nothing, do_nothing, do_nothing, jump_command,
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};

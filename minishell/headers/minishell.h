@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 17:30:43 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:58:18 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void		print_split(char **input);
 // Parse
 char		**parse(char *str, t_control *get);
 int 		parsing(char **split);
-char		**here_doc(t_control *get, char *eof);
+void		here_doc(t_command *get, char *eof);
 char		*catch_one(t_control *get);
 char		**ft_split_join(char **split, char **add, int index);
 int			goto_here_doc(char **split);
