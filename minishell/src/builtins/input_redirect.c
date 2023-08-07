@@ -29,7 +29,7 @@ void	find_eof(int *fd, char *eof)
 {
 	char	*line;
 
-	while (true)
+	while (eof)
 	{
 		line = readline("> ");
 		if (!line)
@@ -38,10 +38,10 @@ void	find_eof(int *fd, char *eof)
 				warning_control_d(eof, fd[2]);
 			else
 				dup2(fd[1], STDIN_FILENO);
-			return ;
+			eof = NULL;
 		}
 		else if (!ft_strncmp(line, eof, -1))
-			return ;
+			eof = NULL;
 		else
 		{
 			write(fd[0], line, ft_strlen(line));
