@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 18:28:51 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:54:22 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void		print_split(char **input);
 
 // Parse
 char		**parse(char **split, t_control *get);
-char		**here_doc(t_control *get, char *eof);
+void		here_doc(t_command *get, char *eof);
 char		*catch_one(t_control *get);
 char		**ft_split_join(char **split, char **add, int index);
 char		*(*goto_here_doc(char **split))();

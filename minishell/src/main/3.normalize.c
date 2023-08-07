@@ -104,12 +104,12 @@ int	normalize_input(t_control *get)
 	if (!get->input || !*get->input)
 		return (0);
 	split = shell_split(get->input);
-	split = parse(split, get);
-	if (!split)
-	{
-		free_split(split);
-		return (0);
-	}
+	// split = parse(split, get);
+	// if (!split)
+	// {
+	// 	free_split(split);
+	// 	return (0);
+	// }
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
 	break_tokens(get, split);
 	free(split);

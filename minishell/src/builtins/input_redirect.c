@@ -12,10 +12,10 @@
 
 #include <minishell.h>
 
-void	warning_control_d(t_control * get, char *eof)
+void	warning_control_d(char *eof, int counter)
 {
 	ft_printf("Minishell: warning: here-document at line %i delimited \
-by end-of-file (wanted `%s')\n", get->input_count, eof);
+by end-of-file (wanted `%s')\n", counter, eof);
 }
 
 void	stop_heredoc(int signal)
@@ -25,54 +25,68 @@ void	stop_heredoc(int signal)
 	close(STDIN_FILENO);
 }
 
-char	**find_eof(char *eof, char **matrix, int counter)
+void	find_eof(int *fd, char *eof)
 {
 	char	*line;
 
-	line = readline("> ");
-	if (line && !ft_strncmp(line, eof, -1))
+	while (true)
 	{
-		*eof = *FOUND;
-		safe_free_null(&line);
-	}
-	if (!line)
-		matrix = ft_calloc(sizeof(char *), counter + 1);
-	else
-	{
-		matrix = find_eof(eof, matrix, (counter + 1));
-		matrix[counter] = ft_stradd(&line, "\n");
-	}
-	return (matrix);
-}
-
-char	**here_doc(t_control *get, char *eof)
-{
-	char	**matrix;
-
-	if (!eof)
-		return (NULL);
-	signal(SIGINT, stop_heredoc);
-	matrix = find_eof(eof, NULL, 0);
-	if (eof && *eof != *FOUND)
-	{
-		if (isatty(STDIN_FILENO))
-			warning_control_d(get, eof);
+		line = readline("> ");
+		if (!line)
+		{
+			if (isatty(STDIN_FILENO))
+				warning_control_d(eof, fd[2]);
+			else
+				dup2(fd[1], STDIN_FILENO);
+			return ;
+		}
+		else if (!ft_strncmp(line, eof, -1))
+			return ;
 		else
 		{
-			dup2(get->in_out[0], STDIN_FILENO);
-			matrix = free_split(matrix);
+			write(fd[0], line, ft_strlen(line));
+			write(fd[0], "\n", 1);
 		}
+		safe_free_null(&line);
 	}
+}
+
+void	here_doc(t_command *get, char *eof)
+{
+	if (pipe(get->in_pipe) < 0)
+	{
+		get->in_pipe[0] = -1;
+		return ;
+	}
+	signal(SIGINT, stop_heredoc);
+	find_eof((int []){get->in_pipe[1], get->main->in_out[0], get->main->input_count}, eof);
 	signal(SIGINT, control_c);
-	return (matrix);
+	close(get->in_pipe[1]);
+}
+
+void	input_redirect(t_command *command, int index)
+{
+	if (*(short *)command->terminal[index] == *(short *)"<<")
+		here_doc(command, command->terminal[index + 1]);
+	else
+		command->in_pipe[0]
+			= open(command->terminal[index + 1], O_RDONLY | 0644);
+	if (command->in_pipe[0] < 0)
+	{
+		command->main->status = 1;
+		jump_command(command, 0);
+		ft_printf("Minishell: %s: No such file or directory\n", command->terminal[index + 1]);
+	}
+	*command->terminal[index + 1]= 0;
 }
 
 char	*catch_one(t_control *get)
 {
 	char	*line;
 
+	line =  NULL;
 	signal(SIGINT, stop_heredoc);
-	while (line)
+	while (!line)
 	{
 		line = readline("> ");
 		if (!line)
@@ -94,68 +108,3 @@ char	*catch_one(t_control *get)
 	return (line);
 }
 
-// char	**find_eof(char *eof, char **matrix, int counter)
-// {
-// 	char	*line;
-
-// 	line = readline("> ");
-// 	if (line && !ft_strncmp(line, eof, -1))
-// 	{
-// 		*eof = FOUND;
-// 		safe_free_null(&line);
-// 	}
-// 	if (matrix && line && *line)
-// 		*matrix = line;
-// 	else if (matrix && line && !*line)
-// 	{
-// 		safe_free_null(&line);
-// 		matrix = find_eof(eof, matrix, (counter + 1));
-// 	}
-// 	else if (!line)
-// 		matrix = ft_calloc(sizeof(char *), counter + 1);
-// 	else
-// 	{
-// 		matrix = find_eof(eof, matrix, (counter + 1));
-// 		matrix[counter] = ft_stradd(&line, "\n");
-// 	}
-// 	return (matrix);
-// }
-
-// char	**here_doc(t_control *get, char *eof, t_exe doc_end)
-// {
-// 	char	**matrix;
-
-// 	matrix = NULL;
-// 	if (!eof)
-// 		matrix = ft_calloc(sizeof(char *), 2);
-// 	signal(SIGINT, stop_heredoc);
-// 	matrix = find_eof(eof, matrix, 0);
-// 	if ((eof && *eof != FOUND) || (!eof && !*matrix))
-// 	{
-// 		if (isatty(STDIN_FILENO))
-// 			doc_end(get, eof);
-// 		else
-// 		{
-// 			dup2(get->in_out[0], STDIN_FILENO);
-// 			matrix = free_split(matrix);
-// 		}
-// 	}
-// 	signal(SIGINT, control_c);
-// 	return (matrix);
-// }
-
-void	input_redirect(t_command *command, int index)
-{
-	command->in_pipe[0]
-		= open(command->terminal[index + 1], O_RDONLY | 0644);
-	command->in_pipe[0] = open(command->terminal[index + 1], O_RDONLY | 0644);
-	if (command->in_pipe[0] < 0)
-	{
-		command->main->status = 1;
-		command->execute = do_nothing;
-		jump_command(command, 0);
-		ft_printf("Minishell: %s: No such file or directory\n",
-			command->terminal[index + 1]);
-	}
-	*command->terminal[index + 1] = 0;
-}
