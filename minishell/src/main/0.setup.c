@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   0.setup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 11:46:48 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:21:22 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static char	**dup_env(char **env)
 void	setup(t_control *get, char **envp)
 {
 	get->envp = dup_env(envp);
+	get->export = dup_env(envp);
 	get->prompt = get_prompt();
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);

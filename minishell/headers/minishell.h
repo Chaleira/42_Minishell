@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 17:58:18 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:20:39 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct s_control {
 	char		*input;
 	char		*prompt;
 	char		**envp;
+	char		**export;
 	char		**paths;
 	char		***tokens;
 	int			in_out[2];
@@ -55,16 +56,6 @@ struct s_control {
 	t_sigaction	siginfo;
 	t_list		*commands;
 } ;
-
-struct s_iterate {
-	int	index;
-	int	I;
-	int	J;
-	int	K;
-	int	O;
-	int	T;
-};
-
 
 struct s_command {
 	char		*exec_path;

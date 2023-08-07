@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/07 17:59:46 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/07 18:04:00 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,61 +22,6 @@ int last_split_index(char **split)
 	while (split && split[i] && split[i + 1])
 		i++;
 	return (i);
-}
-
-int ft_splitchar(char **split, char c)
-{
-	int	i;
-
-	if (!split)
-		return (0);
-	i = 0;
-	while (split[i])
-	{
-		if (ft_strchr(split[i], c))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	count_char(char **split, char c)
-{
-	int i[2];
-	int	count;
-
-	count = 0;
-	i[0] = 0;
-	while (split && split[i[0]])
-	{
-		i[1] = 0;
-		while (split[i[0]] && split[i[0]][i[1]])
-		{
-			if (split[i[0]][i[1]] == c)
-				count++;
-			i[1]++;
-		}
-		i[0]++;
-	}
-	return (count);
-}
-
-int check_parenteses(char **split)
-{
-	int left;
-	int	right;
-
-	left = count_char(split, ')');
-	right = count_char(split, '(');
-	if (left != right)
-	{
-		if (left > right)
-			ft_printf("minishell: syntax error near unexpected token `)'\n");
-		if (right > left)
-			ft_printf("minishell: syntax error near unexpected token `('\n");
-		return (0); 
-	}
-	return (1);
 }
 
 int ft_splitchar(char **split, char c)
