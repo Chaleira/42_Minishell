@@ -12,6 +12,9 @@
 
 #include <minishell.h>
 
+#define COUNTER 2
+#define PIPE 1
+
 void	warning_control_d(char *eof, int counter)
 {
 	ft_printf("Minishell: warning: here-document at line %i delimited \
@@ -25,7 +28,7 @@ void	stop_heredoc(int signal)
 	close(STDIN_FILENO);
 }
 
-void	find_eof(char *eof, int *fd)
+void	find_eof(char *eof, int *var)
 {
 	char	*line;
 
@@ -35,17 +38,17 @@ void	find_eof(char *eof, int *fd)
 		if (!line)
 		{
 			if (isatty(STDIN_FILENO))
-				warning_control_d(eof, fd[2]);
+				warning_control_d(eof, var[COUNTER]);
 			else
-				dup2(fd[1], STDIN_FILENO);
+				dup2(var[STDIN_FILENO], STDIN_FILENO);
 			eof = NULL;
 		}
 		else if (!ft_strcmp(line, eof))
 			eof = NULL;
 		else
 		{
-			write(fd[0], line, ft_strlen(line));
-			write(fd[0], "\n", 1);
+			write(var[PIPE], line, ft_strlen(line));
+			write(var[PIPE], "\n", 1);
 		}
 		safe_free_null(&line);
 	}
@@ -59,8 +62,8 @@ void	here_doc(t_command *get, char *eof)
 		return ;
 	}
 	signal(SIGINT, stop_heredoc);
-	find_eof(eof, (int []){get->in_pipe[1],
-		get->main->in_out[0], get->main->input_count});
+	find_eof(eof, (int []){get->main->in_out[0],
+		get->in_pipe[1], get->main->input_count});
 	signal(SIGINT, control_c);
 	close(get->in_pipe[1]);
 }
