@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 19:26:33 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:32:25 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct s_control {
 	char		*input;
 	char		*prompt;
 	char		**envp;
+	char		**export;
 	char		**paths;
 	char		***tokens;
 	int			in_out[2];
@@ -55,16 +56,6 @@ struct s_control {
 	t_sigaction	siginfo;
 	t_list		*commands;
 } ;
-
-struct s_iterate {
-	int	index;
-	int	I;
-	int	J;
-	int	K;
-	int	O;
-	int	T;
-};
-
 
 struct s_command {
 	char		*exec_path;
@@ -179,11 +170,13 @@ void		cut_wait(void);
 void		print_split(char **input);
 
 // Parse
-char		**parse(char **split, t_control *get);
+char		**parse(char *str, t_control *get);
+int 		parsing(char **split);
 void		here_doc(t_command *get, char *eof);
 char		*catch_one(t_control *get);
 char		**ft_split_join(char **split, char **add, int index);
 int 		last_split_index(char **split);
-void		extra_input(t_command *command, int index);
+void		stop_heredoc(int signal);
+
 
 #endif
