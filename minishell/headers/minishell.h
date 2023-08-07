@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 16:54:22 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:26:33 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ char		**parse(char **split, t_control *get);
 void		here_doc(t_command *get, char *eof);
 char		*catch_one(t_control *get);
 char		**ft_split_join(char **split, char **add, int index);
-char		*(*goto_here_doc(char **split))();
 int 		last_split_index(char **split);
+void		extra_input(t_command *command, int index);
 
 #endif

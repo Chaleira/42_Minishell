@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/31 09:46:03 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/07 17:53:55 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,48 @@ void	do_nothing(void)
 {
 	return ;
 }
+
+// char	**insert_input(char **tokens, char *new)
+// {
+// 	int		counter;
+// 	char	**resized;
+
+// 	counter = 0;
+// 	while (tokens[counter])
+// 		counter++;
+// 	resized = ft_calloc(sizeof(char *), counter + 2);
+// 	counter = 0;
+// 	while (tokens[counter])
+// 	{
+// 		resized[counter] = tokens[counter];
+// 		counter++;
+// 	}
+// 	resized[counter] = new;
+// 	free(tokens);
+// 	return (resized);
+// }
+
+// void	extra_input(t_command *command, int index)
+// {
+// 	int		find;
+// 	char	*add;
+
+// 	find = 0;
+// 	while (command->main->tokens[find]
+// 			&& command->main->tokens[find] != command->terminal)
+// 		find++;
+// 	if (command->terminal[index + 1] || command->main->tokens[find + 1])
+// 		return ;
+// 	add = catch_one(command->main);
+// 	if (!add)
+// 	{
+// 		command->main->tokens = free_triple_pointer(command->main->tokens);
+// 		jump_command(command, 0);
+// 	}
+// 	else
+// 		command->main->tokens[find] =
+// 			insert_input(command->main->tokens[find], add);
+// }
 // void	printf_input(t_control *get)
 // {
 // 	ft_printf("\nInput-->\n");

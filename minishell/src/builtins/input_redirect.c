@@ -25,7 +25,7 @@ void	stop_heredoc(int signal)
 	close(STDIN_FILENO);
 }
 
-void	find_eof(int *fd, char *eof)
+void	find_eof(char *eof, int *fd)
 {
 	char	*line;
 
@@ -40,7 +40,7 @@ void	find_eof(int *fd, char *eof)
 				dup2(fd[1], STDIN_FILENO);
 			eof = NULL;
 		}
-		else if (!ft_strncmp(line, eof, -1))
+		else if (!ft_strcmp(line, eof))
 			eof = NULL;
 		else
 		{
@@ -59,7 +59,8 @@ void	here_doc(t_command *get, char *eof)
 		return ;
 	}
 	signal(SIGINT, stop_heredoc);
-	find_eof((int []){get->in_pipe[1], get->main->in_out[0], get->main->input_count}, eof);
+	find_eof(eof, (int []){get->in_pipe[1],
+			get->main->in_out[0], get->main->input_count});
 	signal(SIGINT, control_c);
 	close(get->in_pipe[1]);
 }
@@ -84,9 +85,9 @@ char	*catch_one(t_control *get)
 {
 	char	*line;
 
-	line =  NULL;
+	line = "start";
 	signal(SIGINT, stop_heredoc);
-	while (!line)
+	while (line)
 	{
 		line = readline("> ");
 		if (!line)
