@@ -60,7 +60,7 @@ void	here_doc(t_command *get, char *eof)
 	}
 	signal(SIGINT, stop_heredoc);
 	find_eof(eof, (int []){get->in_pipe[1],
-			get->main->in_out[0], get->main->input_count});
+		get->main->in_out[0], get->main->input_count});
 	signal(SIGINT, control_c);
 	close(get->in_pipe[1]);
 }
@@ -76,36 +76,35 @@ void	input_redirect(t_command *command, int index)
 	{
 		command->main->status = 1;
 		jump_command(command, 0);
-		ft_printf("Minishell: %s: No such file or directory\n", command->terminal[index + 1]);
+		ft_printf("Minishell: %s: No such file or directory\n",
+			command->terminal[index + 1]);
 	}
-	*command->terminal[index + 1]= 0;
+	*command->terminal[index + 1] = 0;
 }
+// char	*catch_one(t_control *get)
+// {
+// 	char	*line;
 
-char	*catch_one(t_control *get)
-{
-	char	*line;
-
-	line = "start";
-	signal(SIGINT, stop_heredoc);
-	while (line)
-	{
-		line = readline("> ");
-		if (!line)
-		{
-			if (isatty(STDIN_FILENO))
-				end_shell(get);
-			else
-			{
-				dup2(get->in_out[0], STDIN_FILENO);
-				break ;
-			}
-		}
-		else if (!*line)
-			safe_free_null(&line);
-		else
-			break;
-	}
-	signal(SIGINT, control_c);
-	return (line);
-}
-
+// 	line = "start";
+// 	signal(SIGINT, stop_heredoc);
+// 	while (line)
+// 	{
+// 		line = readline("> ");
+// 		if (!line)
+// 		{
+// 			if (isatty(STDIN_FILENO))
+// 				end_shell(get);
+// 			else
+// 			{
+// 				dup2(get->in_out[0], STDIN_FILENO);
+// 				break ;
+// 			}
+// 		}
+// 		else if (!*line)
+// 			safe_free_null(&line);
+// 		else
+// 			break;
+// 	}
+// 	signal(SIGINT, control_c);
+// 	return (line);
+// }

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 17:53:47 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:46:49 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*build_executable_path(t_control *get, char *command)
 
 	index = is_executable(command);
 	if (index == 1 && (*command == '/'
-		|| *(short *)command == *(short *)"./"))
+			|| *(short *)command == *(short *)"./"))
 		return (ft_strdup(command));
 	else if (index == 2 || index == -1)
 		return (NULL);

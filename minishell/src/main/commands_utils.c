@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:38:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/31 15:39:00 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:46:27 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	is_executable(char *check)
 			return (2);
 		}
 		if (S_ISREG(status.st_mode) && (status.st_mode & S_IXUSR
-			|| status.st_mode & S_IXGRP || status.st_mode & S_IXOTH))
+				|| status.st_mode & S_IXGRP || status.st_mode & S_IXOTH))
 			return (1);
 	}
 	return (0);
