@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 18:28:51 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/02 18:43:39 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,11 +179,13 @@ void		cut_wait(void);
 void		print_split(char **input);
 
 // Parse
-char		**parse(char **split, t_control *get);
+char		**parse(char *str, t_control *get);
 char		**here_doc(t_control *get, char *eof);
 char		*catch_one(t_control *get);
 char		**ft_split_join(char **split, char **add, int index);
-char		*(*goto_here_doc(char **split))();
+int			goto_here_doc(char **split);
 int 		last_split_index(char **split);
+void		stop_heredoc(int signal);
+
 
 #endif
