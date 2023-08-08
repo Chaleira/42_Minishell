@@ -12,6 +12,9 @@
 
 #include <minishell.h>
 
+#define COUNTER 2
+#define PIPE 1
+
 void	warning_control_d(char *eof, int counter)
 {
 	ft_printf("Minishell: warning: here-document at line %i delimited \
@@ -25,7 +28,7 @@ void	stop_heredoc(int signal)
 	close(STDIN_FILENO);
 }
 
-void	find_eof(int *fd, char *eof)
+void	find_eof(char *eof, int *var)
 {
 	char	*line;
 
@@ -35,17 +38,17 @@ void	find_eof(int *fd, char *eof)
 		if (!line)
 		{
 			if (isatty(STDIN_FILENO))
-				warning_control_d(eof, fd[2]);
+				warning_control_d(eof, var[COUNTER]);
 			else
-				dup2(fd[1], STDIN_FILENO);
+				dup2(var[STDIN_FILENO], STDIN_FILENO);
 			eof = NULL;
 		}
-		else if (!ft_strncmp(line, eof, -1))
+		else if (!ft_strcmp(line, eof))
 			eof = NULL;
 		else
 		{
-			write(fd[0], line, ft_strlen(line));
-			write(fd[0], "\n", 1);
+			write(var[PIPE], line, ft_strlen(line));
+			write(var[PIPE], "\n", 1);
 		}
 		safe_free_null(&line);
 	}
@@ -59,7 +62,8 @@ void	here_doc(t_command *get, char *eof)
 		return ;
 	}
 	signal(SIGINT, stop_heredoc);
-	find_eof((int []){get->in_pipe[1], get->main->in_out[0], get->main->input_count}, eof);
+	find_eof(eof, (int []){get->main->in_out[0],
+		get->in_pipe[1], get->main->input_count});
 	signal(SIGINT, control_c);
 	close(get->in_pipe[1]);
 }
@@ -75,36 +79,35 @@ void	input_redirect(t_command *command, int index)
 	{
 		command->main->status = 1;
 		jump_command(command, 0);
-		ft_printf("Minishell: %s: No such file or directory\n", command->terminal[index + 1]);
+		ft_printf("Minishell: %s: No such file or directory\n",
+			command->terminal[index + 1]);
 	}
-	*command->terminal[index + 1]= 0;
+	*command->terminal[index + 1] = 0;
 }
+// char	*catch_one(t_control *get)
+// {
+// 	char	*line;
 
-char	*catch_one(t_control *get)
-{
-	char	*line;
-
-	line =  NULL;
-	signal(SIGINT, stop_heredoc);
-	while (!line)
-	{
-		line = readline("> ");
-		if (!line)
-		{
-			if (isatty(STDIN_FILENO))
-				end_shell(get);
-			else
-			{
-				dup2(get->in_out[0], STDIN_FILENO);
-				break ;
-			}
-		}
-		else if (!*line)
-			safe_free_null(&line);
-		else
-			break;
-	}
-	signal(SIGINT, control_c);
-	return (line);
-}
-
+// 	line = "start";
+// 	signal(SIGINT, stop_heredoc);
+// 	while (line)
+// 	{
+// 		line = readline("> ");
+// 		if (!line)
+// 		{
+// 			if (isatty(STDIN_FILENO))
+// 				end_shell(get);
+// 			else
+// 			{
+// 				dup2(get->in_out[0], STDIN_FILENO);
+// 				break ;
+// 			}
+// 		}
+// 		else if (!*line)
+// 			safe_free_null(&line);
+// 		else
+// 			break;
+// 	}
+// 	signal(SIGINT, control_c);
+// 	return (line);
+// }

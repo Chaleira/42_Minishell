@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 16:35:06 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:43:57 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static int	find_split_char(char **split, char find)
 void	ignore_parenthesis(char ***tokens)
 {
 	if (tokens[1] && (find_split_char(*tokens, '(') > 1
-		|| !find_split_char(*tokens, ')')))
-			ignore_parenthesis(&tokens[1]);
+			|| !find_split_char(*tokens, ')')))
+		ignore_parenthesis(&tokens[1]);
 	stop_command(tokens);
 }
 

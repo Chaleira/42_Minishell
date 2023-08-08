@@ -6,7 +6,11 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/08/08 15:38:17 by plopes-c         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/07 19:46:49 by rteles-f         ###   ########.fr       */
+>>>>>>> d981493e055733fb571408659926ebcd98317154
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +27,7 @@ char	*build_executable_path(t_control *get, char *command)
 
 	index = is_executable(command);
 	if (index == 1 && (*command == '/'
-		|| *(short *)command == *(short *)"./"))
+			|| *(short *)command == *(short *)"./"))
 		return (ft_strdup(command));
 	else if (index == 2 || index == -1)
 		return (NULL);
