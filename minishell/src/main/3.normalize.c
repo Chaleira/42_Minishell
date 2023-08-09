@@ -86,7 +86,7 @@ static void	break_tokens(t_control *get, char **split)
 	index = 0;
 	while (split[index])
 	{
-		split[index] = input_expand(split[index], get->envp);
+		split[index] = input_expand(split[index], get->envp, 1);
 		if (is_end_of_command(split[index][0]))
 		{
 			get->tokens[j++] = copy_split_size(&split[start], index - start);

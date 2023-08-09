@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:33:16 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/28 14:28:47 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/09 03:34:15 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	compare(char *str, char *name)
 	if (str && str[ft_strlen(str) - 1] != '*')
 	{
 		len = ft_strlen(matrix[matrix_len - 1]);
-		if (ft_strncmp(matrix[matrix_len - 1], &name[ft_strlen(name) - len], len))
+		if (ft_strncmp(matrix[matrix_len - 1],
+				&name[ft_strlen(name) - len], len))
 		{
 			free_split(matrix);
 			return (0);

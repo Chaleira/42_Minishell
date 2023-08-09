@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/08 16:34:40 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/09 03:29:35 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int			remove_pair(char *string, char *find);
 int			find_pair(char *string, char *jump);
 
 // Expansion + 2
-char		*input_expand(char *input, char **envp);
+char		*input_expand(char *input, char **envp, int ignore);
 
 // Built-in: prepare | execute
 void		cd_prepare(t_command *command, int index);
@@ -160,14 +160,13 @@ char		*fix_quotes_expand(char *string);
 
 void		update_paths(char **envp, t_control *get);
 int			remove_pair(char *string, char *find);
-char		*input_expand(char *input, char **envp);
 int			find_pair(char *string, char *jump);
 
 int			is_folder_or_file(char *check);
 void		cut_wait(void);
 void		print_split(char **input);
-int			change_env_variable(char ***env, char *variable, char *value);
-
+int			change_env_variable(char **env, char *variable, char *value);
+int			split_size(char **split);
 
 // Parse
 char		**parse(char *str, t_control *get);
@@ -177,5 +176,6 @@ char		*catch_one(t_control *get);
 char		**ft_split_join(char **split, char **add, int index);
 int			last_split_index(char **split);
 void		stop_heredoc(int signal);
+char		**env_copy(char **env, char *new_str);
 
 #endif

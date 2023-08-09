@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/01 11:18:05 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/08 19:33:21 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static char	*expand_tilde(char *input)
 	return (input);
 }
 
-char	*input_expand(char *input, char **envp)
+char	*input_expand(char *input, char **envp, int ignore)
 {
 	int	i;
 	int	quotes;
@@ -99,7 +99,7 @@ char	*input_expand(char *input, char **envp)
 	i = -1;
 	while (input[++i])
 	{
-		quotes = find_pair(&input[i], "\"\'") * jump;
+		quotes = find_pair(&input[i], "\"\'") * jump * ignore;
 		if (jump == false && input[i] == '\"')
 			jump = true;
 		if (quotes && input[i] == '\"')

@@ -28,27 +28,30 @@ void	stop_heredoc(int signal)
 	close(STDIN_FILENO);
 }
 
-void	find_eof(char *eof, int *var)
+void	find_eof(char *eof, t_command *command, int expand)
 {
 	char	*line;
 
 	while (eof)
 	{
 		line = readline("> ");
+		if (expand)
+			line = input_expand(line, command->main->envp, 0);
+		ft_printf("%s\n", line);
 		if (!line)
 		{
 			if (isatty(STDIN_FILENO))
-				warning_control_d(eof, var[COUNTER]);
+				warning_control_d(eof, command->main->input_count);
 			else
-				dup2(var[STDIN_FILENO], STDIN_FILENO);
+				dup2(command->main->in_out[0], STDIN_FILENO);
 			eof = NULL;
 		}
 		else if (!ft_strcmp(line, eof))
 			eof = NULL;
 		else
 		{
-			write(var[PIPE], line, ft_strlen(line));
-			write(var[PIPE], "\n", 1);
+			write(command->in_pipe[1], line, ft_strlen(line));
+			write(command->in_pipe[1], "\n", 1);
 		}
 		safe_free_null(&line);
 	}
@@ -56,14 +59,21 @@ void	find_eof(char *eof, int *var)
 
 void	here_doc(t_command *get, char *eof)
 {
+	int	expand;
+
+	expand = 1;
+	ft_printf("%s\n", eof);
+	if (find_pair(eof, "\'\""))
+		expand = 0;
+	remove_pair(eof, "\'\"");
+	ft_printf("%s\n", eof);
 	if (pipe(get->in_pipe) < 0)
 	{
 		get->in_pipe[0] = -1;
 		return ;
 	}
 	signal(SIGINT, stop_heredoc);
-	find_eof(eof, (int []){get->main->in_out[0],
-		get->in_pipe[1], get->main->input_count});
+	find_eof(eof, get, expand);
 	signal(SIGINT, control_c);
 	close(get->in_pipe[1]);
 }
