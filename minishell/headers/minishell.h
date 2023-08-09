@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/09 03:29:35 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/09 20:03:11 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <dirent.h>
 # include <sys/types.h>
 # define PARENT -350
-// # define HERE write(1, "here\n", 5)
-// # define ALMOST write(1, "almost\n", 7)
-// # define THERE write(1, "there\n", 6)
+# define HERE write(1, "here\n", 5)
+# define ALMOST write(1, "almost\n", 7)
+# define THERE write(1, "there\n", 6)
 # define RED "\001\e[01;31m\004"
 # define BOLD "\001\e[01;1m\004"
 # define BLUE "\001\e[01;34m\004"
@@ -114,6 +114,7 @@ int			find_pair(char *string, char *jump);
 
 // Expansion + 2
 char		*input_expand(char *input, char **envp, int ignore);
+char		**wildcard(char *str);
 
 // Built-in: prepare | execute
 void		cd_prepare(t_command *command, int index);
@@ -145,7 +146,7 @@ int			ignore_quotes(char *string);
 // Libft Plus
 char		*sttc_itoa(int number);
 char		*ft_stradd(char **original, char *add);
-char		*ft_unsplit(char **split, int posize, char c);
+char		*ft_unsplit(char **split, int posize, char c, int flag_nl);
 int			is_space(char c);
 void		*free_triple_pointer(char ***pointer);
 

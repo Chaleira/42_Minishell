@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/08 19:33:21 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/09 20:16:06 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,24 @@ static char	*expand_tilde(char *input)
 	return (input);
 }
 
+char	*wildcard_aux(char *input)
+{
+	char	*temp;
+
+	temp = *wildcard(input);
+	if (temp)
+	{
+		free(input);
+		return (ft_strdup(temp));
+	}
+	return (input);
+}
+
 char	*input_expand(char *input, char **envp, int ignore)
 {
-	int	i;
-	int	quotes;
-	int	jump;
+	int		i;
+	int		quotes;
+	int		jump;
 
 	jump = true;
 	i = -1;
@@ -110,6 +123,8 @@ char	*input_expand(char *input, char **envp, int ignore)
 			insert_envar(&input, &input[i], envp);
 			i = -1;
 		}
+		if (input[i] == '*')
+			return (wildcard_aux(input));
 	}
 	input = expand_tilde(input);
 	return (input);

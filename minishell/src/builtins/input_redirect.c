@@ -35,9 +35,8 @@ void	find_eof(char *eof, t_command *command, int expand)
 	while (eof)
 	{
 		line = readline("> ");
-		if (expand)
+		if (expand && line)
 			line = input_expand(line, command->main->envp, 0);
-		ft_printf("%s\n", line);
 		if (!line)
 		{
 			if (isatty(STDIN_FILENO))
@@ -62,11 +61,9 @@ void	here_doc(t_command *get, char *eof)
 	int	expand;
 
 	expand = 1;
-	ft_printf("%s\n", eof);
 	if (find_pair(eof, "\'\""))
 		expand = 0;
 	remove_pair(eof, "\'\"");
-	ft_printf("%s\n", eof);
 	if (pipe(get->in_pipe) < 0)
 	{
 		get->in_pipe[0] = -1;
@@ -92,7 +89,7 @@ void	input_redirect(t_command *command, int index)
 		ft_printf("Minishell: %s: No such file or directory\n",
 			command->terminal[index + 1]);
 	}
-	*command->terminal[index + 1] = 0;
+	command->terminal[index + 1] = 0;
 }
 // char	*catch_one(t_control *get)
 // {
