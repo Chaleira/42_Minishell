@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:13:06 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 17:53:55 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:38:09 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ int	execute_now(t_command *get)
 	return (1);
 }
 
-void	builtin_execute(char *print)
+void	builtin_execute(char *print, char **fd, char **length, t_command *command)
 {
-	if (print)
-		ft_printf("%s", print);
+	if (!print)
+		return ;
+	*(long *)&fd = !!command->status + 1;
+	*(long *)&length = (long)ft_strlen(print);
+	write(*(long *)&fd, print, *(long *)&length);
 }
 
 void	do_nothing(void)

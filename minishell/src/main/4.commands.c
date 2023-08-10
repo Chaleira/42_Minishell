@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   4.commands.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
 /*   Updated: 2023/08/09 19:12:07 by plopes-c         ###   ########.fr       */
@@ -35,7 +35,6 @@ char	*build_executable_path(t_control *get, char *command)
 			return (exec_path);
 		free(exec_path);
 	}
-	ft_printf("minishell: %s: command not found\n", command);
 	return (NULL);
 }
 
@@ -47,7 +46,10 @@ void	try_command(t_command *get, int index)
 	if (!get->exec_path)
 	{
 		get->status = 127;
-		get->execute = do_nothing;
+		get->exec_path = ft_strdup("minishell: ");
+		ft_stradd(&get->exec_path, get->terminal[index]);
+		ft_stradd(&get->exec_path, ": command not found\n");
+		get->execute = builtin_execute;
 		return ;
 	}
 	get->flags = copy_shellsplit(&get->terminal[index++]);

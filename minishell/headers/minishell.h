@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
 /*   Updated: 2023/08/09 20:03:11 by plopes-c         ###   ########.fr       */
@@ -128,7 +128,7 @@ void		input_redirect(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
 void		exit_execute(t_command *command, int index);
 void		bonus_execute(t_command *command, int index);
-void		builtin_execute(char *print);
+void		builtin_execute(char *print, char **b, char **c, t_command *command);
 void		do_nothing(void);
 int			execute_now(t_command *get);
 void		status_expand(t_command *command, int index);
