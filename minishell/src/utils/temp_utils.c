@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   temp_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/08 16:33:03 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:30:17 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	change_env_variable(char ***env, char *variable, char *value)
 {
-	int	i;
-	int var_len;
+	int		i;
+	int 	var_len;
 
-	if (env)
+	if (!env)
 		return (0);
 	var_len = ft_strlen(variable);
 	i = 0;
