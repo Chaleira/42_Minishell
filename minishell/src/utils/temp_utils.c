@@ -6,30 +6,26 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/08 17:30:17 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:54:00 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	change_env_variable(char ***env, char *variable, char *value)
+int	split_size(char **split)
 {
-	int		i;
-	int 	var_len;
+	int	i;
 
-	if (!env)
-		return (0);
-	var_len = ft_strlen(variable);
 	i = 0;
-	while (*env[i])
-	{
-		if (!ft_strncmp(*env[i], variable, var_len))
-		{
-			free(*env[i]);
-			*env[i] = ft_strjoin(variable, value);
-			return (1);
-		}
+	while (split && split[i])
 		i++;
-	}
+	return (i);
+}
+
+int	change_env_variable(char **env, char *variable, char *value)
+{
+	if (value)
+		variable = ft_strjoin(variable, "=");
+	env = env_copy(env, ft_strjoin(variable, value));
 	return (0);
 }

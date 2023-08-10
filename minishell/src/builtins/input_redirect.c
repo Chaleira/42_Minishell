@@ -12,9 +12,6 @@
 
 #include <minishell.h>
 
-#define COUNTER 2
-#define PIPE 1
-
 void	warning_control_d(char *eof, int counter)
 {
 	ft_printf("Minishell: warning: here-document at line %i delimited \
@@ -24,11 +21,38 @@ by end-of-file (wanted `%s')\n", counter, eof);
 void	stop_heredoc(int signal)
 {
 	(void)signal;
+	input_reset((*control()));
+	(*control())->status = 130;
 	write(1, "\n", 1);
 	close(STDIN_FILENO);
 }
 
-void	find_eof(char *eof, int *var)
+// void	find_eof(char *eof, t_command *command, int expand)
+// {
+// 	char	*line;
+
+// 	while (eof)
+// 	{
+// 		line = readline("> ");
+// 		if (expand && line)
+// 			line = input_expand(line, command->main->envp, 0);
+// 		if (!line)
+// 		{
+// 			if (isatty(STDIN_FILENO))
+// 				warning_control_d(eof, command->main->input_count);
+// 			else
+// 				dup2(command->main->in_out[0], STDIN_FILENO);
+// 			eof = NULL;
+// 		}
+// 		else if (!ft_strcmp(line, eof))
+// 			eof = NULL;
+// 		else
+// 			write(command->in_pipe[1], ft_stradd(&line, "\n"), ft_strlen(line) + 1);
+// 		safe_free_null(&line);
+// 	}
+// }
+
+int	find_eof(char *eof, int expand, t_command *command)
 {
 	char	*line;
 
@@ -36,42 +60,59 @@ void	find_eof(char *eof, int *var)
 	{
 		line = readline("> ");
 		if (!line)
-		{
-			if (isatty(STDIN_FILENO))
-				warning_control_d(eof, var[COUNTER]);
-			else
-				dup2(var[STDIN_FILENO], STDIN_FILENO);
-			eof = NULL;
-		}
+			return (0);
+		if (expand)
+			line = input_expand(line, command->main->envp, 0);
 		else if (!ft_strcmp(line, eof))
 			eof = NULL;
 		else
-		{
-			write(var[PIPE], line, ft_strlen(line));
-			write(var[PIPE], "\n", 1);
-		}
+			write(command->in_pipe[1], ft_stradd(&line, "\n"), ft_strlen(line) + 1);
 		safe_free_null(&line);
 	}
+	return (1);
 }
 
-void	here_doc(t_command *get, char *eof)
+int	here_doc(t_command *command, char *eof)
 {
-	if (pipe(get->in_pipe) < 0)
-	{
-		get->in_pipe[0] = -1;
-		return ;
-	}
+	int	expand;
+
+	if (pipe(command->in_pipe) < 0)
+		return (-1);
+	command->main->status = 0;
+	expand = !!find_pair(eof, "\'\"");
+	remove_pair(eof, "\'\"");
 	signal(SIGINT, stop_heredoc);
-	find_eof(eof, (int []){get->main->in_out[0],
-		get->in_pipe[1], get->main->input_count});
+	if (!find_eof(eof, expand, command))
+	{
+		if (isatty(STDIN_FILENO))
+			warning_control_d(eof, command->main->input_count);
+		else
+		{
+			jump_command(command, 0);
+			dup2(command->main->in_out[0], STDIN_FILENO);
+		}
+		command->terminal = 0;
+	}
 	signal(SIGINT, control_c);
-	close(get->in_pipe[1]);
+	close(command->in_pipe[1]);
+	return (command->in_pipe[0]);
 }
 
+/*
+Problems:
+
+control C giving 2 enters after closing and opening the terminal
+
+Expansion
+
+bonus with control C in the heredoc - bonus executes the command first and then the heredoc is opened
+dont know how I going to make the heredoc come first or hold the bonus execution till later.
+probably better to open the docs first.
+*/
 void	input_redirect(t_command *command, int index)
 {
 	if (*(short *)command->terminal[index] == *(short *)"<<")
-		here_doc(command, command->terminal[index + 1]);
+		command->in_pipe[0] = here_doc(command, command->terminal[index + 1]);
 	else
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);
@@ -82,7 +123,8 @@ void	input_redirect(t_command *command, int index)
 		ft_printf("Minishell: %s: No such file or directory\n",
 			command->terminal[index + 1]);
 	}
-	*command->terminal[index + 1] = 0;
+	if (command->terminal)
+		*command->terminal[index + 1] = 0;
 }
 // char	*catch_one(t_control *get)
 // {
