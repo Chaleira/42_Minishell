@@ -172,7 +172,6 @@ int			split_size(char **split);
 // Parse
 char		**parse(char *str, t_control *get);
 int			parsing(char **split);
-void		here_doc(t_command *get, char *eof);
 char		*catch_one(t_control *get);
 char		**ft_split_join(char **split, char **add, int index);
 int			last_split_index(char **split);
