@@ -26,7 +26,7 @@ char	*build_executable_path(t_control *get, char *command)
 			|| *(short *)command == *(short *)"./"))
 		return (ft_strdup(command));
 	else if (index == 2 || index == -1)
-		return (NULL);
+		return (ft_strjoin("\xFF", sttc_itoa(index)));
 	index = 0;
 	while (get->paths[index] && *command)
 	{
@@ -38,17 +38,37 @@ char	*build_executable_path(t_control *get, char *command)
 	return (NULL);
 }
 
+char	*command_error(t_control *get, char *type, char *command)
+{
+	char	*error;
+
+	error = ft_strdup("minishell: ");
+	if (!type)
+	{
+		get->status = 127;
+		ft_stradd(&error, command);
+		ft_stradd(&error, ": command not found\n");
+	}
+	else if (ft_atoi(type + 1) == 2)
+	{
+		get->status = 126;
+		ft_stradd(&error, command);
+		ft_stradd(&error, ": is a directory\n");
+	}
+	else
+		ft_stradd(&error, "error checking file\n");
+	return (error);
+}
+
 void	try_command(t_command *get, int index)
 {
 	if (get->status)
 		return ;
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
-	if (!get->exec_path)
+	if (!get->exec_path || *get->exec_path == '\xFF')
 	{
-		get->status = 127;
-		get->exec_path = ft_strdup("minishell: ");
-		ft_stradd(&get->exec_path, get->terminal[index]);
-		ft_stradd(&get->exec_path, ": command not found\n");
+		get->exec_path = command_error(get->main, get->exec_path,
+				get->terminal[index]);
 		get->execute = builtin_execute;
 		return ;
 	}

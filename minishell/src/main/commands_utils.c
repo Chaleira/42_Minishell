@@ -45,15 +45,9 @@ int	is_executable(char *check)
 	if (!access(check, F_OK))
 	{
 		if (stat(check, &status))
-		{
-			ft_printf("minishell: error checking file\n");
 			return (-1);
-		}
 		if (S_ISDIR(status.st_mode))
-		{
-			ft_printf("minishell: %s: is a directory\n", check);
 			return (2);
-		}
 		if (S_ISREG(status.st_mode) && (status.st_mode & S_IXUSR
 				|| status.st_mode & S_IXGRP || status.st_mode & S_IXOTH))
 			return (1);

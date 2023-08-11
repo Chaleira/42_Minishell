@@ -120,8 +120,9 @@ void	input_redirect(t_command *command, int index)
 	{
 		command->main->status = 1;
 		jump_command(command, 0);
-		ft_printf("Minishell: %s: No such file or directory\n",
-			command->terminal[index + 1]);
+		write(2, "minishell: ", 13);
+		write(2, command->terminal[index + 1], ft_strlen(command->terminal[index + 1]));
+		write(2, ": No such file or directory\n", 31);
 	}
 	if (command->terminal)
 		*command->terminal[index + 1] = 0;
