@@ -128,10 +128,11 @@ int	*here_doc(t_control *get, char *eof)
 	expand = !!find_pair(eof, "\'\"");
 	remove_pair(eof, "\'\"");
 	signal(SIGINT, stop_heredoc);
-	if (!find_eof(in_pipe[0], eof, expand, get->envp))
+	if (!find_eof(in_pipe[1], eof, expand, get->envp))
 		forced_eof(get, eof, in_pipe);
 	signal(SIGINT, control_c);
 	close(in_pipe[1]);
+	// in_pipe[0] = open("/dev/null", O_RDONLY | 0644);
 	if (read(in_pipe[0], 0, 0) < 0)
 		return (NULL);
 	return (in_pipe);
@@ -177,10 +178,7 @@ probably better to open the docs first.
 void	input_redirect(t_command *command, int index)
 {
 	if (*(short *)command->terminal[index] == *(short *)"<<")
-	{
-		command->in_pipe[0] = ((int *)(command->terminal[index + 1]))[0];
-		command->in_pipe[1] = ((int *)(command->terminal[index + 1]))[1];
-	}
+		*(long *)command->in_pipe = *(long *)command->terminal[index + 1];
 	else
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);

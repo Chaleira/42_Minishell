@@ -80,12 +80,21 @@ static void	break_tokens(t_control *get, char **split, int size)
 	int			i;
 	int			j;
 	int			start;
+	char		*temp;
 
 	i = 0;
 	j = 0;
 	start = 0;
 	while (i < size)
 	{
+		if (*(short *)split[i] == *(short *)"<<")
+		{
+			temp = (char *)here_doc(get, split[i + 1]);
+			if (!temp)
+				return ;
+			free(split[i + 1]);
+			split[i + 1] = temp;
+		}
 		split[i] = input_expand(split[i], get->envp, 1);
 		if (is_end_of_command(split[i][0]) || (i == (size - 1) && ++i))
 		{
