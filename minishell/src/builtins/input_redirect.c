@@ -121,7 +121,7 @@ int	*here_doc(t_control *get, char *eof)
 	in_pipe = ft_calloc(sizeof(int), 2);
 	if (pipe(in_pipe) < 0)
 	{
-		write (2, "minishell: error in pipe usage\n", 36);
+		write (2, "minishell: error in pipe usage\n", 32);
 		input_reset(get);
 		return (NULL);
 	}
