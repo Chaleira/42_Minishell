@@ -12,20 +12,11 @@
 
 #include <minishell.h>
 
-void	warning_control_d(char *eof, int counter)
-{
-	ft_printf("Minishell: warning: here-document at line %i delimited \
-by end-of-file (wanted `%s')\n", counter, eof);
-}
-
-void	stop_heredoc(int signal)
-{
-	(void)signal;
-	input_reset((*control()));
-	(*control())->status = 130;
-	write(1, "\n", 1);
-	close(STDIN_FILENO);
-}
+// void	warning_control_d(char *eof, int counter)
+// {
+// 	ft_printf("Minishell: warning: here-document at line %i delimited 
+// by end-of-file (wanted `%s')\n", counter, eof);
+// }
 
 // void	find_eof(char *eof, t_command *command, int expand)
 // {
@@ -52,7 +43,57 @@ void	stop_heredoc(int signal)
 // 	}
 // }
 
-int	find_eof(char *eof, int expand, t_command *command)
+// int	find_eof(char *eof, int expand, t_command *command)
+// {
+// 	char	*line;
+
+// 	while (eof)
+// 	{
+// 		line = readline("> ");
+// 		if (!line)
+// 			return (0);
+// 		if (expand)
+// 			line = input_expand(line, command->main->envp, 0);
+// 		else if (!ft_strcmp(line, eof))
+// 			eof = NULL;
+// 		else
+// 			write(command->in_pipe[1], ft_stradd(&line, "\n"), ft_strlen(line) + 1);
+// 		safe_free_null(&line);
+// 	}
+// 	return (1);
+// }
+
+void	stop_heredoc(int signal)
+{
+	(void)signal;
+	(*control())->status = 130;
+	close(STDIN_FILENO);
+	write(1, "\n", 1);
+}
+
+void	forced_eof(t_control *get, char* eof, int *in_pipe)
+{
+	char	*message;
+
+	if (isatty(STDIN_FILENO))
+	{
+		message = ft_strjoin("Minishell: warning: here-document at line ",
+								sttc_itoa(get->input_count));
+		ft_stradd(&message, " delimited by end-of-file (wanted `");
+		ft_stradd(&message, eof);
+		ft_stradd(&message, "')\n");
+		write (2, message, ft_strlen(message));
+		free(message);
+	}
+	else
+	{
+		dup2(get->in_out[0], STDIN_FILENO);
+		close(in_pipe[0]);
+		input_reset(get);
+	}
+}
+
+int	find_eof(int fd, char *eof, int expand, char **envp)
 {
 	char	*line;
 
@@ -62,41 +103,65 @@ int	find_eof(char *eof, int expand, t_command *command)
 		if (!line)
 			return (0);
 		if (expand)
-			line = input_expand(line, command->main->envp, 0);
+			line = input_expand(line, envp, 0);
 		else if (!ft_strcmp(line, eof))
 			eof = NULL;
 		else
-			write(command->in_pipe[1], ft_stradd(&line, "\n"), ft_strlen(line) + 1);
+			write(fd, ft_stradd(&line, "\n"), ft_strlen(line) + 1);
 		safe_free_null(&line);
 	}
 	return (1);
 }
 
-int	here_doc(t_command *command, char *eof)
+int	*here_doc(t_control *get, char *eof)
 {
 	int	expand;
+	int	*in_pipe;
 
-	if (pipe(command->in_pipe) < 0)
-		return (-1);
-	command->main->status = 0;
+	in_pipe = ft_calloc(sizeof(int), 2);
+	if (pipe(in_pipe) < 0)
+	{
+		write (2, "minishell: error in pipe usage\n", 36);
+		input_reset(get);
+		return (NULL);
+	}
 	expand = !!find_pair(eof, "\'\"");
 	remove_pair(eof, "\'\"");
 	signal(SIGINT, stop_heredoc);
-	if (!find_eof(eof, expand, command))
-	{
-		if (isatty(STDIN_FILENO))
-			warning_control_d(eof, command->main->input_count);
-		else
-		{
-			jump_command(command, 0);
-			dup2(command->main->in_out[0], STDIN_FILENO);
-		}
-		command->terminal = 0;
-	}
+	if (!find_eof(in_pipe[0], eof, expand, get->envp))
+		forced_eof(get, eof, in_pipe);
 	signal(SIGINT, control_c);
-	close(command->in_pipe[1]);
-	return (command->in_pipe[0]);
+	close(in_pipe[1]);
+	if (read(in_pipe[0], 0, 0) < 0)
+		return (NULL);
+	return (in_pipe);
 }
+
+// int	here_doc(t_command *command, char *eof)
+// {
+// 	int	expand;
+
+// 	if (pipe(command->in_pipe) < 0)
+// 		return (-1);
+// 	command->main->status = 0;
+// 	expand = !!find_pair(eof, "\'\"");
+// 	remove_pair(eof, "\'\"");
+// 	signal(SIGINT, stop_heredoc);
+// 	if (!find_eof(eof, expand, command))
+// 	{
+// 		if (isatty(STDIN_FILENO))
+// 			warning_control_d(eof, command->main->input_count);
+// 		else
+// 		{
+// 			jump_command(command, 0);
+// 			dup2(command->main->in_out[0], STDIN_FILENO);
+// 		}
+// 		command->terminal = 0;
+// 	}
+// 	signal(SIGINT, control_c);
+// 	close(command->in_pipe[1]);
+// 	return (command->in_pipe[0]);
+// }
 
 /*
 Problems:
@@ -112,7 +177,7 @@ probably better to open the docs first.
 void	input_redirect(t_command *command, int index)
 {
 	if (*(short *)command->terminal[index] == *(short *)"<<")
-		command->in_pipe[0] = here_doc(command, command->terminal[index + 1]);
+		command->in_pipe = here_doc(command->main, command->terminal[index + 1]);
 	else
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);

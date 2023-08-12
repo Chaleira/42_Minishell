@@ -42,8 +42,7 @@ char	*command_error(t_command *command, char *type, char *input)
 {
 	char	*error;
 
-	error = ft_strdup("minishell: ");
-	ft_stradd(&error, input);
+	error = ft_strjoin("minishell: ", input);
 	if (!type)
 	{
 		command->status = 127;
