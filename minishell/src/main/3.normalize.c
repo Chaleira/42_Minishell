@@ -56,6 +56,21 @@ void	print_split_input(char ***input)
 	}
 }
 
+char	**dup_split_size(char **split, int size)
+{
+	char	**new;
+	int		i;
+
+	new = ft_calloc(sizeof(char *), size + 1);
+	i = 0;
+	while (split[i] && i < size)
+	{
+		new[i] = ft_strdup(split[i]);
+		i++;
+	}
+	return (new);
+}
+
 char	**copy_split_size(char **split, int size)
 {
 	char	**new;
@@ -98,34 +113,12 @@ static void	break_tokens(t_control *get, char **split, int size)
 		split[i] = input_expand(split[i], get->envp, 1);
 		if (is_end_of_command(split[i][0]) || (i == (size - 1) && ++i))
 		{
-			get->tokens[j++] = copy_split_size(&split[start], i - start);
+			get->tokens[j++] = dup_split_size(&split[start], i - start);
 			start = i;
 		}
 		i++;
 	}
 }
-
-// static void	break_tokens(t_control *get, char **split)
-// {
-// 	int			index;
-// 	int			start;
-// 	int			j;
-
-// 	j = 0;
-// 	start = 0;
-// 	index = 0;
-// 	while (split[index])
-// 	{
-// 		split[index] = input_expand(split[index], get->envp, 1);
-// 		if (is_end_of_command(split[index][0]))
-// 		{
-// 			get->tokens[j++] = copy_split_size(&split[start], index - start);
-// 			start = index;
-// 		}
-// 		index++;
-// 	}
-// 	get->tokens[j++] = copy_split_size(&split[start], index - start);
-// }
 
 int	normalize_input(t_control *get)
 {
@@ -141,7 +134,7 @@ int	normalize_input(t_control *get)
 	}
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
 	break_tokens(get, split, split_size(split));
-	free(split);
+	split = free_split(split);
 	return (1);
 }
 	// print_split_input(get->tokens);

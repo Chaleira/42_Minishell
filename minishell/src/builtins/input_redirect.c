@@ -12,57 +12,6 @@
 
 #include <minishell.h>
 
-// void	warning_control_d(char *eof, int counter)
-// {
-// 	ft_printf("Minishell: warning: here-document at line %i delimited 
-// by end-of-file (wanted `%s')\n", counter, eof);
-// }
-
-// void	find_eof(char *eof, t_command *command, int expand)
-// {
-// 	char	*line;
-
-// 	while (eof)
-// 	{
-// 		line = readline("> ");
-// 		if (expand && line)
-// 			line = input_expand(line, command->main->envp, 0);
-// 		if (!line)
-// 		{
-// 			if (isatty(STDIN_FILENO))
-// 				warning_control_d(eof, command->main->input_count);
-// 			else
-// 				dup2(command->main->in_out[0], STDIN_FILENO);
-// 			eof = NULL;
-// 		}
-// 		else if (!ft_strcmp(line, eof))
-// 			eof = NULL;
-// 		else
-// 			write(command->in_pipe[1], ft_stradd(&line, "\n"), ft_strlen(line) + 1);
-// 		safe_free_null(&line);
-// 	}
-// }
-
-// int	find_eof(char *eof, int expand, t_command *command)
-// {
-// 	char	*line;
-
-// 	while (eof)
-// 	{
-// 		line = readline("> ");
-// 		if (!line)
-// 			return (0);
-// 		if (expand)
-// 			line = input_expand(line, command->main->envp, 0);
-// 		else if (!ft_strcmp(line, eof))
-// 			eof = NULL;
-// 		else
-// 			write(command->in_pipe[1], ft_stradd(&line, "\n"), ft_strlen(line) + 1);
-// 		safe_free_null(&line);
-// 	}
-// 	return (1);
-// }
-
 void	stop_heredoc(int signal)
 {
 	(void)signal;
@@ -121,6 +70,7 @@ int	*here_doc(t_control *get, char *eof)
 	in_pipe = ft_calloc(sizeof(int), 2);
 	if (pipe(in_pipe) < 0)
 	{
+		free(in_pipe);
 		write (2, "minishell: error in pipe usage\n", 32);
 		input_reset(get);
 		return (NULL);
@@ -130,39 +80,10 @@ int	*here_doc(t_control *get, char *eof)
 	signal(SIGINT, stop_heredoc);
 	if (!find_eof(in_pipe[1], eof, expand, get->envp))
 		forced_eof(get, eof, in_pipe);
-	signal(SIGINT, control_c);
 	close(in_pipe[1]);
-	// in_pipe[0] = open("/dev/null", O_RDONLY | 0644);
-	if (read(in_pipe[0], 0, 0) < 0)
-		return (NULL);
+	signal(SIGINT, control_c);
 	return (in_pipe);
 }
-
-// int	here_doc(t_command *command, char *eof)
-// {
-// 	int	expand;
-
-// 	if (pipe(command->in_pipe) < 0)
-// 		return (-1);
-// 	command->main->status = 0;
-// 	expand = !!find_pair(eof, "\'\"");
-// 	remove_pair(eof, "\'\"");
-// 	signal(SIGINT, stop_heredoc);
-// 	if (!find_eof(eof, expand, command))
-// 	{
-// 		if (isatty(STDIN_FILENO))
-// 			warning_control_d(eof, command->main->input_count);
-// 		else
-// 		{
-// 			jump_command(command, 0);
-// 			dup2(command->main->in_out[0], STDIN_FILENO);
-// 		}
-// 		command->terminal = 0;
-// 	}
-// 	signal(SIGINT, control_c);
-// 	close(command->in_pipe[1]);
-// 	return (command->in_pipe[0]);
-// }
 
 /*
 Problems:
@@ -193,6 +114,32 @@ void	input_redirect(t_command *command, int index)
 	if (command->terminal)
 		*command->terminal[index + 1] = 0;
 }
+// int	here_doc(t_command *command, char *eof)
+// {
+// 	int	expand;
+
+// 	if (pipe(command->in_pipe) < 0)
+// 		return (-1);
+// 	command->main->status = 0;
+// 	expand = !!find_pair(eof, "\'\"");
+// 	remove_pair(eof, "\'\"");
+// 	signal(SIGINT, stop_heredoc);
+// 	if (!find_eof(eof, expand, command))
+// 	{
+// 		if (isatty(STDIN_FILENO))
+// 			warning_control_d(eof, command->main->input_count);
+// 		else
+// 		{
+// 			jump_command(command, 0);
+// 			dup2(command->main->in_out[0], STDIN_FILENO);
+// 		}
+// 		command->terminal = 0;
+// 	}
+// 	signal(SIGINT, control_c);
+// 	close(command->in_pipe[1]);
+// 	return (command->in_pipe[0]);
+// }
+
 // char	*catch_one(t_control *get)
 // {
 // 	char	*line;
