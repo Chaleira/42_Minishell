@@ -177,7 +177,10 @@ probably better to open the docs first.
 void	input_redirect(t_command *command, int index)
 {
 	if (*(short *)command->terminal[index] == *(short *)"<<")
-		command->in_pipe = here_doc(command->main, command->terminal[index + 1]);
+	{
+		command->in_pipe[0] = command->terminal[index + 1][0];
+		command->in_pipe[1] = command->terminal[index + 1][1];
+	}
 	else
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);
