@@ -178,8 +178,8 @@ void	input_redirect(t_command *command, int index)
 {
 	if (*(short *)command->terminal[index] == *(short *)"<<")
 	{
-		command->in_pipe[0] = command->terminal[index + 1][0];
-		command->in_pipe[1] = command->terminal[index + 1][1];
+		command->in_pipe[0] = ((int *)(command->terminal[index + 1]))[0];
+		command->in_pipe[1] = ((int *)(command->terminal[index + 1]))[1];
 	}
 	else
 		command->in_pipe[0]
