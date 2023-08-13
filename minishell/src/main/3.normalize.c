@@ -86,37 +86,35 @@ char	**copy_split_size(char **split, int size)
 	return (new);
 }
 
-	// print_split(split);
-	// if (!parse(split))
-	// 	return (0);
+int	extend_token(t_control *get, char **split)
+{
+	char	*temp;
+
+	if (**(short **)split == *(short *)"<<")
+	{
+		temp = (char *)here_doc(get, split[1]);
+		if (!temp)
+			return (-1);
+		free(split[1]);
+		split[1] = temp;
+	}
+	*split = input_expand(*split, get->envp, 1);
+	return (1);
+}
 
 static void	break_tokens(t_control *get, char **split, int size)
 {
 	int			i;
 	int			j;
 	int			start;
-	char		*temp;
 
 	i = 0;
 	j = 0;
 	start = 0;
 	while (i < size)
 	{
-		if (*(short *)split[i] == *(short *)"<<")
-		{
-			temp = (char *)here_doc(get, split[i + 1]);
-			if (!temp)
-			{
-				while (--j > -1)
-					free(get->tokens[j]);
-				safe_free_null((char **)&get->tokens);
-				return ;
-			}
-			HERE;
-			free(split[i + 1]);
-			split[i + 1] = temp;
-		}
-		split[i] = input_expand(split[i], get->envp, 1);
+		if (extend_token(get, &split[i]) < 0)
+			return ;
 		if (is_end_of_command(split[i][0]) || (i == (size - 1) && ++i))
 		{
 			get->tokens[j++] = copy_split_size(&split[start], i - start);

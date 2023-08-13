@@ -57,7 +57,8 @@ void	forced_eof(t_control *get, char* eof, int *in_pipe)
 		dup2(get->in_out[0], STDIN_FILENO);
 		close(in_pipe[0]);
 		// close_doc_pipes(get->tokens);
-		// input_reset(get);
+		get->tokens = free_split((char **)get->tokens);
+		input_reset(get);
 		safe_free_null(&get->input);
 	}
 }
