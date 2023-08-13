@@ -20,6 +20,24 @@ void	stop_heredoc(int signal)
 	write(1, "\n", 1);
 }
 
+void	close_doc_pipes(char ***tokens)
+{
+	// int	index;
+
+	// index = 0;
+	// while (tokens && (*tokens)[index])
+	// {
+	// 	// if (*(short *)(*tokens)[index] == *(short *)"<<")
+	// 	// {
+	// 	// 	// close(*(int *)(*tokens)[index + 1]);
+	// 	// 	// close(*((int *)(*tokens)[index + 1] + 4));
+	// 	// }
+	// 	index++;
+	// }
+	if (*(tokens + 1))
+		close_doc_pipes(tokens + 1);
+}
+
 void	forced_eof(t_control *get, char* eof, int *in_pipe)
 {
 	char	*message;
@@ -38,7 +56,9 @@ void	forced_eof(t_control *get, char* eof, int *in_pipe)
 	{
 		dup2(get->in_out[0], STDIN_FILENO);
 		close(in_pipe[0]);
-		input_reset(get);
+		// close_doc_pipes(get->tokens);
+		// input_reset(get);
+		safe_free_null(&get->input);
 	}
 }
 
@@ -82,6 +102,11 @@ int	*here_doc(t_control *get, char *eof)
 		forced_eof(get, eof, in_pipe);
 	close(in_pipe[1]);
 	signal(SIGINT, control_c);
+	if (read(in_pipe[0], 0, 0) < 0)
+	{
+		free(in_pipe);
+		return (NULL);
+	}
 	return (in_pipe);
 }
 

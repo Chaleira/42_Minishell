@@ -106,14 +106,20 @@ static void	break_tokens(t_control *get, char **split, int size)
 		{
 			temp = (char *)here_doc(get, split[i + 1]);
 			if (!temp)
+			{
+				while (--j > -1)
+					free(get->tokens[j]);
+				safe_free_null((char **)&get->tokens);
 				return ;
+			}
+			HERE;
 			free(split[i + 1]);
 			split[i + 1] = temp;
 		}
 		split[i] = input_expand(split[i], get->envp, 1);
 		if (is_end_of_command(split[i][0]) || (i == (size - 1) && ++i))
 		{
-			get->tokens[j++] = dup_split_size(&split[start], i - start);
+			get->tokens[j++] = copy_split_size(&split[start], i - start);
 			start = i;
 		}
 		i++;
@@ -134,7 +140,10 @@ int	normalize_input(t_control *get)
 	}
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
 	break_tokens(get, split, split_size(split));
-	split = free_split(split);
+	if (!get->tokens)
+		split = free_split(split);
+	else
+		free(split);
 	return (1);
 }
 	// print_split_input(get->tokens);
