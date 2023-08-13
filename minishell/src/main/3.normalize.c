@@ -56,21 +56,6 @@ void	print_split_input(char ***input)
 	}
 }
 
-char	**dup_split_size(char **split, int size)
-{
-	char	**new;
-	int		i;
-
-	new = ft_calloc(sizeof(char *), size + 1);
-	i = 0;
-	while (split[i] && i < size)
-	{
-		new[i] = ft_strdup(split[i]);
-		i++;
-	}
-	return (new);
-}
-
 char	**copy_split_size(char **split, int size)
 {
 	char	**new;

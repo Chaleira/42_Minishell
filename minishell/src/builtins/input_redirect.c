@@ -22,19 +22,21 @@ void	stop_heredoc(int signal)
 
 void	close_doc_pipes(char ***tokens)
 {
-	// int	index;
+	int	index;
 
-	// index = 0;
-	// while (tokens && (*tokens)[index])
-	// {
-	// 	// if (*(short *)(*tokens)[index] == *(short *)"<<")
-	// 	// {
-	// 	// 	// close(*(int *)(*tokens)[index + 1]);
-	// 	// 	// close(*((int *)(*tokens)[index + 1] + 4));
-	// 	// }
-	// 	index++;
-	// }
-	if (*(tokens + 1))
+	index = 0;
+	while (tokens && *tokens && (*tokens)[index])
+	{
+		if (*(short *)(*tokens)[index] == *(short *)"<<")
+		{
+			if (!isatty(((int *)(*tokens)[index + 1])[0]))
+				close(((int *)(*tokens)[index + 1])[0]);
+			if (!isatty(((int *)(*tokens)[index + 1])[1]))
+				close(((int *)(*tokens)[index + 1])[1]);
+		}
+		index++;
+	}
+	if (tokens && *(tokens + 1))
 		close_doc_pipes(tokens + 1);
 }
 
@@ -56,10 +58,9 @@ void	forced_eof(t_control *get, char* eof, int *in_pipe)
 	{
 		dup2(get->in_out[0], STDIN_FILENO);
 		close(in_pipe[0]);
-		// close_doc_pipes(get->tokens);
+		close_doc_pipes(get->tokens);
 		get->tokens = free_split((char **)get->tokens);
 		input_reset(get);
-		safe_free_null(&get->input);
 	}
 }
 
@@ -85,31 +86,35 @@ int	find_eof(int fd, char *eof, int expand, char **envp)
 	return (1);
 }
 
+int	new_pipe(int **newpipe, t_control *get)
+{
+	*newpipe = ft_calloc(sizeof(int), 2);
+	if (pipe(*newpipe) < 0)
+	{
+		free(*newpipe);
+		write (2, "minishell: error in pipe usage\n", 32);
+		input_reset(get);
+		return (0);
+	}
+	return (1);
+}
+
 int	*here_doc(t_control *get, char *eof)
 {
 	int	expand;
 	int	*in_pipe;
 
-	in_pipe = ft_calloc(sizeof(int), 2);
-	if (pipe(in_pipe) < 0)
-	{
-		free(in_pipe);
-		write (2, "minishell: error in pipe usage\n", 32);
-		input_reset(get);
+	if (!new_pipe(&in_pipe, get))
 		return (NULL);
-	}
-	expand = !!find_pair(eof, "\'\"");
+	expand = !find_pair(eof, "\'\"");
 	remove_pair(eof, "\'\"");
 	signal(SIGINT, stop_heredoc);
 	if (!find_eof(in_pipe[1], eof, expand, get->envp))
 		forced_eof(get, eof, in_pipe);
-	close(in_pipe[1]);
 	signal(SIGINT, control_c);
+	close(in_pipe[1]);
 	if (read(in_pipe[0], 0, 0) < 0)
-	{
-		free(in_pipe);
-		return (NULL);
-	}
+		safe_free_null((char **)&in_pipe);
 	return (in_pipe);
 }
 
@@ -119,10 +124,6 @@ Problems:
 control C giving 2 enters after closing and opening the terminal
 
 Expansion
-
-bonus with control C in the heredoc - bonus executes the command first and then the heredoc is opened
-dont know how I going to make the heredoc come first or hold the bonus execution till later.
-probably better to open the docs first.
 */
 void	input_redirect(t_command *command, int index)
 {
@@ -136,7 +137,8 @@ void	input_redirect(t_command *command, int index)
 		command->main->status = 1;
 		jump_command(command, 0);
 		write(2, "minishell: ", 12);
-		write(2, command->terminal[index + 1], ft_strlen(command->terminal[index + 1]));
+		write(2, command->terminal[index + 1],
+				ft_strlen(command->terminal[index + 1]));
 		write(2, ": No such file or directory\n", 29);
 	}
 	if (command->terminal)
