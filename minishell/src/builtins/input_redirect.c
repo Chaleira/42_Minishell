@@ -71,12 +71,14 @@ int	find_eof(int fd, char *eof, int expand, char **envp)
 		line = readline("> ");
 		if (!line)
 			return (0);
-		if (expand)
-			line = input_expand(line, envp, 0);
-		else if (!ft_strcmp(line, eof))
+		if (!ft_strcmp(line, eof))
 			eof = NULL;
 		else
+		{
+			if (expand)
+				line = input_expand(line, envp, 0);
 			write(fd, ft_stradd(&line, "\n"), ft_strlen(line) + 1);
+		}
 		safe_free_null(&line);
 	}
 	return (1);
