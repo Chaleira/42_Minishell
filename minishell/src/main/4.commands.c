@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/10 18:54:10 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:51:12 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*build_executable_path(t_control *get, char *command)
 			|| *(short *)command == *(short *)"./"))
 		return (ft_strdup(command));
 	else if (index == 2 || index == -1)
-		return (NULL);
+		return (ft_strjoin("\xFF", sttc_atoi(index)));
 	index = 0;
 	while (get->paths[index] && *command)
 	{
@@ -43,7 +43,7 @@ void	try_command(t_command *get, int index)
 	if (get->status)
 		return ;
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
-	if (!get->exec_path)
+	if (!get->exec_path || *get->exec_path == '\xFF')
 	{
 		get->status = 127;
 		get->exec_path = ft_strdup("minishell: ");
