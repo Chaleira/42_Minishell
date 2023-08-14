@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:01 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/06/29 11:28:17 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/09 03:33:59 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	unset_prepare(t_command *command, int index)
 		while (command->terminal[++index])
 		{
 			command->flags[i++] = ft_strdup(command->terminal[index]);
-			command->terminal[index][0]= 0;
+			command->terminal[index][0] = 0;
 		}
 		unset_execute(NULL, command->flags);
 	}

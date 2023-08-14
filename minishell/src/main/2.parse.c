@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/07 18:04:00 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:16:24 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int ft_splitchar(char **split, char c)
 
 int	count_char(char **split, char c)
 {
-	int i[2];
+	int	i[2];
 	int	count;
 
 	count = 0;
@@ -61,9 +61,9 @@ int	count_char(char **split, char c)
 	return (count);
 }
 
-int check_parenteses(char **split)
+int	check_parenteses(char **split)
 {
-	int left;
+	int	left;
 	int	right;
 
 	left = count_char(split, ')');
@@ -88,7 +88,8 @@ int	check_near_special_char(char **split)
 	{
 		if (split[i] && split_case(split[i]) && *split[i] != ')')
 		{
-			if (split[i + 1] && split_case(split[i + 1]) && *split[i + 1] != '(')
+			if (split[i + 1] && split_case(split[i + 1])
+				&& *split[i + 1] != '(')
 			{
 				ft_printf("minishell: syntax error near unexpected token `%s'\n",
 					split[i + 1]);
@@ -104,11 +105,13 @@ int	check_alone_char(char **split)
 {
 	if (*split && split_case(*split) && !split[1])
 	{
-		if (*(short *)(*split) == *(short *)">>" || *(short *)(*split) == *(short *)"<<"
+		if (*(short *)(*split) == *(short *)">>"
+			|| *(short *)(*split) == *(short *)"<<"
 			|| **split == '>' || **split == '<')
 			ft_printf("minishell: syntax error near unexpected token `newline'\n");
 		else
-			ft_printf("minishell: syntax error near unexpected token `%s'\n", *split);
+			ft_printf("minishell: syntax error near unexpected token `%s'\n",
+				*split);
 		return (0);
 	}
 	return (1);
@@ -130,7 +133,7 @@ int	check_first_char(char **split)
 int	check_last_char(char **split)
 {
 	int	last_split;
-	
+
 	last_split = last_split_index(split);
 	if (split[last_split] && split_case(split[last_split]) && *split[last_split]
 		&& *split[last_split] != ')' && *split[last_split] != ';')
@@ -141,14 +144,17 @@ int	check_last_char(char **split)
 	return (1);
 }
 
-int parsing(char **split)
+int	parsing(char **split)
 {
 	if (!split)
 		return (0);
 	if (!check_alone_char(split) || !check_first_char(split)
 		|| !check_near_special_char(split) || !check_last_char(split)
 		|| !check_parenteses(split))
+	{
+		(*control())->status = 2;
 		return (0);
+	}
 	return (1);
 }
 
@@ -160,5 +166,5 @@ char	**parse(char *str, t_control *get)
 	split = shell_split(str);
 	if (!parsing(split))
 		return (NULL);
-	return (split);	
+	return (split);
 }

@@ -6,132 +6,150 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/08 16:30:57 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/09 03:32:37 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void export_execute_no_input(char *print, char **flags, char **env);
-static void export_execute_with_input(char *str, char **flags);
-static void split_with_one_equal(char *str, char **env);
-char **env_copy(char **env, char *new_str);
+static void	export_execute_no_input(char *str, char **flags, char **env);
+static void	export_execute_with_input(char *str, char **flags);
+char		**split_with_one_equal(char *str);
+char		**env_copy(char **env, char *new_str);
 
-void export_prepare(t_command *command, int index)
+void	export_prepare(t_command *command, int index)
 {
-	int i;
-	int len;
+	int	i[2];
 
 	if (!command->terminal[index + 1] && !command->status)
 		command->execute = export_execute_no_input;
 	else
 	{
-		len = 0;
-		while (command->terminal[len])
-			len++;
-		command->flags = ft_calloc(sizeof(char *), len);
+		i[1] = split_size(command->terminal);
+		command->flags = ft_calloc(sizeof(char *), i[1]);
 		if (!command->flags)
-			return;
-		i = 0;
+			return ;
+		i[0] = 0;
 		while (command->terminal[++index])
 		{
 			if (!ft_isalpha(command->terminal[index][0]))
-				ft_printf("Minishell: export: '%s': not a valid identifier\n", command->terminal[index]);
+				ft_printf("Minishell: export: '%s': not a valid identifier\n",
+					command->terminal[index]);
 			else
-				command->flags[i++] = ft_strdup(command->terminal[index]);
+				command->flags[i[0]++] = ft_strdup(command->terminal[index]);
 			command->terminal[index][0] = 0;
 		}
-	if (!command->status)
-		command->execute = export_execute_with_input;
-	if (execute_now(command))
-		command->status = PARENT;
+		if (!command->status)
+			command->execute = export_execute_with_input;
+		if (execute_now(command))
+			command->status = PARENT;
 	}
 }
 
-static void export_execute_no_input(char *print, char **flags, char **env)
+static void	export_execute_no_input(char *print, char **flags, char **env)
 {
-	int i;
-	int j;
-	int	counter;
+	int	i[3];
 
-	(void)flags;
 	(void)print;
-	i = 0;
-	while (env && env[i])
+	(void)flags;
+	i[0] = -1;
+	while (env && env[++i[0]])
 	{
-		counter = 0;
-		j = 0;
+		i[2] = 0;
+		i[1] = -1;
 		write(1, "declare -x ", 11);
-		while (env[i][j])
+		while (env[i[0]][++i[1]])
 		{
-			write(1, &env[i][j], 1);
-			if (env[i][j] == '=' && !counter)
+			write(1, &env[i[0]][i[1]], 1);
+			if (env[i[0]][i[1]] == '=' && !i[2])
 			{
 				write(1, "\"", 1);
-				counter++;
+				i[2]++;
 			}
-			j++;
 		}
-		if (counter)
+		if (i[2])
 			write(1, "\"", 1);
 		write(1, "\n", 1);
-		i++;
 	}
 }
 
-static void export_execute_with_input(char *str, char **flags)
+int	ft_strlenchr(char *str, char c)
 {
-	int i;
+	int	i;
+
+	i = 0;
+	while (str && str[i] && str[i] != c)
+		i++;
+	return (i);
+}
+
+static void	export_execute_with_input(char *str, char **flags)
+{
+	char	**split;
+	char	**var;
+	int		i;
 
 	(void)str;
+	(void)flags;
 	i = 0;
-	while (flags[i])
+	while (flags && flags[i])
 	{
-		split_with_one_equal(flags[i], (*control())->envp);
+		split = split_with_one_equal(flags[i]);
+		var = find_var(split[0], (*control())->envp, NULL, NULL);
+		if (var && *var)
+		{
+			if (split[1])
+			{
+				free(*var);
+				*var = ft_strdup(flags[i]);
+			}
+		}
+		else
+			(*control())->envp = env_copy((*control())->envp, flags[i]);
+		free_split(split);
 		i++;
 	}
 }
 
-static void split_with_one_equal(char *str, char **env)
+char	**split_with_one_equal(char *str)
 {
-	char 	**var;
+	char	**split;
 	char	*value;
 	char	*name;
+	int		i;
 
-	name = ft_strdup(str);
-	value = ft_strchr(name, '=');
-	if (value)
-		*value++ = 0;
-	var = find_var(name, env, NULL, NULL);
-	if (var && value)
+	split = ft_calloc(sizeof(char *), 4);
+	value = ft_strchr(str, '=');
+	if (!value)
+		split[0] = ft_strdup(str);
+	else
 	{
-		free(*var);
-		*var = ft_strdup(str);
+		i = 0;
+		while (str && str[i] != '=')
+			i++;
+		name = ft_substr(str, 0, i);
+		split[0] = name;
+		split[1] = ft_strdup("=");
+		split[2] = ft_strdup(++value);
 	}
-	else if (!var && value)
-		(*control())->envp = env_copy(env, ft_strdup(str));
-	else if (!var && !value)
-		(*control())->envp = env_copy(env, ft_strdup(name));
-	free(name);
+	return (split);
 }
 
 char **find_var(char *name, char **env, int *index, int *size)
 {
-	int i;
-	int	j;
+	int	i;
+	int	name_len[2];
 
 	i = 0;
-	while (env[i])
-		i++;
+	name_len[0] = ft_strlen(name);
 	if (size)
-		*size = i;
+		*size = split_size(env);
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
-		j = 0;
-		while (name[j] && name[j] == env[i][j])
-			j++;
-		if (!name[j])
+		name_len[1] = ft_strlenchr(env[i], '=');
+		if ((!ft_strncmp(name, env[i], name_len[1]))
+			&& (name_len[0] == name_len[1]))
 		{
 			if (index)
 				*index = i;
@@ -146,8 +164,8 @@ char **find_var(char *name, char **env, int *index, int *size)
 
 char **env_copy(char **env, char *new_str)
 {
-	int	i;
-	char **new_env;
+	int		i;
+	char	**new_env;
 
 	i = 0;
 	while (env && env[i])
@@ -156,10 +174,10 @@ char **env_copy(char **env, char *new_str)
 	i = 0;
 	while (env && env[i])
 	{
-		new_env[i] = env[i];
+		new_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	new_env[i] = new_str;
-	free(env);
+	new_env[i] = ft_strdup(new_str);
+	free_split(env);
 	return (new_env);
 }

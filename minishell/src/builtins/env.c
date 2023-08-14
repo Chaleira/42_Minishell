@@ -3,19 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:59:05 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/26 11:07:06 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/09 03:32:53 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	*env_str(char **split);
+
 void	env_prepare(t_command *command, int index)
 {
 	(void)index;
-	command->exec_path = ft_unsplit(command->main->envp, 0, '\n');
+	command->exec_path = env_str(command->main->envp);
 	if (!command->status)
 		command->execute = builtin_execute;
+}
+
+char	*env_str(char **split)
+{
+	int		i[3];
+	int		count;
+	char	*str;
+
+	i[0] = -1;
+	count = 0;
+	while (split && split[++i[0]])
+		count += ft_strlen(split[i[0]]) + 1;
+	str = ft_calloc(sizeof(char), count + 1);
+	bzero(i, 12);
+	while (split && split[i[1]])
+	{
+		if (ft_strchr(split[i[1]], '='))
+		{
+			i[2] = 0;
+			while (split[i[1]][i[2]])
+			{
+				str[i[0]++] = split[i[1]][i[2]];
+				i[2]++;
+			}
+			str[i[0]++] = '\n';
+		}
+		i[1]++;
+	}
+	return (str);
 }

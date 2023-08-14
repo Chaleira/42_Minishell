@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/08 16:42:49 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:10:46 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*build_executable_path(t_control *get, char *command)
 			|| *(short *)command == *(short *)"./"))
 		return (ft_strdup(command));
 	else if (index == 2 || index == -1)
-		return (NULL);
+		return (ft_strjoin("\xFF", sttc_itoa(index)));
 	index = 0;
 	while (get->paths[index] && *command)
 	{
@@ -38,17 +38,36 @@ char	*build_executable_path(t_control *get, char *command)
 	return (NULL);
 }
 
+char	*command_error(t_command *command, char *type, char *input)
+{
+	char	*error;
+
+	error = ft_strjoin("minishell: ", input);
+	if (!type)
+	{
+		command->status = 127;
+		ft_stradd(&error, ": command not found\n");
+	}
+	else if (ft_atoi(type + 1) == 2)
+	{
+		command->status = 126;
+		ft_stradd(&error, ": is a directory\n");
+	}
+	else
+		ft_stradd(&error, ": error checking file\n");
+	free(type);
+	return (error);
+}
+
 void	try_command(t_command *get, int index)
 {
 	if (get->status)
 		return ;
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
-	if (!get->exec_path)
+	if (!get->exec_path || *get->exec_path == '\xFF')
 	{
-		get->status = 127;
-		get->exec_path = ft_strdup("minishell: ");
-		ft_stradd(&get->exec_path, get->terminal[index]);
-		ft_stradd(&get->exec_path, ": command not found\n");
+		get->exec_path = command_error(get, get->exec_path,
+				get->terminal[index]);
 		get->execute = builtin_execute;
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/08 16:27:30 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:11:07 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <dirent.h>
 # include <sys/types.h>
 # define PARENT -350
-// # define HERE write(1, "here\n", 5)
-// # define ALMOST write(1, "almost\n", 7)
-// # define THERE write(1, "there\n", 6)
+# define HERE write(1, "here\n", 5)
+# define ALMOST write(1, "almost\n", 7)
+# define THERE write(1, "there\n", 6)
 # define RED "\001\e[01;31m\004"
 # define BOLD "\001\e[01;1m\004"
 # define BLUE "\001\e[01;34m\004"
@@ -89,6 +89,9 @@ void		safe_close_fd(int fd, int fd2);
 void		check_dup2(int in, int out);
 void		cut_wait(void);
 
+int			*here_doc(t_control *get, char *eof);
+
+
 // Commands | Utils
 void		structure_commands(t_control *get);
 t_exe		solve(char *find);
@@ -113,7 +116,8 @@ int			remove_pair(char *string, char *find);
 int			find_pair(char *string, char *jump);
 
 // Expansion + 2
-char		*input_expand(char *input, char **envp);
+char		*input_expand(char *input, char **envp, int ignore);
+char		**wildcard(char *str);
 
 // Built-in: prepare | execute
 void		cd_prepare(t_command *command, int index);
@@ -145,7 +149,7 @@ int			ignore_quotes(char *string);
 // Libft Plus
 char		*sttc_itoa(int number);
 char		*ft_stradd(char **original, char *add);
-char		*ft_unsplit(char **split, int posize, char c);
+char		*ft_unsplit(char **split, int posize, char c, int flag_nl);
 int			is_space(char c);
 void		*free_triple_pointer(char ***pointer);
 
@@ -160,22 +164,21 @@ char		*fix_quotes_expand(char *string);
 
 void		update_paths(char **envp, t_control *get);
 int			remove_pair(char *string, char *find);
-char		*input_expand(char *input, char **envp);
 int			find_pair(char *string, char *jump);
 
 int			is_folder_or_file(char *check);
 void		cut_wait(void);
 void		print_split(char **input);
-int			change_env_variable(char ***env, char *variable, char *value);
-
+int			change_env_variable(char **env, char *variable, char *value);
+int			split_size(char **split);
 
 // Parse
 char		**parse(char *str, t_control *get);
 int			parsing(char **split);
-void		here_doc(t_command *get, char *eof);
 char		*catch_one(t_control *get);
 char		**ft_split_join(char **split, char **add, int index);
 int			last_split_index(char **split);
 void		stop_heredoc(int signal);
+char		**env_copy(char **env, char *new_str);
 
 #endif

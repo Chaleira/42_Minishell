@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_plus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 19:43:21 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/09 20:03:28 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_stradd(char **original, char *add)
 	return (joined);
 }
 
-char	*ft_unsplit(char **split, int posize, char c)
+char	*ft_unsplit(char **split, int posize, char c, int flag_nl)
 {
 	char	*line;
 	int		i;
@@ -50,11 +50,12 @@ char	*ft_unsplit(char **split, int posize, char c)
 	if (!split || (!*split && !posize))
 		return (NULL);
 	if (*split)
-		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1, c);
+		line = ft_unsplit((split + 1), posize + ft_strlen(*split) + 1, c, 1);
 	else
 	{
 		line = ft_calloc(sizeof(char), posize + 1);
-		line[posize - 1] = '\n';
+		if (flag_nl)
+			line[posize - 1] = '\n';
 		return (line);
 	}
 	i = 0;

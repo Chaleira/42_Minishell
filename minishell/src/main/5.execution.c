@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   4.execution.c                                      :+:      :+:    :+:   */
+/*   5.execution.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 11:24:12 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:57:44 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	find_directions(t_list *this)
 	get = ((t_command *)(this->content));
 	if (this->previous && isatty(get->in_pipe[0]))
 	{
-		get->in_pipe[0] = ((t_command *)(this->previous->content))->out_pipe[0];
-		get->in_pipe[1] = ((t_command *)(this->previous->content))->out_pipe[1];
+		*(long *)get->in_pipe =
+			*(long *)((t_command *)(this->previous->content))->out_pipe;
 	}
 	if (this->next && isatty(get->out_pipe[1]))
 	{
