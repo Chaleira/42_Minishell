@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/08 17:44:16 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:20:58 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	increase_shlvl(char ***envp)
 {
 	int		increase;
 	char	**shlvl;
- 
+
 	shlvl = get_envaddress(*envp, "SHLVL");
 	if (!shlvl)
 	{
@@ -59,7 +59,6 @@ Minishell \001\033[0m\002\001\033[34m\002",
 	ft_stradd(&prompt, " \001\033[0;33m\002\001\u2717\002 \001\033[0m\002");
 	return (prompt);
 }
-
 // char	*get_prompt(void)
 // {
 // 	char		*folder;

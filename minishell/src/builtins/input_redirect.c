@@ -20,34 +20,14 @@ void	stop_heredoc(int signal)
 	write(1, "\n", 1);
 }
 
-void	close_doc_pipes(char ***tokens)
-{
-	int	index;
-
-	index = 0;
-	while (tokens && *tokens && (*tokens)[index])
-	{
-		if (*(short *)(*tokens)[index] == *(short *)"<<")
-		{
-			if (!isatty(((int *)(*tokens)[index + 1])[0]))
-				close(((int *)(*tokens)[index + 1])[0]);
-			if (!isatty(((int *)(*tokens)[index + 1])[1]))
-				close(((int *)(*tokens)[index + 1])[1]);
-		}
-		index++;
-	}
-	if (tokens && *(tokens + 1))
-		close_doc_pipes(tokens + 1);
-}
-
-void	forced_eof(t_control *get, char* eof, int *in_pipe)
+void	forced_eof(t_control *get, char *eof, int *in_pipe)
 {
 	char	*message;
 
 	if (isatty(STDIN_FILENO))
 	{
 		message = ft_strjoin("Minishell: warning: here-document at line ",
-								sttc_itoa(get->input_count));
+				sttc_itoa(get->input_count));
 		ft_stradd(&message, " delimited by end-of-file (wanted `");
 		ft_stradd(&message, eof);
 		ft_stradd(&message, "')\n");
@@ -82,19 +62,6 @@ int	find_eof(int fd, char *eof, int expand, char **envp)
 			write(fd, ft_stradd(&line, "\n"), ft_strlen(line) + 1);
 		}
 		safe_free_null(&line);
-	}
-	return (1);
-}
-
-int	new_pipe(int **newpipe, t_control *get)
-{
-	*newpipe = ft_calloc(sizeof(int), 2);
-	if (pipe(*newpipe) < 0)
-	{
-		free(*newpipe);
-		write (2, "minishell: error in pipe usage\n", 32);
-		input_reset(get);
-		return (0);
 	}
 	return (1);
 }
@@ -138,7 +105,7 @@ void	input_redirect(t_command *command, int index)
 		jump_command(command, 0);
 		write(2, "minishell: ", 12);
 		write(2, command->terminal[index + 1],
-				ft_strlen(command->terminal[index + 1]));
+			ft_strlen(command->terminal[index + 1]));
 		write(2, ": No such file or directory\n", 29);
 	}
 	if (command->terminal)
