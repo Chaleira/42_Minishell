@@ -89,6 +89,9 @@ void		safe_close_fd(int fd, int fd2);
 void		check_dup2(int in, int out);
 void		cut_wait(void);
 
+int			*here_doc(t_control *get, char *eof);
+
+
 // Commands | Utils
 void		structure_commands(t_control *get);
 t_exe		solve(char *find);

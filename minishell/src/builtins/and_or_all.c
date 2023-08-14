@@ -56,7 +56,7 @@ static int	stop_next_command(char ***tokens, char **split)
 			ignore_parenthesis(&tokens[index]);
 			return (1);
 		}
-		else if ((!ft_strncmp(tokens[index][0], "||", 10))
+		else if (*(short *)(tokens[index][0]) == *(short *)"||"
 			|| **(tokens[index]) == ';' || **(tokens[index]) == '&')
 			return (1);
 		else

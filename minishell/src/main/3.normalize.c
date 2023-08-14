@@ -71,30 +71,42 @@ char	**copy_split_size(char **split, int size)
 	return (new);
 }
 
-	// print_split(split);
-	// if (!parse(split))
-	// 	return (0);
-
-static void	break_tokens(t_control *get, char **split)
+int	extend_token(t_control *get, char **split)
 {
-	int			index;
-	int			start;
-	int			j;
+	char	*temp;
 
+	if (**(short **)split == *(short *)"<<")
+	{
+		temp = (char *)here_doc(get, split[1]);
+		if (!temp)
+			return (-1);
+		free(split[1]);
+		split[1] = temp;
+	}
+	*split = input_expand(*split, get->envp, 1);
+	return (1);
+}
+
+static void	break_tokens(t_control *get, char **split, int size)
+{
+	int			i;
+	int			j;
+	int			start;
+
+	i = 0;
 	j = 0;
 	start = 0;
-	index = 0;
-	while (split[index])
+	while (i < size)
 	{
-		split[index] = input_expand(split[index], get->envp, 1);
-		if (is_end_of_command(split[index][0]))
+		if (extend_token(get, &split[i]) < 0)
+			return ;
+		if (is_end_of_command(split[i][0]) || (i == (size - 1) && ++i))
 		{
-			get->tokens[j++] = copy_split_size(&split[start], index - start);
-			start = index;
+			get->tokens[j++] = copy_split_size(&split[start], i - start);
+			start = i;
 		}
-		index++;
+		i++;
 	}
-	get->tokens[j++] = copy_split_size(&split[start], index - start);
 }
 
 int	normalize_input(t_control *get)
@@ -110,8 +122,11 @@ int	normalize_input(t_control *get)
 		return (0);
 	}
 	get->tokens = ft_calloc(sizeof(char **), count_cases(split) + 2);
-	break_tokens(get, split);
-	free(split);
+	break_tokens(get, split, split_size(split));
+	if (!get->tokens)
+		split = free_split(split);
+	else
+		free(split);
 	return (1);
 }
 	// print_split_input(get->tokens);

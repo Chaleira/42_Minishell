@@ -19,8 +19,8 @@ void	find_directions(t_list *this)
 	get = ((t_command *)(this->content));
 	if (this->previous && isatty(get->in_pipe[0]))
 	{
-		get->in_pipe[0] = ((t_command *)(this->previous->content))->out_pipe[0];
-		get->in_pipe[1] = ((t_command *)(this->previous->content))->out_pipe[1];
+		*(long *)get->in_pipe =
+			*(long *)((t_command *)(this->previous->content))->out_pipe;
 	}
 	if (this->next && isatty(get->out_pipe[1]))
 	{
