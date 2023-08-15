@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/09 19:12:07 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:46:19 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ t_exe	solve(char *find)
 	};
 
 	index = !!(*find);
-	// wildcard
 	remove_pair(find, "\"\'");
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;

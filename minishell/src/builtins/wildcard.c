@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:33:16 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/09 03:34:15 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/11 20:13:48 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,54 @@ int	compare(char *str, char *name)
 	}
 	free_split(matrix);
 	return (1);
+}
+
+char	**wildcard_aux(char **split)
+{
+	int		i[2];
+	char	**new_split;
+	char	**wildcard_split;
+
+	i[0] = 0;
+	while (split[i[0]])
+	{
+		if (ft_strchr(split[i[0]], '*'))
+		{
+			wildcard_split = wildcard(split[i[0]]);
+			while (wildcard_split[i[1]])
+			{
+				new_split = env_copy(split, wildcard_split[i[1]]);
+				i[1]++;
+			}
+		}
+		i[1] = 0;
+		i[0]++;
+	}
+	return (new_split);
+}
+
+char	**ft_join_split(char **split, char **add, int index)
+{
+	int		i[2];
+	char	**new_split;
+
+	i[0] = 0;
+	new_split = ft_calloc(sizeof(char *),
+			split_size(split) + split_size(add) + 1);
+	while (split && split[i[0]] && i[0] < index)
+	{
+		new_split[i[0]] = ft_strdup(split[i[0]]);
+		i[0]++;
+	}
+	i[1] = 0;
+	i[2] = i[0];
+	while (add && add[i[1]])
+	{
+		new_split[i[0]] = ft_strdup(add[i[1]]);
+		i[0]++;
+		i[1]++;
+	}
+	while (split && split[i[2]])
+		new_split[i[0]++] = ft_strdup(split[i[2]++]);
+	return (new_split);
 }

@@ -6,59 +6,27 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/09 18:16:24 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:54:51 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <minishell.h>
 
-int last_split_index(char **split)
+int	check_alone_char(char **split)
 {
-	int	i;
-	
-
-	i = 0;
-	while (split && split[i] && split[i + 1])
-		i++;
-	return (i);
-}
-
-int ft_splitchar(char **split, char c)
-{
-	int	i;
-
-	if (!split)
+	if (*split && split_case(*split) && !split[1])
+	{
+		if (*(short *)(*split) == *(short *)">>"
+			|| *(short *)(*split) == *(short *)"<<"
+			|| **split == '>' || **split == '<')
+			ft_printf("minishell: syntax error near"
+				"unexpected token `newline'\n");
+		else
+			ft_printf("minishell: syntax error near unexpected token `%s'\n",
+				*split);
 		return (0);
-	i = 0;
-	while (split[i])
-	{
-		if (ft_strchr(split[i], c))
-			return (1);
-		i++;
 	}
-	return (0);
-}
-
-int	count_char(char **split, char c)
-{
-	int	i[2];
-	int	count;
-
-	count = 0;
-	i[0] = 0;
-	while (split && split[i[0]])
-	{
-		i[1] = 0;
-		while (split[i[0]] && split[i[0]][i[1]])
-		{
-			if (split[i[0]][i[1]] == c)
-				count++;
-			i[1]++;
-		}
-		i[0]++;
-	}
-	return (count);
+	return (1);
 }
 
 int	check_parenteses(char **split)
@@ -74,7 +42,7 @@ int	check_parenteses(char **split)
 			ft_printf("minishell: syntax error near unexpected token `)'\n");
 		if (right > left)
 			ft_printf("minishell: syntax error near unexpected token `('\n");
-		return (0); 
+		return (0);
 	}
 	return (1);
 }
@@ -97,49 +65,6 @@ int	check_near_special_char(char **split)
 			}
 		}
 		i++;
-	}
-	return (1);
-}
-
-int	check_alone_char(char **split)
-{
-	if (*split && split_case(*split) && !split[1])
-	{
-		if (*(short *)(*split) == *(short *)">>"
-			|| *(short *)(*split) == *(short *)"<<"
-			|| **split == '>' || **split == '<')
-			ft_printf("minishell: syntax error near unexpected token `newline'\n");
-		else
-			ft_printf("minishell: syntax error near unexpected token `%s'\n",
-				*split);
-		return (0);
-	}
-	return (1);
-}
-
-int	check_first_char(char **split)
-{
-	if (*split && split[1] && (!ft_strcmp(*split, "|")
-			|| !ft_strcmp(*split, ")") || !ft_strcmp(*split, "&&")
-			|| !ft_strcmp(*split, ";") || !ft_strcmp(*split, "||")))
-	{
-		ft_printf("minishell: syntax error near unexpected token `%s'\n",
-			*split);
-		return (0);
-	}
-	return (1);
-}
-
-int	check_last_char(char **split)
-{
-	int	last_split;
-
-	last_split = last_split_index(split);
-	if (split[last_split] && split_case(split[last_split]) && *split[last_split]
-		&& *split[last_split] != ')' && *split[last_split] != ';')
-	{
-		ft_printf("minishell: syntax error near unexpected token `newline'\n");
-		return (0);
 	}
 	return (1);
 }

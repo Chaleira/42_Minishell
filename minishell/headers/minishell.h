@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/09 20:03:11 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/11 20:13:54 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # include <sys/types.h>
 # define PARENT -350
 # define HERE write(1, "here\n", 5)
-# define ALMOST write(1, "almost\n", 7)
-# define THERE write(1, "there\n", 6)
+// # define ALMOST write(1, "almost\n", 7)
+// # define THERE write(1, "there\n", 6)
 # define RED "\001\e[01;31m\004"
 # define BOLD "\001\e[01;1m\004"
 # define BLUE "\001\e[01;34m\004"
@@ -115,6 +115,8 @@ int			find_pair(char *string, char *jump);
 // Expansion + 2
 char		*input_expand(char *input, char **envp, int ignore);
 char		**wildcard(char *str);
+char		**wildcard_aux(char **split);
+
 
 // Built-in: prepare | execute
 void		cd_prepare(t_command *command, int index);
@@ -168,15 +170,19 @@ void		cut_wait(void);
 void		print_split(char **input);
 int			change_env_variable(char **env, char *variable, char *value);
 int			split_size(char **split);
+int			ft_strlenchr(char *str, char c);
 
 // Parse
 char		**parse(char *str, t_control *get);
 int			parsing(char **split);
 void		here_doc(t_command *get, char *eof);
 char		*catch_one(t_control *get);
-char		**ft_split_join(char **split, char **add, int index);
+char		**ft_join_split(char **split, char **add, int index);
 int			last_split_index(char **split);
 void		stop_heredoc(int signal);
 char		**env_copy(char **env, char *new_str);
+int			count_char(char **split, char c);
+int			check_first_char(char **split);
+int			check_last_char(char **split);
 
 #endif
