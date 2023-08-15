@@ -117,7 +117,7 @@ int	*here_doc(t_control *get, char *eof)
 		safe_free_null((char **)&in_pipe);
 	return (in_pipe);
 }
-
+  
 /*
 Problems:
 
