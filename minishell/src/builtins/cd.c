@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/01 17:42:25 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:49:30 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	cd_execute(char *current, char **directory, char **envp, t_command *get)
 	directory = get_envaddress(envp, "PWD");
 	if (!directory || !*directory)
 		return ;
-	current = ft_calloc(sizeof(char), PATH_MAX);
+	current = getcwd(NULL, 0);
 	(*directory)[4] = 0;
-	ft_stradd(directory, getcwd(current, PATH_MAX));
+	ft_stradd(directory, current);
 	free(current);
 }
 

@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/11 20:13:54 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:50:37 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ void		safe_close_fd(int fd, int fd2);
 void		check_dup2(int in, int out);
 void		cut_wait(void);
 
+int			*here_doc(t_control *get, char *eof);
+
+
 // Commands | Utils
 void		structure_commands(t_control *get);
 t_exe		solve(char *find);
@@ -130,7 +133,7 @@ void		input_redirect(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
 void		exit_execute(t_command *command, int index);
 void		bonus_execute(t_command *command, int index);
-void		builtin_execute(char *print);
+void		builtin_execute(char *print, char **fd, char **len, t_command *command);
 void		do_nothing(void);
 int			execute_now(t_command *get);
 void		status_expand(t_command *command, int index);
@@ -175,7 +178,6 @@ int			ft_strlenchr(char *str, char c);
 // Parse
 char		**parse(char *str, t_control *get);
 int			parsing(char **split);
-void		here_doc(t_command *get, char *eof);
 char		*catch_one(t_control *get);
 char		**ft_join_split(char **split, char **add, int index);
 int			last_split_index(char **split);

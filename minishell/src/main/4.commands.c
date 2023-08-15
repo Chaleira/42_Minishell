@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/10 18:46:19 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:51:42 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*build_executable_path(t_control *get, char *command)
 			|| *(short *)command == *(short *)"./"))
 		return (ft_strdup(command));
 	else if (index == 2 || index == -1)
-		return (NULL);
+		return (ft_strjoin("\xFF", sttc_itoa(index)));
 	index = 0;
 	while (get->paths[index] && *command)
 	{
@@ -35,8 +35,28 @@ char	*build_executable_path(t_control *get, char *command)
 			return (exec_path);
 		free(exec_path);
 	}
-	ft_printf("minishell: %s: command not found\n", command);
 	return (NULL);
+}
+
+char	*command_error(t_command *command, char *type, char *input)
+{
+	char	*error;
+
+	error = ft_strjoin("minishell: ", input);
+	if (!type)
+	{
+		command->status = 127;
+		ft_stradd(&error, ": command not found\n");
+	}
+	else if (ft_atoi(type + 1) == 2)
+	{
+		command->status = 126;
+		ft_stradd(&error, ": is a directory\n");
+	}
+	else
+		ft_stradd(&error, ": error checking file\n");
+	free(type);
+	return (error);
 }
 
 void	try_command(t_command *get, int index)
@@ -44,10 +64,11 @@ void	try_command(t_command *get, int index)
 	if (get->status)
 		return ;
 	get->exec_path = build_executable_path(get->main, get->terminal[index]);
-	if (!get->exec_path)
+	if (!get->exec_path || *get->exec_path == '\xFF')
 	{
-		get->status = 127;
-		get->execute = do_nothing;
+		get->exec_path = command_error(get, get->exec_path,
+				get->terminal[index]);
+		get->execute = builtin_execute;
 		return ;
 	}
 	get->flags = copy_shellsplit(&get->terminal[index++]);
