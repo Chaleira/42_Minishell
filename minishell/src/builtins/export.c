@@ -6,14 +6,14 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/10 18:47:40 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/16 01:15:29 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	export_execute_no_input(char *str, char **flags, char **env);
-static void	export_execute_with_input(char *str, char **flags);
+static void	export_execute_with_input(char *str, char **flags, char	**env);
 char		**split_with_one_equal(char *str);
 char		**env_copy(char **env, char *new_str);
 
@@ -71,6 +71,7 @@ static void	export_execute_no_input(char *print, char **flags, char **env)
 			write(1, "\"", 1);
 		write(1, "\n", 1);
 	}
+	update_paths(env, (*control()));
 }
 
 int	ft_strlenchr(char *str, char c)
@@ -83,7 +84,7 @@ int	ft_strlenchr(char *str, char c)
 	return (i);
 }
 
-static void	export_execute_with_input(char *str, char **flags)
+static void	export_execute_with_input(char *str, char **flags, char **env)
 {
 	char	**split;
 	char	**var;
@@ -109,6 +110,7 @@ static void	export_execute_with_input(char *str, char **flags)
 		free_split(split);
 		i++;
 	}
+	update_paths(env, (*control()));
 }
 
 char	**split_with_one_equal(char *str)

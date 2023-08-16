@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+         #
+#    By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 13:50:32 by rteles-f          #+#    #+#              #
-#    Updated: 2023/07/31 13:38:47 by rteles-f         ###   ########.fr        #
+#    Updated: 2023/08/16 01:37:54 by plopes-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,5 +53,9 @@ norm :
 
 r:
 			@make && clear && ./$(NAME)
+
+v:
+			make re && clear && valgrind -s --leak-check=full --show-leak-kinds=all --track-fds=yes --suppressions=.ignore_readline --trace-children=yes ./minishell
+
 
 .PHONY: 	all re clean fclean

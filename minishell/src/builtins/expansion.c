@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/11 18:47:14 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/16 01:50:48 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static char	*expand_tilde(char *input)
 		if (!input)
 			input = ft_calloc(sizeof(char), 2);
 		ft_stradd(&input, keep);
+		safe_free_null(&keep);
 	}
 	return (input);
 }

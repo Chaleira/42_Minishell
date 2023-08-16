@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   0.setup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/14 19:20:58 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/16 01:39:57 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	update_paths(char **envp, t_control *get)
 {
 	char	**paths;
 
+	if (get->paths)
+		get->paths = free_split(get->paths);
 	paths = get_envaddress(envp, "PATH");
 	if (!paths)
 		get->paths = ft_calloc(sizeof(char **), 2);
@@ -94,7 +96,6 @@ static char	**dup_env(char **env)
 void	setup(t_control *get, char **envp)
 {
 	get->envp = dup_env(envp);
-	get->export = dup_env(envp);
 	get->prompt = get_prompt();
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);
