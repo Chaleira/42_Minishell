@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:44:31 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/09 20:03:28 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:49:15 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,5 @@ void	finish_list_with(char **list, char *put)
 		free(*list);
 		*list = temp;
 		list++;
-	}
-}
-
-void	print_split(char **input)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("\n|::SPLIT:::\n");
-	while (input && input[i])
-	{
-		ft_printf("|%i - %s\n", i + 1, input[i]);
-		ft_printf("|\n");
-		i++;
 	}
 }

@@ -57,7 +57,7 @@ int	find_eof(int fd, char *eof, int expand, char **envp)
 			eof = NULL;
 		else
 		{
-			if (expand)
+			if (expand && *line != '~')
 				line = input_expand(line, envp, 0);
 			write(fd, ft_stradd(&line, "\n"), ft_strlen(line) + 1);
 		}
@@ -73,7 +73,8 @@ int	*here_doc(t_control *get, char *eof)
 
 	if (!new_pipe(&in_pipe, get))
 		return (NULL);
-	expand = !find_pair(eof, "\'\"");
+	expand = (!find_pair(ft_strchr(eof, '"'), "\'\"")
+			&& !find_pair(ft_strchr(eof, '\''), "\'\""));
 	remove_pair(eof, "\'\"");
 	signal(SIGINT, stop_heredoc);
 	if (!find_eof(in_pipe[1], eof, expand, get->envp))

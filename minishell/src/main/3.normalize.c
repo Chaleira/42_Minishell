@@ -107,6 +107,9 @@ static void	break_tokens(t_control *get, char **split, int size)
 		}
 		i++;
 	}
+	i = -1;
+	while (get->tokens[++i])
+			get->tokens[i] = wildcard_aux(get->tokens[i]);
 }
 
 int	normalize_input(t_control *get)
