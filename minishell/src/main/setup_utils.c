@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:49:10 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 15:01:52 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/15 23:19:49 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	control_d(t_control *get)
 {
+	rl_replace_line("", 1);
 	write(1, "exit\n", 5);
-	write(1, "[\033[32minfo\033[0m]: Leaving Minishell\n", 36);
+	// write(1, "[\033[32minfo\033[0m]: Leaving Minishell\n", 36);
 	end_shell(get);
 }
 
@@ -39,10 +40,15 @@ char	**get_envaddress(char **envp, char *find)
 
 void	control_c(int signal)
 {
-	(void)signal;
+	signal = waitpid(-1, NULL, 0);
 	(*control())->status = 130;
-	rl_replace_line("", 1);
-	rl_on_new_line();
-	write(1, "\n", 1);
-	rl_redisplay();
+	if (signal == -1 && !(*control())->commands)
+	{
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		write(1, "\n", 1);
+		rl_redisplay();
+	}
+	else if (signal != -1 && (*control())->commands)
+		write(1, "\n", 1);
 }

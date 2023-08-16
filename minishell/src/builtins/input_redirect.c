@@ -85,13 +85,6 @@ int	*here_doc(t_control *get, char *eof)
 	return (in_pipe);
 }
 
-/*
-Problems:
-
-control C giving 2 enters after closing and opening the terminal
-
-Expansion
-*/
 void	input_redirect(t_command *command, int index)
 {
 	if (*(short *)command->terminal[index] == *(short *)"<<")

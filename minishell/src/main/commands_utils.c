@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:38:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 19:46:27 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/15 20:58:20 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_command	*new_command(t_control *get)
 	new->parse = 1;
 	new->in_pipe[0] = get->in_out[0];
 	new->out_pipe[1] = get->in_out[1];
-	new->execute = do_nothing;
 	return (new);
 }
 

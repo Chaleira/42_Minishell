@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/14 19:12:03 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/16 00:09:22 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	try_command(t_command *get, int index)
 		get->execute = (void *)execve;
 }
 
-t_exe	solve(char *find)
+void	*solve(char *find)()
 {
 	int				index;
 	static char		*cases[20] = {
@@ -97,7 +97,6 @@ t_exe	solve(char *find)
 	};
 
 	index = !!(*find);
-	// wildcard
 	remove_pair(find, "\"\'");
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;

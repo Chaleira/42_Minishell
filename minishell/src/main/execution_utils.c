@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:39:55 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 10:08:42 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/15 21:28:27 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void	check_dup2(int in, int out)
 
 void	cut_wait(void)
 {
-	write(1, "\n", 1);
+	if (!(*control())->commands)
+		write(1, "\n", 1);
 }

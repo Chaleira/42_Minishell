@@ -73,15 +73,15 @@ char	**copy_split_size(char **split, int size)
 
 int	extend_token(t_control *get, char **split)
 {
-	char	*temp;
+	char	*doc_pipe;
 
 	if (**(short **)split == *(short *)"<<")
 	{
-		temp = (char *)here_doc(get, split[1]);
-		if (!temp)
+		doc_pipe = (char *)here_doc(get, split[1]);
+		if (!doc_pipe)
 			return (-1);
 		free(split[1]);
-		split[1] = temp;
+		split[1] = doc_pipe;
 	}
 	*split = input_expand(*split, get->envp, 1);
 	return (1);

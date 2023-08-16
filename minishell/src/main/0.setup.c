@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/14 19:20:58 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/15 22:39:42 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	setup(t_control *get, char **envp)
 	get->in_out[1] = dup(STDOUT_FILENO);
 	update_paths(envp, get);
 	increase_shlvl(&get->envp);
-	signal(SIGINT, control_c);
+	signal(SIGINT, (void *)control_c);
 	signal(SIGQUIT, SIG_IGN);
 	(*control()) = get;
 }
