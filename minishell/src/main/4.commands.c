@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   4.commands.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/16 02:13:16 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:18:11 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	try_command(t_command *get, int index)
 		get->execute = (void *)execve;
 }
 
-void	*solve(char *find)()
+t_exe	solve(char *find)
 {
 	int				index;
 	static char		*cases[20] = {

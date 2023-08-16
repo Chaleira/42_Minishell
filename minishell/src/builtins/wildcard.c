@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:33:16 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/16 00:56:51 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:16:02 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ char	**ft_split_wildcard(char *str)
 	{
 		if (str[i] == '*')
 		{
-			len = count_wilds(&str[i]);
+			len = count_wildcards(&str[i]);
 			split[j] = ft_substr(str, i, len);
 		}
 		else
 		{
-			len = count_chars(&str[i]);
+			len = count_wildcard_chars(&str[i]);
 			split[j] = ft_substr(str, i, len);
 		}
 		i += len;

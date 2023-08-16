@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   temp_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/10 18:54:00 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:26:31 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,34 @@ int	split_size(char **split)
 	return (i);
 }
 
-int	change_env_variable(char **env, char *variable, char *value)
+char	**env_var(char *var, char **env)
 {
-	if (value)
-		variable = ft_strjoin(variable, "=");
-	env = env_copy(env, ft_strjoin(variable, value));
-	return (0);
+	int		i;
+
+	i = 0;
+	while (env && env[i])
+	{
+		if (!ft_strncmp(env[i], var, ft_strlenchr(env[i], '=')))
+			return (&(env[i]));
+		i++;
+	}
+	return (NULL);
+}
+
+void	change_env_variable(char *variable, char *value)
+{
+	char	**tmp;
+	char	*join;
+
+	tmp = env_var(variable, (*control())->envp);
+	join = ft_strjoin(variable, "=");
+	if (tmp)
+	{
+		free(*tmp);
+		*tmp = ft_strjoin(join, value);
+	}
+	else
+		(*control())->envp = env_copy((*control())->envp,
+				ft_strjoin(join, value));
+	free(join);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/16 02:11:50 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:35:45 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ struct s_control {
 	char		*prompt;
 	char		**envp;
 	char		**paths;
+	char		*home;
 	char		***tokens;
 	int			in_out[2];
 	int			status;
@@ -68,11 +69,12 @@ struct s_command {
 
 void		set_signal(t_control *get, t_exe sig_function);
 
-
 // Setup + 1 | Utils
 void		setup(t_control *get, char **envp);
 void		update_paths(char **envp, t_control *get);
 char		*get_prompt(void);
+void		update_pwd(void);
+char		**env_var(char *var, char **env);
 
 char		**get_envaddress(char **envp, char *find);
 void		control_c(int signal);
@@ -105,6 +107,8 @@ int			is_executable(char *check);
 // Normalize + 3
 int			normalize_input(t_control *get);
 char		**copy_split_size(char **split, int size);
+int			is_end_of_command(char c);
+int			count_cases(char **string);
 
 // Cleanup/Reset
 void		end_shell(t_control *get);
@@ -164,7 +168,7 @@ int			remove_pair(char *string, char *find);
 int			find_pair(char *string, char *jump);
 
 void		print_split(char **input);
-int			change_env_variable(char **env, char *variable, char *value);
+void		change_env_variable(char *variable, char *value);
 int			split_size(char **split);
 int			ft_strlenchr(char *str, char c);
 
@@ -175,7 +179,20 @@ char		**ft_join_split(char **split, char **add, int *index);
 int			last_split_index(char **split);
 void		stop_heredoc(int signal);
 char		**env_copy(char **env, char *new_str);
+int			check_last_char(char **split);
+int			check_first_char(char **split);
+int			count_char(char **split, char c);
 
+// Wildcard
+int			count_wildcards(char *str);
+int			count_wildcard_chars(char *str);
+int			count_wildcard(char *str);
+char		**split_sort_by_order(char **split);
+int			ft_split_wildcard_count(char *str);
+char		**build_wildcard_list(char *str, int count);
+int			count_wildcard(char *str);
+int			check_wildcard(char *str, char *name);
+char		**ft_split_wildcard(char *str);
 
 void		close_doc_pipes(char ***tokens);
 int			new_pipe(int **newpipe, t_control *get);
