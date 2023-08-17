@@ -12,31 +12,6 @@
 
 #include <minishell.h>
 
-static int	is_end_of_command(char c)
-{
-	if (c == '|' || c == '&' || c == ';')
-		return (1);
-	return (0);
-}
-
-static int	count_cases(char **string)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	if (!string)
-		return (0);
-	while (string[i])
-	{
-		if (is_end_of_command(string[i][0]))
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 void	print_split_input(char ***input)
 {
 	int	i;

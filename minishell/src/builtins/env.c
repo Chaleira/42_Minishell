@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:59:05 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/09 03:32:53 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:16:29 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char	*env_str(char **split);
 
 void	env_prepare(t_command *command, int index)
 {
-	(void)index;
-	command->exec_path = env_str(command->main->envp);
+	if (!command->terminal[index + 1])
+		command->exec_path = env_str(command->main->envp);
 	if (!command->status)
 		command->execute = builtin_execute;
 }

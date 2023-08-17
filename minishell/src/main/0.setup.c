@@ -3,35 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   0.setup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/16 02:12:55 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:25:45 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	increase_shlvl(char ***envp)
+static void	increase_shlvl(char **envp)
 {
 	int		increase;
 	char	**shlvl;
 
-	shlvl = get_envaddress(*envp, "SHLVL");
+	shlvl = get_envaddress(envp, "SHLVL");
 	if (!shlvl)
 	{
-		increase = 0;
-		while (*envp[increase])
-			increase++;
-		shlvl = copy_split_size(*envp, increase + 1);
-		shlvl[increase] = ft_strdup("SHLVL=1");
-		free(*envp);
-		*envp = shlvl;
+		change_env_variable("SHLVL", "1");
 		return ;
 	}
 	increase = ft_atoi(&(*shlvl)[6]) + 1;
-	(*shlvl)[6] = 0;
-	ft_stradd(shlvl, sttc_itoa(increase));
+	change_env_variable("SHLVL", sttc_itoa(increase));
 }
 
 void	update_paths(char **envp, t_control *get)
@@ -99,9 +92,10 @@ void	setup(t_control *get, char **envp)
 	get->prompt = get_prompt();
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);
+	(*control()) = get;
 	update_paths(envp, get);
-	increase_shlvl(&get->envp);
+	increase_shlvl(get->envp);
+	update_pwd(get);
 	signal(SIGINT, (void *)control_c);
 	signal(SIGQUIT, SIG_IGN);
-	(*control()) = get;
 }
