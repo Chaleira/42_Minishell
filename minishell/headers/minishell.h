@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/16 02:11:50 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/16 02:15:54 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ char		**ft_join_split(char **split, char **add, int *index);
 int			last_split_index(char **split);
 void		stop_heredoc(int signal);
 char		**env_copy(char **env, char *new_str);
-
 
 void		close_doc_pipes(char ***tokens);
 int			new_pipe(int **newpipe, t_control *get);
