@@ -92,6 +92,7 @@ void	input_redirect(t_command *command, int index)
 		*(long *)command->in_pipe = *(long *)command->terminal[index + 1];
 	else
 	{
+		command->terminal[index + 1] = input_expand(command->terminal[index + 1], command->main->envp, 1);
 		remove_pair(command->terminal[index + 1], "\'\"");
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);

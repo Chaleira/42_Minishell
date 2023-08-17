@@ -1,0 +1,6 @@
+$A
+headers
+Makefile
+minishell
+minishell_test.log
+src
