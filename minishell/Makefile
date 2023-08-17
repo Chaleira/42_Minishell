@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+         #
+#    By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 13:50:32 by rteles-f          #+#    #+#              #
-#    Updated: 2023/08/17 11:08:19 by plopes-c         ###   ########.fr        #
+#    Updated: 2023/08/17 15:14:24 by rteles-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,9 @@ INCLUDES	= 	-Iheaders/ -Isrc/libft/libft_includes
 
 SRCS		=	src/builtins/and_or_all.c src/builtins/builtin_utils.c src/builtins/cd.c src/builtins/echo.c \
 				src/builtins/env.c src/builtins/exit.c src/builtins/expansion.c src/builtins/export.c \
-				src/builtins/input_redirect.c src/builtins/input_utils.c src/builtins/output_redirect.c \
-				src/builtins/pwd.c src/builtins/quotes.c src/builtins/unset.c src/builtins/wildcard.c \
+				src/builtins/export_utils.c src/builtins/input_redirect.c src/builtins/input_utils.c \
+				src/builtins/output_redirect.c src/builtins/pwd.c src/builtins/quotes.c src/builtins/unset.c \
+				src/builtins/wildcard.c src/builtins/wildcard_utils2.c src/builtins/wildcard_utils.c \
 \
 				src/libft/ft_atoi.c src/libft/ft_bzero.c src/libft/ft_calloc.c src/libft/ft_isalnum.c \
 				src/libft/ft_isalpha.c src/libft/ft_isascii.c src/libft/ft_isdigit.c src/libft/ft_isprint.c \
@@ -48,8 +49,8 @@ SRCS		=	src/builtins/and_or_all.c src/builtins/builtin_utils.c src/builtins/cd.c
 				src/main/5.execution.c src/main/6.reset.c src/main/commands_utils.c src/main/execution_utils.c \
 				src/main/normalize_utils.c src/main/parse_utils.c src/main/setup_utils.c \
 \
-				src/utils/export_utils.c src/utils/libft_plus2.c src/utils/libft_plus.c src/utils/shell_split.c \
-				src/utils/shell_split_utils.c src/utils/temp_utils.c src/utils/wildcard_utils2.c src/utils/wildcard_utils.c
+				src/utils/libft_plus2.c src/utils/libft_plus.c src/utils/shell_split.c src/utils/shell_split_utils.c \
+				src/utils/temp_utils.c
 
 OBJS		= 	$(SRCS:.c=.o)
 
