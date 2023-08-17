@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/16 21:21:53 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:06:03 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	cd_execute(char *current, char **directory, char **envp, t_command *get)
 {
-	char	*pwd;
-
-	(void)envp;
 	if (!directory || !*directory)
 		return ;
 	if (chdir(*directory))
@@ -28,10 +25,11 @@ void	cd_execute(char *current, char **directory, char **envp, t_command *get)
 	free(get->main->prompt);
 	get->main->prompt = get_prompt();
 	get->main->status = 0;
-	pwd = getcwd(NULL, 0);
-	change_env_variable("OLDPWD", &(env_var("PWD", (*control())->envp)[0][4]));
-	change_env_variable("PWD", pwd);
-	free(pwd);
+	current = getcwd(NULL, 0);
+	envp = get_envaddress(envp, "PWD");
+	if (envp && *envp)
+		change_env_variable("OLDPWD", &(*envp)[4]);
+	change_env_variable("PWD", current);
 	free(current);
 }
 
@@ -49,7 +47,6 @@ void	cd_prepare(t_command *command, int index)
 	{
 		ft_printf("minishell: cd: too many arguments\n");
 		command->status = 1;
-		input_reset(command->main);
 		return ;
 	}
 	if (args == 2)

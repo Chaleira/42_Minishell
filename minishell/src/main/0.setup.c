@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/16 21:25:45 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 11:26:40 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ static char	**dup_env(char **env)
 	char	**new_env;
 
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 		i++;
 	new_env = ft_calloc(sizeof(char *), i + 1);
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		new_env[i] = ft_strdup(env[i]);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/16 19:47:05 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:28:52 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	export_execute_no_input(char *str, char **flags, char **env);
 static void	export_execute_with_input(char *str, char **flags);
 char		**split_with_one_equal(char *str);
-char		**env_copy(char **env, char *new_str);
 
 void	export_prepare(t_command *command, int index)
 {
@@ -91,10 +90,10 @@ static void	export_execute_with_input(char *str, char **flags)
 	int		i;
 
 	(void)str;
-	(void)flags;
 	i = 0;
 	while (flags && flags[i])
 	{
+		remove_pair(flags[i], "\'\"");
 		split = split_with_one_equal(flags[i]);
 		var = find_var(split[0], (*control())->envp, NULL, NULL);
 		if (var && *var)

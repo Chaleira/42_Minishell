@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/16 19:26:31 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:30:10 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	change_env_variable(char *variable, char *value)
 	}
 	else
 		(*control())->envp = env_copy((*control())->envp,
-				ft_strjoin(join, value));
+				ft_stradd(&join, value));
 	free(join);
 }

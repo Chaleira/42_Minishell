@@ -3,12 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+         #
+#    By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 13:50:32 by rteles-f          #+#    #+#              #
-#    Updated: 2023/08/17 10:23:07 by rteles-f         ###   ########.fr        #
+#    Updated: 2023/08/17 11:08:19 by plopes-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+.SILENT:
 
 COLOR_RESET =	\033[0m
 COLOR_GREEN =	\033[32m
@@ -53,9 +55,9 @@ OBJS		= 	$(SRCS:.c=.o)
 
 all: 		$(NAME)
 
-$(NAME):	$(SRCS)
+$(NAME):	$(OBJS)
 			@make bonus -s -C src/libft
-			@$(CC) $(CFLAGS) $(SRCS) src/libft/libft.a -o $(NAME) $(LIBFLAGS)
+			@$(CC) $(CFLAGS) $(OBJS) src/libft/libft.a -o $(NAME) $(LIBFLAGS)
 			@echo "[$(COLOR_GREEN)info$(COLOR_RESET)]: Minishell Built"
 
 clean:
