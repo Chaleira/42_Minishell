@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 19:43:02 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:40:32 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	**copy_shellsplit(char **split)
 	while (split[counter] && !split_case(split[counter]))
 	{
 		new[counter] = ft_strdup(split[counter]);
+		new[counter] = input_expand(new[counter], (*control())->envp, 1);
 		remove_pair(new[counter], "\"\'");
 		counter++;
 	}

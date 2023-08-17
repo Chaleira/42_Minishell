@@ -58,7 +58,7 @@ int	extend_token(t_control *get, char **split)
 		free(split[1]);
 		split[1] = doc_pipe;
 	}
-	*split = input_expand(*split, get->envp, 1);
+	// *split = input_expand(*split, get->envp, 1);
 	return (1);
 }
 
