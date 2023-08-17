@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:29:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 20:11:12 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:13:22 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	output_redirect(t_command *command, int index)
 {
 	if (command->terminal[index + 1])
 	{
-		command->terminal[index + 1] = input_expand(command->terminal[index + 1], command->main->envp, 1);
+		command->terminal[index + 1] = \
+			input_expand(command->terminal[index + 1], command->main->envp, 1);
 		remove_pair(command->terminal[index + 1], "\'\"");
 	}
 	if (*(short *)command->terminal[index] == *(short *)">>")
@@ -29,7 +30,8 @@ void	output_redirect(t_command *command, int index)
 	{
 		command->status = 1;
 		command->parse = 0;
-		command->exec_path = ft_strjoin("Error opening file: ", command->terminal[index + 1]);
+		command->exec_path = \
+			ft_strjoin("Error opening file: ", command->terminal[index + 1]);
 		ft_stradd(&command->exec_path, "\n");
 		command->execute = builtin_execute;
 		return ;
