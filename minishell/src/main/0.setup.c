@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   0.setup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:59:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 11:26:40 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:08:41 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,6 @@ Minishell \001\033[0m\002\001\033[34m\002",
 	ft_stradd(&prompt, " \001\033[0;33m\002\001\u2717\002 \001\033[0m\002");
 	return (prompt);
 }
-// char	*get_prompt(void)
-// {
-// 	char		*folder;
-// 	char		*prompt;
-
-// 	folder = getcwd(NULL, 0);
-// 	prompt = ft_strjoin("\001\r\033[1;31m\002Minishell\040\001\033[0;34m\002",
-// 			ft_strrchr(folder, '/') + 1);
-// 	free(folder);
-// 	ft_stradd(&prompt, "\040\001\033[0;33m\u2717\033[0;0m\002\040");
-// 	return (prompt);
-// }
 
 static char	**dup_env(char **env)
 {
@@ -93,9 +81,9 @@ void	setup(t_control *get, char **envp)
 	get->in_out[0] = dup(STDIN_FILENO);
 	get->in_out[1] = dup(STDOUT_FILENO);
 	(*control()) = get;
+	update_pwd(get);
 	update_paths(envp, get);
 	increase_shlvl(get->envp);
-	update_pwd(get);
 	signal(SIGINT, (void *)control_c);
 	signal(SIGQUIT, SIG_IGN);
 }
