@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 09:48:51 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:50:50 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		set_signal(t_control *get, t_exe sig_function);
 void		setup(t_control *get, char **envp);
 void		update_paths(char **envp, t_control *get);
 char		*get_prompt(void);
-void		update_pwd(void);
+void		update_pwd(t_control *get);
 char		**env_var(char *var, char **env);
 
 char		**get_envaddress(char **envp, char *find);
@@ -193,5 +193,9 @@ int			check_wildcard(char *str, char *name);
 char		**ft_split_wildcard(char *str);
 void		close_doc_pipes(char ***tokens);
 int			new_pipe(int **newpipe, t_control *get);
+
+int			is_end_of_command(char c);
+int			count_cases(char **string);
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/16 21:28:12 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:13:22 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ static char	*expand_tilde(char *input)
 	char	*keep;
 
 	keep = NULL;
-	if (*(short *) input == *(short *)"~\0"
-		|| *(short *) input == *(short *)"~/")
+	if (input && *input
+		&& (*(short *) input == *(short *)"~\0"
+		|| *(short *) input == *(short *)"~/"))
 	{
 		if (*(input + 1))
 			keep = ft_strdup(input + 1);
