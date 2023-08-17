@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/07/27 11:29:24 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:27:10 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,13 @@ void	loop_exit(t_command *command, int index, int input)
 	i = 0;
 	while (command->terminal[index + 1][i])
 	{
-		if (!ft_isdigit(command->terminal[index + 1][i]))
+		if (!ft_isdigit(command->terminal[index + 1][i])
+			&& (command->terminal[index + 1][0] != '-'
+				&& command->terminal[index + 1][0] != '+'))
 		{
 			ft_printf("minishell: exit: %s: numeric argument required\n",
 				command->terminal[index + 1]);
-			input = 1;
+			input = 2;
 			do_exit(command, input);
 		}
 		i++;

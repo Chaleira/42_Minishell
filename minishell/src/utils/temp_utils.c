@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/17 13:30:10 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:10:25 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,18 @@ void	change_env_variable(char *variable, char *value)
 		(*control())->envp = env_copy((*control())->envp,
 				ft_stradd(&join, value));
 	free(join);
+}
+
+int	check_alpha(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i] && str[i] != '=')
+	{
+		if (!ft_isalpha(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

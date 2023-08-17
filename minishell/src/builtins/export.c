@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/17 13:28:52 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:09:06 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ void	export_prepare(t_command *command, int index)
 	{
 		i[1] = split_size(command->terminal);
 		command->flags = ft_calloc(sizeof(char *), i[1]);
-		if (!command->flags)
-			return ;
 		i[0] = 0;
 		while (command->terminal[++index])
 		{
-			if (!ft_isalpha(command->terminal[index][0]))
+			remove_pair(command->terminal[index], "\'\"");
+			if (!check_alpha(command->terminal[index]))
 				ft_printf("Minishell: export: '%s': not a valid identifier\n",
 					command->terminal[index]);
 			else
@@ -93,7 +92,6 @@ static void	export_execute_with_input(char *str, char **flags)
 	i = 0;
 	while (flags && flags[i])
 	{
-		remove_pair(flags[i], "\'\"");
 		split = split_with_one_equal(flags[i]);
 		var = find_var(split[0], (*control())->envp, NULL, NULL);
 		if (var && *var)
