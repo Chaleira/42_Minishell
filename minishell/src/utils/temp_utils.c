@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/17 15:10:25 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:08:03 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,27 @@ int	check_alpha(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int	ft_strrevcmp(char *s1, char *s2)
+{
+	int	i;
+	int	s1_len;
+	int	s2_len;
+
+	if (!s1 || !s2)
+		return (-1);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	i = 0;
+	while (s1_len >= 0 || s2_len >= 0)
+	{
+		if (s1[s1_len] > s2[s2_len])
+			return (1);
+		if (s1[s1_len] < s2[s2_len])
+			return (-1);
+		s1_len++;
+		s2_len++;
+	}
+	return (0);
 }

@@ -58,7 +58,6 @@ int	extend_token(t_control *get, char **split)
 		free(split[1]);
 		split[1] = doc_pipe;
 	}
-	// *split = input_expand(*split, get->envp, 1);
 	return (1);
 }
 
@@ -107,4 +106,3 @@ int	normalize_input(t_control *get)
 		free(split);
 	return (!!get->tokens);
 }
-	// print_split_input(get->tokens);

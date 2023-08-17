@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 14:35:04 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:31:57 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static char	*variable_name(char *string)
 		return (NULL);
 	envvar = NULL;
 	index = 0;
-	while (string[index] && !ft_strchr("\"\'/", string[index])
+	while (string[index] && !ft_strchr("\"\'/$", string[index])
 		&& !is_space(string[index]) && !split_case(&string[index]))
 		index++;
 	envvar = ft_calloc(sizeof(char), index + 1);
 	index = 0;
-	while (string[index] && !ft_strchr("\"\'/", string[index])
+	while (string[index] && !ft_strchr("\"\'/$", string[index])
 		&& !is_space(string[index]) && !split_case(&string[index]))
 	{
 		envvar[index] = string[index];

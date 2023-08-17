@@ -1,123 +1,3 @@
-|> WITH echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test$
-/nfs/homes/plopes-c/.cache/minishell_test$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache$
-/nfs/homes/plopes-c/.cache$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd ../../..; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c$
-/nfs/homes/plopes-c$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd ../../../..; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes$
-/nfs/homes$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd ../../../../..; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs$
-/nfs$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd ../../../../../..; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
 |> WITH echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD\n
 |---------------------------------------EXPECTED--------------------------------
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
@@ -151,141 +31,6 @@ minishell: cd:  : Not a directory$
 $
 ================================================================================
 
-|> WITH [EXPORTS HOME='/nfs/homes/plopes-c'] echo $PWD; echo $OLDPWD; cd $HOME; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c$
-/nfs/homes/plopes-c$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd /.; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd /./; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd /././././; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd ///; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd ////; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd //////////////////////////////////////////////////////; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
 |> WITH echo $PWD; echo $OLDPWD; cd; echo $OLDPWD\n
 |  STATUS: expected 0 actual -11
 |---------------------------------------EXPECTED--------------------------------
@@ -294,19 +39,6 @@ $
 minishell: cd: HOME not set$
 $
 |---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH [EXPORTS HOME='/nfs/homes/plopes-c'] echo $PWD; echo $OLDPWD; cd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
 $
 ================================================================================
@@ -392,21 +124,6 @@ $
 $
 minishell: cd:  // : Not a directory$
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/home$
-/home$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/home$
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
 $
 ================================================================================
@@ -640,17 +357,6 @@ minishell: cd: d: Not a directory$
 $
 ================================================================================
 
-|> WITH [SETUP mkdir -m 100 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
 |> WITH [SETUP mkdir -m 200 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
 |---------------------------------------EXPECTED--------------------------------
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
@@ -661,17 +367,6 @@ $
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
 $
 minishell: cd: d: Not a directory$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 300 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
 $
 ================================================================================
 
@@ -688,17 +383,6 @@ minishell: cd: d: Not a directory$
 $
 ================================================================================
 
-|> WITH [SETUP mkdir -m 500 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
 |> WITH [SETUP mkdir -m 600 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
 |---------------------------------------EXPECTED--------------------------------
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
@@ -709,28 +393,6 @@ $
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
 $
 minishell: cd: d: Not a directory$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 700 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 755 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
 $
 ================================================================================
 
@@ -747,28 +409,6 @@ minishell: cd: d: Not a directory$
 $
 ================================================================================
 
-|> WITH [SETUP mkdir -m 311 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 111 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
 |> WITH [SETUP mkdir -m 222 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
 |---------------------------------------EXPECTED--------------------------------
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
@@ -779,28 +419,6 @@ $
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
 $
 minishell: cd: d: Not a directory$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 333 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 0777 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
 $
 ================================================================================
 
@@ -895,83 +513,6 @@ minishell: cd: d: Not a directory$
 $
 ================================================================================
 
-|> WITH [SETUP mkdir -m 1777 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 2777 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 3777 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 4777 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 5777 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 6777 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH [SETUP mkdir -m 7777 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
 |> WITH [SETUP mkdir -m 0000 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
 |---------------------------------------EXPECTED--------------------------------
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
@@ -995,24 +536,9 @@ $
 |---------------------------------------ACTUAL----------------------------------
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
 $
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
-================================================================================
-
-|> WITH echo $PWD; echo $OLDPWD; cd /; echo $PWD; echo $OLDPWD; export PWD=bonjour; cd /dev; echo $OLDPWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
 /$
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
 /nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-$
 ================================================================================
 
 |> WITH echo -n -n -n -n bonjour\n
@@ -1591,41 +1117,6 @@ declare -x SHLVL="1"$
 declare -x TERM="xterm-256color"
 ================================================================================
 
-|> WITH export A=a; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A=a B=b C=c; echo $A$B$C\n
-|---------------------------------------EXPECTED--------------------------------
-abc$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A=a B=b C=c D=d E=e F=f G=g H=h I=i J=j K=k L=lM=m N=n O=o P=p Q=q R=r S=s T=t U=u V=v W=w X=x Y=y Z=z; echo $A$B$C$D$E$F$G$H$I$J$K$L$M$N$O$P$Q$R$S$T$U$V$W$X$Y$Z\n
-|---------------------------------------EXPECTED--------------------------------
-abcdefghijklM=mnopqrstuvwxyz$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export BONJOURJESUIS=a; echo $BONJOURJESUIS\n
-|---------------------------------------EXPECTED--------------------------------
-a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export bonjourjesuis=a; echo $bonjourjesuis\n
-|---------------------------------------EXPECTED--------------------------------
-a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
 |> WITH export bonjour_je_suis=a; echo $bonjour_je_suis\n
 |---------------------------------------EXPECTED--------------------------------
 a$
@@ -1655,20 +1146,6 @@ $
 a$
 |---------------------------------------ACTUAL----------------------------------
 Minishell: export: 'a0123456789=a': not a valid identifier$
-$
-================================================================================
-
-|> WITH export abcdefghijklmnopqrstuvwxyz=a; echo $abcdefghijklmnopqrstuvwxyz\n
-|---------------------------------------EXPECTED--------------------------------
-a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export ABCDEFGHIJKLMNOPQRSTUVWXYZ=a; echo $ABCDEFGHIJKLMNOPQRSTUVWXYZ\n
-|---------------------------------------EXPECTED--------------------------------
-a$
-|---------------------------------------ACTUAL----------------------------------
 $
 ================================================================================
 
@@ -1740,7 +1217,7 @@ Minishell: export: 'BONJOUR\"JESUIS=a': not a valid identifier$
 |---------------------------------------EXPECTED--------------------------------
 minishell: export: `BONJOUR$JESUIS=a': not a valid identifier$
 |---------------------------------------ACTUAL----------------------------------
-Minishell: export: 'BONJOUR\': not a valid identifier$
+Minishell: export: 'BONJOUR\$JESUIS=a': not a valid identifier$
 ================================================================================
 
 |> WITH export BONJOUR\&JESUIS=a\n
@@ -1805,63 +1282,7 @@ Minishell: export: '\': not a valid identifier$
 Minishell: export: '\': not a valid identifier$
 Minishell: export: '\': not a valid identifier$
 Minishell: export: '\': not a valid identifier$
-$
-================================================================================
-
-|> WITH export A='bonjour je suis charles'; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-bonjour je suis charles$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A="bonjour je suis charles"; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-bonjour je suis charles$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A==a; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-=a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A===a; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-==a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A====a; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-===a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A=====a; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-====a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A======a; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-=====a$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH export A=a=a=a=a=a; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-a=a=a=a=a$
-|---------------------------------------ACTUAL----------------------------------
-$
+\B\O\N\$
 ================================================================================
 
 |> WITH export A 'asdf ' B ' asdf asdf asd f' ' asdf ' '' 'asdf ' C; echo $A$B$C\n
@@ -2000,6 +1421,12 @@ minishell: export: `AH\=nop': not a valid identifier$
 Minishell: export: 'AH\=nop': not a valid identifier$
 ================================================================================
 
+|> WITH [EXPORTS TEST='A=a'] export $TEST\n
+|---------------------------------------EXPECTED--------------------------------
+|---------------------------------------ACTUAL----------------------------------
+Minishell: export: '$TEST': not a valid identifier$
+================================================================================
+
 |> WITH export BONJOUR\\JESUIS\n
 |  STATUS: expected 1 actual 0
 |---------------------------------------EXPECTED--------------------------------
@@ -2029,7 +1456,7 @@ Minishell: export: 'BONJOUR\"JESUIS': not a valid identifier$
 |---------------------------------------EXPECTED--------------------------------
 minishell: export: `BONJOUR$JESUIS': not a valid identifier$
 |---------------------------------------ACTUAL----------------------------------
-Minishell: export: 'BONJOUR\': not a valid identifier$
+Minishell: export: 'BONJOUR\$JESUIS': not a valid identifier$
 ================================================================================
 
 |> WITH export BONJOUR\&JESUIS\n
@@ -2074,33 +1501,8 @@ Minishell: export: 'BONJOUR\0JESUIS': not a valid identifier$
 TIMEOUT
 ================================================================================
 
-|> WITH unset PWD; pwd; echo $PWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-================================================================================
-
-|> WITH export PWD=foo; pwd; echo $PWD\n
-|---------------------------------------EXPECTED--------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-foo$
-|---------------------------------------ACTUAL----------------------------------
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
-================================================================================
-
 |> WITH unset\n
 |  STATUS: expected 0 actual -11
-================================================================================
-
-|> WITH [EXPORTS A='a'] unset A; echo $A\n
-|---------------------------------------EXPECTED--------------------------------
-$
-|---------------------------------------ACTUAL----------------------------------
-a$
 ================================================================================
 
 |> WITH [EXPORTS A='a'] unset 'A '; echo $A\n
@@ -2149,7 +1551,7 @@ Minishell: export: 'asdf ': not a valid identifier$
 Minishell: export: ' asdf asdf asd f': not a valid identifier$
 Minishell: export: ' asdf ': not a valid identifier$
 Minishell: export: 'asdf ': not a valid identifier$
-$
+a$
 ================================================================================
 
 |> WITH [EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' '' 'asdf '; echo $A$B$C\n
@@ -2165,21 +1567,7 @@ Minishell: export: 'asdf ': not a valid identifier$
 Minishell: export: ' asdf asdf asd f': not a valid identifier$
 Minishell: export: ' asdf ': not a valid identifier$
 Minishell: export: 'asdf ': not a valid identifier$
-$
-================================================================================
-
-|> WITH [EXPORTS A='a' B='b' C='c'] unset A; echo $A$B$C\n
-|---------------------------------------EXPECTED--------------------------------
-bc$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH [EXPORTS A='a' B='b' C='c'] unset C; echo $A$B$C\n
-|---------------------------------------EXPECTED--------------------------------
-ab$
-|---------------------------------------ACTUAL----------------------------------
-$
+c$
 ================================================================================
 
 |> WITH [EXPORTS A='a' B='b' C='c'] unset A 'asdf ' B ' asdf asdf asd f' ' asdf ' '' 'asdf ' C\n
@@ -2315,7 +1703,7 @@ FROM TEST: File not created
   !#$%*+,-./0123456789:$
 minishell: =?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_abcdefghijklmnopqrstuvwxyz{}~: command not found$
 |---------------------------------------ACTUAL----------------------------------
-  !#$
+  !#/0123456789:$
 minishell: =?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_abcdefghijklmnopqrstuvwxyz{}~: command not found$
 ================================================================================
 
@@ -2715,23 +2103,6 @@ minishell: bonjour: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH > test'sticked' echo bonjour\n
-|# FILE teststicked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH echo bonjour >> test'sticked'\n
-|# FILE teststicked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
 ================================================================================
 
 |> WITH echo >> test'sticked' bonjour\n
@@ -2743,33 +2114,6 @@ minishell: bonjour: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH >> test'sticked' echo bonjour\n
-|# FILE teststicked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH [SETUP echo bonjour > test'sticked'] cat < test'sticked'\n
-|  STATUS: expected 0 actual 1
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell:  test'sticked': No such file or directory$
- 
-================================================================================
-
-|> WITH [SETUP echo bonjour > test'sticked'] < test'sticked' cat\n
-|  STATUS: expected 0 actual 1
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell:  test'sticked': No such file or directory$
- 
 ================================================================================
 
 |> WITH echo > test"sticked" bonjour\n
@@ -2781,23 +2125,6 @@ minishell: bonjour: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH > test"sticked" echo bonjour\n
-|# FILE teststicked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH echo bonjour >> test"sticked"\n
-|# FILE teststicked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
 ================================================================================
 
 |> WITH echo >> test"sticked" bonjour\n
@@ -2809,33 +2136,6 @@ minishell: bonjour: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH >> test"sticked" echo bonjour\n
-|# FILE teststicked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH [SETUP echo bonjour > test"sticked"] cat < test"sticked"\n
-|  STATUS: expected 0 actual 1
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell:  test"sticked": No such file or directory$
- 
-================================================================================
-
-|> WITH [SETUP echo bonjour > test"sticked"] < test"sticked" cat\n
-|  STATUS: expected 0 actual 1
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell:  test"sticked": No such file or directory$
- 
 ================================================================================
 
 |> WITH echo > test'yo'"sticked" bonjour\n
@@ -2847,23 +2147,6 @@ minishell: bonjour: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH > test'yo'"sticked" echo bonjour\n
-|# FILE testyosticked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH echo bonjour >> test'yo'"sticked"\n
-|# FILE testyosticked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
 ================================================================================
 
 |> WITH echo >> test'yo'"sticked" bonjour\n
@@ -2875,33 +2158,6 @@ minishell: bonjour: command not found$
 |---------------------------------------EXPECTED--------------------------------
 bonjour$
 |---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH >> test'yo'"sticked" echo bonjour\n
-|# FILE testyosticked
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH [SETUP echo bonjour > test'yo'"sticked"] cat < test'yo'"sticked"\n
-|  STATUS: expected 0 actual 1
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell:  test'yo'"sticked": No such file or directory$
- 
-================================================================================
-
-|> WITH [SETUP echo bonjour > test'yo'"sticked"] < test'yo'"sticked" cat\n
-|  STATUS: expected 0 actual 1
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell:  test'yo'"sticked": No such file or directory$
- 
 ================================================================================
 
 |> WITH echo > test > je bonjour > suis\n
@@ -2937,22 +2193,6 @@ bonjour$
 |---------------------------------------ACTUAL----------------------------------
 ================================================================================
 
-|> WITH echo bonjour > a'b'c'd'e'f'g'h'i'j'k'l'm'n'o'p'q'r's't'u'v'w'x'y'z'\n
-|# FILE abcdefghijklmnopqrstuvwxyz
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH echo bonjour > a"b"c"d"e"f"g"h"i"j"k"l"m"n"o"p"q"r"s"t"u"v"w"x"y"z"\n
-|# FILE abcdefghijklmnopqrstuvwxyz
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
 |> WITH >\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: syntax error near unexpected token `newline'$
@@ -2982,22 +2222,13 @@ minishell:  doesnotexist: No such file or directory$
  
 ================================================================================
 
-|> WITH notfound; echo $?\n
-|---------------------------------------EXPECTED--------------------------------
-minishell: notfound: command not found$
-127$
-|---------------------------------------ACTUAL----------------------------------
-minishell: notfound: command not found$
-0$
-================================================================================
-
 |> WITH cat < doesntexist; echo $?\n
 |---------------------------------------EXPECTED--------------------------------
 minishell: doesntexist: No such file or directory$
 1$
 |---------------------------------------ACTUAL----------------------------------
 minishell:  doesntexist: No such file or directory$
- 0$
+ 1$
 ================================================================================
 
 |> WITH [SETUP echo bonjour > noperm; chmod 000 noperm] cat < noperm; echo $?\n
@@ -3006,7 +2237,7 @@ minishell: noperm: Permission denied$
 1$
 |---------------------------------------ACTUAL----------------------------------
 minishell:  noperm: No such file or directory$
- 0$
+ 1$
 ================================================================================
 
 |> WITH cat < doesntexist\n
@@ -3087,13 +2318,13 @@ bonjour$$
 |---------------------------------------ACTUAL----------------------------------
 bonjour$$
 total 16$
--rw-r--r-- 1 plopes-c 2022_lisboa    8 Aug 17 15:13 a$
--rw-r--r-- 1 plopes-c 2022_lisboa    0 Aug 17 15:13 b$
--rw-r--r-- 1 plopes-c 2022_lisboa    0 Aug 17 15:13 c$
--rw-r--r-- 1 plopes-c 2022_lisboa    0 Aug 17 15:13 d$
-drwxr-xr-x 2 plopes-c 2022_lisboa 4096 Aug 17 15:13 m1$
-drwxr-xr-x 2 plopes-c 2022_lisboa 4096 Aug 17 15:13 m2$
-drwxr-xr-x 2 plopes-c 2022_lisboa 4096 Aug 17 15:13 m3$
+-rw-r--r-- 1 plopes-c 2022_lisboa    8 Aug 17 15:33 a$
+-rw-r--r-- 1 plopes-c 2022_lisboa    0 Aug 17 15:33 b$
+-rw-r--r-- 1 plopes-c 2022_lisboa    0 Aug 17 15:33 c$
+-rw-r--r-- 1 plopes-c 2022_lisboa    0 Aug 17 15:33 d$
+drwxr-xr-x 2 plopes-c 2022_lisboa 4096 Aug 17 15:33 m1$
+drwxr-xr-x 2 plopes-c 2022_lisboa 4096 Aug 17 15:33 m2$
+drwxr-xr-x 2 plopes-c 2022_lisboa 4096 Aug 17 15:33 m3$
 ================================================================================
 
 |> WITH echo a | export A=a; echo $A\n
@@ -3568,8 +2799,8 @@ env$
 |---------------------------------------ACTUAL----------------------------------
 PATH=/nfs/homes/plopes-c/.cache/minishell_test/bin$
 TERM=xterm-256color$
-SHLVL=1$
 PWD=/nfs/homes/plopes-c/.cache/minishell_test/sandbox$
+SHLVL=1$
 $
 ================================================================================
 
@@ -4304,32 +3535,18 @@ minishell: \: command not found$
 \"bonjour$
 ================================================================================
 
-|> WITH [EXPORTS A='foo' B='bar' C='baz'] echo $A$B$C\n
-|---------------------------------------EXPECTED--------------------------------
-foobarbaz$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
-|> WITH [EXPORTS A='foo' B='bar' C='baz'] echo "$A$B$C"\n
-|---------------------------------------EXPECTED--------------------------------
-foobarbaz$
-|---------------------------------------ACTUAL----------------------------------
-$
-================================================================================
-
 |> WITH [EXPORTS A='foo' B='bar' C='baz'] echo $A,$B,$C\n
 |---------------------------------------EXPECTED--------------------------------
 foo,bar,baz$
 |---------------------------------------ACTUAL----------------------------------
-$
+baz$
 ================================================================================
 
 |> WITH [EXPORTS A='foo' B='bar' C='baz'] echo "$A,$B,$C"\n
 |---------------------------------------EXPECTED--------------------------------
 foo,bar,baz$
 |---------------------------------------ACTUAL----------------------------------
-$
+baz$
 ================================================================================
 
 |> WITH [EXPORTS A='foo ' B=' bar  ' C='baz '] echo $A"$B"$C"A"$B"$C"\n
@@ -4546,7 +3763,7 @@ $
 |---------------------------------------EXPECTED--------------------------------
 bonjour je suis splited bonjour je suis splited bonjour je suis splited$
 |---------------------------------------ACTUAL----------------------------------
-$
+   bonjour     je     suis    splited      bonjour     je     suis    splited      bonjour     je     suis    splited   $
 ================================================================================
 
 |> WITH [EXPORTS A=''Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. ''] echo $A\n
@@ -4556,21 +3773,13 @@ $
 Mollitia asperiores assumenda excepturi et ipsa. Nihil corporis facere aut a rem consequatur. Quas molestiae corporis et quibusdam maiores. Molestiae sed unde aut at sed. Deserunt quidem quidem aspernatur pariatur vel illum voluptatum. Culpa unde dolor aspernatur sit. Mollitia tenetur sed eaque autem placeat a aut in. Ipsam ea consequuntur omnis. Non et qui vel corrupti similique eum aut voluptatibus. Iste consequatur voluptatum et omnis debitis. Sit quia neque nihil consequatur sint. Velit libero ut aut et et rerum. Placeat cumque incidunt non repellat sunt perspiciatis ullam. Repellendus repudiandae nostrum quia quis corrupti. Rerum veniam earum cumque pariatur accusantium voluptatum omnis. Alias ut et et adipisci. Tempore omnis numquam ullam et animi et eveniet. Dolor itaque distinctio in. Magnam rerum quia est laboriosam repellat perspiciatis eos. Consequuntur quae corrupti atque. Numquam enim ut ut. Perspiciatis ut maxime et libero quo voluptas consequatur illum. Pariatur porro dolor cumque molestiae harum. $
 ================================================================================
 
-|> WITH [EXPORTS A='ec' B='ho'] $A$B bonjour\n
-|  STATUS: expected 0 actual 127
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-minishell: bonjour: command not found$
-================================================================================
-
 |> WITH [SETUP touch a b c] [EXPORTS LS='ls -l'] $LS\n
 |  STATUS: expected 0 actual 127
 |---------------------------------------EXPECTED--------------------------------
 total 0$
--rw-r--r-- 1 plopes-c 2022_lisboa 0 Aug 17 15:13 a$
--rw-r--r-- 1 plopes-c 2022_lisboa 0 Aug 17 15:13 b$
--rw-r--r-- 1 plopes-c 2022_lisboa 0 Aug 17 15:13 c$
+-rw-r--r-- 1 plopes-c 2022_lisboa 0 Aug 17 15:33 a$
+-rw-r--r-- 1 plopes-c 2022_lisboa 0 Aug 17 15:33 b$
+-rw-r--r-- 1 plopes-c 2022_lisboa 0 Aug 17 15:33 c$
 |---------------------------------------ACTUAL----------------------------------
 minishell: ls -l: command not found$
 ================================================================================
@@ -4586,14 +3795,14 @@ $$
 |---------------------------------------EXPECTED--------------------------------
 $$$$$
 |---------------------------------------ACTUAL----------------------------------
-\$
+\$$
 ================================================================================
 
 |> WITH echo \$$\$$\n
 |---------------------------------------EXPECTED--------------------------------
 $$$$$
 |---------------------------------------ACTUAL----------------------------------
-\$
+\$$
 ================================================================================
 
 |> WITH [EXPORTS A='a' B='b'] echo $\A $\B\n
@@ -4715,16 +3924,19 @@ a$
 @  @$
 ================================================================================
 
+|> WITH [EXPORTS A='file'] echo bonjour > $A\n
+|# FILE file
+|---------------------------------------EXPECTED--------------------------------
+bonjour$
+|---------------------------------------ACTUAL----------------------------------
+FROM TEST: File not created
+================================================================================
+
 |> WITH [EXPORTS A='fi le'] echo bonjour > $A\n
 |  STATUS: expected 1 actual 0
 |---------------------------------------EXPECTED--------------------------------
 minishell: $A: ambiguous redirect$
 |---------------------------------------ACTUAL----------------------------------
-|# FILE fi le
-|---------------------------------------EXPECTED--------------------------------
-FROM TEST: File not created
-|---------------------------------------ACTUAL----------------------------------
-bonjour$
 ================================================================================
 
 |> WITH [EXPORTS A='fi le'] echo bonjour > "$A"\n
@@ -4840,22 +4052,6 @@ minishell: unexpected EOF while looking for matching `''$
 minishell: unexpected EOF while looking for matching `"'$
 |---------------------------------------ACTUAL----------------------------------
 \\"$
-================================================================================
-
-|> WITH echo bonjour > "fi le"\n
-|# FILE fi le
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
-================================================================================
-
-|> WITH echo bonjour > 'fi le'\n
-|# FILE fi le
-|---------------------------------------EXPECTED--------------------------------
-bonjour$
-|---------------------------------------ACTUAL----------------------------------
-FROM TEST: File not created
 ================================================================================
 
 |> WITH \fecho\ffoo\n

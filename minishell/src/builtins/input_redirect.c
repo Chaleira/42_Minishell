@@ -91,8 +91,11 @@ void	input_redirect(t_command *command, int index)
 	if (*(short *)command->terminal[index] == *(short *)"<<")
 		*(long *)command->in_pipe = *(long *)command->terminal[index + 1];
 	else
+	{
+		remove_pair(command->terminal[index + 1], "\'\"");
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);
+	}
 	if (command->in_pipe[0] < 0)
 	{
 		command->main->status = 1;
