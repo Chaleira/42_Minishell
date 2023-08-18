@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 11:54:02 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:29:11 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		builtin_execute(char *print, char **fd,
 				char **len, t_command *command);
 void		do_nothing(void);
 int			execute_now(t_command *get);
+int			export_stderror(t_command *command, char *str);
 
 // Shellsplit + 4
 char		**shell_split(char *s);

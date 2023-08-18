@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:04:00 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/10 18:53:22 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:11:06 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 int	check_first_char(char **split)
 {
-	if (*split && split[1] && (!ft_strcmp(*split, "|")
-			|| !ft_strcmp(*split, ")") || !ft_strcmp(*split, "&&")
-			|| !ft_strcmp(*split, ";") || !ft_strcmp(*split, "||")))
+	if (*split && !ignore_quotes(*split))
 	{
-		ft_printf("minishell: syntax error near unexpected token `%s'\n",
-			*split);
-		return (0);
+		if (*split && split[1] && (!ft_strcmp(*split, "|")
+				|| !ft_strcmp(*split, ")") || !ft_strcmp(*split, "&&")
+				|| !ft_strcmp(*split, ";") || !ft_strcmp(*split, "||")))
+		{
+			ft_printf("minishell: syntax error near unexpected token `%s'\n",
+				*split);
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -30,11 +33,14 @@ int	check_last_char(char **split)
 	int	last_split;
 
 	last_split = last_split_index(split);
-	if (split[last_split] && split_case(split[last_split]) && *split[last_split]
-		&& *split[last_split] != ')' && *split[last_split] != ';')
+	if (split[last_split] && !ignore_quotes(split[last_split]))
 	{
-		ft_printf("minishell: syntax error near unexpected token `newline'\n");
-		return (0);
+		if (split[last_split] && split_case(split[last_split]) && *split[last_split]
+			&& *split[last_split] != ')' && *split[last_split] != ';')
+		{
+			ft_printf("minishell: syntax error near unexpected token `newline'\n");
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -58,8 +64,11 @@ int	ft_splitchar(char **split, char c)
 	i = 0;
 	while (split[i])
 	{
-		if (ft_strchr(split[i], c))
-			return (1);
+		if (!ignore_quotes(split[i]))
+		{
+			if (ft_strchr(split[i], c))
+				return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -74,12 +83,15 @@ int	count_char(char **split, char c)
 	i[0] = 0;
 	while (split && split[i[0]])
 	{
-		i[1] = 0;
-		while (split[i[0]] && split[i[0]][i[1]])
+		if (!ignore_quotes(split[i[0]]))
 		{
-			if (split[i[0]][i[1]] == c)
-				count++;
-			i[1]++;
+			i[1] = 0;
+			while (split[i[0]] && split[i[0]][i[1]])
+			{
+				if (split[i[0]][i[1]] == c)
+					count++;
+				i[1]++;
+			}
 		}
 		i[0]++;
 	}

@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 11:30:07 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:54:56 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,19 @@ void	exit_execute(t_command *command, int index)
 	command->parse = 0;
 	if (command->terminal[index + 1])
 	{
-		input = ft_atoi(command->terminal[index + 1]);
-		loop_exit(command, index, input);
+		ft_printf("exit\n");
 		if (command->terminal[index + 2])
 		{
-			ft_printf("minishell: exit: too many arguments\n");
-			input = 1;
-			do_exit(command, input);
+			write(2, "minishell: exit: too many arguments\n", 37);
+			command->status = 1;
+			return ;
 		}
+		remove_pair(command->terminal[index + 1], "\'\"");
+		input = ft_atoi(command->terminal[index + 1]);
+		loop_exit(command, index, input);
 	}
 	if (execute_now(command))
-	{
-		ft_printf("exit\n");
 		do_exit(command, input);
-	}
 }
 
 void	do_exit(t_command *command, int input)
@@ -60,8 +59,10 @@ void	loop_exit(t_command *command, int index, int input)
 			&& (command->terminal[index + 1][0] != '-'
 				&& command->terminal[index + 1][0] != '+'))
 		{
-			ft_printf("minishell: exit: %s: numeric argument required\n",
-				command->terminal[index + 1]);
+			write(2, "minishell: exit: ", 17);
+			write(2, command->terminal[index + 1],
+				ft_strlen(command->terminal[index + 1]));
+			write(2, ": numeric argument required\n", 29);
 			input = 2;
 			do_exit(command, input);
 		}
