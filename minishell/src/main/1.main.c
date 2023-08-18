@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1.main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/16 17:08:26 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:43:48 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	setup(&get, envp);
-	if (argc == 3)
-		return (tester(&get, argv[2]));
-	envp = NULL;
 	while (true)
 	{
 		catch_input(&get);
