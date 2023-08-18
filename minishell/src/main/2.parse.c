@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/10 18:54:51 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:37:44 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ char	**parse(char *str, t_control *get)
 	(void)get;
 	split = shell_split(str);
 	if (!parsing(split))
+	{
+		free_split(split);
 		return (NULL);
+	}
 	return (split);
 }
+
+// &^%#$@^&*#$G*#$Yg8w34tg274t

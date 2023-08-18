@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:39:55 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/15 21:28:27 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 09:35:33 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	safe_close_fd(int fd, int fd2)
 {
-	if (!isatty(fd))
+	if (!isatty(fd) && fd > 0)
 		close(fd);
-	if (!isatty(fd2))
+	if (!isatty(fd2) && fd > 0)
 		close(fd2);
 }
 

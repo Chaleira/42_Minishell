@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:29:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 20:13:22 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 09:32:11 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	output_redirect(t_command *command, int index)
 	{
 		command->status = 1;
 		command->parse = 0;
+		safe_free_null(&command->exec_path);
 		command->exec_path = \
 			ft_strjoin("Error opening file: ", command->terminal[index + 1]);
 		ft_stradd(&command->exec_path, "\n");

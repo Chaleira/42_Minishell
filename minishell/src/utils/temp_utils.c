@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 08:52:27 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 09:06:46 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ void	change_env_variable(char *variable, char *value)
 	free(join);
 }
 
-int	check_alpha(char *str)
+int	check_alphanum(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str && str[i] && str[i] != '=')
 	{
-		if (!ft_isalpha(str[i]))
+		if (!ft_isalnum(str[i]))
 			return (0);
 		i++;
 	}
