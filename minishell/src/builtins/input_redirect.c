@@ -103,10 +103,10 @@ void	input_redirect(t_command *command, int index)
 		command->main->status = 1;
 		if (!pipe(command->in_pipe))
 			close(command->in_pipe[1]);
-		write(2, "minishell: ", 12);
-		write(2, command->terminal[index + 1],
-			ft_strlen(command->terminal[index + 1]));
-		write(2, ": No such file or directory\n", 29);
+		command->exec_path = ft_strdup("minishell: ");
+		ft_stradd(&command->exec_path, command->terminal[index + 1]);
+		ft_stradd(&command->exec_path, ": No such file or directory\n");
+		command->execute = builtin_execute;
 	}
 	if (command->terminal)
 		*command->terminal[index + 1] = 0;
