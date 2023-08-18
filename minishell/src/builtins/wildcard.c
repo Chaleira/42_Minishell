@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:33:16 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/16 16:16:02 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:01:36 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,74 @@ char	**ft_split_wildcard(char *str)
 	return (split);
 }
 
+// int	check_wildcard(char *wildcard, char *folder)
+// {
+// 	int		i;
+// 	char	**split;
+
+// 	i = 0;
+// 	split = ft_split_wildcard(wildcard);
+// 	while (split && split[i])
+// 	{
+// 		if (ft_strchr(split[i], '*'))
+// 			i++;
+// 		else
+// 		{
+// 			if (i == 0)
+// 				folder = ft_strnstr(folder, split[i], ft_strlen(split[i]));
+// 			else
+// 				folder = ft_strnstr(folder, split[i], ft_strlen(folder));
+// 			if (!folder)
+// 			{
+// 				free_split(split);
+// 				return (0);
+// 			}
+// 			i++;
+// 		}
+// 	}
+// 	free_split(split);
+// 	return (1);
+// }
+
+static int	check_wildcard_aux(int i, char **matrix, char **name, int flag)
+{
+	while (flag && matrix && matrix[i])
+	{
+		*name = ft_strnstr(*name, matrix[i], ft_strlen(*name));
+		if (!*name)
+			flag = 0;
+		else
+			*name += ft_strlen(matrix[i]);
+		i++;
+	}
+	return (flag);
+}
+
 int	check_wildcard(char *str, char *name)
 {
-	int		i;
-	char	**split;
+	int		i[4];
+	char	**matrix;
 
-	i = 0;
-	split = ft_split_wildcard(str);
-	while (split && split[i])
+	matrix = ft_split(str, '*');
+	i[2] = split_size(matrix);
+	i[0] = 0;
+	i[3] = 1;
+	if (i[3] && str && str[0] != '*')
 	{
-		if (ft_strchr(split[i], '*'))
-			i++;
+		i[0] = 1;
+		i[1] = ft_strlen(matrix[0]);
+		if (ft_strncmp(name, matrix[0], i[1]))
+			i[3] = 0;
 		else
-		{
-			if (i == 0)
-				name = ft_strnstr(name, split[i], ft_strlen(split[i]));
-			else
-				name = ft_strnstr(name, split[i], ft_strlen(name));
-			if (!name)
-			{
-				free_split(split);
-				return (0);
-			}
-			i++;
-		}
+			name += i[1];
 	}
-	free_split(split);
-	return (1);
+	if (i[3] && str && str[ft_strlen(str) - 1] != '*')
+	{
+		i[1] = ft_strlen(matrix[i[2] - 1]);
+		if (ft_strncmp(matrix[i[2] - 1], &name[ft_strlen(name) - i[1]], i[1]))
+			i[3] = 0;
+	}
+	i[3] = check_wildcard_aux(i[0], matrix, &name, i[3]);
+	free_split(matrix);
+	return (i[3]);
 }
