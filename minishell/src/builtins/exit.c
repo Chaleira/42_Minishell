@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/17 14:27:10 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:30:07 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ void	exit_execute(t_command *command, int index)
 
 void	do_exit(t_command *command, int input)
 {
-	input_reset(command->main);
-	free_split(command->main->paths);
+	t_control	*get;
+
+	get = command->main;
+	get->status = input;
 	delete_command(command);
-	exit(input);
+	end_shell(get);
 }
 
 void	loop_exit(t_command *command, int index, int input)

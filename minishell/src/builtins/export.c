@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/17 15:09:06 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 09:06:50 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	export_prepare(t_command *command, int index)
 		while (command->terminal[++index])
 		{
 			remove_pair(command->terminal[index], "\'\"");
-			if (!check_alpha(command->terminal[index]))
+			if (!check_alphanum(command->terminal[index]))
 				ft_printf("Minishell: export: '%s': not a valid identifier\n",
 					command->terminal[index]);
 			else
