@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 09:07:00 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:54:02 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <dirent.h>
 # include <sys/types.h>
 # define PARENT -350
-// # define HERE write(1, "here\n", 5)
-// # define ALMOST write(1, "almost\n", 7)
-// # define THERE write(1, "there\n", 6)
+# define HERE write(1, "here\n", 5)
+# define ALMOST write(1, "almost\n", 7)
+# define THERE write(1, "there\n", 6)
 # define RED "\001\e[01;31m\004"
 # define BOLD "\001\e[01;1m\004"
 # define BLUE "\001\e[01;34m\004"
@@ -195,7 +195,7 @@ char		**ft_split_wildcard(char *str);
 void		close_doc_pipes(char ***tokens);
 int			new_pipe(int **newpipe, t_control *get);
 
-int			is_end_of_command(char c);
+int			is_end_of_command(char *token);
 int			count_cases(char **string);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 18:43:48 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:17:50 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ static void	catch_input(t_control *get)
 	rl_on_new_line();
 }
 
-static int	tester(t_control *get, char *argv)
-{
-	get->input = ft_strdup(argv);
-	add_history(get->input);
-	normalize_input(get);
-	structure_commands(get);
-	run_input(get);
-	input_reset(get);
-	end_shell(get);
-	return (get->status);
-}
+// static int	tester(t_control *get, char *argv)
+// {
+// 	get->input = ft_strdup(argv);
+// 	add_history(get->input);
+// 	normalize_input(get);
+// 	structure_commands(get);
+// 	run_input(get);
+// 	input_reset(get);
+// 	end_shell(get);
+// 	return (get->status);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {

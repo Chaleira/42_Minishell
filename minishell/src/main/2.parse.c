@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2.parse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 11:37:44 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:44:10 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ char	**parse(char *str, t_control *get)
 	split = shell_split(str);
 	if (!parsing(split))
 	{
+		HERE;
 		free_split(split);
 		return (NULL);
 	}

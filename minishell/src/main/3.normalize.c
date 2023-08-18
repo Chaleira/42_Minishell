@@ -74,7 +74,7 @@ static void	break_tokens(t_control *get, char **split, int size)
 	{
 		if (extend_token(get, &split[i]) < 0)
 			return ;
-		if (is_end_of_command(split[i][0]) || (i == (size - 1) && ++i))
+		if (is_end_of_command(split[i]) || (i == (size - 1) && ++i))
 		{
 			get->tokens[j++] = copy_split_size(&split[start], i - start);
 			start = i;
