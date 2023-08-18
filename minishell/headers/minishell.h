@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 20:08:33 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 08:52:41 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ void		change_env_variable(char *variable, char *value);
 int			split_size(char **split);
 int			ft_strlenchr(char *str, char c);
 int			check_alpha(char *str);
-int			ft_strrevcmp(char *s1, char *s2);
 
 // Parse
 char		**parse(char *str, t_control *get);
