@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 14:54:56 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 17:33:54 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	loop_exit(t_command *command, int index, int input);
 
 void	exit_execute(t_command *command, int index)
 {
-	int	input;
+	long long	input;
 
 	input = 0;
 	command->parse = 0;
@@ -55,9 +55,11 @@ void	loop_exit(t_command *command, int index, int input)
 	i = 0;
 	while (command->terminal[index + 1][i])
 	{
-		if (!ft_isdigit(command->terminal[index + 1][i])
+		if ((!ft_isdigit(command->terminal[index + 1][i])
 			&& (command->terminal[index + 1][0] != '-'
 				&& command->terminal[index + 1][0] != '+'))
+					|| (!ft_strcmp(command->terminal[index + 1], "9223372036854775808")
+						|| !ft_strcmp(command->terminal[index + 1], "-9223372036854775809")))
 		{
 			write(2, "minishell: exit: ", 17);
 			write(2, command->terminal[index + 1],

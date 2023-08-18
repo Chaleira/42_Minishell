@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 15:16:15 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 17:38:15 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*command_error(t_command *command, char *type, char *input)
 	else if (ft_atoi(type + 1) == 2)
 	{
 		command->status = 126;
-		ft_stradd(&error, ": is a directory\n");
+		ft_stradd(&error, ": Is a directory\n");
 	}
 	else
 		ft_stradd(&error, ": error checking file\n");

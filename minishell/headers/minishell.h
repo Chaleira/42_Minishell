@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 14:29:11 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:05:50 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ char		**env_copy(char **env, char *new_str);
 int			check_last_char(char **split);
 int			check_first_char(char **split);
 int			count_char(char **split, char c);
+int			check_in_out_parse(char **split);
 
 // Wildcard
 int			count_wildcards(char *str);
@@ -198,5 +199,7 @@ int			new_pipe(int **newpipe, t_control *get);
 
 int			is_end_of_command(char *token);
 int			count_cases(char **string);
+
+long long	ft_atoll(char *nptr);
 
 #endif

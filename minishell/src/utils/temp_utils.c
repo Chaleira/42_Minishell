@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 14:30:30 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:46:30 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	check_alphanum(char *str)
 	int	i;
 
 	i = 0;
+	if (str && (ft_isdigit(str[0]) || str[0] == '='))
+		return (0);
 	while (str && str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]))
