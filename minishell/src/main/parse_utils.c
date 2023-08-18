@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:04:00 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 15:11:06 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:50:02 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ int	check_last_char(char **split)
 	last_split = last_split_index(split);
 	if (split[last_split] && !ignore_quotes(split[last_split]))
 	{
-		if (split[last_split] && split_case(split[last_split]) && *split[last_split]
+		if (split[last_split]
+			&& split_case(split[last_split]) && *split[last_split]
 			&& *split[last_split] != ')' && *split[last_split] != ';')
 		{
-			ft_printf("minishell: syntax error near unexpected token `newline'\n");
+			ft_printf("minishell: syntax error \
+			near unexpected token `newline'\n");
 			return (0);
 		}
 	}

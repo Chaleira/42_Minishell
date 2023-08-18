@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 16:46:30 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:48:34 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ int	export_stderror(t_command *command, char *str)
 	command->exec_path = ft_strjoin("Minishell: export: '", str);
 	ft_stradd(&command->exec_path, "': not a valid identifier\n");
 	command->status = 1;
-	return(0);
+	return (0);
 }

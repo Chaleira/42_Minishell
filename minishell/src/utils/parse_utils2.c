@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:58:44 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 18:14:13 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 19:00:53 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ int	check_in_out_parse(char **split)
 		if (!ignore_quotes(split[i]))
 		{
 			if (split[i] && (*split[i] == '>' || *split[i] == '<'
-				|| !ft_strcmp(split[i], ">>") || !ft_strcmp(split[i], "<<")))
+					|| !ft_strcmp(split[i], ">>")
+					|| !ft_strcmp(split[i], "<<")))
 			{
-				if (split[i + 1] && (*split[i + 1] == '>' || *split[i + 1] == '<'))
+				if (split[i + 1] && (*split[i + 1] == '>'
+						|| *split[i + 1] == '<'))
 				{
-					write(2, "minishell: syntax error near unexpected token `", 47); 
+					write(2, "minishell: syntax error \
+near unexpected token `", 47);
 					write(2, split[i + 1], ft_strlen(split[i + 1]));
 					write(2, "'\n", 2);
 					return (0);
