@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 14:40:32 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:32:13 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,25 @@ char	**copy_shellsplit(char **split)
 {
 	char	**new;
 	int		counter;
+	int		found;
 
 	counter = 0;
-	while (split[counter] && !split_case(split[counter]))
+	while (split[counter])
 		counter++;
 	new = ft_calloc(sizeof(char *), counter + 1);
 	counter = 0;
-	while (split[counter] && !split_case(split[counter]))
+	found = 0;
+	while (split[counter])
 	{
-		new[counter] = ft_strdup(split[counter]);
-		new[counter] = input_expand(new[counter], (*control())->envp, 1);
-		remove_pair(new[counter], "\"\'");
+		if (!split_case(split[counter]))
+		{
+			new[found] = ft_strdup(split[counter]);
+			new[found] = input_expand(new[found], (*control())->envp, 1);
+			remove_pair(new[found], "\"\'");
+			found++;
+			*split[counter] = 0;
+		}
+		counter += (*split[counter] == '>' || *split[counter] == '<');
 		counter++;
 	}
 	return (new);

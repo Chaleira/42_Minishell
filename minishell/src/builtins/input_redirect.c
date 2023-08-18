@@ -101,7 +101,7 @@ void	input_redirect(t_command *command, int index)
 	if (command->in_pipe[0] < 0)
 	{
 		command->main->status = 1;
-		jump_command(command, 0);
+		!(pipe(command->in_pipe)) && (close(command->in_pipe[1]));
 		write(2, "minishell: ", 12);
 		write(2, command->terminal[index + 1],
 			ft_strlen(command->terminal[index + 1]));

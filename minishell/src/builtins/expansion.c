@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 09:50:48 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:13:59 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ char	*input_expand(char *input, char **envp, int ignore)
 		if (quotes && input[i] == '\"')
 			jump = false;
 		i += quotes * (input[i] == '\'') * jump;
-		if (input[i] == '$' && input[i + 1])
+		if ((jump && input[i] == '$' && input[i + 1])
+			|| (!jump && input[i] == '$' && input[i + 1] != '\"'))
 		{
 			insert_envar(&input, &input[i], envp);
 			i = -1;

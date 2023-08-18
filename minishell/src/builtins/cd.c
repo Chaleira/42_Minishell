@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 09:56:52 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:35:40 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	cd_execute(char *current, char **directory, char **envp, t_command *get)
 		return ;
 	if (chdir(*directory))
 	{
-		ft_printf("minishell: cd: %s: Not a directory\n", *directory);
+		write (2, "minishell: cd: ", 15);
+		write (2, *directory, ft_strlen(*directory));
+		write(2, ": Not a directory\n", 19);
 		get->main->status = 1;
 		return ;
 	}
@@ -45,7 +47,8 @@ void	cd_prepare(t_command *command, int index)
 		command->flags = ft_split(command->main->home, ' ');
 	if (args > 2)
 	{
-		ft_printf("minishell: cd: too many arguments\n");
+		command->exec_path = ft_strdup("minishell: cd: too many arguments\n");
+		command->execute = builtin_execute;
 		command->status = 1;
 		return ;
 	}
