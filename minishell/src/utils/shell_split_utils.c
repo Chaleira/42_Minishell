@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 18:18:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:28:57 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	split_case(char *line)
 {
 	if (!*line)
 		return (0);
-	else if (*line == '<' && *(line + 1) && *(line + 1) == '<')
+	else if (*line == '<' && *(line + 1) == '<')
 		return (2);
-	else if (*line == '>' && *(line + 1) && *(line + 1) == '>')
+	else if (*line == '>' && *(line + 1) == '>')
 		return (2);
-	else if (*line == '|' && *(line + 1) && *(line + 1) == '|')
+	else if (*line == '|' && *(line + 1) == '|')
 		return (2);
-	else if (*line == '&' && *(line + 1) && *(line + 1) == '&')
+	else if (*line == '&' && *(line + 1) == '&')
 		return (2);
 	else if (*line == '>' || *line == '<' || *line == ';' || *line == '|'
 		|| *line == '(' || *line == ')')
