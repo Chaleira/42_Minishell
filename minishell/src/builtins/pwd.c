@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:54:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/17 11:34:45 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:11:33 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void	pwd_prepare(t_command *command, int index)
 {
-	(void)index;
-	command->exec_path = getcwd(NULL, 0);
-	ft_stradd(&command->exec_path, "\n");
 	if (!command->status)
+	{
+		command->exec_path = getcwd(NULL, 0);
+		ft_stradd(&command->exec_path, "\n");
 		command->execute = builtin_execute;
+	}
+	while (command->terminal[index])
+		*command->terminal[index++] = 0;
 }
 
 void	update_pwd(t_control *get)

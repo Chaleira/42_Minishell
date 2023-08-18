@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2.parse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 11:44:10 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:09:32 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 int	check_alone_char(char **split)
 {
-	if (*split && split_case(*split) && !split[1])
+	if (*split && !ignore_quotes(*split))
 	{
-		if (*(short *)(*split) == *(short *)">>"
-			|| *(short *)(*split) == *(short *)"<<"
-			|| **split == '>' || **split == '<')
-			ft_printf("minishell: syntax error near"
-				"unexpected token `newline'\n");
-		else
-			ft_printf("minishell: syntax error near unexpected token `%s'\n",
-				*split);
-		return (0);
+		if (*split && split_case(*split) && !split[1])
+		{
+			if (*(short *)(*split) == *(short *)">>"
+				|| *(short *)(*split) == *(short *)"<<"
+				|| **split == '>' || **split == '<')
+				ft_printf("minishell: syntax error near"
+					"unexpected token `newline'\n");
+			else
+				ft_printf("minishell: syntax error near unexpected token `%s'\n",
+					*split);
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -54,14 +57,17 @@ int	check_near_special_char(char **split)
 	i = 0;
 	while (split && split[i])
 	{
-		if (split[i] && split_case(split[i]) && *split[i] != ')')
+		if (!ignore_quotes(split[i]))
 		{
-			if (split[i + 1] && split_case(split[i + 1])
-				&& *split[i + 1] != '(')
+			if (split[i] && split_case(split[i]) && *split[i] != ')')
 			{
-				ft_printf("minishell: syntax error near unexpected token `%s'\n",
-					split[i + 1]);
-				return (0);
+				if (split[i + 1] && split_case(split[i + 1])
+					&& *split[i + 1] != '(')
+				{
+					ft_printf("minishell: syntax error near unexpected token `%s'\n",
+						split[i + 1]);
+					return (0);
+				}
 			}
 		}
 		i++;
@@ -91,7 +97,6 @@ char	**parse(char *str, t_control *get)
 	split = shell_split(str);
 	if (!parsing(split))
 	{
-		HERE;
 		free_split(split);
 		return (NULL);
 	}
