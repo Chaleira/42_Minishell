@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/09 20:16:06 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:51:42 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static char	*variable_name(char *string)
 		return (NULL);
 	envvar = NULL;
 	index = 0;
-	while (string[index] && !ft_strchr("\"\'", string[index])
+	while (string[index] && !ft_strchr("\"\'/$", string[index])
 		&& !is_space(string[index]) && !split_case(&string[index]))
 		index++;
 	envvar = ft_calloc(sizeof(char), index + 1);
 	index = 0;
-	while (string[index] && !ft_strchr("\"\'", string[index])
+	while (string[index] && !ft_strchr("\"\'/$", string[index])
 		&& !is_space(string[index]) && !split_case(&string[index]))
 	{
 		envvar[index] = string[index];
@@ -48,6 +48,7 @@ static void	insert_envar(char **string, char *end, char **envp)
 
 	*(end++) = 0;
 	name = variable_name(end);
+	remove_pair(name, "\'\"");
 	envp = get_envaddress(envp, name);
 	if (*end == '?')
 		end++;
@@ -75,8 +76,9 @@ static char	*expand_tilde(char *input)
 	char	*keep;
 
 	keep = NULL;
-	if (*(short *) input == *(short *)"~\0"
-		|| *(short *) input == *(short *)"~/")
+	if (input && *input
+		&& (*(short *)input == *(short *)"~\0"
+			|| *(short *)input == *(short *)"~/"))
 	{
 		if (*(input + 1))
 			keep = ft_strdup(input + 1);
@@ -85,21 +87,24 @@ static char	*expand_tilde(char *input)
 		if (!input)
 			input = ft_calloc(sizeof(char), 2);
 		ft_stradd(&input, keep);
+		safe_free_null(&keep);
 	}
 	return (input);
 }
 
-char	*wildcard_aux(char *input)
+static int	split_case_char(char *c)
 {
-	char	*temp;
-
-	temp = *wildcard(input);
-	if (temp)
-	{
-		free(input);
-		return (ft_strdup(temp));
-	}
-	return (input);
+	if (!c || !*c)
+		return (2);
+	else if (*c == '\"' && *(c + 1) && *(c + 1) == '\"')
+		return (0);
+	else if (*c == '\'' && *(c + 1) && *(c + 1) == '\'')
+		return (0);
+	else if (*c == '>' || *c == '<' || *c == ';' || *c == '|'
+		|| *c == '(' || *c == ')' || *c == '&' || *c == ' '
+		|| *c == '\'' || *c == '\"' || *c == '/')
+		return (1);
+	return (0);
 }
 
 char	*input_expand(char *input, char **envp, int ignore)
@@ -118,13 +123,11 @@ char	*input_expand(char *input, char **envp, int ignore)
 		if (quotes && input[i] == '\"')
 			jump = false;
 		i += quotes * (input[i] == '\'') * jump;
-		if (input[i] == '$' && input[i + 1])
+		if ((input[i] == '$' && !split_case_char(&input[i + 1])))
 		{
 			insert_envar(&input, &input[i], envp);
 			i = -1;
 		}
-		if (input[i] == '*')
-			return (wildcard_aux(input));
 	}
 	input = expand_tilde(input);
 	return (input);

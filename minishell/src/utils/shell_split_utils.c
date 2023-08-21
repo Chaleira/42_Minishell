@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:14:57 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 19:43:02 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:28:57 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	split_case(char *line)
 {
 	if (!*line)
 		return (0);
-	else if (*line == '<' && *(line + 1) && *(line + 1) == '<')
+	else if (*line == '<' && *(line + 1) == '<')
 		return (2);
-	else if (*line == '>' && *(line + 1) && *(line + 1) == '>')
+	else if (*line == '>' && *(line + 1) == '>')
 		return (2);
-	else if (*line == '|' && *(line + 1) && *(line + 1) == '|')
+	else if (*line == '|' && *(line + 1) == '|')
 		return (2);
-	else if (*line == '&' && *(line + 1) && *(line + 1) == '&')
+	else if (*line == '&' && *(line + 1) == '&')
 		return (2);
 	else if (*line == '>' || *line == '<' || *line == ';' || *line == '|'
 		|| *line == '(' || *line == ')')
@@ -49,16 +49,25 @@ char	**copy_shellsplit(char **split)
 {
 	char	**new;
 	int		counter;
+	int		found;
 
 	counter = 0;
-	while (split[counter] && !split_case(split[counter]))
+	while (split[counter])
 		counter++;
 	new = ft_calloc(sizeof(char *), counter + 1);
 	counter = 0;
-	while (split[counter] && !split_case(split[counter]))
+	found = 0;
+	while (split[counter])
 	{
-		new[counter] = ft_strdup(split[counter]);
-		remove_pair(new[counter], "\"\'");
+		if (!split_case(split[counter]))
+		{
+			new[found] = ft_strdup(split[counter]);
+			new[found] = input_expand(new[found], (*control())->envp, 1);
+			remove_pair(new[found], "\"\'");
+			found++;
+			*split[counter] = 0;
+		}
+		counter += (*split[counter] == '>' || *split[counter] == '<');
 		counter++;
 	}
 	return (new);

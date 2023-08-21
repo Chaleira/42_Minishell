@@ -12,31 +12,6 @@
 
 #include <minishell.h>
 
-static int	is_end_of_command(char c)
-{
-	if (c == '|' || c == '&' || c == ';')
-		return (1);
-	return (0);
-}
-
-static int	count_cases(char **string)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	if (!string)
-		return (0);
-	while (string[i])
-	{
-		if (is_end_of_command(string[i][0]))
-			count++;
-		i++;
-	}
-	return (count);
-}
-
 void	print_split_input(char ***input)
 {
 	int	i;
@@ -73,17 +48,16 @@ char	**copy_split_size(char **split, int size)
 
 int	extend_token(t_control *get, char **split)
 {
-	char	*temp;
+	char	*doc_pipe;
 
 	if (**(short **)split == *(short *)"<<")
 	{
-		temp = (char *)here_doc(get, split[1]);
-		if (!temp)
+		doc_pipe = (char *)here_doc(get, split[1]);
+		if (!doc_pipe)
 			return (-1);
 		free(split[1]);
-		split[1] = temp;
+		split[1] = doc_pipe;
 	}
-	*split = input_expand(*split, get->envp, 1);
 	return (1);
 }
 
@@ -100,13 +74,16 @@ static void	break_tokens(t_control *get, char **split, int size)
 	{
 		if (extend_token(get, &split[i]) < 0)
 			return ;
-		if (is_end_of_command(split[i][0]) || (i == (size - 1) && ++i))
+		if (is_end_of_command(split[i]) || (i == (size - 1) && ++i))
 		{
 			get->tokens[j++] = copy_split_size(&split[start], i - start);
 			start = i;
 		}
 		i++;
 	}
+	i = -1;
+	while (get->tokens[++i])
+		get->tokens[i] = wildcard_aux(get->tokens[i]);
 }
 
 int	normalize_input(t_control *get)
@@ -127,6 +104,5 @@ int	normalize_input(t_control *get)
 		split = free_split(split);
 	else
 		free(split);
-	return (1);
+	return (!!get->tokens);
 }
-	// print_split_input(get->tokens);

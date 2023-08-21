@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/08 17:49:30 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 19:41:39 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@ void	cd_execute(char *current, char **directory, char **envp, t_command *get)
 		return ;
 	if (chdir(*directory))
 	{
-		ft_printf("minishell: cd: %s: Not a directory\n", *directory);
+		write (2, "minishell: cd: ", 15);
+		write (2, *directory, ft_strlen(*directory));
+		write(2, ": Not a directory\n", 19);
 		get->main->status = 1;
 		return ;
 	}
 	free(get->main->prompt);
 	get->main->prompt = get_prompt();
 	get->main->status = 0;
-	directory = get_envaddress(envp, "PWD");
-	if (!directory || !*directory)
-		return ;
 	current = getcwd(NULL, 0);
-	(*directory)[4] = 0;
-	ft_stradd(directory, current);
+	envp = get_envaddress(envp, "PWD");
+	if (envp && *envp)
+		change_env_variable("OLDPWD", &(*envp)[4]);
+	change_env_variable("PWD", current);
 	free(current);
 }
 
@@ -43,15 +44,20 @@ void	cd_prepare(t_command *command, int index)
 		&& !split_case(command->terminal[index + args]))
 		args++;
 	if (args == 1)
-		return ;
+		if (command->main->home)
+			command->flags = ft_split(command->main->home, ' ');
 	if (args > 2)
 	{
-		ft_printf("minishell: cd: too many arguments\n");
+		command->exec_path = ft_strdup("minishell: cd: too many arguments\n");
+		command->execute = builtin_execute;
 		command->status = 1;
 		return ;
 	}
-	command->flags = copy_shellsplit(&command->terminal[index + 1]);
-	command->terminal[index + 1][0] = 0;
+	if (args == 2)
+	{
+		command->flags = copy_shellsplit(&command->terminal[index + 1]);
+		command->terminal[index + 1][0] = 0;
+	}
 	if (!command->status)
 		command->execute = (void *)cd_execute;
 	if (execute_now(command))

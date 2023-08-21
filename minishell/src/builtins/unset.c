@@ -6,13 +6,13 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:01 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/09 03:33:59 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:47:33 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	unset_execute(char *str, char **flags)
+static void	unset_execute(char *str, char **flags, char **env)
 {
 	char		**var;
 	int			index;
@@ -21,7 +21,7 @@ static void	unset_execute(char *str, char **flags)
 
 	(void)str;
 	i = 0;
-	while (flags[i])
+	while (flags && flags[i])
 	{
 		var = find_var(flags[i], (*control())->envp, &index, &size);
 		if (var)
@@ -33,6 +33,7 @@ static void	unset_execute(char *str, char **flags)
 		}
 		i++;
 	}
+	update_paths(env, (*control()));
 }
 
 void	unset_prepare(t_command *command, int index)
@@ -49,9 +50,17 @@ void	unset_prepare(t_command *command, int index)
 		i = 0;
 		while (command->terminal[++index])
 		{
-			command->flags[i++] = ft_strdup(command->terminal[index]);
+			remove_pair(command->terminal[index], "\'\"");
+			if (!check_alphanum(command->terminal[index]))
+				ft_printf("Minishell: export: '%s': not a valid identifier\n",
+					command->terminal[index]);
+			else
+				command->flags[i++] = ft_strdup(command->terminal[index]);
 			command->terminal[index][0] = 0;
 		}
-		unset_execute(NULL, command->flags);
 	}
+	if (!command->status)
+		command->execute = unset_execute;
+	if (execute_now(command))
+		command->status = PARENT;
 }

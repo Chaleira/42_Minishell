@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:33:09 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/14 19:20:02 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:26:47 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	run_input(t_control *get)
 		execute_command((t_command *)node->content);
 		node = node->next;
 	}
-	signal(SIGINT, (void *)cut_wait);
 	node = get->commands;
 	while (node)
 	{
@@ -50,9 +49,7 @@ void	run_input(t_control *get)
 		get->status = WEXITSTATUS(get->status);
 		node = node->next;
 	}
-	signal(SIGINT, control_c);
 }
-	// ft_printf("status: %i\n", get->status);
 
 void	execute_command(t_command *get)
 {

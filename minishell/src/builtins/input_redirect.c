@@ -57,7 +57,7 @@ int	find_eof(int fd, char *eof, int expand, char **envp)
 			eof = NULL;
 		else
 		{
-			if (expand)
+			if (expand && *line != '~')
 				line = input_expand(line, envp, 0);
 			write(fd, ft_stradd(&line, "\n"), ft_strlen(line) + 1);
 		}
@@ -73,7 +73,8 @@ int	*here_doc(t_control *get, char *eof)
 
 	if (!new_pipe(&in_pipe, get))
 		return (NULL);
-	expand = !find_pair(eof, "\'\"");
+	expand = (!find_pair(ft_strchr(eof, '"'), "\'\"")
+			&& !find_pair(ft_strchr(eof, '\''), "\'\""));
 	remove_pair(eof, "\'\"");
 	signal(SIGINT, stop_heredoc);
 	if (!find_eof(in_pipe[1], eof, expand, get->envp))
@@ -84,7 +85,7 @@ int	*here_doc(t_control *get, char *eof)
 		safe_free_null((char **)&in_pipe);
 	return (in_pipe);
 }
-  
+
 /*
 Problems:
 
@@ -92,23 +93,37 @@ control C giving 2 enters after closing and opening the terminal
 
 Expansion
 */
+
+static void	fail_in_pipe(t_command *command, char *string)
+{
+	command->parse = 0;
+	command->status = 1;
+	safe_free_null(&command->exec_path);
+	if (!pipe(command->in_pipe))
+		close(command->in_pipe[1]);
+	command->exec_path = ft_strdup("minishell: ");
+	ft_stradd(&command->exec_path, string);
+	ft_stradd(&command->exec_path, ": No such file or directory\n");
+	command->execute = builtin_execute;
+}
+
 void	input_redirect(t_command *command, int index)
 {
-	if (!isatty(command->in_pipe[0]) && command->in_pipe[0] > 0)
-		close(command->in_pipe[0]);
+	safe_close_fd(command->in_pipe[0], command->in_pipe[1]);
 	if (*(short *)command->terminal[index] == *(short *)"<<")
 		*(long *)command->in_pipe = *(long *)command->terminal[index + 1];
 	else
+	{
+		command->terminal[index + 1] = \
+			input_expand(command->terminal[index + 1], command->main->envp, 1);
+		remove_pair(command->terminal[index + 1], "\'\"");
 		command->in_pipe[0]
 			= open(command->terminal[index + 1], O_RDONLY | 0644);
+	}
 	if (command->in_pipe[0] < 0)
 	{
-		command->main->status = 1;
-		jump_command(command, 0);
-		write(2, "minishell: ", 12);
-		write(2, command->terminal[index + 1],
-			ft_strlen(command->terminal[index + 1]));
-		write(2, ": No such file or directory\n", 29);
+		fail_in_pipe(command, command->terminal[index + 1]);
+		return ;
 	}
 	if (command->terminal)
 		*command->terminal[index + 1] = 0;

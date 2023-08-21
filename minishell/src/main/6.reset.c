@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   5reset.c                                           :+:      :+:    :+:   */
+/*   6.reset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:34:23 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/07/27 09:46:53 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:26:41 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	end_shell(t_control *get)
 {
 	input_reset(get);
 	free_split(get->paths);
+	free(get->home);
 	safe_free_null(&get->prompt);
 	rl_clear_history();
 	free_split(get->envp);

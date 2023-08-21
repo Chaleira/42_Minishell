@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   4.commands.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/14 19:12:03 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 17:38:15 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*command_error(t_command *command, char *type, char *input)
 	else if (ft_atoi(type + 1) == 2)
 	{
 		command->status = 126;
-		ft_stradd(&error, ": is a directory\n");
+		ft_stradd(&error, ": Is a directory\n");
 	}
 	else
 		ft_stradd(&error, ": error checking file\n");
@@ -97,7 +97,6 @@ t_exe	solve(char *find)
 	};
 
 	index = !!(*find);
-	// wildcard
 	remove_pair(find, "\"\'");
 	while (cases[index] && ft_strncmp(find, cases[index], 10))
 		index++;
@@ -117,7 +116,10 @@ void	structure_commands(t_control *get)
 		command->terminal = get->tokens[i];
 		j = -1;
 		while (get->tokens && get->tokens[i][++j] && command->parse)
+		{
+			get->tokens[i][j] = input_expand(get->tokens[i][j], get->envp, 1);
 			(solve(get->tokens[i][j]))(command, j);
+		}
 		if (command->status == PARENT)
 		{
 			command->execute(command->exec_path, command->flags,

@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_utils.c                                  :+:      :+:    :+:   */
+/*   temp_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 09:39:55 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 09:35:33 by plopes-c         ###   ########.fr       */
+/*   Created: 2023/08/18 16:51:06 by plopes-c          #+#    #+#             */
+/*   Updated: 2023/08/18 18:47:00 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	safe_close_fd(int fd, int fd2)
+long long	ft_atoll(char *nptr)
 {
-	if (!isatty(fd) && fd > 0)
-		close(fd);
-	if (!isatty(fd2) && fd > 0)
-		close(fd2);
-}
+	long long	i;
+	long long	s;
+	long long	nbr;
 
-void	check_dup2(int in, int out)
-{
-	if (!isatty(in))
+	i = 0;
+	s = 1;
+	nbr = 0;
+	if (!ft_strncmp(nptr, "-9223372036854775807", 20))
+		return (-9223372036854775807);
+	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		dup2(in, STDIN_FILENO);
+		if (nptr[i] == '-')
+			s = -1;
+		i++;
 	}
-	if (!isatty(out))
-		dup2(out, STDOUT_FILENO);
-}
-
-void	cut_wait(void)
-{
-	if (!(*control())->commands)
-		write(1, "\n", 1);
+	while (ft_isdigit(nptr[i]))
+	{
+		nbr = nptr[i] - '0' + nbr * 10;
+		i++;
+	}
+	return (nbr * s);
 }

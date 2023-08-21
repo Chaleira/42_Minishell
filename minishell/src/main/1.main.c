@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   1.main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:43:59 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/09 03:14:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:25:59 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ static void	catch_input(t_control *get)
 	rl_on_new_line();
 }
 
-static int	tester(t_control *get, char *argv)
-{
-	get->input = ft_strdup(argv);
-	add_history(get->input);
-	normalize_input(get);
-	structure_commands(get);
-	run_input(get);
-	input_reset(get);
-	end_shell(get);
-	return (get->status);
-}
+// static int	tester(t_control *get, char *argv)
+// {
+// 	get->input = ft_strdup(argv);
+// 	add_history(get->input);
+// 	normalize_input(get);
+// 	structure_commands(get);
+// 	run_input(get);
+// 	input_reset(get);
+// 	end_shell(get);
+// 	return (get->status);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -53,9 +53,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	setup(&get, envp);
-	if (argc == 3)
-		return (tester(&get, argv[2]));
-	envp = NULL;
 	while (true)
 	{
 		catch_input(&get);

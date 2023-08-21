@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_utils.c                                  :+:      :+:    :+:   */
+/*   libft_plus2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 09:39:55 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 09:35:33 by plopes-c         ###   ########.fr       */
+/*   Created: 2023/08/10 18:48:56 by plopes-c          #+#    #+#             */
+/*   Updated: 2023/08/10 18:49:21 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	safe_close_fd(int fd, int fd2)
+void	print_split(char **input)
 {
-	if (!isatty(fd) && fd > 0)
-		close(fd);
-	if (!isatty(fd2) && fd > 0)
-		close(fd2);
-}
+	int	i;
 
-void	check_dup2(int in, int out)
-{
-	if (!isatty(in))
+	i = 0;
+	ft_printf("\n|::SPLIT:::\n");
+	while (input && input[i])
 	{
-		dup2(in, STDIN_FILENO);
+		ft_printf("|%i - %s\n", i + 1, input[i]);
+		ft_printf("|\n");
+		i++;
 	}
-	if (!isatty(out))
-		dup2(out, STDOUT_FILENO);
-}
-
-void	cut_wait(void)
-{
-	if (!(*control())->commands)
-		write(1, "\n", 1);
 }

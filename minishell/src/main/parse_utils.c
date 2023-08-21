@@ -6,31 +6,96 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:04:00 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/07 18:01:27 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:50:02 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
-// char **ft_split_join(char **split, char **add, int index)
-// {
-// 	char	**new_split;
-// 	int		size;
-// 	int		i[3];
+int	check_first_char(char **split)
+{
+	if (*split && !ignore_quotes(*split))
+	{
+		if (*split && split[1] && (!ft_strcmp(*split, "|")
+				|| !ft_strcmp(*split, ")") || !ft_strcmp(*split, "&&")
+				|| !ft_strcmp(*split, ";") || !ft_strcmp(*split, "||")))
+		{
+			ft_printf("minishell: syntax error near unexpected token `%s'\n",
+				*split);
+			return (0);
+		}
+	}
+	return (1);
+}
 
-// 	size = last_split_index(split) + last_split_index(add) + 3;
-// 	new_split = ft_calloc(sizeof(char *), size);
-// 	i[0] = -1;
-// 	while (split && split[++i[0]] && i[0] <= index)
-// 		new_split[i[0]] = ft_strdup(split[i[0]]);
-// 	i[2] = i[0];
-// 	i[1] = 0;
-// 	while (add && add[i[1]])
-// 		new_split[i[0]++] = ft_strdup(add[i[1]++]);
-// 	while (split &&split[i[2]])
-// 		new_split[i[0]++] = ft_strdup(split[i[2]++]);
-// 	free_split(add);
-// 	free_split(split);
-// 	// print_split(new_split);
-// 	return (new_split);
-// }
+int	check_last_char(char **split)
+{
+	int	last_split;
+
+	last_split = last_split_index(split);
+	if (split[last_split] && !ignore_quotes(split[last_split]))
+	{
+		if (split[last_split]
+			&& split_case(split[last_split]) && *split[last_split]
+			&& *split[last_split] != ')' && *split[last_split] != ';')
+		{
+			ft_printf("minishell: syntax error \
+			near unexpected token `newline'\n");
+			return (0);
+		}
+	}
+	return (1);
+}
+
+int	last_split_index(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split && split[i] && split[i + 1])
+		i++;
+	return (i);
+}
+
+int	ft_splitchar(char **split, char c)
+{
+	int	i;
+
+	if (!split)
+		return (0);
+	i = 0;
+	while (split[i])
+	{
+		if (!ignore_quotes(split[i]))
+		{
+			if (ft_strchr(split[i], c))
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	count_char(char **split, char c)
+{
+	int	i[2];
+	int	count;
+
+	count = 0;
+	i[0] = 0;
+	while (split && split[i[0]])
+	{
+		if (!ignore_quotes(split[i[0]]))
+		{
+			i[1] = 0;
+			while (split[i[0]] && split[i[0]][i[1]])
+			{
+				if (split[i[0]][i[1]] == c)
+					count++;
+				i[1]++;
+			}
+		}
+		i[0]++;
+	}
+	return (count);
+}
