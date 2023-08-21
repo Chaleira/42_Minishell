@@ -43,6 +43,6 @@ void	control_c(int signal)
 	(*control())->status = 130;
 	rl_replace_line("", 1);
 	rl_on_new_line();
-	write(1, "\n", 1);
+	write(1, "\n", 2);
 	rl_redisplay();
 }

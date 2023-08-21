@@ -181,4 +181,8 @@ int			last_split_index(char **split);
 void		stop_heredoc(int signal);
 char		**env_copy(char **env, char *new_str);
 
+void		close_doc_pipes(char ***tokens);
+int			new_pipe(int **newpipe, t_control *get);
+
+
 #endif

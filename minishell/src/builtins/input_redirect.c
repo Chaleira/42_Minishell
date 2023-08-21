@@ -94,6 +94,8 @@ Expansion
 */
 void	input_redirect(t_command *command, int index)
 {
+	if (!isatty(command->in_pipe[0]) && command->in_pipe[0] > 0)
+		close(command->in_pipe[0]);
 	if (*(short *)command->terminal[index] == *(short *)"<<")
 		*(long *)command->in_pipe = *(long *)command->terminal[index + 1];
 	else

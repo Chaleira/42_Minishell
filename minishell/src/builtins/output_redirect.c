@@ -14,6 +14,8 @@
 
 void	output_redirect(t_command *command, int index)
 {
+	if (!isatty(command->out_pipe[1]) && command->out_pipe[1] > 0)
+		close(command->out_pipe[1]);
 	if (*(short *)command->terminal[index] == *(short *)">>")
 		command->out_pipe[1] = open(command->terminal[index + 1],
 				O_CREAT | O_APPEND | O_WRONLY, 0644);
