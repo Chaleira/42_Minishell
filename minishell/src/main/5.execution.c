@@ -12,7 +12,23 @@
 
 #include <minishell.h>
 
-void	find_directions(t_list *this)
+static void	execute_command(t_command *get)
+{
+	get->id = fork();
+	if (!get->id)
+	{
+		if (!isatty(get->out_pipe[0]))
+			close(get->out_pipe[0]);
+		check_dup2(get->in_pipe[0], get->out_pipe[1]);
+		get->execute(get->exec_path, get->flags, get->main->envp, get);
+		get->main->status = get->status;
+		end_shell(get->main);
+	}
+	else
+		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
+}
+
+static void	find_directions(t_list *this)
 {
 	t_command	*get;
 
@@ -49,20 +65,4 @@ void	run_input(t_control *get)
 		get->status = WEXITSTATUS(get->status);
 		node = node->next;
 	}
-}
-
-void	execute_command(t_command *get)
-{
-	get->id = fork();
-	if (!get->id)
-	{
-		if (!isatty(get->out_pipe[0]))
-			close(get->out_pipe[0]);
-		check_dup2(get->in_pipe[0], get->out_pipe[1]);
-		get->execute(get->exec_path, get->flags, get->main->envp, get);
-		get->main->status = get->status;
-		end_shell(get->main);
-	}
-	else
-		safe_close_fd(get->in_pipe[0], get->out_pipe[1]);
 }

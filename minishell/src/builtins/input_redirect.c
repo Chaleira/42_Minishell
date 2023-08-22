@@ -96,11 +96,11 @@ Expansion
 
 static void	fail_in_pipe(t_command *command, char *string)
 {
+	if (!pipe(command->in_pipe))
+		close(command->in_pipe[1]);
 	command->parse = 0;
 	command->status = 1;
 	safe_free_null(&command->exec_path);
-	if (!pipe(command->in_pipe))
-		close(command->in_pipe[1]);
 	command->exec_path = ft_strdup("minishell: ");
 	ft_stradd(&command->exec_path, string);
 	ft_stradd(&command->exec_path, ": No such file or directory\n");

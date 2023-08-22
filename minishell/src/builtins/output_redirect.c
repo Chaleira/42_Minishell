@@ -14,9 +14,10 @@
 
 static void	fail_out_pipe(t_command *command, char *string)
 {
-	command->status = 1;
 	command->parse = 0;
+	command->status = 1;
 	safe_free_null(&command->exec_path);
+	command->exec_path = ft_strdup("minishell: ");
 	command->exec_path = \
 		ft_strjoin("Error opening file: ", string);
 	ft_stradd(&command->exec_path, "\n");

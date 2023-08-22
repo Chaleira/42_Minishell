@@ -29,9 +29,3 @@ void	check_dup2(int in, int out)
 	if (!isatty(out))
 		dup2(out, STDOUT_FILENO);
 }
-
-void	cut_wait(void)
-{
-	if (!(*control())->commands)
-		write(1, "\n", 1);
-}

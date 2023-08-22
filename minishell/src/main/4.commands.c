@@ -16,7 +16,7 @@
 Test if the string starts with ./ and is a executable, if not
 Try building the command with path and check if is a executable.
 */
-char	*build_executable_path(t_control *get, char *command)
+static char	*build_executable_path(t_control *get, char *command)
 {
 	int			index;
 	char		*exec_path;
@@ -38,7 +38,7 @@ char	*build_executable_path(t_control *get, char *command)
 	return (NULL);
 }
 
-char	*command_error(t_command *command, char *type, char *input)
+static char	*command_error(t_command *command, char *type, char *input)
 {
 	char	*error;
 
@@ -59,7 +59,7 @@ char	*command_error(t_command *command, char *type, char *input)
 	return (error);
 }
 
-void	try_command(t_command *get, int index)
+static void	try_command(t_command *get, int index)
 {
 	if (get->status)
 		return ;
@@ -78,7 +78,7 @@ void	try_command(t_command *get, int index)
 		get->execute = (void *)execve;
 }
 
-t_exe	solve(char *find)
+static t_exe	solve(char *find)
 {
 	int				index;
 	static char		*cases[20] = {
