@@ -37,17 +37,24 @@ char	**get_envaddress(char **envp, char *find)
 	return (NULL);
 }
 
-void	control_c(int signal)
+void	control_c(int signal, t_control *control)
 {
+	static t_control	*get;
+
+	if (!get)
+	{
+		get = control;
+		return ;
+	}
 	signal = waitpid(-1, NULL, 0);
-	(*control())->status = 130;
-	if (signal == -1 && !(*control())->commands)
+	get->status = 130;
+	if (signal == -1 && !get->commands)
 	{
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		write(1, "\n", 1);
 		rl_redisplay();
 	}
-	else if (signal != -1 && (*control())->commands)
+	else if (signal != -1 && get->commands)
 		write(1, "\n", 1);
 }

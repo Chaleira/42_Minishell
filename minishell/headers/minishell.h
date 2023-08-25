@@ -74,7 +74,7 @@ char		*get_prompt(void);
 void		update_paths(char **envp, t_control *get);
 // Utils
 char		**get_envaddress(char **envp, char *find);
-void		control_c(int signal);
+void		control_c(int signal, t_control *control);
 void		control_d(t_control *get);
 
 // Main + 2
