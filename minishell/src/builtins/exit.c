@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 19:34:22 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:01:51 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	exit_execute(t_command *command, int index)
 			return ;
 		}
 		remove_pair(command->terminal[index + 1], "\'\"");
-		command->exec_path = command->terminal[index + 1];
+		command->exec_path = ft_strdup(command->terminal[index + 1]);
 		loop_exit(command, index);
-	}	
+	}
 	if (!command->status)
 		command->execute = (void *)do_exit;
 	if (execute_now(command))
@@ -45,9 +45,18 @@ void	do_exit(char *str, char **flag, char **env, t_command *command)
 	(void)flag;
 	(void)env;
 	get = command->main;
-	get->status = ft_atoi(command->exec_path);
-	delete_command(command);
-	end_shell(get);
+	if (command->exec_path)
+	{
+		get->status = ft_atoi(command->exec_path);
+		command->status = get->status;
+	}
+	else
+		get->status = 0;
+	if (command->status == PARENT)
+	{
+		delete_command(command);
+		end_shell(get);
+	}
 }
 
 void	loop_exit(t_command *command, int index)
