@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 18:52:03 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:13:00 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ struct s_command {
 	t_exe		execute;
 } ;
 
-
 // Setup + 2
 void		setup(t_control *get, char **envp);
 char		*get_prompt(void);
@@ -106,8 +105,6 @@ void		check_dup2(int in, int out);
 void		end_shell(t_control *get);
 void		input_reset(t_control *get);
 void		safe_free_null(char **string);
-
-
 int			*here_doc(t_control *get, char *eof);
 
 // Quotes
@@ -156,7 +153,6 @@ void		print_split_input(char ***input);
 
 char		**find_var(char *name, char **env, int *index, int *size);
 
-
 void		print_split(char **input);
 void		change_env_variable(char *variable, char *value);
 int			split_size(char **split);
@@ -190,11 +186,9 @@ int			new_pipe(int **newpipe, t_control *get);
 
 void		update_pwd(t_control *get);
 
-
 long long	ft_atoll(char *nptr);
 
 void		close_doc_pipes(char ***tokens);
 int			new_pipe(int **newpipe, t_control *get);
-
 
 #endif

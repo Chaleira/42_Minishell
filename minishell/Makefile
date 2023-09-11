@@ -6,7 +6,7 @@
 #    By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 13:50:32 by rteles-f          #+#    #+#              #
-#    Updated: 2023/08/18 18:11:51 by plopes-c         ###   ########.fr        #
+#    Updated: 2023/09/11 10:37:47 by plopes-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRCS		=	src/builtins/and_or_all.c src/builtins/builtin_utils.c src/builtins/cd.c
 				src/main/normalize_utils.c src/main/parse_utils.c src/main/setup_utils.c \
 \
 				src/utils/libft_plus2.c src/utils/libft_plus.c src/utils/shell_split.c src/utils/shell_split_utils.c \
-				src/utils/temp_utils.c	src/utils/temp_utils2.c	src/utils/parse_utils2.c
+				src/utils/temp_utils.c	src/utils/temp_utils2.c	src/utils/parse_utils2.c src/builtins/here_doc.c
 
 OBJS		= 	$(SRCS:.c=.o)
 

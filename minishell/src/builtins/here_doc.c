@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 10:34:50 by plopes-c          #+#    #+#             */
+/*   Updated: 2023/09/11 10:34:50 by plopes-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	stop_heredoc(int signal)
@@ -67,7 +79,7 @@ int	*here_doc(t_control *get, char *eof)
 	signal(SIGINT, stop_heredoc);
 	if (!find_eof(in_pipe[1], eof, expand, get->envp))
 		forced_eof(get, eof, in_pipe);
-	signal(SIGINT, control_c);
+	signal(SIGINT, (void *)control_c);
 	close(in_pipe[1]);
 	if (read(in_pipe[0], 0, 0) < 0)
 		safe_free_null((char **)&in_pipe);
