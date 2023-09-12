@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/11 12:13:00 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:46:36 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ struct s_command {
 	char		**terminal;
 	int			id;
 	int			status;
+	int			is_parent;
 	int			parse;
 	int			in_pipe[2];
 	int			out_pipe[2];
