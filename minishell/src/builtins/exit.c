@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -20,7 +21,6 @@ void	exit_execute(t_command *command, int index)
 	command->parse = 0;
 	if (command->terminal[index + 1])
 	{
-		ft_printf("exit\n");
 		if (command->terminal[index + 2])
 		{
 			write(2, "minishell: exit: too many arguments\n", 37);
@@ -48,15 +48,16 @@ void	do_exit(char *str, char **flag, char **env, t_command *command)
 	if (command->exec_path)
 	{
 		get->status = ft_atoi(command->exec_path);
-		command->status = get->status;
 	}
 	else
 		get->status = 0;
 	if (command->status == PARENT)
 	{
+		ft_printf("exit\n");
 		delete_command(command);
 		end_shell(get);
 	}
+	command->status = get->status;
 }
 
 void	loop_exit(t_command *command, int index)
