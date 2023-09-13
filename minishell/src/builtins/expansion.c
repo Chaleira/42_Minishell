@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 18:51:42 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:53:58 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static char	*variable_name(char *string)
 		return (NULL);
 	envvar = NULL;
 	index = 0;
-	while (string[index] && !ft_strchr("\"\'/$", string[index])
+	while (string[index] && (ft_isalnum(string[index]) || string[index] == '?')
 		&& !is_space(string[index]) && !split_case(&string[index]))
 		index++;
 	envvar = ft_calloc(sizeof(char), index + 1);
 	index = 0;
-	while (string[index] && !ft_strchr("\"\'/$", string[index])
+	while (string[index] && (ft_isalnum(string[index]) || string[index] == '?')
 		&& !is_space(string[index]) && !split_case(&string[index]))
 	{
 		envvar[index] = string[index];
