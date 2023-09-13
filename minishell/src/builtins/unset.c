@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:01 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/13 16:46:10 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:43:15 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ void	unset_prepare(t_command *command, int index)
 	if (!command->status)
 		command->execute = unset_execute;
 	if (execute_now(command))
-			command->is_parent = PARENT;
+		command->is_parent = PARENT;
 }

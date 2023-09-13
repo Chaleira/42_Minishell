@@ -5,12 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/09/13 19:40:41 by rteles-f         ###   ########.fr       */
+/*   Created: 2023/09/13 19:42:31 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/09/13 19:42:46 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include <minishell.h>
 
@@ -72,7 +70,6 @@ so when it finds the second quote it multiples by 0
 so it doesnt check as a new set of quotes, and afterwards
 the jump is set to true again.
 */
-
 static char	*expand_tilde(char *input)
 {
 	char	*keep;
@@ -126,7 +123,7 @@ char	*input_expand(char *input, char **envp, int ignore)
 			jump = false;
 		i += quotes * (input[i] == '\'') * jump;
 		if ((input[i] == '$' && input[i + 1] != '$'
-			&& !split_case_char(&input[i + 1])))
+				&& !split_case_char(&input[i + 1])))
 		{
 			insert_envar(&input, &input[i], envp);
 			i = -1;

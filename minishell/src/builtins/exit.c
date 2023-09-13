@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/13 17:55:41 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:43:31 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exit_execute(t_command *command, int index)
 	if (!command->status)
 		command->execute = (void *)do_exit;
 	if (execute_now(command))
-			command->is_parent = PARENT;
+		command->is_parent = PARENT;
 }
 
 void	do_exit(char *str, char **flag, char **env, t_command *command)
