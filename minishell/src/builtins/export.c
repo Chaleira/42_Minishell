@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 14:29:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:46:13 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	export_prepare(t_command *command, int index)
 		command->execute = export_execute_no_input;
 	else
 	{
+		if (!command->status)
+			command->execute = export_execute_with_input;
+		if (execute_now(command))
+			command->is_parent = PARENT;
 		i[1] = split_size(command->terminal);
 		command->flags = ft_calloc(sizeof(char *), i[1]);
 		i[0] = 0;
@@ -31,15 +35,11 @@ void	export_prepare(t_command *command, int index)
 		{
 			remove_pair(command->terminal[index], "\'\"");
 			if (!check_alphanum(command->terminal[index]))
-				return ((void)export_stderror(command, command->terminal[index]));
+				export_stderror(command, command->terminal[index]);
 			else
 				command->flags[i[0]++] = ft_strdup(command->terminal[index]);
 			command->terminal[index][0] = 0;
 		}
-		if (!command->status)
-			command->execute = export_execute_with_input;
-		if (execute_now(command))
-			command->status = PARENT;
 	}
 }
 

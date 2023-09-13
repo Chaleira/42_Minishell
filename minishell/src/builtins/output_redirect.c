@@ -12,14 +12,24 @@
 
 #include <minishell.h>
 
+static void	fail_out_pipe(t_command *command, char *string)
+{
+	command->parse = 0;
+	command->status = 1;
+	safe_free_null(&command->exec_path);
+	command->exec_path = ft_strdup("minishell: ");
+	command->exec_path = \
+		ft_strjoin("Error opening file: ", string);
+	ft_stradd(&command->exec_path, "\n");
+	command->execute = builtin_execute;
+}
+
 void	output_redirect(t_command *command, int index)
 {
-	if (command->terminal[index + 1])
-	{
-		command->terminal[index + 1] = \
-			input_expand(command->terminal[index + 1], command->main->envp, 1);
-		remove_pair(command->terminal[index + 1], "\'\"");
-	}
+	safe_close_fd(command->out_pipe[0], command->out_pipe[1]);
+	command->terminal[index + 1] = \
+		input_expand(command->terminal[index + 1], command->main->envp, 1);
+	remove_pair(command->terminal[index + 1], "\'\"");
 	if (*(short *)command->terminal[index] == *(short *)">>")
 		command->out_pipe[1] = open(command->terminal[index + 1],
 				O_CREAT | O_APPEND | O_WRONLY, 0644);
@@ -28,13 +38,7 @@ void	output_redirect(t_command *command, int index)
 				O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (command->out_pipe[1] < 0)
 	{
-		command->status = 1;
-		command->parse = 0;
-		safe_free_null(&command->exec_path);
-		command->exec_path = \
-			ft_strjoin("Error opening file: ", command->terminal[index + 1]);
-		ft_stradd(&command->exec_path, "\n");
-		command->execute = builtin_execute;
+		fail_out_pipe(command, command->terminal[index + 1]);
 		return ;
 	}
 	command->out_pipe[0] = open("/dev/null", O_RDONLY);

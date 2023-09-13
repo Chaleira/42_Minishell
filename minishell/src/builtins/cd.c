@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 14:35:40 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:46:24 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	cd_prepare(t_command *command, int index)
 		&& !split_case(command->terminal[index + args]))
 		args++;
 	if (args == 1)
-		command->flags = ft_split(command->main->home, ' ');
+		if (command->main->home)
+			command->flags = ft_split(command->main->home, ' ');
 	if (args > 2)
 	{
 		command->exec_path = ft_strdup("minishell: cd: too many arguments\n");
@@ -60,5 +61,5 @@ void	cd_prepare(t_command *command, int index)
 	if (!command->status)
 		command->execute = (void *)cd_execute;
 	if (execute_now(command))
-		command->status = PARENT;
+		command->is_parent = PARENT;
 }

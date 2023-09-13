@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:38:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 11:19:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:33:44 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ void	jump_command(t_command *command, int index)
 	(void)index;
 	command->parse = 0;
 	command->execute = do_nothing;
-	command->status = PARENT;
+	command->is_parent = PARENT;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 15:43:53 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:51:42 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	insert_envar(char **string, char *end, char **envp)
 
 	*(end++) = 0;
 	name = variable_name(end);
+	remove_pair(name, "\'\"");
 	envp = get_envaddress(envp, name);
 	if (*end == '?')
 		end++;
@@ -91,6 +92,21 @@ static char	*expand_tilde(char *input)
 	return (input);
 }
 
+static int	split_case_char(char *c)
+{
+	if (!c || !*c)
+		return (2);
+	else if (*c == '\"' && *(c + 1) && *(c + 1) == '\"')
+		return (0);
+	else if (*c == '\'' && *(c + 1) && *(c + 1) == '\'')
+		return (0);
+	else if (*c == '>' || *c == '<' || *c == ';' || *c == '|'
+		|| *c == '(' || *c == ')' || *c == '&' || *c == ' '
+		|| *c == '\'' || *c == '\"' || *c == '/')
+		return (1);
+	return (0);
+}
+
 char	*input_expand(char *input, char **envp, int ignore)
 {
 	int		i;
@@ -107,8 +123,7 @@ char	*input_expand(char *input, char **envp, int ignore)
 		if (quotes && input[i] == '\"')
 			jump = false;
 		i += quotes * (input[i] == '\'') * jump;
-		if ((jump && input[i] == '$' && input[i + 1])
-			|| (!jump && input[i] == '$' && input[i + 1] != '\"'))
+		if ((input[i] == '$' && !split_case_char(&input[i + 1])))
 		{
 			insert_envar(&input, &input[i], envp);
 			i = -1;

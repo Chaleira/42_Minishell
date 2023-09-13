@@ -46,7 +46,7 @@ char	**copy_split_size(char **split, int size)
 	return (new);
 }
 
-int	extend_token(t_control *get, char **split)
+static int	extend_token(t_control *get, char **split)
 {
 	char	*doc_pipe;
 

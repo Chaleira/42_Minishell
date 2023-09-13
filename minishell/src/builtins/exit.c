@@ -6,66 +6,90 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 14:54:56 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:46:19 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	do_exit(t_command *command, int input);
-void	loop_exit(t_command *command, int index, int input);
+void	do_exit(char *str, char **flag, char **env, t_command *command);
+int		check_exit(t_command *command, char *str);
+void	exit_help(t_command *command, int status);
 
 void	exit_execute(t_command *command, int index)
 {
-	int	input;
-
-	input = 0;
 	command->parse = 0;
+	if (execute_now(command))
+		ft_printf("exit\n");
 	if (command->terminal[index + 1])
 	{
-		ft_printf("exit\n");
-		if (command->terminal[index + 2])
+		if (check_exit(command, command->terminal[index + 1]))
+			exit_help(command, 2);
+		if (command->terminal[index + 2] && (!command->status))
 		{
 			write(2, "minishell: exit: too many arguments\n", 37);
 			command->status = 1;
 			return ;
 		}
 		remove_pair(command->terminal[index + 1], "\'\"");
-		input = ft_atoi(command->terminal[index + 1]);
-		loop_exit(command, index, input);
+		command->exec_path = ft_strdup(command->terminal[index + 1]);
 	}
+	if (!command->status)
+		command->execute = (void *)do_exit;
 	if (execute_now(command))
-		do_exit(command, input);
+			command->is_parent = PARENT;
 }
 
-void	do_exit(t_command *command, int input)
+void	do_exit(char *str, char **flag, char **env, t_command *command)
 {
-	t_control	*get;
-
-	get = command->main;
-	get->status = input;
-	delete_command(command);
-	end_shell(get);
+	(void)str;
+	(void)flag;
+	(void)env;
+	if (command->status != 1 && command->status != 2)
+	{
+		if (command->exec_path)
+			command->status = ft_atoi(command->exec_path);
+		else
+			command->status = 0;
+	}
+	exit_help(command, 0);
 }
 
-void	loop_exit(t_command *command, int index, int input)
+int	check_exit(t_command *command, char *str)
 {
 	int	i;
 
 	i = 0;
-	while (command->terminal[index + 1][i])
+	while (str[i])
 	{
-		if (!ft_isdigit(command->terminal[index + 1][i])
-			&& (command->terminal[index + 1][0] != '-'
-				&& command->terminal[index + 1][0] != '+'))
+		if ((!ft_isdigit(str[i])
+				&& (str[0] != '-' && str[0] != '+'))
+			|| (!ft_strcmp(str, "9223372036854775808")
+				|| !ft_strcmp(str, "-9223372036854775809")))
 		{
 			write(2, "minishell: exit: ", 17);
-			write(2, command->terminal[index + 1],
-				ft_strlen(command->terminal[index + 1]));
+			write(2, str,
+				ft_strlen(str));
 			write(2, ": numeric argument required\n", 29);
-			input = 2;
-			do_exit(command, input);
+			command->status = 2;
+			return (1);
 		}
 		i++;
+	}
+	return (0);
+}
+
+void	exit_help(t_command *command, int status)
+{
+	t_control	*get;
+
+	if (status)
+		command->status = status;
+	get = command->main;
+	get->status = command->status;
+	if (execute_now(command))
+	{
+		delete_command(command);
+		end_shell(get);
 	}
 }

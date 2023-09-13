@@ -84,6 +84,7 @@ void	setup(t_control *get, char **envp)
 	update_pwd(get);
 	update_paths(envp, get);
 	increase_shlvl(get->envp);
+	control_c(0, get);
 	signal(SIGINT, (void *)control_c);
 	signal(SIGQUIT, SIG_IGN);
 }

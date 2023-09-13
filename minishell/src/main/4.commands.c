@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/17 15:16:15 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:47:20 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 Test if the string starts with ./ and is a executable, if not
 Try building the command with path and check if is a executable.
 */
-char	*build_executable_path(t_control *get, char *command)
+static char	*build_executable_path(t_control *get, char *command)
 {
 	int			index;
 	char		*exec_path;
@@ -38,7 +38,7 @@ char	*build_executable_path(t_control *get, char *command)
 	return (NULL);
 }
 
-char	*command_error(t_command *command, char *type, char *input)
+static char	*command_error(t_command *command, char *type, char *input)
 {
 	char	*error;
 
@@ -51,7 +51,7 @@ char	*command_error(t_command *command, char *type, char *input)
 	else if (ft_atoi(type + 1) == 2)
 	{
 		command->status = 126;
-		ft_stradd(&error, ": is a directory\n");
+		ft_stradd(&error, ": Is a directory\n");
 	}
 	else
 		ft_stradd(&error, ": error checking file\n");
@@ -59,7 +59,7 @@ char	*command_error(t_command *command, char *type, char *input)
 	return (error);
 }
 
-void	try_command(t_command *get, int index)
+static void	try_command(t_command *get, int index)
 {
 	if (get->status)
 		return ;
@@ -78,7 +78,7 @@ void	try_command(t_command *get, int index)
 		get->execute = (void *)execve;
 }
 
-t_exe	solve(char *find)
+static t_exe	solve(char *find)
 {
 	int				index;
 	static char		*cases[20] = {
@@ -109,8 +109,8 @@ void	structure_commands(t_control *get)
 	int			j;
 	t_command	*command;
 
-	i = 0;
-	while (get->tokens && get->tokens[i])
+	i = -1;
+	while (get->tokens && get->tokens[++i])
 	{
 		command = new_command(get);
 		command->terminal = get->tokens[i];
@@ -120,14 +120,14 @@ void	structure_commands(t_control *get)
 			get->tokens[i][j] = input_expand(get->tokens[i][j], get->envp, 1);
 			(solve(get->tokens[i][j]))(command, j);
 		}
-		if (command->status == PARENT)
+		if (command->is_parent == PARENT)
 		{
 			command->execute(command->exec_path, command->flags,
 				command->main->envp, command);
+			command->main->status = command->status;
 			delete_command(command);
 		}
 		else
 			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
-		i++;
 	}
 }

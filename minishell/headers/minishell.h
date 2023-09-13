@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 14:29:11 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:46:36 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <dirent.h>
 # include <sys/types.h>
 # define PARENT -350
-# define HERE write(1, "here\n", 5)
-# define ALMOST write(1, "almost\n", 7)
-# define THERE write(1, "there\n", 6)
+// # define HERE write(1, "here\n", 5)
+// # define ALMOST write(1, "almost\n", 7)
+// # define THERE write(1, "there\n", 6)
 # define RED "\001\e[01;31m\004"
 # define BOLD "\001\e[01;1m\004"
 # define BLUE "\001\e[01;34m\004"
@@ -60,6 +60,7 @@ struct s_command {
 	char		**terminal;
 	int			id;
 	int			status;
+	int			is_parent;
 	int			parse;
 	int			in_pipe[2];
 	int			out_pipe[2];
@@ -67,51 +68,45 @@ struct s_command {
 	t_exe		execute;
 } ;
 
-void		set_signal(t_control *get, t_exe sig_function);
-
-// Setup + 1 | Utils
+// Setup + 2
 void		setup(t_control *get, char **envp);
-void		update_paths(char **envp, t_control *get);
 char		*get_prompt(void);
-void		update_pwd(t_control *get);
-char		**env_var(char *var, char **env);
-
+void		update_paths(char **envp, t_control *get);
+// Utils
 char		**get_envaddress(char **envp, char *find);
-void		control_c(int signal);
+void		control_c(int signal, t_control *control);
 void		control_d(t_control *get);
 
-// Main + 1
+// Main + 2
 t_control	**control(void);
-
-//Execution | Utils
-void		run_input(t_control *get);
-void		find_directions(t_list *this);
-void		execute_command(t_command *get);
-
-void		safe_close_fd(int fd, int fd2);
-void		check_dup2(int in, int out);
-void		cut_wait(void);
-
-int			*here_doc(t_control *get, char *eof);
-
-// Commands | Utils
-void		structure_commands(t_control *get);
-t_exe		solve(char *find);
-void		try_command(t_command *get, int index);
-char		*build_executable_path(t_control *get, char *command);
-
-t_command	*new_command(t_control *get);
-void		delete_command(void *command);
-int			is_executable(char *check);
 
 // Normalize + 3
 int			normalize_input(t_control *get);
 char		**copy_split_size(char **split, int size);
+// Utils
+int			count_cases(char **string);
+int			is_end_of_command(char *token);
+
+// Commands + 4
+void		structure_commands(t_control *get);
+// Utils
+void		jump_command(t_command *command, int index);
+void		delete_command(void *command);
+t_command	*new_command(t_control *get);
+void		stop_command(char ***split);
+int			is_executable(char *check);
+
+// Execution
+void		run_input(t_control *get);
+// Utils
+void		safe_close_fd(int fd, int fd2);
+void		check_dup2(int in, int out);
 
 // Cleanup/Reset
 void		end_shell(t_control *get);
 void		input_reset(t_control *get);
 void		safe_free_null(char **string);
+int			*here_doc(t_control *get, char *eof);
 
 // Quotes
 int			remove_pair(char *string, char *find);
@@ -129,20 +124,19 @@ void		env_prepare(t_command *command, int index);
 void		echo_prepare(t_command *command, int index);
 void		unset_prepare(t_command *command, int index);
 void		export_prepare(t_command *command, int index);
-void		input_redirect(t_command *command, int index);
-void		output_redirect(t_command *command, int index);
 void		exit_execute(t_command *command, int index);
 void		bonus_execute(t_command *command, int index);
 void		builtin_execute(char *print, char **fd,
 				char **len, t_command *command);
+void		input_redirect(t_command *command, int index);
+void		output_redirect(t_command *command, int index);
 void		do_nothing(void);
 int			execute_now(t_command *get);
 int			export_stderror(t_command *command, char *str);
 
 // Shellsplit + 4
 char		**shell_split(char *s);
-
-// Shellsplit Utils
+// Utils
 int			split_case(char *line);
 char		**copy_shellsplit(char **split);
 void		*free_split(char **arg);
@@ -157,14 +151,8 @@ void		*free_triple_pointer(char ***pointer);
 
 void		finish_list_with(char **list, char *put);
 void		print_split_input(char ***input);
-void		stop_command(char ***split);
 
 char		**find_var(char *name, char **env, int *index, int *size);
-void		jump_command(t_command *command, int index);
-
-void		update_paths(char **envp, t_control *get);
-int			remove_pair(char *string, char *find);
-int			find_pair(char *string, char *jump);
 
 void		print_split(char **input);
 void		change_env_variable(char *variable, char *value);
@@ -182,6 +170,7 @@ char		**env_copy(char **env, char *new_str);
 int			check_last_char(char **split);
 int			check_first_char(char **split);
 int			count_char(char **split, char c);
+int			check_in_out_parse(char **split);
 
 // Wildcard
 int			count_wildcards(char *str);
@@ -196,7 +185,11 @@ char		**ft_split_wildcard(char *str);
 void		close_doc_pipes(char ***tokens);
 int			new_pipe(int **newpipe, t_control *get);
 
-int			is_end_of_command(char *token);
-int			count_cases(char **string);
+void		update_pwd(t_control *get);
+
+long long	ft_atoll(char *nptr);
+
+void		close_doc_pipes(char ***tokens);
+int			new_pipe(int **newpipe, t_control *get);
 
 #endif

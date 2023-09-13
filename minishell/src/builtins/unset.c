@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:01 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 09:06:41 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:46:10 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	unset_execute(char *str, char **flags, char **env)
 
 	(void)str;
 	i = 0;
-	while (flags[i])
+	while (flags && flags[i])
 	{
 		var = find_var(flags[i], (*control())->envp, &index, &size);
 		if (var)
@@ -62,5 +62,5 @@ void	unset_prepare(t_command *command, int index)
 	if (!command->status)
 		command->execute = unset_execute;
 	if (execute_now(command))
-		command->status = PARENT;
+			command->is_parent = PARENT;
 }

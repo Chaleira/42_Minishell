@@ -38,8 +38,6 @@ void	ignore_parenthesis(char ***tokens)
 }
 
 //((ls) && asd) && ((asd) || ls)
-// If there is another parenthesis the loop stops too soon.
-// make recursive function to call in every '(' it finds.
 static int	stop_next_command(char ***tokens, char **split)
 {
 	int	index;
