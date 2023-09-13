@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/13 17:53:58 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:21:30 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <minishell.h>
 
@@ -123,7 +124,8 @@ char	*input_expand(char *input, char **envp, int ignore)
 		if (quotes && input[i] == '\"')
 			jump = false;
 		i += quotes * (input[i] == '\'') * jump;
-		if ((input[i] == '$' && !split_case_char(&input[i + 1])))
+		if ((input[i] == '$' && input[i + 1] != '$'
+			&& !split_case_char(&input[i + 1])))
 		{
 			insert_envar(&input, &input[i], envp);
 			i = -1;
