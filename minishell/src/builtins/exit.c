@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/13 16:46:19 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:55:41 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,8 @@ void	do_exit(char *str, char **flag, char **env, t_command *command)
 	(void)flag;
 	(void)env;
 	if (command->status != 1 && command->status != 2)
-	{
 		if (command->exec_path)
 			command->status = ft_atoi(command->exec_path);
-		else
-			command->status = 0;
-	}
 	exit_help(command, 0);
 }
 
@@ -86,7 +82,8 @@ void	exit_help(t_command *command, int status)
 	if (status)
 		command->status = status;
 	get = command->main;
-	get->status = command->status;
+	if (command->status)
+		get->status = command->status;
 	if (execute_now(command))
 	{
 		delete_command(command);

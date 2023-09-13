@@ -6,7 +6,11 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/13 17:25:30 by rteles-f         ###   ########.fr       */
+=======
+/*   Updated: 2023/09/13 17:53:58 by plopes-c         ###   ########.fr       */
+>>>>>>> 64d21078686f830d0edfba0a963dde016ee2bb1a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +25,20 @@ static char	*variable_name(char *string)
 		return (NULL);
 	envvar = NULL;
 	index = 0;
+<<<<<<< HEAD
 	while (string[index] && !ft_strchr("\"\'/$,.", string[index])
+=======
+	while (string[index] && (ft_isalnum(string[index]) || string[index] == '?')
+>>>>>>> 64d21078686f830d0edfba0a963dde016ee2bb1a
 		&& !is_space(string[index]) && !split_case(&string[index]))
 		index++;
 	envvar = ft_calloc(sizeof(char), index + 1);
 	index = 0;
+<<<<<<< HEAD
 	while (string[index] && !ft_strchr("\"\'/$,.", string[index])
+=======
+	while (string[index] && (ft_isalnum(string[index]) || string[index] == '?')
+>>>>>>> 64d21078686f830d0edfba0a963dde016ee2bb1a
 		&& !is_space(string[index]) && !split_case(&string[index]))
 	{
 		envvar[index] = string[index];
