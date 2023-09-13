@@ -12,14 +12,6 @@
 
 #include <minishell.h>
 
-/*
-Problems:
-
-control C giving 2 enters after closing and opening the terminal
-
-Expansion
-*/
-
 static void	fail_in_pipe(t_command *command, char *string)
 {
 	if (!pipe(command->in_pipe))
