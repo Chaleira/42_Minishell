@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/12 20:03:58 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:46:19 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,25 @@ void	exit_help(t_command *command, int status);
 void	exit_execute(t_command *command, int index)
 {
 	command->parse = 0;
-	if (!command->status)
-		command->execute = (void *)do_exit;
 	if (execute_now(command))
-	{
 		ft_printf("exit\n");
-		command->status = PARENT;
-	}
 	if (command->terminal[index + 1])
 	{
 		if (check_exit(command, command->terminal[index + 1]))
 			exit_help(command, 2);
-		if (command->terminal[index + 2] && (!command->status
-				|| command->status == PARENT))
+		if (command->terminal[index + 2] && (!command->status))
 		{
 			write(2, "minishell: exit: too many arguments\n", 37);
 			command->status = 1;
-			command->execute = do_nothing;
 			return ;
 		}
 		remove_pair(command->terminal[index + 1], "\'\"");
 		command->exec_path = ft_strdup(command->terminal[index + 1]);
 	}
+	if (!command->status)
+		command->execute = (void *)do_exit;
+	if (execute_now(command))
+			command->is_parent = PARENT;
 }
 
 void	do_exit(char *str, char **flag, char **env, t_command *command)
