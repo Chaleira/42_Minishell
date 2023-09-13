@@ -100,7 +100,8 @@ void	input_redirect(t_command *command, int index)
 	}
 	if (command->in_pipe[0] < 0)
 	{
-		command->main->status = 1;
+		command->status = 1;
+		command->parse = 0;
 		if (!pipe(command->in_pipe))
 			close(command->in_pipe[1]);
 		command->exec_path = ft_strdup("minishell: ");
