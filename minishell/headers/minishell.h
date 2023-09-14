@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/12 17:46:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/14 21:31:54 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void		input_redirect(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
 void		do_nothing(void);
 int			execute_now(t_command *get);
-int			export_stderror(t_command *command, char *str);
+int			stderror_export(t_command *command, char *str);
 
 // Shellsplit + 4
 char		**shell_split(char *s);
@@ -171,6 +171,7 @@ int			check_last_char(char **split);
 int			check_first_char(char **split);
 int			count_char(char **split, char c);
 int			check_in_out_parse(char **split);
+int			check_last_parenteses(char **split);
 
 // Wildcard
 int			count_wildcards(char *str);

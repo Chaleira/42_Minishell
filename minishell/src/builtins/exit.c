@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/13 19:43:31 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/09/14 21:35:24 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	exit_execute(t_command *command, int index)
 	command->parse = 0;
 	if (execute_now(command))
 		ft_printf("exit\n");
-	if (command->terminal[index + 1])
+	if (command->terminal[index + 1]
+		&& !split_case(command->terminal[index + 1]))
 	{
 		if (check_exit(command, command->terminal[index + 1]))
 			exit_help(command, 2);
-		if (command->terminal[index + 2] && (!command->status))
+		if (command->terminal[index + 2] && (!command->status)
+			&& !split_case(command->terminal[index + 2]))
 		{
 			write(2, "minishell: exit: too many arguments\n", 37);
 			command->status = 1;

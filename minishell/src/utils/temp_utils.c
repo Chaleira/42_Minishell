@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:32:54 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/13 13:48:51 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/14 21:06:39 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ int	check_alphanum(char *str)
 	return (1);
 }
 
-int	export_stderror(t_command *command, char *str)
+int	stderror_export(t_command *command, char *str)
 {
+	safe_free_null(&command->exec_path);
 	command->exec_path = ft_strjoin("Minishell: export: '", str);
 	ft_stradd(&command->exec_path, "': not a valid identifier\n");
 	builtin_execute(command->exec_path, NULL, NULL, command);
