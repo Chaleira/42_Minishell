@@ -59,7 +59,8 @@ int	find_eof(int fd, char *eof, int expand, char **envp)
 		{
 			if (expand && *line != '~')
 				line = input_expand(line, envp, 0);
-			write(fd, ft_stradd(&line, "\n"), ft_strlen(line) + 1);
+			ft_stradd(&line, "\n");
+			write(fd, line, ft_strlen(line));
 		}
 		safe_free_null(&line);
 	}
