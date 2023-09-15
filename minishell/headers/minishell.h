@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/14 21:31:54 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:30:37 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void		env_prepare(t_command *command, int index);
 void		echo_prepare(t_command *command, int index);
 void		unset_prepare(t_command *command, int index);
 void		export_prepare(t_command *command, int index);
-void		exit_execute(t_command *command, int index);
+void		exit_prepare(t_command *command, int index);
 void		bonus_execute(t_command *command, int index);
 void		builtin_execute(char *print, char **fd,
 				char **len, t_command *command);

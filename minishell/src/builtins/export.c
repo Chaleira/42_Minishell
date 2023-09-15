@@ -6,23 +6,22 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/15 02:44:29 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:28:39 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	export_execute_no_input(char *str, char **flags,
-				char **env, t_command *command);
-static void	export_execute_with_input(char *str, char **flags,
-				char **env, t_command *command);
+static void	export_execute_no_input(char *str, char **flags, char **env);
+static void	export_execute_with_input(char *str, char **flags, char **env);
 char		**split_with_one_equal(char *str);
 
 void	export_prepare(t_command *command, int index)
 {
 	int	i[2];
 
-	if (!command->terminal[index + 1] && !command->status)
+	if ((!command->terminal[index + 1]
+			|| split_case(command->terminal[index + 1])) && !command->status)
 		command->execute = export_execute_no_input;
 	else
 	{
@@ -46,8 +45,7 @@ void	export_prepare(t_command *command, int index)
 	}
 }
 
-static void	export_execute_no_input(char *print
-	, char **flags, char **env, t_command *command)
+static void	export_execute_no_input(char *print, char **flags, char **env)
 {
 	int	i[3];
 
@@ -72,7 +70,6 @@ static void	export_execute_no_input(char *print
 			write(1, "\"", 1);
 		write(1, "\n", 1);
 	}
-	command->main->status = 0;
 	update_paths(env, (*control()));
 }
 
@@ -86,8 +83,7 @@ int	ft_strlenchr(char *str, char c)
 	return (i);
 }
 
-static void	export_execute_with_input(char *str, char **flags
-	, char **env, t_command *command)
+static void	export_execute_with_input(char *str, char **flags, char **env)
 {
 	char	**split;
 	char	**var;
@@ -112,7 +108,6 @@ static void	export_execute_with_input(char *str, char **flags
 			(*control())->envp = env_copy((*control())->envp, flags[i]);
 		free_split(split);
 	}
-	command->main->status = 0;
 	update_paths((*control())->envp, (*control()));
 }
 

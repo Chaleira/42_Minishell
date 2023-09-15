@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/14 21:35:24 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:29:54 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	do_exit(char *str, char **flag, char **env, t_command *command);
 int		check_exit(t_command *command, char *str);
 void	exit_help(t_command *command, int status);
 
-void	exit_execute(t_command *command, int index)
+void	exit_prepare(t_command *command, int index)
 {
 	command->parse = 0;
 	if (execute_now(command))
