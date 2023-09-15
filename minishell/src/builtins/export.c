@@ -6,14 +6,16 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/14 21:10:11 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/15 02:44:29 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	export_execute_no_input(char *str, char **flags, char **env);
-static void	export_execute_with_input(char *str, char **flags);
+static void	export_execute_no_input(char *str, char **flags,
+				char **env, t_command *command);
+static void	export_execute_with_input(char *str, char **flags,
+				char **env, t_command *command);
 char		**split_with_one_equal(char *str);
 
 void	export_prepare(t_command *command, int index)
@@ -44,7 +46,8 @@ void	export_prepare(t_command *command, int index)
 	}
 }
 
-static void	export_execute_no_input(char *print, char **flags, char **env)
+static void	export_execute_no_input(char *print
+	, char **flags, char **env, t_command *command)
 {
 	int	i[3];
 
@@ -69,6 +72,7 @@ static void	export_execute_no_input(char *print, char **flags, char **env)
 			write(1, "\"", 1);
 		write(1, "\n", 1);
 	}
+	command->main->status = 0;
 	update_paths(env, (*control()));
 }
 
@@ -82,15 +86,17 @@ int	ft_strlenchr(char *str, char c)
 	return (i);
 }
 
-static void	export_execute_with_input(char *str, char **flags)
+static void	export_execute_with_input(char *str, char **flags
+	, char **env, t_command *command)
 {
 	char	**split;
 	char	**var;
 	int		i;
 
+	(void)env;
 	(void)str;
-	i = 0;
-	while (flags && flags[i])
+	i = -1;
+	while (flags && flags[++i])
 	{
 		split = split_with_one_equal(flags[i]);
 		var = find_var(split[0], (*control())->envp, NULL, NULL);
@@ -105,8 +111,8 @@ static void	export_execute_with_input(char *str, char **flags)
 		else
 			(*control())->envp = env_copy((*control())->envp, flags[i]);
 		free_split(split);
-		i++;
 	}
+	command->main->status = 0;
 	update_paths((*control())->envp, (*control()));
 }
 

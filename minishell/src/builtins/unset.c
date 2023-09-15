@@ -6,13 +6,14 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:01 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/14 21:04:30 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/15 02:18:59 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	unset_execute(char *str, char **flags, char **env)
+static void	unset_execute(char *str, char **flags
+	, char **env, t_command *command)
 {
 	char		**var;
 	int			index;
@@ -33,6 +34,7 @@ static void	unset_execute(char *str, char **flags, char **env)
 		}
 		i++;
 	}
+	command->main->status = 0;
 	update_paths(env, (*control()));
 }
 

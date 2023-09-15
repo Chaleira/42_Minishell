@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/14 19:59:07 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/15 02:59:36 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void	structure_commands(t_control *get)
 		{
 			command->execute(command->exec_path, command->flags,
 				command->main->envp, command);
+			get->status = command->status;
 			delete_command(command);
 		}
 		else
