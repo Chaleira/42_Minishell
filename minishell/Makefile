@@ -17,7 +17,7 @@ COLOR_GREEN =	\033[32m
 
 NAME		= 	minishell
 
-CC			= 	cc -g #-fsanitize=address
+CC			= 	cc -g #-fsanitize=address 
 
 CFLAGS		= 	-Wall -Wextra -Werror $(INCLUDES)
 
