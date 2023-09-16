@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/12 17:46:36 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:46:26 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void		env_prepare(t_command *command, int index);
 void		echo_prepare(t_command *command, int index);
 void		unset_prepare(t_command *command, int index);
 void		export_prepare(t_command *command, int index);
-void		exit_execute(t_command *command, int index);
+void		exit_prepare(t_command *command, int index);
 void		bonus_execute(t_command *command, int index);
 void		builtin_execute(char *print, char **fd,
 				char **len, t_command *command);
@@ -132,7 +132,7 @@ void		input_redirect(t_command *command, int index);
 void		output_redirect(t_command *command, int index);
 void		do_nothing(void);
 int			execute_now(t_command *get);
-int			export_stderror(t_command *command, char *str);
+int			stderror_export(t_command *command, char *str);
 
 // Shellsplit + 4
 char		**shell_split(char *s);
@@ -158,7 +158,7 @@ void		print_split(char **input);
 void		change_env_variable(char *variable, char *value);
 int			split_size(char **split);
 int			ft_strlenchr(char *str, char c);
-int			check_alphanum(char *str);
+int			can(char *str);
 
 // Parse
 char		**parse(char *str, t_control *get);
@@ -171,6 +171,7 @@ int			check_last_char(char **split);
 int			check_first_char(char **split);
 int			count_char(char **split, char c);
 int			check_in_out_parse(char **split);
+int			check_last_parenteses(char **split);
 
 // Wildcard
 int			count_wildcards(char *str);

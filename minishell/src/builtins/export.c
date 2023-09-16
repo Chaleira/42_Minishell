@@ -6,21 +6,27 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/14 10:48:24 by rteles-f         ###   ########.fr       */
+=======
+/*   Updated: 2023/09/16 18:47:25 by plopes-c         ###   ########.fr       */
+>>>>>>> cf6a5094d5dfc5567ccf0f55603a4623e2e8d89d
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	export_execute_no_input(char *str, char **flags, char **env);
-static void	export_execute_with_input(char *str, char **flags);
+static void	export_execute_with_input(char *str, char **flags, char **env);
 char		**split_with_one_equal(char *str);
 
+// can() = check_alphanum()
 void	export_prepare(t_command *command, int index)
 {
 	int	i[2];
 
-	if (!command->terminal[index + 1] && !command->status)
+	if ((!command->terminal[index + 1]
+			|| split_case(command->terminal[index + 1])) && !command->status)
 		command->execute = export_execute_no_input;
 	else
 	{
@@ -31,11 +37,12 @@ void	export_prepare(t_command *command, int index)
 		i[1] = split_size(command->terminal);
 		command->flags = ft_calloc(sizeof(char *), i[1]);
 		i[0] = 0;
-		while (command->terminal[++index])
+		while (command->terminal[++index]
+			&& !split_case(command->terminal[index]))
 		{
 			remove_pair(command->terminal[index], "\'\"");
-			if (!check_alphanum(command->terminal[index]))
-				export_stderror(command, command->terminal[index]);
+			if (!can(command->terminal[index]) || !command->terminal[index][0])
+				stderror_export(command, command->terminal[index]);
 			else
 				command->flags[i[0]++] = ft_strdup(command->terminal[index]);
 			command->terminal[index][0] = 0;
@@ -81,15 +88,16 @@ int	ft_strlenchr(char *str, char c)
 	return (i);
 }
 
-static void	export_execute_with_input(char *str, char **flags)
+static void	export_execute_with_input(char *str, char **flags, char **env)
 {
 	char	**split;
 	char	**var;
 	int		i;
 
+	(void)env;
 	(void)str;
-	i = 0;
-	while (flags && flags[i])
+	i = -1;
+	while (flags && flags[++i])
 	{
 		split = split_with_one_equal(flags[i]);
 		var = find_var(split[0], (*control())->envp, NULL, NULL);
@@ -104,7 +112,6 @@ static void	export_execute_with_input(char *str, char **flags)
 		else
 			(*control())->envp = env_copy((*control())->envp, flags[i]);
 		free_split(split);
-		i++;
 	}
 	update_paths((*control())->envp, (*control()));
 }

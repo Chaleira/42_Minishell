@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 15:56:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/13 17:35:08 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/14 21:25:42 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int	parsing(char **split)
 		return (0);
 	if (!check_alone_char(split) || !check_first_char(split)
 		|| !check_near_special_char(split) || !check_last_char(split)
-		|| !check_parenteses(split) || !check_in_out_parse(split))
+		|| !check_parenteses(split) || !check_in_out_parse(split)
+		|| !check_last_parenteses(split))
 	{
 		(*control())->status = 2;
 		return (0);

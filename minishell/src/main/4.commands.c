@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/13 18:04:17 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:31:12 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static t_exe	solve(char *find)
 	static t_exe	functions[20] = {
 		do_nothing, output_redirect, output_redirect, input_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
-		export_prepare, unset_prepare, env_prepare, exit_execute,
+		export_prepare, unset_prepare, env_prepare, exit_prepare,
 		do_nothing, do_nothing, do_nothing, jump_command,
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
@@ -124,6 +124,7 @@ void	structure_commands(t_control *get)
 		{
 			command->execute(command->exec_path, command->flags,
 				command->main->envp, command);
+			get->status = command->status;
 			delete_command(command);
 		}
 		else

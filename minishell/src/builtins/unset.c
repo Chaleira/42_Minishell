@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:01 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/13 19:43:15 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:46:26 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,14 @@ void	unset_prepare(t_command *command, int index)
 
 	if (command->terminal[1])
 	{
-		len = 0;
-		while (command->terminal[len])
-			len++;
+		len = split_size(command->terminal);
 		command->flags = ft_calloc(sizeof(char *), len);
 		i = 0;
-		while (command->terminal[++index])
+		while (command->terminal[++index]
+			&& !split_case(command->terminal[index]))
 		{
 			remove_pair(command->terminal[index], "\'\"");
-			if (!check_alphanum(command->terminal[index]))
-				ft_printf("Minishell: export: '%s': not a valid identifier\n",
-					command->terminal[index]);
-			else
-				command->flags[i++] = ft_strdup(command->terminal[index]);
+			command->flags[i++] = ft_strdup(command->terminal[index]);
 			command->terminal[index][0] = 0;
 		}
 	}
@@ -64,3 +59,9 @@ void	unset_prepare(t_command *command, int index)
 	if (execute_now(command))
 		command->is_parent = PARENT;
 }
+
+// #### IF ERROR FOUND IN UNSET: INVALID IDENTIFIER #############
+// 				   write this on line 53
+// if (!can(command->terminal[index]))
+			// 	stderror_aux(command, command->terminal[index], 0);
+			// else
