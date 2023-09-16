@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/16 19:16:46 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/17 00:26:17 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,14 @@ void	do_exit(char *str, char **flag, char **env, t_command *command)
 
 int	check_exit(t_command *command, char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	if (ft_strcmp(str, sttc_llitoa(ft_atoll(str))))
 	{
-		if ((!ft_isdigit(str[i])
-				&& (str[0] != '-' && str[0] != '+'))
-			|| (!ft_strcmp(str, "9223372036854775808")
-				|| !ft_strcmp(str, "-9223372036854775809")))
-		{
-			write(2, "minishell: exit: ", 17);
-			write(2, str,
-				ft_strlen(str));
-			write(2, ": numeric argument required\n", 29);
-			command->status = 2;
-			return (1);
-		}
-		i++;
+		write(2, "minishell: exit: ", 17);
+		write(2, str,
+			ft_strlen(str));
+		write(2, ": numeric argument required\n", 29);
+		command->status = 2;
+		return (1);
 	}
 	return (0);
 }
@@ -92,3 +82,4 @@ void	exit_help(t_command *command, int status)
 		end_shell(get);
 	}
 }
+// 9223372036854775807

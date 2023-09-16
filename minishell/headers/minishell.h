@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/16 18:46:26 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/17 00:24:58 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int			ignore_quotes(char *string);
 
 // Libft Plus
 char		*sttc_itoa(int number);
+char		*sttc_llitoa(long long number);
 char		*ft_stradd(char **original, char *add);
 char		*ft_unsplit(char **split, int posize, char c, int flag_nl);
 int			is_space(char c);
