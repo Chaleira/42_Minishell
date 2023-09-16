@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:56:31 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/15 03:28:39 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:47:25 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	export_execute_no_input(char *str, char **flags, char **env);
 static void	export_execute_with_input(char *str, char **flags, char **env);
 char		**split_with_one_equal(char *str);
 
+// can() = check_alphanum()
 void	export_prepare(t_command *command, int index)
 {
 	int	i[2];
@@ -36,7 +37,7 @@ void	export_prepare(t_command *command, int index)
 			&& !split_case(command->terminal[index]))
 		{
 			remove_pair(command->terminal[index], "\'\"");
-			if (!check_alphanum(command->terminal[index]))
+			if (!can(command->terminal[index]) || !command->terminal[index][0])
 				stderror_export(command, command->terminal[index]);
 			else
 				command->flags[i[0]++] = ft_strdup(command->terminal[index]);

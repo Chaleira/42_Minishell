@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 16:48:50 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/16 00:01:44 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:37:39 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	exit_help(t_command *command, int status);
 
 void	exit_prepare(t_command *command, int index)
 {
-	command->parse = 0;
 	if (execute_now(command))
 		ft_printf("exit\n");
 	if (command->terminal[index + 1]
@@ -35,6 +34,7 @@ void	exit_prepare(t_command *command, int index)
 		}
 		remove_pair(command->terminal[index + 1], "\'\"");
 		command->exec_path = ft_strdup(command->terminal[index + 1]);
+		command->terminal[index + 1][0] = 0;
 	}
 	if (!command->status)
 		command->execute = (void *)do_exit;

@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:44:21 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/09/15 03:30:37 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:46:26 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void		print_split(char **input);
 void		change_env_variable(char *variable, char *value);
 int			split_size(char **split);
 int			ft_strlenchr(char *str, char c);
-int			check_alphanum(char *str);
+int			can(char *str);
 
 // Parse
 char		**parse(char *str, t_control *get);

@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:02:01 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/09/15 03:14:46 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:46:26 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void	unset_prepare(t_command *command, int index)
 
 // #### IF ERROR FOUND IN UNSET: INVALID IDENTIFIER #############
 // 				   write this on line 53
-// if (!check_alphanum(command->terminal[index]))
+// if (!can(command->terminal[index]))
 			// 	stderror_aux(command, command->terminal[index], 0);
 			// else
