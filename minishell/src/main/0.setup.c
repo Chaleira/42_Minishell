@@ -88,3 +88,4 @@ void	setup(t_control *get, char **envp)
 	signal(SIGINT, (void *)control_c);
 	signal(SIGQUIT, SIG_IGN);
 }
+
