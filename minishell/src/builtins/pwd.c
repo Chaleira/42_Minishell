@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:54:24 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 14:11:33 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:16:37 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	pwd_prepare(t_command *command, int index)
 		ft_stradd(&command->exec_path, "\n");
 		command->execute = builtin_execute;
 	}
-	while (command->terminal[index])
+	while (command->terminal[index] && !split_case(command->terminal[index]))
 		*command->terminal[index++] = 0;
 }
 

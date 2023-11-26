@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 16:31:03 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 19:41:39 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:49:30 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	cd_prepare(t_command *command, int index)
 	if (!command->status)
 		command->execute = (void *)cd_execute;
 	if (execute_now(command))
-		command->status = PARENT;
+		command->is_parent = PARENT;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:58:19 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 15:29:40 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/09/16 23:01:57 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static int	check_flag(char *string)
 static void	echo_execute(char *a, char **print)
 {
 	int	i;
-	int	flag;
 
 	(void)a;
-	flag = check_flag(*print);
-	i = flag;
+	i = 0;
+	while (check_flag(print[i]))
+		i++;
 	while (print[i])
 	{
 		ft_printf("%s", print[i]);
@@ -41,7 +41,7 @@ static void	echo_execute(char *a, char **print)
 			ft_printf(" ");
 		i++;
 	}
-	if (!flag)
+	if (!check_flag(*print))
 		ft_printf("\n");
 	(*control())->status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:25:26 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/07 19:43:57 by rteles-f         ###   ########.fr       */
+/*   Updated: 2023/09/16 23:46:37 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void	bonus_execute(t_command *command, int index)
 	{
 		jump_command(command, 0);
 		stop_next_command(command->main->tokens, command->terminal);
+		command->status = command->main->status;
 	}
 }

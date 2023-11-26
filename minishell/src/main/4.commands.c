@@ -6,7 +6,7 @@
 /*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:24:58 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 17:38:15 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:31:12 by plopes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static t_exe	solve(char *find)
 	static t_exe	functions[20] = {
 		do_nothing, output_redirect, output_redirect, input_redirect,
 		input_redirect, echo_prepare, cd_prepare, pwd_prepare,
-		export_prepare, unset_prepare, env_prepare, exit_execute,
+		export_prepare, unset_prepare, env_prepare, exit_prepare,
 		do_nothing, do_nothing, do_nothing, jump_command,
 		bonus_execute, bonus_execute, bonus_execute, try_command
 	};
@@ -109,8 +109,8 @@ void	structure_commands(t_control *get)
 	int			j;
 	t_command	*command;
 
-	i = 0;
-	while (get->tokens && get->tokens[i])
+	i = -1;
+	while (get->tokens && get->tokens[++i])
 	{
 		command = new_command(get);
 		command->terminal = get->tokens[i];
@@ -120,14 +120,14 @@ void	structure_commands(t_control *get)
 			get->tokens[i][j] = input_expand(get->tokens[i][j], get->envp, 1);
 			(solve(get->tokens[i][j]))(command, j);
 		}
-		if (command->status == PARENT)
+		if (command->is_parent == PARENT)
 		{
 			command->execute(command->exec_path, command->flags,
 				command->main->envp, command);
+			get->status = command->status;
 			delete_command(command);
 		}
 		else
 			ft_lstadd_back(&get->commands, ft_lstnew((void *)command));
-		i++;
 	}
 }

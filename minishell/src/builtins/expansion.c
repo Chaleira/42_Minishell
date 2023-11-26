@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 09:44:02 by rteles-f          #+#    #+#             */
-/*   Updated: 2023/08/18 18:51:42 by plopes-c         ###   ########.fr       */
+/*   Created: 2023/09/13 19:42:31 by rteles-f          #+#    #+#             */
+/*   Updated: 2023/09/13 19:42:46 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static char	*variable_name(char *string)
 		return (NULL);
 	envvar = NULL;
 	index = 0;
-	while (string[index] && !ft_strchr("\"\'/$", string[index])
+	while (string[index] && (ft_isalnum(string[index]) || string[index] == '?')
 		&& !is_space(string[index]) && !split_case(&string[index]))
 		index++;
 	envvar = ft_calloc(sizeof(char), index + 1);
 	index = 0;
-	while (string[index] && !ft_strchr("\"\'/$", string[index])
+	while (string[index] && (ft_isalnum(string[index]) || string[index] == '?')
 		&& !is_space(string[index]) && !split_case(&string[index]))
 	{
 		envvar[index] = string[index];
@@ -70,7 +70,6 @@ so when it finds the second quote it multiples by 0
 so it doesnt check as a new set of quotes, and afterwards
 the jump is set to true again.
 */
-
 static char	*expand_tilde(char *input)
 {
 	char	*keep;
@@ -123,7 +122,8 @@ char	*input_expand(char *input, char **envp, int ignore)
 		if (quotes && input[i] == '\"')
 			jump = false;
 		i += quotes * (input[i] == '\'') * jump;
-		if ((input[i] == '$' && !split_case_char(&input[i + 1])))
+		if ((input[i] == '$' && input[i + 1] != '$'
+				&& !split_case_char(&input[i + 1])))
 		{
 			insert_envar(&input, &input[i], envp);
 			i = -1;

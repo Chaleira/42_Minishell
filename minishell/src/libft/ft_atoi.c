@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plopes-c <plopes-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rteles-f <rteles-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 17:23:43 by plopes-c          #+#    #+#             */
-/*   Updated: 2023/08/18 16:56:50 by plopes-c         ###   ########.fr       */
+/*   Updated: 2023/09/17 00:10:55 by rteles-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,19 @@
 
 int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	s;
-	int	nbr;
+	int		i;
+	int		sign;
+	long	number;
 
 	i = 0;
-	s = 1;
-	nbr = 0;
-	if (!ft_strncmp(nptr, "-2147483648", 11))
-		return (-2147483648);
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
+	while ((8 < nptr[i] && nptr[i] < 14) || nptr[i] == 32)
 		i++;
-	if (nptr[i] == '+' || nptr[i] == '-')
-	{
-		if (nptr[i] == '-')
-			s = -1;
-		i++;
-	}
-	while (ft_isdigit(nptr[i]))
-	{
-		nbr = nptr[i] - '0' + nbr * 10;
-		i++;
-	}
-	return (nbr * s);
+	sign = (nptr[i] != '-') - (nptr[i] == '-');
+	i += (nptr[i] == '-' || nptr[i] == '+');
+	number = 0;
+	while (47 < nptr[i] && nptr[i] < 58)
+		number = (nptr[i++] - 48) + (number * 10);
+	return ((int)(number * sign));
 }
 
 /*
