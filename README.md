@@ -12,3 +12,5 @@ Minishell is a project designed to teach students about Unix system calls, proce
 - Support for I/O redirection (input and output)
 - Environment variables handling
 - Implementation of built-in commands (e.g., `cd`, `echo`, `env`, `exit`)
+
+![Gameplay Preview](minishellDemo.gif)
